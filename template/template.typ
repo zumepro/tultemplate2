@@ -1,3 +1,5 @@
+#import "prototyping.typ": todo, profile
+
 #let tultemplate(
   template_id,
   faculty_abbreviation,
@@ -13,11 +15,18 @@
   );
   assert_in_dict(template_id, templates, "template name");
 
+  // global set-up
+  import "lang.typ": lang_ids
+  assert_in_dict(language, lang_ids, "language abbreviation");
+  set text(lang: language);
   templates.at(template_id)(
     faculty_abbreviation, language, document_type,
     title, author, supervisor, study_programme,
     content
   );
+
+  import "prototyping.typ": assert_release_ready
+  assert_release_ready();
 }
 
 #let abbr(abbreviation, ..text) = {

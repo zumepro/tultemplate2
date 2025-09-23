@@ -1,3 +1,7 @@
+.PHONY: view_example
+view_example: example.pdf
+	zathura $<
+
 .PHONY: example
 example: example.pdf
 

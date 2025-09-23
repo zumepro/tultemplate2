@@ -45,7 +45,7 @@
   let info_fields = (
     (("Studijní program", "Study programme"), study_programme, false),
     (("Autor", "Author"), author, true),
-    (("Vedoucí práce", "Vedoucí práce"), supervisor, false),
+    (("Vedoucí práce", "Supervisor"), supervisor, false),
   );
   context {
     let max_field_name_width = calc.max(..info_fields.map((v) => {
@@ -108,7 +108,6 @@
   // styling
   let faculty_color = faculty_color(faculty_id);
   set par(justify: true);
-  set text(lang: "cs");
   set heading(numbering: "1.1.1 ");
   set page(margin: (outside: 4cm, top: 3cm, bottom: 3cm), numbering: "1", footer: {
     context {
@@ -117,6 +116,7 @@
     }
   });
   show heading: it => {
+    set par(justify: false);
     block(
       above: 2em,
       below: 2em,
@@ -128,6 +128,9 @@
     v(2cm);
     it
   };
+  show raw.where(block: true): it => {
+    block(it, fill: rgb("#eee"), inset: 1em)
+  }
 
   let language = lang_id(language);
 
