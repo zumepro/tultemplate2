@@ -1,7 +1,7 @@
 #import "template/template.typ": *
 
 #show: tultemplate.with(
-  "classic", "fm", "en",
+  "classic", "fm", "cs",
   title: "Návod na použití Typst TUL šablony",
   author: "Ondřej Mekina",
 )

@@ -11,10 +11,18 @@
         );
       }
       abbrs.insert(abbreviation, text);
+    }  else {
+      if type(text) != type(none) {
+        panic("redefinition of abbreviation '" + abbreviation + "'");
+      }
     }
     "(" + abbrs.pairs().map((v) => { v.at(0) + ":\"" + v.at(1) + "\"" }).join(",") + ")"
   });
-  abbreviation;
+  if type(text) != type(none) {
+    text + " (" + abbreviation + ")";
+  } else {
+    abbreviation;
+  }
 }
 
 #let abbrlist() = {
