@@ -1,7 +1,11 @@
-#import "template/template.typ": tultemplate
+#import "template/template.typ": *
 
-#tultemplate(
+#show: tultemplate.with(
   "classic", "fm", "cs",
   title: "Návod na použití Typst TUL šablony",
   author: "Ondřej Mekina",
 )
+
+= Todo
+
+WIP

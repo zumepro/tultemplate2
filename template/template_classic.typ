@@ -71,12 +71,32 @@
   }
 }
 
+#let abbrlist(language) = {
+  import "abbreviations.typ": abbrlist
+  context {
+    let abbrs = abbrlist();
+    let max_abbr_width = if abbrs.len() > 0 {
+      calc.max(abbrs.keys().map((v) => measure(v).width)).at(0)
+    } else { return };
+    pagebreak(weak: true);
+    heading(("Seznam zkratek", "List of abbreviations").at(language), numbering: none);
+    align(center, grid(
+      columns: 2,
+      ..abbrs.pairs().map((v) => {
+        (block(text(v.at(0), weight: "bold"), width: max_abbr_width + 1em), text(v.at(1)))
+      }).flatten()
+    ));
+  }
+}
+
 #let template_classic(
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, study_programme
+  title, author, supervisor, study_programme,
+  content,
 ) = {
+  // intro page
   page({
     classic_header(faculty_id, language);
     align({
@@ -84,4 +104,44 @@
       v(5em);
     }, bottom);
   }, margin: 2cm);
+
+  // styling
+  let faculty_color = faculty_color(faculty_id);
+  set par(justify: true);
+  set text(lang: "cs");
+  set heading(numbering: "1.1.1 ");
+  set page(margin: (outside: 4cm, top: 3cm, bottom: 3cm), numbering: "1", footer: {
+    context {
+      let page = counter(page).get().at(0);
+      align(str(page), if calc.rem(page, 2) == 0 { right } else { left })
+    }
+  });
+  show heading: it => {
+    block(
+      above: 2em,
+      below: 2em,
+      text(it, faculty_color, font: "TUL Mono", size: 1.2em)
+    );
+  };
+  show heading.where(level: 1): it => {
+    pagebreak();
+    v(2cm);
+    it
+  };
+
+  let language = lang_id(language);
+
+  // toc
+  show outline.entry.where(level: 1): it => {
+    show repeat: none;
+    block(text(it, weight: "bold", size: 1.2em), above: 1.5em);
+  };
+  outline(title: ("Obsah", "Contents").at(language));
+
+  // abbreviation list
+  abbrlist(language);
+
+  // content
+  pagebreak(to: "even", weak: true);
+  content
 }
