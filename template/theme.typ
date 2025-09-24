@@ -28,7 +28,7 @@
     ),
 
     ef: (
-      rgb("#65a812"),
+      cmyk(60%, 0%, 100%, 0%),
       (
         "EKONOMICKÁ FAKULTA TUL&",
         "FACULTY OF ECONOMICS TUL&",
@@ -36,7 +36,7 @@
     ),
 
     fua: (
-      rgb("#006443"),
+      cmyk(96%, 2%, 80%, 47%),
       (
         "FUA\nTUL&",
         "FAA\nTUL&",
@@ -44,7 +44,7 @@
     ),
 
     fm: (
-      rgb("#ea7603"),
+      cmyk(0%, 60%, 100%, 0%),
       (
         "FAKULTA MECHATRONIKY,\nINFORMATIKY A MEZIOBOROVÝCH\nSTUDIÍ TUL&",
         "FACULTY OF MECHATRONICS,\nINFORMATICS AND\nINTERDISCIPLINARY STUDIES TUL&",
@@ -52,10 +52,18 @@
     ),
 
     fzs: (
-      rgb("#00b0be"),
+      cmyk(90%, 0%, 30%, 0%),
       (
         "FAKULTA ZDRAVOTNICKÝCH STUDIÍ TUL&",
         "FACULTY OF HEALTH STUDIES TUL&",
+      ),
+    ),
+
+    cxi: (
+      cmyk(0%, 100%, 100%, 0%),
+      (
+        "ÚSTAV PRO NANOMATERIÁLY,\nPOKROČILÉ TECHNOLOGIE\nA INOVACE TUL&",
+        "INSTITUTE FOR NANOMATERIALS,\nADVANCED TECHNOLOGY\nAND INNOVATION TUL&",
       ),
     ),
 
