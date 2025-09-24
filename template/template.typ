@@ -1,3 +1,11 @@
+// +---------------+
+// | TULTemplate 2 |
+// +---------------+
+//
+// Unofficial TUL template for all kinds of documents.
+//
+// Git: https://git.zumepro.cz/tul/tultemplate2
+
 #import "prototyping.typ": todo, profile
 
 #let tultemplate(
