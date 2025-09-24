@@ -10,7 +10,12 @@
     )
   }
   context {
-    is_prod.update(is_prod => "true");
+    is_prod.update(is_prod => {
+      if eval(is_prod) and profile == "debug" {
+        panic("refusing to unset release profile - this is a safety measure");
+      }
+      if profile == "release" { "true" } else { "false" };
+    });
   }
 }
 
