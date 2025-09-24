@@ -219,7 +219,10 @@ Kotvu dáte někam do souboru a můžete na ní odkazovat stejně jako na citace
 
 == Citace
 
-Šablona samozřejmě podporuje správu citací pomocí standardního BibTeX @bibtex souboru, stejně jako ta LaTeXová. Citace ve vhodném formátu stačí přidat do souboru _citacions.bib_, poté je možné se na ně odkazovat pomocí `@jmeno_citace`, nebo `#cite(<jmeno_citace>)`. Můžu se tak třeba odkázat na citaci Typstu #cite(<typst>).
+Šablona samozřejmě podporuje správu citací pomocí standardního BibTeX @bibtex souboru, stejně jako
+ta LaTeXová. Citace ve vhodném formátu stačí přidat do souboru _citacions.bib_, poté je možné se na
+ně odkazovat pomocí `@jmeno_citace`, nebo `#cite(<jmeno_citace>)`. Můžu se tak třeba odkázat na
+citaci Typstu #cite(<typst>).
 
 == Pro pokročilé
 
@@ -229,3 +232,66 @@ pro nadpis @chained_subheading.
 Tyto pokročilejší funkce v drtivé většině dokumentů vůbec není potřeba použít. Nicméně pro
 ty, kteří to chtějí vyzkoušet, nebo to opravdu potřebují: podívejte se buď do zdrojového kódu
 této šablony nebo na dokumentaci Typstu https://typst.app/docs/.
+
+= Workflow a jak si zjednoduššit práci
+
+Tyhle věci používat _nemusíte_, aby vám šablona fungovala. Nicméně často jsou poměrně fajn.
+
+== Protypování
+
+=== Profily
+
+Šablona disponuje funkcí `profile`. Funkce na prototypování šablony jsou nastaveny tak, aby
+při zapnutí profilu pro finální verzi buď vrátily čistou verzi dokumentu, nebo vyhodily error.
+
+K dispozici jsou profily:
+- `debug` - Prototypování je povoleno, výstupem bude verze dokumentu s poznámkami
+- `release` - Výstupem bude čistý výsledný dokument
+
+Při generování výstupu je doporučeno hned za volání šablony na začátku souboru přidat:
+
+```typst
+#profile("release")
+```
+
+To vám pojistí, aby ve výstupu nebyly poznámky a todo.
+
+Pokud funkci `profile` nezavoláte, pak šablone použije profil "debug".
+
+=== Todo
+
+Pomocí todo svému budoucímu já můžete připomenout, že je něco potřeba dodělat. Funkce todo obsah
+zvýrazní, a v případě, že je zvolený profil "release", při kompilaci vyhodí error. To vám
+vlastně zabrání použít funkci todo v profilu "release".
+
+Zvýraznění také můžete vypnout (ale pak se vám todo bude hůř hledat - budete muset hledat v kódu).
+
+Zde je ukázkové použití:
+#block([
+```typst
+#todo(
+  "koupit vajíčka",
+  do_highlight: false // vypnout zvýraznění (pokud chcete)
+)
+```
+], breakable: false)
+
+=== Lorem
+
+Typst má funkci, která vám vygeneruje text Lorem Ipsum -- ten může sloužit na otestování délky
+paragrafů, počtu písmen, atd...
+
+```typst
+#lorem(10)
+```
+
+Výše volaná funkce vygeneruje deset slov Lorem Ipsum. Doporučuji `lorem` kombinovat s `todo`.
+
+```typst
+#todo(lorem(10), do_highlight: false)
+```
+
+Takhle si můžete předpřipravit délku odstavců a vyzkoušet si, jestli se rozsahem práce trefíte
+do požadavků. Pak můžete postupně přepisovat/vyplňovat.
+
+Funkce `todo` vám zároveň zabrání v tom, aby se text Lorem Ipsum vyskytl ve výsledném dokumentu.
