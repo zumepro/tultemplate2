@@ -131,6 +131,7 @@
   show raw.where(block: true): it => {
     block(it, fill: rgb("#eee"), inset: 1em)
   }
+  set image(width: 80%);
 
   let language = lang_id(language);
 
