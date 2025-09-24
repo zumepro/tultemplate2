@@ -4,7 +4,7 @@
 #let faculty_themes = (
 
     fs: (
-      rgb("#000000"),
+      cmyk(45%, 35%, 30%, 10%),
       (
         "FAKULTA STROJNÍ TUL&",
         "FACULTY OF MECHANICAL ENGINEERING TUL&"
@@ -12,7 +12,7 @@
     ),
 
     ft: (
-      rgb("#924c14"),
+      cmyk(0%, 65%, 100%, 40%),
       (
         "FAKULTA TEXTILNÍ TUL&",
         "FACULTY OF TEXTILE ENGINEERING TUL&",
@@ -20,7 +20,7 @@
     ),
 
     fp: (
-      rgb("#3c84e1"),
+      cmyk(90%, 40%, 0%, 0%),
       (
         "FAKULTA\nPŘÍRODOVĚDNĚ-HUMANITNÍ\nA PEDAGOGICKÁ TUL&",
         "FACULTY OF SCIENCE,\nHUMANITIES AND\nEDUCATION TUL&",
