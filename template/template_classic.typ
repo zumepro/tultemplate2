@@ -148,4 +148,7 @@
   // content
   pagebreak(to: "even", weak: true);
   content
+
+  // bibliography
+  bibliography("../citations.bib", style: "./tul_citace.csl")
 }
