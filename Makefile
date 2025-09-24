@@ -1,6 +1,6 @@
 .PHONY: view_example
 view_example: example.pdf
-	zathura $<
+	xdg-open $<
 
 .PHONY: example
 example: example.pdf
