@@ -94,6 +94,7 @@
   language,
   document_type,
   title, author, supervisor, study_programme,
+  citation_file,
   content,
 ) = {
   // intro page
@@ -150,5 +151,5 @@
   content
 
   // bibliography
-  bibliography("../citations.bib", style: "./tul_citace.csl")
+  bibliography(citation_file, style: "./tul_citace.csl")
 }

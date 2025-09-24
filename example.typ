@@ -1,7 +1,7 @@
 #import "template/template.typ": *
 
-#show: tultemplate.with(
-  "classic", "fm", "cs",
+#show: tultemplate2.with(
+  "latex", "fm", "cs",
   title: "Návod na použití Typst TUL šablony",
   author: "Ondřej Mekina",
 )
@@ -192,6 +192,26 @@ Tady je praktická ukázka jednoduchého vložení obrázku s popiskem:
   Logo *TUL*
 ])
 
+== Citace
+
+Šablona podporuje správu citací pomocí standardního BibTeX @bibtex souboru, stejně jako
+například LaTeX. Citace ve vhodném formátu stačí přidat do souboru _citations.bib_, poté je možné se
+na ně odkazovat pomocí `@jmeno_citace`, nebo `#cite(<jmeno_citace>)`. Můžu se tak třeba odkázat na
+citaci Typstu #cite(<typst>).
+
+Formát souboru _citations.bib_ je naprosto stejný jako pro LaTeX. Tyto citace lze přímo vložit
+třeba z webu https://www.citace.com ve formátu BibTeX -- Typst tento formát také umí přečíst.
+
+Soubor, ze kterého se načtou citace lze změnit pomocí argumentu šablony:
+
+```typst
+#show: tultemplate2.with(
+  ...
+  citations: "jinysoubor.bib",
+  ...
+)
+```
+
 == Vnitřní odkazy a kotvy
 
 Trochu navážeme na Odkazy (@links).
@@ -216,13 +236,6 @@ Kotvu dáte někam do souboru a můžete na ní odkazovat stejně jako na citace
 ```typst
 @nazev_kotvy
 ```
-
-== Citace
-
-Šablona samozřejmě podporuje správu citací pomocí standardního BibTeX @bibtex souboru, stejně jako
-ta LaTeXová. Citace ve vhodném formátu stačí přidat do souboru _citacions.bib_, poté je možné se na
-ně odkazovat pomocí `@jmeno_citace`, nebo `#cite(<jmeno_citace>)`. Můžu se tak třeba odkázat na
-citaci Typstu #cite(<typst>).
 
 == Pro pokročilé
 
@@ -271,7 +284,7 @@ Zde je ukázkové použití:
 ```typst
 #todo(
   "koupit vajíčka",
-  do_highlight: false // vypnout zvýraznění (pokud chcete)
+  accent: false // vypnout zvýraznění (pokud chcete)
 )
 ```
 ], breakable: false)
@@ -288,7 +301,7 @@ paragrafů, počtu písmen, atd...
 Výše volaná funkce vygeneruje deset slov Lorem Ipsum. Doporučuji `lorem` kombinovat s `todo`.
 
 ```typst
-#todo(lorem(10), do_highlight: false)
+#todo(lorem(10), accent: false)
 ```
 
 Takhle si můžete předpřipravit délku odstavců a vyzkoušet si, jestli se rozsahem práce trefíte

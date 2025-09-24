@@ -1,6 +1,13 @@
 #let todos = state("todos", "0");
 #let is_prod = state("is_prod", "false");
 
+// Set a build profile.
+//
+// This can be:
+// - debug (debug comments and todos are displayed)
+// - release (document will be ready for release)
+//
+// - profile (str): The target profile
 #let profile(profile) = {
   let profiles = ("debug", "release");
   if profile not in profiles {
@@ -33,13 +40,19 @@
   }
 }
 
-#let todo(content, do_highlight: true) = {
+// Sets an item that should be done later.
+//
+// This will cause an error when compiling with a release profile.
+//
+// - content (str): What should you do?
+// - accent (bool): Whether to highlight the todo
+#let todo(content, accent: true) = {
   context {
     todos.update(todos => {
       str(eval(todos) + 1)
     });
   }
-  if do_highlight {
+  if accent {
     highlight(text(content, fill: white), fill: red, radius: .25em, extent: .25em);
   } else {
     text(content);
