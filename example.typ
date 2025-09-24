@@ -219,7 +219,7 @@ Kotvu dáte někam do souboru a můžete na ní odkazovat stejně jako na citace
 
 == Citace
 
-#todo("přidat ukázky citací")
+Šablona samozřejmě podporuje správu citací pomocí standardního BibTeX @bibtex souboru, stejně jako ta LaTeXová. Citace ve vhodném formátu stačí přidat do souboru _citacions.bib_, poté je možné se na ně odkazovat pomocí `@jmeno_citace`, nebo `#cite(<jmeno_citace>)`. Můžu se tak třeba odkázat na citaci Typstu #cite(<typst>).
 
 == Pro pokročilé
 
