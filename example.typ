@@ -94,7 +94,7 @@ opravdu hodně vám to usnadní práci.
 #heading(
   level: 3,
   range(1, 6).map((v) => range(1, v).map((_) => "pod").join("") + "nadpisy").join(", ") + ", ..."
-)
+)<chained_subheading>
 
 Velmi jednoduché. Stačí na začátek řádku dát znak `=` kolikrát chcete.
 ```typst
@@ -118,9 +118,30 @@ Další stylování lze dělat přes funkce.
 #underscore[podtrženo]
 #strike[přeškrtnuto]
 ```
-A to nám krásně navazuje na další kapitolu.
 
-== Funkce
+== Odkazy<links>
+
+Odkazy je možné dělat na URL/URI zdroje, e-maily, telefony, atd...
+Odkázat URL (URI) je možné bez zavolání funkce, odkaz stačí prostě a jednodušše napsat:
+https://git.zumepro.cz/tul/tultemplate2
+
+```typst
+https://git.zumepro.cz/tul/tultemplate2
+```
+
+Tohle interně volá funkci `link`.
+
+Pokud odkazujeme na méně časté věci (jako e-maily), můžeme použít funkci `link` přímo.
+```typst
+#link("mailto:ondrej@mekina.cz")
+```
+
+Dalši předpony (URI schémata) můžete najít třeba na Wikipedii
+https://en.wikipedia.org/wiki/List_of_URI_schemes.
+
+Už jsme několikrát narazili na funkce, tak to dále neodkládejme a vzhůru na @functions.
+
+== Funkce<functions>
 
 Funkce se v Typstu volají pomocí znaku `#`.
 Některé funkce neberou žádné parametry.
@@ -144,3 +165,67 @@ A některé funkce berou klasický obsah -- v těch je možné psát obsah jako 
   V on-line editoru se dá hledat ve vyskakovací nabídce. Vestavěné funkce jsou pojmenovány
   srozumitelně a očekávatelně.
 ]
+
+== Obrázky
+
+Obrázky je možné vkládat samotné i třeba s popiskem.
+
+Obrázek se vloží pomocí funkce `image`:
+
+Přidání popisku a zároveň zalistování obrázku v indexu (aby se na ně třeba dalo odkazovat) lze
+udělat pomocí funkce `figure`.
+
+#block([
+  ```typst
+  #figure(
+    image("mujobrazek.jpg"),
+    caption: [
+      *Krásný* obrázek, který vypadá jako obrázek.
+    ]
+  )
+  ```
+], breakable: false)
+
+Tady je praktická ukázka jednoduchého vložení obrázku s popiskem:
+
+#figure(image("template/assets/tul_logo.svg", width: 25%), caption: [
+  Logo *TUL*
+])
+
+== Vnitřní odkazy a kotvy
+
+Trochu navážeme na Odkazy (@links).
+
+Můžete dělat i vnitřní odkazy třeba na kapitoly, stránky nebo obrázky s popiskem (zabalené ve
+`figure`).
+
+```typst
+= Dobrá kapitola<dobra_kapitola>
+
+Podívejme se na Dobrou kapitolu (@dobra_kapitola).
+```
+
+Takhle vypadá kotva:
+
+```typst
+<nazev_kotvy>
+```
+
+Kotvu dáte někam do souboru a můžete na ní odkazovat stejně jako na citace:
+
+```typst
+@nazev_kotvy
+```
+
+== Citace
+
+#todo("přidat ukázky citací")
+
+== Pro pokročilé
+
+Typst má spoustu dalších způsobů stylování (a i skriptování). Podívejte se třeba na zdrojový kód
+pro nadpis @chained_subheading.
+
+Tyto pokročilejší funkce v drtivé většině dokumentů vůbec není potřeba použít. Nicméně pro
+ty, kteří to chtějí vyzkoušet, nebo to opravdu potřebují: podívejte se buď do zdrojového kódu
+této šablony nebo na dokumentaci Typstu https://typst.app/docs/.
