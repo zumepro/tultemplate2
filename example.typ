@@ -1,9 +1,9 @@
 #import "template/template.typ": *
 
 #show: tultemplate2.with(
-  "latex", "fm", "cs",
   title: "Návod na použití Typst TUL šablony",
-  author: "Ondřej Mekina",
+  author: "Ondřej Mekina, Matěj Žucha",
+  supervisor: "Ondřej Mekina",
 )
 
 = Lehký úvod do Typstu a této šablony

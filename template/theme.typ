@@ -3,11 +3,19 @@
 
 #let faculty_themes = (
 
+    tul: (
+      cmyk(80%, 81%, 0%, 0%),
+      (
+        "TECHNICKÁ UNIVERZITA V LIBERCI&",
+        "TECHNICAL UNIVERSITY OF LIBEREC&",
+      ),
+    ),
+
     fs: (
       cmyk(45%, 35%, 30%, 10%),
       (
         "FAKULTA STROJNÍ TUL&",
-        "FACULTY OF MECHANICAL ENGINEERING TUL&"
+        "FACULTY OF MECHANICAL ENGINEERING TUL&",
       ),
     ),
 

@@ -32,18 +32,18 @@
 //
 //-> none
 #let tultemplate2(
-  style,
-  faculty,
-  lang,
+  style: "latex",
+  faculty: "tul",
+  lang: "cs",
   document: none,
   title: none, author: none, supervisor: none, programme: none,
   citations: "citations.bib",
   content,
 ) = {
-  import "template_classic.typ": template_classic
+  import "template_latex.typ": template_latex
   import "utils.typ": assert_in_dict
   let templates = (
-    latex: template_classic,
+    latex: template_latex,
   );
   assert_in_dict(style, templates, "template name");
 

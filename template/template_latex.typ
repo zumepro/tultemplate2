@@ -2,13 +2,14 @@
 #import "lang.typ": lang_id
 #import "utils.typ": assert_in_dict
 
-#let base_font = "Cabin";
+#let base_font = "Inter";
+#let mono_font = "Noto Sans Mono";
 
 #let classic_header(faculty_id, language) = {
   let logotype = faculty_logotype(faculty_id, language);
   grid(
-    logotype,
-    block(align(right, block(tul_logomark(faculty_id), height: 5em)), width: 100%),
+    block(logotype, width: 100%),
+    block(align(right, block(tul_logomark(faculty_id), height: 5em))),
     columns: 2
   );
 }
@@ -89,7 +90,7 @@
   }
 }
 
-#let template_classic(
+#let template_latex(
   faculty_id,
   language,
   document_type,
@@ -129,9 +130,10 @@
     v(2cm);
     it
   };
+  show raw: set text(font: mono_font);
   show raw.where(block: true): it => {
     block(it, fill: rgb("#eee"), inset: 1em)
-  }
+  };
   set image(width: 80%);
 
   let language = lang_id(language);

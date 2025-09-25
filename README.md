@@ -15,3 +15,8 @@ make
 ```
 
 That will compile the example document and view it.
+
+## Repo structure note
+
+> [!IMPORTANT]
+> This repo uses git lfs to pull fonts. Please set it up (or download a packed build from releases).
