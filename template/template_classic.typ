@@ -110,8 +110,12 @@
     heading(("Seznam zkratek", "List of abbreviations").at(language), numbering: none);
     align(center, grid(
       columns: 2,
-      ..abbrs.pairs().map((v) => {
-        (block(text(v.at(0), weight: "bold"), width: max_abbr_width + 1em), text(v.at(1)))
+      gutter: 1em,
+      ..abbrs.pairs().map((a) => {
+        (
+          align(left, block(text(a.at(0), weight: "bold"), width: max_abbr_width + 1em)),
+          text(a.at(1))
+        )
       }).flatten()
     ));
   }
