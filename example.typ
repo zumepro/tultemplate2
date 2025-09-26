@@ -72,7 +72,7 @@ ale i dodatečné funkce pro jednodušší práci se šablonou -- k těm se dost
 
 Dále je potřeba funkci zavolat jako šablonu, abychom pod ní mohli psát obsah.
 ```typst
-#show: tultemplate.with(<vzhled_sablony>, <fakulta>, <jazyk>)
+#show: tultemplate
 ```
 A to je vše. Absolutní minimum pro rozchození šablony. Nebojte se, pokud neznáte názvy
 vzhledů šablony, zkratku fakulty, nebo zkratku pro jazyk. Šablona vás navede pomocí chybových
@@ -273,11 +273,11 @@ Pokud funkci `profile` nezavoláte, pak šablone použije profil "debug".
 
 === Todo
 
-Pomocí todo svému budoucímu já můžete připomenout, že je něco potřeba dodělat. Funkce todo obsah
+Pomocí `todo` svému budoucímu já můžete připomenout, že je něco potřeba dodělat. Funkce todo obsah
 zvýrazní, a v případě, že je zvolený profil "release", při kompilaci vyhodí error. To vám
 vlastně zabrání použít funkci todo v profilu "release".
 
-Zvýraznění také můžete vypnout (ale pak se vám todo bude hůř hledat - budete muset hledat v kódu).
+Zvýraznění také můžete vypnout (ale pak se vám `todo` bude hůř hledat - budete muset hledat v kódu).
 
 Zde je ukázkové použití:
 #block([
