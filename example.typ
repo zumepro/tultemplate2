@@ -31,7 +31,6 @@ Pokud budete mít dotaz na fungování (vysvětlivky se snažím přidávat do t
 návrh, nebo budete chtít nahlásit chybu, využijte jeden z následujících komunikačních kanálů:
 - Můj e-mail: #link("mailto:ondrej@mekina.cz", "ondrej@mekina.cz")
 - Issues na gitu šablony: https://git.zumepro.cz/tul/tultemplate2
-- E-maily dalších maintainerů: #todo("přidat e-maily")
 
 = První krůčky, aneb jak rozchodit šablonu
 
@@ -245,6 +244,49 @@ pro nadpis @chained_subheading.
 Tyto pokročilejší funkce v drtivé většině dokumentů vůbec není potřeba použít. Nicméně pro
 ty, kteří to chtějí vyzkoušet, nebo to opravdu potřebují: podívejte se buď do zdrojového kódu
 této šablony nebo na dokumentaci Typstu https://typst.app/docs/.
+
+= Pracujeme se šablonou
+
+V předchozí kapitole jsme se dozvěděli, jak pracovat s Typstem. Šablona je navržena tak, aby
+co nejvíce využívala základních funkcí Typstu -- například:
+- Když uděláte nadpis -- zobrazí se v tabulce obsahu
+- Když zvýrazníte text pomocí funkce `highlight` -- zvýraznění bude v barvách vaší fakulty
+- Když přidáte citaci, zobrazí se v bibliografii na konci dokumentu
+- Nadpis první úrovně bude na nové stránce
+- ...
+
+V této kapitole se naučíme vymaxovat využití této šablony za pomocí dalších funkcí a syntaxe.
+
+== Zkratky
+
+LaTeX TUL šablona má k začátku dokumentu seznam zkratek. Proto jsme ho přidali i do této šablony.
+Seznam zkratek je v této šabloně nastaven tak, aby se zobrazoval pouze pokud je v něm alespoň jedna
+zkratka (přišlo nám to poměrně logické).
+
+Zkratku #abbr("ABC", "Abeceda") vytvoříte (definujete) pomocí:
+
+```typst
+#abbr("ABC", "Abeceda")
+```
+
+Potom zkratku #abbr("ABC") už můžete použít přímo (bez opakované definice):
+
+```typst
+#abbr("ABC")
+```
+
+Šablona zajistí následující věci:
+- Zkratka se zobrazí v seznamu zkratek
+- Při prvním použití zkratky vás šablona donutí zkratku definovat
+- Definice zkratky bude použita právě jednou (poprvé)
+
+Při prvním použití zkratky (při definici) bude zkratka v textu vypadat takto:
+#abbr("ZK", "Zkratka").
+Při dalších použití bude vypadat takto: #abbr("ZK").
+
+#highlight[
+  Tedy zkratku _nepřidáváte_ přímo do seznamu zkratek, ale elegantně jí používáte přímo v textu.
+]
 
 = Workflow a jak si zjednoduššit práci
 
