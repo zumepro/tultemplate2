@@ -46,8 +46,8 @@
     fua: (
       cmyk(96%, 2%, 80%, 47%),
       (
-        "FUA\nTUL&",
-        "FAA\nTUL&",
+        "FAKULTA UMĚNÍ A ARCHITEKTURY TUL&",
+        "FACULTY OF ARTS AND ARCHITECTURE TUL&",
       ),
     ),
 

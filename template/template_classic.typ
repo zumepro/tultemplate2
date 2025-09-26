@@ -1,15 +1,17 @@
 #import "theme.typ": faculty_logotype, tul_logomark, faculty_color
-#import "lang.typ": lang_id
-#import "utils.typ": assert_in_dict
+#import "lang.typ": lang_id, get_lang_item
+#import "utils.typ": assert_in_dict, assert_in_arr
 
 #let base_font = "Inter";
 #let mono_font = "Noto Sans Mono";
+#let serif_font = "Merriweather";
+#let tul_logomark_size = 6.5em;
 
 #let classic_header(faculty_id, language) = {
   let logotype = faculty_logotype(faculty_id, language);
   grid(
     block(logotype, width: 100%),
-    block(align(right, block(tul_logomark(faculty_id), height: 5em))),
+    block(align(right, block(tul_logomark(faculty_id), height: tul_logomark_size))),
     columns: 2
   );
 }
@@ -20,17 +22,14 @@
   document_type,
   title, author, supervisor, study_programme,
 ) = {
-  let lang_id = lang_id(language);
+  let info_name_value_padding = 5em;
+  let info_name_min_width = 10em;
 
   // document type
   if type(document_type) != type(none) {
-    let document_types = (
-      bp: ("Bakalářská práce", "Bachelor thesis"),
-      dp: ("Diplomová práce", "Diploma thesis"),
-      ds: ("Disertační práce", "Dissertation thesis"),
-    );
-    assert_in_dict(document_type, document_types, "document type abbreviation");
-    text(document_types.at(document_type).at(lang_id), weight: "bold", font: base_font);
+    let document_types = ("bp", "dp", "ds");
+    assert_in_arr(document_type, document_types, "document type abbreviation");
+    text(get_lang_item(language, document_type), weight: "bold", font: base_font);
     v(0em);
   }
 
@@ -44,32 +43,60 @@
   // other info
   // [field_name, field_value, bold]
   let info_fields = (
-    (("Studijní program", "Study programme"), study_programme, false),
-    (("Autor", "Author"), author, true),
-    (("Vedoucí práce", "Supervisor"), supervisor, false),
-  );
+    ("study_programme", study_programme, false),
+    ("author", author, true),
+    ("supervisor", supervisor, false),
+  )
   context {
     let max_field_name_width = calc.max(..info_fields.map((v) => {
       if type(v.at(1)) == type(none) {
         0pt
       } else {
-        measure(v.at(0).at(lang_id) + ":").width
+        measure(get_lang_item(language, v.at(0)) + ":").width
       }
-    }));
+    }), info_name_min_width.to-absolute());
     grid(
       columns: 2,
       rows: (auto, 1.2em),
       ..info_fields.filter((v) => { type(v.at(1)) != type(none) }).map((v) => {
         (
           block(
-            text(v.at(0).at(lang_id) + ":", style: "italic", font: base_font),
-            width: max_field_name_width + 5em,
+            text(get_lang_item(language, v.at(0)) + ":", style: "italic", font: base_font),
+            width: max_field_name_width + info_name_value_padding,
           ),
           text(v.at(1), font: base_font, weight: if v.at(2) { "bold" } else { "regular" })
         )
-      }).flatten()
+      }).flatten(),
     );
+    v(1em);
+    h(max_field_name_width + info_name_value_padding);
+    text(get_lang_item(language, "city") + " " + str(datetime.today().year()), font: base_font);
   }
+}
+
+#let classic_mainpage(
+  faculty_id,
+  language,
+  document_type,
+  title, author, supervisor, study_programme,
+) = {
+  import "utils.typ": has_all_none
+  let nonetype = type(none);
+  page({
+    if has_all_none((
+      document_type, title, author, supervisor, study_programme,
+    )) {
+      place(center + horizon, align(left, faculty_logotype(faculty_id, language)));
+    } else {
+      classic_header(faculty_id, language);
+      align({
+        classic_info(
+          faculty_id, language, document_type, title, author, supervisor, study_programme
+        );
+        v(5em);
+      }, bottom);
+    }
+  }, margin: 2cm);
 }
 
 #let abbrlist(language) = {
@@ -90,7 +117,7 @@
   }
 }
 
-#let template_latex(
+#let template_classic(
   faculty_id,
   language,
   document_type,
@@ -98,14 +125,8 @@
   citation_file,
   content,
 ) = {
-  // intro page
-  page({
-    classic_header(faculty_id, language);
-    align({
-      classic_info(faculty_id, language, document_type, title, author, supervisor, study_programme);
-      v(5em);
-    }, bottom);
-  }, margin: 2cm);
+  // main page
+  classic_mainpage(faculty_id, language, document_type, title, author, supervisor, study_programme);
 
   // styling
   let faculty_color = faculty_color(faculty_id);
@@ -117,6 +138,7 @@
       align(str(page), if calc.rem(page, 2) == 0 { right } else { left })
     }
   });
+  set text(font: serif_font);
   show heading: it => {
     set par(justify: false);
     block(
@@ -134,6 +156,7 @@
   show raw.where(block: true): it => {
     block(it, fill: rgb("#eee"), inset: 1em)
   };
+  set highlight(fill: faculty_color.lighten(90%));
   set image(width: 80%);
 
   let language = lang_id(language);

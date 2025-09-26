@@ -19,7 +19,7 @@
 // )
 // ```
 //
-// - style (str): Visual style to use. This can be "latex".
+// - style (str): Visual style to use. This can be "classic".
 // - faculty (str): Factulty abbreviation. One of "fs", "ft", "fp", "ef", "fua", "fm", "fzs", "cxi".
 // - lang (str): Language code. This can be "cs" or "en".
 // - document (str): Type of document. This can be "bp", "dp", "ds".
@@ -32,7 +32,7 @@
 //
 //-> none
 #let tultemplate2(
-  style: "latex",
+  style: "classic",
   faculty: "tul",
   lang: "cs",
   document: none,
@@ -40,10 +40,10 @@
   citations: "citations.bib",
   content,
 ) = {
-  import "template_latex.typ": template_latex
+  import "template_classic.typ": template_classic
   import "utils.typ": assert_in_dict
   let templates = (
-    latex: template_latex,
+    classic: template_classic,
   );
   assert_in_dict(style, templates, "template name");
 

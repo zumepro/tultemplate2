@@ -1,0 +1,25 @@
+{
+	"cs": {
+		"author": "Autor",
+		"supervisor": "Vedoucí práce",
+		"study_programme": "Studijní program",
+
+		"bp": "Bakalářská práce",
+		"dp": "Diplomová práce",
+		"dis": "Disertační práce",
+
+		"city": "Liberec"
+	},
+
+	"en": {
+		"author": "Autor",
+		"supervisor": "Supervisor",
+		"study_programme": "Study programme",
+
+		"bp": "Bachelor thesis",
+		"dp": "Diploma thesis",
+		"dis": "Dissertation thesis",
+
+		"city": "Liberec"
+	}
+}
