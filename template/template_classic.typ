@@ -99,6 +99,24 @@
   }, margin: 2cm);
 }
 
+#let disclaimer(language, faculty_id, disclaimer_type, author) = {
+  let disclaimers_for = ("bp");
+  if type(disclaimer_type) == type(none) or disclaimer_type not in disclaimers_for {
+    return;
+  }
+  heading(get_lang_item(language, "disclaimer"), numbering: none, outlined: false);
+  par(
+    text(get_lang_item(language, "disclaimer_" + disclaimer_type))
+  );
+  v(5em);
+  grid(
+    columns: 2,
+    gutter: 1em,
+    block(text(datetime.today().display(get_lang_item(language, "date")), lang: "cs"), width: 100%),
+    text(author),
+  );
+}
+
 #let abbrlist(language) = {
   import "abbreviations.typ": abbrlist
   context {
@@ -129,6 +147,12 @@
   citation_file,
   content,
 ) = {
+  let flip_bonding = if document_type == "bp" {
+    false
+  } else {
+    true
+  };
+
   // main page
   classic_mainpage(faculty_id, language, document_type, title, author, supervisor, study_programme);
 
@@ -136,10 +160,20 @@
   let faculty_color = faculty_color(faculty_id);
   set par(justify: true);
   set heading(numbering: "1.1.1 ");
-  set page(margin: (outside: 4cm, top: 3cm, bottom: 3cm), numbering: "1", footer: {
+  set page(
+    margin: if flip_bonding {
+      (inside: 4cm, top: 3cm, bottom: 3cm)
+    } else {
+      (left: 4cm, top: 3cm, bottom: 3cm)
+    },
+    numbering: "1", footer: {
     context {
       let page = counter(page).get().at(0);
-      align(str(page), if calc.rem(page, 2) == 0 { right } else { left })
+      if flip_bonding {
+        align(str(page), if calc.rem(page, 2) == 1 { right } else { left });
+      } else {
+        align(str(page), right);
+      }
     }
   });
   set text(font: serif_font);
@@ -162,6 +196,9 @@
   };
   set highlight(fill: faculty_color.lighten(90%));
   set image(width: 80%);
+
+  // disclaimer
+  disclaimer(language, faculty_id, document_type, author);
 
   let language = lang_id(language);
 
