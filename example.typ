@@ -291,6 +291,41 @@ Zvýrazněné hodnoty jsou základní -- pokud vynecháte parametr, pak bude pou
 - `lang` (základní jazyk dokumentu)
   - *`"cs"`* - čeština
   - `"en"`
+#line()
+- `document` (typ dokumentu)
+  - *`"other"`* - nespecifikovaný (neformální) typ dokumentu
+  - `bp` - Bakalářská práce
+#line()
+- `title` (nadpis dokumentu)
+  - Ve formátu `(<zkratka_jazyka>: "<nadpis>")`, například `(cs: "Můj nadpis")`
+#line()
+- `author` (autor/autoři dokumentu)
+  - Příklad: `"Pavel Novák"` nebo `"Petra Velká, Jindřich Peterka"` (oddělujte jména `", "`)
+#line()
+- `author_gender` (rod autora v českém jazyce - není potřeba pro angličtinu)
+  - `"male"` - Mužský rod
+  - `"female"` - Ženský rod
+#line()
+- `supervisor` (vedoucí práce)
+  - Příklad: `"prof. Jindřich Jindřich"`
+#line()
+- `programme` (studijní program autora)
+  - Příklad: `"4242 - Odborná tvorba a zpracování krásných šablon"`
+#line()
+- `abstract` (abstrakt)
+  - Ve formátu `(<zkratka_jazyka>: [<abstrakt>])`, například `(cs: [Můj *krásný* abstrakt.])`
+#line()
+- `keywords` (klíčová slova zobrazovaná pod abstraktem)
+  - Ve formátu `("slovo1", "slovo2", ...)`
+#line()
+- `assignment` (PDF soubor se zadáním)
+  - Ve formě cesty k souboru, například: `"zadani.pdf"`. Pokud je tento argument vynechán, bude
+    vložena hláška "vložte zadání" na příslušné místo v dokumentu -- tu stranu můžete pak nahradit
+    originálem zadání.
+#line()
+- `citations` (BibTex soubor s citacemi)
+  - Ve formě cesty k souboru, například: `"citace.bib"`. Pokud není specifikován, bude použit
+    výchozí (`"citations.bib"`).
 
 #pagebreak(weak: true)
 == Zkratky
