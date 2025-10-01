@@ -13,7 +13,10 @@
 		"disclaimer": "Prohlášení",
 		"disclaimer_bp": "Prohlašuji, že svou bakalářskou práci jsem vypracoval samostatně jako původní dílo s použitím uvedené literatury a na základě konzultací s vedoucím mé bakalářské práce a konzultantem.\n\nJsem si vědom toho, že na mou bakalářskou práci se plně vztahuje zákon č. 121/2000 Sb., o právu autorském, zejména § 60 – školní dílo.\n\nBeru na vědomí, že Technická univerzita v Liberci nezasahuje do mých autorských práv užitím mé bakalářské práce pro vnitřní potřebu Technické univerzity v Liberci.\n\nUžiji-li bakalářskou práci nebo poskytnu-li licenci k jejímu využití, jsem si vědom povinnosti informovat o této skutečnosti Technic-kou univerzitu v Liberci; v tomto případě má Technická univerzita v Liberci právo ode mne požadovat úhradu nákladů, které vynaložila na vytvoření díla, až do jejich skutečné výše.\n\nSoučasně čestně prohlašuji, že text elektronické podoby práce vložený do IS/STAG se shoduje s textem tištěné podoby práce.\n\nBeru na vědomí, že má bakalářská práce bude zveřejněna Tech- nickou univerzitou v Liberci v souladu s § 47b zákona č. 111/1998 Sb., o vysokých školách a o změně a doplnění dalších zákonů (zá- kon o vysokých školách), ve znění pozdějších předpisů.\n\nJsem si vědom následků, které podle zákona o vysokých školách mohou vyplývat z porušení tohoto prohlášení.",
 
-		"date": "[day]. [month]. [year]"
+		"date": "[day]. [month]. [year]",
+
+		"abstract": "Abstrakt",
+		"keywords": "Klíčová slova"
 	},
 
 	"en": {
@@ -30,6 +33,9 @@
 		"disclaimer": "Declaration",
 		"disclaimer_bp": "I hereby certify, I, myself, have written my bachelor thesis as an original and primary work using the literature listed below and consulting it with my thesis supervisor and my thesis counsellor.\n\nI acknowledge that my bachelor thesis is fully governed by Act No. 121/2000 Coll., the Copyright Act, in particular Article 60 – School Work.\n\nI acknowledge that the Technical University of Liberec does not infringe my copyrights by using my bachelor thesis for internal purposes of the Technical University of Liberec.\n\nI am aware of my obligation to inform the Technical University of Liberec on having used or granted license to use the results of my bachelor thesis; in such a case the Technical University of Liberec may require reimbursement of the costs incurred for creating the result up to their actual amount.\n\nAt the same time, I honestly declare that the text of the printed version of my bachelor thesis is identical with the text of the electronic version uploaded into the IS STAG.\n\nI acknowledge that the Technical University of Liberec will make my bachelor thesis public in accordance with paragraph 47b of Act No. 111/1998 Coll., on Higher Education Institutions and on Amendment to Other Acts (the Higher Education Act), as amended.\n\nI am aware of the consequences which may under the Higher Education Act result from a breach of this declaration.",
 
-		"date": "[year]-[month]-[day]"
+		"date": "[year]-[month]-[day]",
+
+		"abstract": "Abstract",
+		"keywords": "Keywords"
 	}
 }

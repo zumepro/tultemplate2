@@ -91,7 +91,8 @@
       classic_header(faculty_id, language);
       align({
         classic_info(
-          faculty_id, language, document_type, title, author, supervisor, study_programme
+          faculty_id, language, document_type, title.at(language),
+          author, supervisor, study_programme,
         );
         v(5em);
       }, bottom);
@@ -115,6 +116,30 @@
     block(text(datetime.today().display(get_lang_item(language, "date")), lang: "cs"), width: 100%),
     text(author),
   );
+}
+
+#let abstract(language, title, content, keywords) = {
+  if type(content.at(language)) == type(none) {
+    return;
+  }
+  if type(title.at(language)) == type(none) {
+    panic("no title found for language `" + language + "` (required for abstract)");
+  }
+  heading(text(title.at(language), font: base_font), numbering: none, outlined: false);
+  v(2em);
+  heading(
+    level: 2,
+    get_lang_item(language, "abstract"),
+    numbering: none,
+    outlined: false,
+  );
+  text(content.at(language));
+  if type(keywords.at(language)) != type(none) {
+    linebreak();
+    linebreak();
+    text(get_lang_item(language, "keywords") + ": ", weight: "bold", font: base_font);
+    text(keywords.at(language).join(", "));
+  }
 }
 
 #let abbrlist(language) = {
@@ -143,7 +168,8 @@
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, study_programme,
+  title_cs, author, supervisor, study_programme, abstract_cs, keywords_cs,
+  title_en, abstract_en, keywords_en,
   citation_file,
   content,
 ) = {
@@ -152,6 +178,11 @@
   } else {
     true
   };
+
+  let title = (
+    "cs": title_cs,
+    "en": title_en,
+  );
 
   // main page
   classic_mainpage(faculty_id, language, document_type, title, author, supervisor, study_programme);
@@ -200,6 +231,22 @@
   // disclaimer
   disclaimer(language, faculty_id, document_type, author);
 
+  // abstract
+  let abstract_content = (
+    "cs": abstract_cs,
+    "en": abstract_en,
+  );
+  let keywords = (
+    "cs": keywords_cs,
+    "en": keywords_en,
+  );
+  if language == "cs" {
+    abstract("cs", title, abstract_content, keywords);
+    abstract("en", title, abstract_content, keywords);
+  } else {
+    abstract(language, title, abstract_content, keywords);
+  }
+
   let language = lang_id(language);
 
   // toc
@@ -213,7 +260,9 @@
   abbrlist(language);
 
   // content
-  pagebreak(to: "even", weak: true);
+  if flip_bonding {
+    pagebreak(to: "even", weak: true);
+  }
   content
 
   // bibliography

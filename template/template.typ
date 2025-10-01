@@ -36,7 +36,9 @@
   faculty: "tul",
   lang: "cs",
   document: none,
-  title: none, author: none, supervisor: none, programme: none,
+  title_cs: none, author: none, supervisor: none, programme: none, abstract_cs: none,
+  keywords_cs: none,
+  title_en: none, abstract_en: none, keywords_en: none,
   citations: "citations.bib",
   content,
 ) = {
@@ -53,7 +55,8 @@
   set text(lang: lang);
   templates.at(style)(
     faculty, lang, document,
-    title, author, supervisor, programme,
+    title_cs, author, supervisor, programme, abstract_cs, keywords_cs,
+    title_en, abstract_en, keywords_en,
     "../" + citations,
     content
   );
