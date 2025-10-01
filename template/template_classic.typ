@@ -100,6 +100,25 @@
   }, margin: 2cm);
 }
 
+#let assignment(language, document) = {
+  if type(document) == type(none) {
+    page(
+      place(center + horizon, text(
+        get_lang_item(language, "place_assignment"),
+        fill: red,
+        size: 3em,
+        font: base_font,
+        weight: "bold",
+      )),
+      footer: none,
+    );
+    return;
+  }
+  import "@preview/muchpdf:0.1.1": muchpdf
+  set page(margin: 0em);
+  muchpdf(read(document, encoding: none));
+}
+
 #let disclaimer(language, faculty_id, disclaimer_type, author) = {
   let disclaimers_for = ("bp");
   if type(disclaimer_type) == type(none) or disclaimer_type not in disclaimers_for {
@@ -170,6 +189,7 @@
   document_type,
   title_cs, author, supervisor, study_programme, abstract_cs, keywords_cs,
   title_en, abstract_en, keywords_en,
+  assignment_document,
   citation_file,
   content,
 ) = {
@@ -227,6 +247,11 @@
   };
   set highlight(fill: faculty_color.lighten(90%));
   set image(width: 80%);
+
+  // assignment
+  if document_type in ("bp", "dp", "dis") or type(assignment_document) != type(none) {
+    assignment(language, assignment_document);
+  }
 
   // disclaimer
   disclaimer(language, faculty_id, document_type, author);

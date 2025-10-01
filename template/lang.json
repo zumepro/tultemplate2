@@ -16,7 +16,9 @@
 		"date": "[day]. [month]. [year]",
 
 		"abstract": "Abstrakt",
-		"keywords": "Klíčová slova"
+		"keywords": "Klíčová slova",
+
+		"place_assignment": "Sem vložte zadání"
 	},
 
 	"en": {
@@ -36,6 +38,8 @@
 		"date": "[year]-[month]-[day]",
 
 		"abstract": "Abstract",
-		"keywords": "Keywords"
+		"keywords": "Keywords",
+
+		"place_assignment": "Insert your assignment here"
 	}
 }

@@ -23,10 +23,16 @@
 // - faculty (str): Factulty abbreviation. One of "fs", "ft", "fp", "ef", "fua", "fm", "fzs", "cxi".
 // - lang (str): Language code. This can be "cs" or "en".
 // - document (str): Type of document. This can be "bp", "dp", "ds".
-// - title (str): The title of the document.
+// - title_cs (str): The title (Czech) of the document.
 // - author (str): The name of the document's author.
 // - supervisor (str): The name of the document's supervisor.
 // - programme (str): Study programme.
+// - abstract_cs (content): The abstract (Czech).
+// - keywords_cs (array): The abstract keywords (Czech).
+// - title_en (str): The title (English) of the document.
+// - abstract_en (content): The abstract (English).
+// - keywords_en (array): The abstract keywords (English).
+// - assignment (str): Filepath of the assignment document/page.
 // - citations (str): The location of the citation file.
 // - content (content): The content of the document
 //
@@ -39,6 +45,7 @@
   title_cs: none, author: none, supervisor: none, programme: none, abstract_cs: none,
   keywords_cs: none,
   title_en: none, abstract_en: none, keywords_en: none,
+  assignment: none,
   citations: "citations.bib",
   content,
 ) = {
@@ -53,10 +60,18 @@
   import "lang.typ": lang_ids
   assert_in_dict(lang, lang_ids, "language abbreviation");
   set text(lang: lang);
+
+  // verify
+  if document == "bp" and (type(abstract_cs) == type(none) or type(abstract_en) == type(none)) {
+    panic("need both czech and english abstract for document of type 'bp'");
+  }
+
+  // template call
   templates.at(style)(
     faculty, lang, document,
     title_cs, author, supervisor, programme, abstract_cs, keywords_cs,
     title_en, abstract_en, keywords_en,
+    if type(assignment) == type(none) { none } else { "../" + assignment },
     "../" + citations,
     content
   );

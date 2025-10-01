@@ -2,17 +2,6 @@
 
 #show: tultemplate2.with(
   title_cs: "Návod na použití Typst TUL šablony",
-  abstract_cs: [
-    V tomto dokumentu se naučíte základy použití TUL Typst šablony a i nějaké lehké základy Typstu.
-    Šablonu vyvíjíme pro *všechny fakulty* TUL a snažíme se postupně přidávat všechny typy
-    vysokoškolských prací.
-
-    Tento dokument by měl být vhodný pro všechny čtenáře
-    (ze všech fakult a s různými úrovněmi dovedností). Pokud je něco popsáno nejasně
-    (nebo něco chybí), prosíme, dejte nám vědět. Snažíme se šablonu i dokumentaci průběžně
-    zlepšovat.
-  ],
-  keywords_cs: ("šablona", "TUL", "Typst"),
   author: "Ondřej Mekina, Matěj Žucha",
   supervisor: "Ondřej Mekina",
 )
