@@ -1,7 +1,7 @@
 #import "template/template.typ": *
 
 #show: tultemplate2.with(
-  title_cs: "Návod na použití Typst TUL šablony",
+  title: (cs: "Návod na použití Typst TUL šablony"),
   author: "Ondřej Mekina, Matěj Žucha",
   supervisor: "Ondřej Mekina",
 )
@@ -82,7 +82,7 @@ hlášek (nebo se můžete podívat do zdrojového souboru pro toto PDF `example
 Nyní pojďme přidat nějaký obsah na titulní stránku. Jednoduše do volání šablony přidáme další
 parametry.
 ```typst
-#show: tultemplate.with(..., title: "Můj úžasný dokument", author: "Já")
+#show: tultemplate.with(..., title: (cs: "Můj úžasný dokument"), author: "Já")
 ```
 Všechny možné parametry by vám měl našeptávat váš editor (nebo LSP) -- poslouchejte takové nápovědy,
 opravdu hodně vám to usnadní práci.
@@ -257,6 +257,42 @@ co nejvíce využívala základních funkcí Typstu -- například:
 
 V této kapitole se naučíme vymaxovat využití této šablony za pomocí dalších funkcí a syntaxe.
 
+#pagebreak(weak: true)
+== Parametry této šablony
+
+Šablonu standardně použijete takto:
+```typst
+#show: tultemplate2.with(
+  <název_parametru>: <hodnota_parametru>,
+  <nazev_dalšího_parametru>: "<hodnota_dalšího_parametru>",
+  ...
+)
+```
+
+Funkce `tultemplate2` přijímá následující parametry.
+Zvýrazněné hodnoty jsou základní -- pokud vynecháte parametr, pak bude použita tato hodnota.
+
+#line()
+- `style` (vizuální styl dokumentu)
+  - *`"classic"`* - Klasický vizuální styl. Tento styl je neblíže klasické formální
+    podobě dokumentů. _(doporučeno pro nováčky této šablony)_
+#line()
+- `faculty` (zkratka fakulty)
+  - *`"tul"`* - barvy a logomarky univerzity
+  - `"fs"` - fakulta strojní
+  - `"ft"` - fakulta textilní
+  - `"fp"` - fakulta přírodovědně-humanitní a pedagogická
+  - `"ef"` - ekonomická fakulta
+  - `"fua"` - fakulta umění a architektury
+  - `"fm"` - fakulta mechatroniky, informatiky a mezioborových studií
+  - `"fzs"` - fakulta zdravotnických studií
+  - `"cxi"` - ústav pro nanomateriály, pokročilé technologie a inovace
+#line()
+- `lang` (základní jazyk dokumentu)
+  - *`"cs"`* - čeština
+  - `"en"`
+
+#pagebreak(weak: true)
 == Zkratky
 
 LaTeX TUL šablona má k začátku dokumentu seznam zkratek. Proto jsme ho přidali i do této šablony.

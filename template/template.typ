@@ -38,41 +38,54 @@
 //
 //-> none
 #let tultemplate2(
-  style: "classic",
-  faculty: "tul",
-  lang: "cs",
-  document: none,
-  title_cs: none, author: none, supervisor: none, programme: none, abstract_cs: none,
-  keywords_cs: none,
-  title_en: none, abstract_en: none, keywords_en: none,
-  assignment: none,
-  citations: "citations.bib",
+  // general settings
+  style: "classic", faculty: "tul", lang: "cs", document: "other",
+
+  // document info
+  title: none, keywords: none, abstract: none, author: none, author_gender: none,
+  supervisor: none, programme: none,
+
+  // links
+  assignment: none, citations: "citations.bib",
+
+  // content
   content,
 ) = {
-  import "template_classic.typ": template_classic
-  import "utils.typ": assert_in_dict
+  import "utils.typ": assert_in_dict, assert_type_signature
+
+  // argument checking
+  assert_type_signature(style, "string", "visual style argument");
+  assert_type_signature(faculty, "string", "faculty id argument");
+  assert_type_signature(lang, "string", "language abbreviation argument");
+  assert_type_signature(document, "string | none", "document kind argument");
+  assert_type_signature(title, "dictionary[string : string] | none", "title argument");
+  assert_type_signature(keywords, "dictionary[string : array[string]] | none", "keywords argument");
+  assert_type_signature(abstract, "dictionary[string : string] | none", "abstract argument");
+  assert_type_signature(author, "string | none", "author argument");
+  assert_type_signature(author_gender, "string | none", "author gender argument");
+  assert_type_signature(supervisor, "string | none", "supervisor argument");
+  assert_type_signature(
+    programme, "dictionary[string : string] | none", "study programme argument"
+  );
+  assert_type_signature(assignment, "string | none", "assignment document argument");
+  assert_type_signature(citations, "string", "citations file argument");
+
+  // templates
+  import "classic/classic.typ": template_classic
   let templates = (
     classic: template_classic,
   );
   assert_in_dict(style, templates, "template name");
 
-  // global set-up
+  // language set-up
   import "lang.typ": lang_ids
   assert_in_dict(lang, lang_ids, "language abbreviation");
   set text(lang: lang);
 
-  // verify
-  if document == "bp" and (type(abstract_cs) == type(none) or type(abstract_en) == type(none)) {
-    panic("need both czech and english abstract for document of type 'bp'");
-  }
-
   // template call
   templates.at(style)(
-    faculty, lang, document,
-    title_cs, author, supervisor, programme, abstract_cs, keywords_cs,
-    title_en, abstract_en, keywords_en,
-    if type(assignment) == type(none) { none } else { "../" + assignment },
-    "../" + citations,
+    lang, faculty, document, citations, assignment,
+    title, author, author_gender, supervisor, programme, abstract, keywords,
     content
   );
 

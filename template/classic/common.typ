@@ -1,13 +1,66 @@
-#import "theme.typ": faculty_logotype, tul_logomark, faculty_color
-#import "lang.typ": lang_id, get_lang_item
-#import "utils.typ": assert_in_dict, assert_in_arr
+#import "../theme.typ": faculty_logotype, tul_logomark, faculty_color
+#import "../lang.typ": get_lang_item
+#import "../utils.typ": is_none
 
 #let base_font = "Inter";
 #let mono_font = "Noto Sans Mono";
 #let serif_font = "Merriweather";
 #let tul_logomark_size = 6.5em;
 
-#let classic_header(faculty_id, language) = {
+// TYPST ELEMENT STYLING
+
+#let default_styling(flip_bonding, faculty_color, content) = {
+  // page
+  set page(
+    margin: if flip_bonding {
+      (inside: 4cm, top: 3cm, bottom: 3cm)
+    } else {
+      (left: 4cm, top: 3cm, bottom: 3cm)
+    },
+    numbering: "1", footer: {
+    context {
+      let page = counter(page).get().at(0);
+      if flip_bonding {
+        align(str(page), if calc.rem(page, 2) == 1 { right } else { left });
+      } else {
+        align(str(page), right);
+      }
+    }
+  });
+
+  // text
+  set text(font: serif_font);
+  set par(justify: true);
+
+  // heading
+  set heading(numbering: "1.1.1 ");
+  show heading: it => {
+    set par(justify: false);
+    block(
+      above: 2em,
+      below: 2em,
+      text(it, faculty_color, font: "TUL Mono", size: 1.2em)
+    );
+  };
+  show heading.where(level: 1): it => {
+    pagebreak(weak: true);
+    v(2cm);
+    it
+  };
+
+  // other
+  show raw: set text(font: mono_font);
+  show raw.where(block: true): it => {
+    block(it, fill: rgb("#eee"), inset: 1em)
+  };
+  set highlight(fill: faculty_color.lighten(90%));
+  set image(width: 80%);
+
+  content
+}
+
+
+#let header(faculty_id, language) = {
   let logotype = faculty_logotype(faculty_id, language);
   grid(
     block(logotype, width: 100%),
@@ -16,7 +69,9 @@
   );
 }
 
-#let classic_info(
+//  DOCUMENT INFO
+
+#let info(
   faculty_id,
   language,
   document_type,
@@ -27,9 +82,6 @@
 
   // document type
   if type(document_type) != type(none) {
-    // TODO: hab, teze, autoref, proj, sp
-    let document_types = ("bp", "dp", "dis");
-    assert_in_arr(document_type, document_types, "document type abbreviation");
     text(get_lang_item(language, document_type), weight: "bold", font: base_font);
     v(0em);
   }
@@ -45,7 +97,7 @@
   // [field_name, field_value, bold]
   let info_fields = (
     ("study_programme", study_programme, false),
-    ("author", author, true),
+    (if author.contains(", ") { "authors" } else { "author" }, author, true),
     ("supervisor", supervisor, false),
   )
   context {
@@ -75,13 +127,15 @@
   }
 }
 
-#let classic_mainpage(
+// MAINPAGE
+
+#let mainpage(
   faculty_id,
   language,
   document_type,
   title, author, supervisor, study_programme,
 ) = {
-  import "utils.typ": has_all_none
+  import "../utils.typ": has_all_none
   let nonetype = type(none);
   page({
     if has_all_none((
@@ -89,9 +143,9 @@
     )) {
       place(center + horizon, align(left, faculty_logotype(faculty_id, language)));
     } else {
-      classic_header(faculty_id, language);
+      header(faculty_id, language);
       align({
-        classic_info(
+        info(
           faculty_id, language, document_type, title.at(language),
           author, supervisor, study_programme,
         );
@@ -100,6 +154,8 @@
     }
   }, margin: 2cm);
 }
+
+// ASSIGNMENT PAGE
 
 #let assignment(language, document) = {
   if type(document) == type(none) {
@@ -111,6 +167,7 @@
         font: base_font,
         weight: "bold",
       )),
+      margin: 0em,
       footer: none,
     );
     return;
@@ -120,31 +177,28 @@
   muchpdf(read(document, encoding: none));
 }
 
-#let disclaimer(language, faculty_id, disclaimer_type, author) = {
-  let disclaimers_for = ("bp");
-  if type(disclaimer_type) == type(none) or disclaimer_type not in disclaimers_for {
-    return;
-  }
+// DISCLAIMER PAGE
+
+#let disclaimer(language, faculty_id, disclaimer_type, author, author_gender) = {
+  import "../lang.typ": disclaimer
   heading(get_lang_item(language, "disclaimer"), numbering: none, outlined: false);
   par(
-    text(get_lang_item(language, "disclaimer_" + disclaimer_type))
+    text(disclaimer(language, disclaimer_type, author_gender))
   );
   v(5em);
   grid(
     columns: 2,
     gutter: 1em,
-    block(text(datetime.today().display(get_lang_item(language, "date")), lang: "cs"), width: 100%),
+    block(
+      text(datetime.today().display(get_lang_item(language, "date")), lang: "cs"), width: 100%
+    ),
     text(author),
   );
 }
 
+// ABSTRACT
+
 #let abstract(language, title, content, keywords) = {
-  if type(content.at(language)) == type(none) {
-    return;
-  }
-  if type(title.at(language)) == type(none) {
-    panic("no title found for language `" + language + "` (required for abstract)");
-  }
   heading(text(title.at(language), font: base_font), numbering: none, outlined: false);
   v(2em);
   heading(
@@ -154,7 +208,7 @@
     outlined: false,
   );
   text(content.at(language));
-  if type(keywords.at(language)) != type(none) {
+  if not is_none(keywords) and type(keywords.at(language)) != type(none) {
     linebreak();
     linebreak();
     text(get_lang_item(language, "keywords") + ": ", weight: "bold", font: base_font);
@@ -162,15 +216,17 @@
   }
 }
 
+// ABBREVIATION LIST
+
 #let abbrlist(language) = {
-  import "abbreviations.typ": abbrlist
+  import "../abbreviations.typ": abbrlist
   context {
     let abbrs = abbrlist();
     let max_abbr_width = if abbrs.len() > 0 {
       calc.max(abbrs.keys().map((v) => measure(v).width)).at(0)
     } else { return };
     pagebreak(weak: true);
-    heading(("Seznam zkratek", "List of abbreviations").at(language), numbering: none);
+    heading(get_lang_item(language, "abbrs"), numbering: none);
     align(center, grid(
       columns: 2,
       gutter: 1em,
@@ -184,113 +240,12 @@
   }
 }
 
-#let template_classic(
-  faculty_id,
-  language,
-  document_type,
-  title_cs, author, supervisor, study_programme, abstract_cs, keywords_cs,
-  title_en, abstract_en, keywords_en,
-  assignment_document,
-  citation_file,
-  content,
-) = {
-  let flip_bonding = if document_type == "bp" {
-    false
-  } else {
-    true
-  };
+// TABLE OF CONTENTS
 
-  let title = (
-    "cs": title_cs,
-    "en": title_en,
-  );
-
-  // main page
-  classic_mainpage(faculty_id, language, document_type, title, author, supervisor, study_programme);
-
-  // styling
-  let faculty_color = faculty_color(faculty_id);
-  set par(justify: true);
-  set heading(numbering: "1.1.1 ");
-  set page(
-    margin: if flip_bonding {
-      (inside: 4cm, top: 3cm, bottom: 3cm)
-    } else {
-      (left: 4cm, top: 3cm, bottom: 3cm)
-    },
-    numbering: "1", footer: {
-    context {
-      let page = counter(page).get().at(0);
-      if flip_bonding {
-        align(str(page), if calc.rem(page, 2) == 1 { right } else { left });
-      } else {
-        align(str(page), right);
-      }
-    }
-  });
-  set text(font: serif_font);
-  show heading: it => {
-    set par(justify: false);
-    block(
-      above: 2em,
-      below: 2em,
-      text(it, faculty_color, font: "TUL Mono", size: 1.2em)
-    );
-  };
-  show heading.where(level: 1): it => {
-    pagebreak();
-    v(2cm);
-    it
-  };
-  show raw: set text(font: mono_font);
-  show raw.where(block: true): it => {
-    block(it, fill: rgb("#eee"), inset: 1em)
-  };
-  set highlight(fill: faculty_color.lighten(90%));
-  set image(width: 80%);
-
-  // assignment
-  if document_type in ("bp", "dp", "dis") or type(assignment_document) != type(none) {
-    assignment(language, assignment_document);
-  }
-
-  // disclaimer
-  disclaimer(language, faculty_id, document_type, author);
-
-  // abstract
-  let abstract_content = (
-    "cs": abstract_cs,
-    "en": abstract_en,
-  );
-  let keywords = (
-    "cs": keywords_cs,
-    "en": keywords_en,
-  );
-  if language == "cs" {
-    abstract("cs", title, abstract_content, keywords);
-    abstract("en", title, abstract_content, keywords);
-  } else {
-    abstract(language, title, abstract_content, keywords);
-  }
-
-  let language = lang_id(language);
-
-  // toc
+#let toc(language) = {
   show outline.entry.where(level: 1): it => {
     show repeat: none;
     block(text(it, weight: "bold", size: 1.2em), above: 1.5em);
   };
-  outline(title: ("Obsah", "Contents").at(language));
-
-  // abbreviation list
-  abbrlist(language);
-
-  // content
-  if flip_bonding {
-    pagebreak(to: "even", weak: true);
-  }
-  content
-
-  // bibliography
-  bibliography(citation_file, style: "./tul_citace.csl")
+  outline(title: get_lang_item(language, "toc"));
 }
