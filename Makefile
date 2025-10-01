@@ -2,7 +2,7 @@
 view_example: example.pdf
 	xdg-open $<
 
-PHONY: watch_example
+.PHONY: watch_example
 watch_example:
 	typst watch --font-path template/fonts example.typ & xdg-open example.pdf
 
