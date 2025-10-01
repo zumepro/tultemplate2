@@ -1,4 +1,7 @@
-// todo: add citations
+@Wang2025
+@csl
+@linux
+@Satrapa2011
 
-#pagebreak(weak: true)
+#set text(lang: "cs")
 #bibliography("citations.bib", title: "Bibliography - CZ", style: "../template/tul_citace.csl")
