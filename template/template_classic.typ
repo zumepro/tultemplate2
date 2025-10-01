@@ -27,7 +27,7 @@
 
   // document type
   if type(document_type) != type(none) {
-    let document_types = ("bp", "dp", "ds");
+    let document_types = ("bp", "dp", "dis", "hab", "teze", "autoref", "proj", "sp");
     assert_in_arr(document_type, document_types, "document type abbreviation");
     text(get_lang_item(language, document_type), weight: "bold", font: base_font);
     v(0em);
