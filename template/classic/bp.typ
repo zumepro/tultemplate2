@@ -1,5 +1,14 @@
 #import "../lang.typ": get_lang_item
-#import "common.typ": mainpage, default_styling, assignment, disclaimer, abstract, toc, abbrlist
+#import "common.typ": (
+  mainpage,
+  default_styling,
+  assignment,
+  disclaimer,
+  abstract,
+  toc,
+  abbrlist,
+  bibliogr
+)
 #import "../utils.typ": is_none, assert_dict_has, assert_not_none
 
 #let bp(
@@ -31,6 +40,6 @@
     toc(language);
     abbrlist(language);
     content
-    bibliography(citation_file, style: "../tul_citace.csl");
+    bibliogr(citation_file);
   });
 }

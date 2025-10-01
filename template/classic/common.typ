@@ -249,3 +249,15 @@
   };
   outline(title: get_lang_item(language, "toc"));
 }
+
+// BIBLIOGRAPHY
+
+#let bibliogr(language, citations_file) = {
+  if language == "cs" {
+    bibliography(citations_file, style: "../tul_citace.csl");
+  } else if language == "en" {
+    bibliography(citations_file, style: "iso-690-numeric");
+  } else {
+    panic("unknown language for bibliography '" + language + "'");
+  }
+}

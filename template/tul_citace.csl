@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never" default-locale="en-US">
   <info>
-    <title>ISO-690 (numeric, Czech)</title>
+    <title>TUL ISO-690</title>
     <id>-----</id>
     <link href="" rel="self"/>
     <link href="" rel="documentation"/>
@@ -264,7 +264,7 @@
             <group>
               <text term="retrieved" suffix=" " text-case="capitalize-first"/>
               <text term="from" suffix=": "/>
-              <text variable="URL"/>
+              <text variable="URL" suffix=" "/>
             </group>
           </if>
         </choose>
