@@ -22,16 +22,14 @@
 // - style (str): Visual style to use. This can be "classic".
 // - faculty (str): Factulty abbreviation. One of "fs", "ft", "fp", "ef", "fua", "fm", "fzs", "cxi".
 // - lang (str): Language code. This can be "cs" or "en".
-// - document (str): Type of document. This can be "bp", "dp", "ds".
-// - title_cs (str): The title (Czech) of the document.
+// - document (str): Type of document. This can be "bp" or "other".
+// - title (str): The title of the document.
 // - author (str): The name of the document's author.
+// - author_gender (str): The gender of the document's author. Needed only for the `cs` language.
 // - supervisor (str): The name of the document's supervisor.
 // - programme (str): Study programme.
-// - abstract_cs (content): The abstract (Czech).
-// - keywords_cs (array): The abstract keywords (Czech).
-// - title_en (str): The title (English) of the document.
-// - abstract_en (content): The abstract (English).
-// - keywords_en (array): The abstract keywords (English).
+// - abstract (content): The abstract.
+// - keywords (array): The abstract keywords.
 // - assignment (str): Filepath of the assignment document/page.
 // - citations (str): The location of the citation file.
 // - content (content): The content of the document

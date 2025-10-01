@@ -18,7 +18,9 @@
   if not is_none(keywords) {
     assert_dict_has(force_langs, keywords, "keywords");
   }
-  assert_not_none(author_gender, "author gender");
+  if language == "cs" {
+    assert_not_none(author_gender, "author gender");
+  }
 
   mainpage(faculty_id, language, none, title, author, supervisor, study_programme);
   assignment(language, assignment_document);
