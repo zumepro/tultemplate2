@@ -58,7 +58,9 @@
   assert_type_signature(document, "string | none", "document kind argument");
   assert_type_signature(title, "dictionary[string : string] | none", "title argument");
   assert_type_signature(keywords, "dictionary[string : array[string]] | none", "keywords argument");
-  assert_type_signature(abstract, "dictionary[string : string] | none", "abstract argument");
+  assert_type_signature(
+    abstract, "dictionary[string : string | content] | none", "abstract argument"
+  );
   assert_type_signature(author, "string | none", "author argument");
   assert_type_signature(author_gender, "string | none", "author gender argument");
   assert_type_signature(supervisor, "string | none", "supervisor argument");
