@@ -41,7 +41,7 @@
 
   // document info
   title: none, keywords: none, abstract: none, author: none, author_gender: none,
-  supervisor: none, programme: none,
+  supervisor: none, programme: none, branch: none,
 
   // links
   assignment: none, citations: "citations.bib",
@@ -67,6 +67,7 @@
   assert_type_signature(
     programme, "dictionary[string : string] | none", "study programme argument"
   );
+  assert_type_signature(branch, "dictionary[string : string] | none", "study branch argument");
   assert_type_signature(assignment, "string | none", "assignment document argument");
   assert_type_signature(citations, "string", "citations file argument");
 
@@ -85,7 +86,7 @@
   // template call
   templates.at(style)(
     lang, faculty, document, citations, assignment,
-    title, author, author_gender, supervisor, programme, abstract, keywords,
+    title, author, author_gender, supervisor, programme, branch, abstract, keywords,
     content
   );
 

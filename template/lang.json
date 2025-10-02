@@ -4,6 +4,7 @@
 		"authors": "Autoři",
 		"supervisor": "Vedoucí práce",
 		"study_programme": "Studijní program",
+		"study_branch": "Studijní obor",
 
 		"bp": "Bakalářská práce",
 		"dp": "Diplomová práce",
@@ -47,6 +48,7 @@
 		"authors": "Authors",
 		"supervisor": "Supervisor",
 		"study_programme": "Study programme",
+		"study_branch": "Study branch",
 
 		"bp": "Bachelor thesis",
 		"dp": "Diploma thesis",

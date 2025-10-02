@@ -75,7 +75,7 @@
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, study_programme,
+  title, author, supervisor, study_programme, study_branch,
 ) = {
   let info_name_value_padding = 5em;
   let info_name_min_width = 10em;
@@ -97,6 +97,7 @@
   // [field_name, field_value, bold]
   let info_fields = (
     ("study_programme", study_programme, false),
+    ("study_branch", study_branch, false),
     (
       if not is_none(author) and author.contains(", ") {"authors" } else { "author" }, author, true
     ),
@@ -135,9 +136,9 @@
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, study_programme,
+  title, author, supervisor, study_programme, study_branch
 ) = {
-  import "../utils.typ": has_all_none
+  import "../utils.typ": has_all_none, map_none
   let nonetype = type(none);
   page({
     if has_all_none((
@@ -148,8 +149,9 @@
       header(faculty_id, language);
       align({
         info(
-          faculty_id, language, document_type, title.at(language),
-          author, supervisor, study_programme,
+          faculty_id, language, document_type, map_none(title, (v) => v.at(language)),
+          author, supervisor, map_none(study_programme, (v) => v.at(language)),
+          map_none(study_branch, (v) => v.at(language)),
         );
         v(5em);
       }, bottom);
