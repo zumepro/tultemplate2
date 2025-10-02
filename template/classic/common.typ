@@ -7,6 +7,11 @@
 #let serif_font = "Merriweather";
 #let tul_logomark_size = 6.5em;
 
+// COUNTERS
+
+#let image_count = counter("image_count");
+#let table_count = counter("table_count");
+
 // TYPST ELEMENT STYLING
 
 #let default_styling(flip_bonding, faculty_color, content) = {
@@ -33,11 +38,12 @@
   set par(justify: true);
 
   // figures
-  let figure_numbering(c) = {
+  let figure_numbering(realcount, c) = {
+    context realcount.step();
     context numbering("1. 1", counter(heading).get().at(0), c)
   };
-  show figure.where(kind: image): set figure(numbering: figure_numbering);
-  show figure.where(kind: table): set figure(numbering: figure_numbering);
+  show figure.where(kind: image): set figure(numbering: figure_numbering.with(image_count));
+  show figure.where(kind: table): set figure(numbering: figure_numbering.with(table_count));
   show figure.where(kind: table): set figure.caption(position: top);
   show figure: it => {
     block(it, above: 2em, below: 2em);
@@ -265,9 +271,9 @@
 
 // _ FIGURE OUTLINE
 
-#let _figure_outline(target, title) = {
+#let _figure_outline(realcount, target, title) = {
   context {
-    if counter(figure.where(kind: target)).final() == 0 {
+    if realcount.final().at(0) == 0 {
       return;
     }
     _outline_figure_inner(figure.where(kind: target), title, (it) => it.element.caption.body);
@@ -277,13 +283,13 @@
 // IMAGE LIST
 
 #let imagelist(language) = {
-  _figure_outline(image, get_lang_item(language, "image_list"));
+  _figure_outline(image_count, image, get_lang_item(language, "image_list"));
 }
 
 // TABLE LIST
 
 #let tablelist(language) = {
-  _figure_outline(table, get_lang_item(language, "table_list"));
+  _figure_outline(table_count, table, get_lang_item(language, "table_list"));
 }
 
 // ABBREVIATION LIST

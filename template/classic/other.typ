@@ -1,5 +1,15 @@
 #import "../lang.typ": get_lang_item
-#import "common.typ": mainpage, default_styling, assignment, disclaimer, abstract, toc, abbrlist
+#import "common.typ": (
+  mainpage,
+  default_styling,
+  assignment,
+  disclaimer,
+  abstract,
+  toc,
+  abbrlist,
+  imagelist,
+  tablelist,
+)
 #import "../utils.typ": is_none, assert_not_none, assert_dict_has, assert_in_arr
 
 #let other(
@@ -18,7 +28,8 @@
   default_styling(true, faculty_color, {
     toc(language);
     abbrlist(language);
-
+    imagelist(language);
+    tablelist(language);
     pagebreak(to: "even", weak: true);
     content
 
