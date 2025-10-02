@@ -51,6 +51,7 @@
     abbrlist(language);
     imagelist(language);
     tablelist(language);
+    pagebreak(weak: true);
     content
     bibliogr(language, citation_file);
   });

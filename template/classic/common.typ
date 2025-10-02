@@ -239,11 +239,11 @@
   }
 }
 
-// _ OUTLINE
+// _ OUTLINE FIGURE INNER
 #let _outline_figure_inner(selector, title, body_mapper) = {
-  show outline.entry: it => {
+  let entry(selector, element) = {
     link(
-      it.element.location(),
+      element.location(),
       grid(
         columns: 3,
         gutter: .5em,
@@ -251,21 +251,23 @@
           dir: ltr,
           text(numbering(
             "1. 1",
-            counter(heading).at(it.element.location()).at(0),
-            counter(selector).at(it.element.location()).at(0),
+            counter(heading).at(element.location()).at(0),
+            counter(selector).at(element.location()).at(0),
           )),
           h(.5em),
-          text(body_mapper(it)),
+          text(body_mapper(element)),
         ),
         box(repeat([.], gap: 0.15em)),
-        str(it.element.location().page()),
+        str(element.location().page()),
       ),
     )
   }
-  if not is_none(selector) {
-    outline(target: selector, title: title);
-  } else {
-    outline(title: title);
+  heading(title, numbering: none, outlined: false);
+  for el in query(figure.where(kind: selector)) {
+    if is_none(el.caption) {
+      continue;
+    }
+    entry(figure.where(kind: selector), el);
   }
 }
 
@@ -276,7 +278,7 @@
     if realcount.final().at(0) == 0 {
       return;
     }
-    _outline_figure_inner(figure.where(kind: target), title, (it) => it.element.caption.body);
+    _outline_figure_inner(target, title, (it) => it.caption.body);
   }
 }
 
