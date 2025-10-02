@@ -7,6 +7,8 @@
   abstract,
   toc,
   abbrlist,
+  imagelist,
+  tablelist,
   bibliogr
 )
 #import "../utils.typ": is_none, assert_dict_has, assert_not_none
@@ -47,6 +49,8 @@
     abstract("en", title, abstract_content, keywords);
     toc(language);
     abbrlist(language);
+    imagelist(language);
+    tablelist(language);
     content
     bibliogr(language, citation_file);
   });

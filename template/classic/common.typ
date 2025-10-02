@@ -32,6 +32,18 @@
   set text(font: serif_font);
   set par(justify: true);
 
+  // figures
+  let figure_numbering(c) = {
+    context numbering("1. 1", counter(heading).get().at(0), c)
+  };
+  show figure.where(kind: image): set figure(numbering: figure_numbering);
+  show figure.where(kind: table): set figure(numbering: figure_numbering);
+  show figure.where(kind: table): set figure.caption(position: top);
+  show figure: it => {
+    block(it, above: 2em, below: 2em);
+  }
+  set image(width: 80%);
+
   // heading
   set heading(numbering: "1.1.1 ");
   show heading: it => {
@@ -43,6 +55,10 @@
     );
   };
   show heading.where(level: 1): it => {
+    // reset figure counters
+    context counter(figure.where(kind: image)).update(0);
+    context counter(figure.where(kind: table)).update(0);
+
     pagebreak(weak: true);
     v(2cm);
     it
@@ -54,7 +70,6 @@
     block(it, fill: rgb("#eee"), inset: 1em)
   };
   set highlight(fill: faculty_color.lighten(90%));
-  set image(width: 80%);
 
   content
 }
@@ -111,13 +126,13 @@
     }), info_name_min_width.to-absolute());
     grid(
       columns: 2,
-      rows: (auto, 1.2em),
+      gutter: .5em,
       ..info_fields.filter((v) => { type(v.at(1)) != type(none) }).map((v) => {
         (
-          block(
+          align(top, block(
             text(get_lang_item(language, v.at(0)) + ":", style: "italic", font: base_font),
-            width: max_field_name_width + info_name_value_padding,
-          ),
+            width: max_field_name_width + info_name_value_padding
+          )),
           text(v.at(1), font: base_font, weight: if v.at(2) { "bold" } else { "regular" })
         )
       }).flatten(),
@@ -216,6 +231,59 @@
     text(get_lang_item(language, "keywords") + ": ", weight: "bold", font: base_font);
     text(keywords.at(language).join(", "));
   }
+}
+
+// _ OUTLINE
+#let _outline_figure_inner(selector, title, body_mapper) = {
+  show outline.entry: it => {
+    link(
+      it.element.location(),
+      grid(
+        columns: 3,
+        gutter: .5em,
+        stack(
+          dir: ltr,
+          text(numbering(
+            "1. 1",
+            counter(heading).at(it.element.location()).at(0),
+            counter(selector).at(it.element.location()).at(0),
+          )),
+          h(.5em),
+          text(body_mapper(it)),
+        ),
+        box(repeat([.], gap: 0.15em)),
+        str(it.element.location().page()),
+      ),
+    )
+  }
+  if not is_none(selector) {
+    outline(target: selector, title: title);
+  } else {
+    outline(title: title);
+  }
+}
+
+// _ FIGURE OUTLINE
+
+#let _figure_outline(target, title) = {
+  context {
+    if counter(figure.where(kind: target)).final() == 0 {
+      return;
+    }
+    _outline_figure_inner(figure.where(kind: target), title, (it) => it.element.caption.body);
+  }
+}
+
+// IMAGE LIST
+
+#let imagelist(language) = {
+  _figure_outline(image, get_lang_item(language, "image_list"));
+}
+
+// TABLE LIST
+
+#let tablelist(language) = {
+  _figure_outline(table, get_lang_item(language, "table_list"));
 }
 
 // ABBREVIATION LIST

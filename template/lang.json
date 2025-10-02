@@ -39,6 +39,8 @@
 		"abstract": "Abstrakt",
 		"keywords": "Klíčová slova",
 		"abbrs": "Seznam zkratek",
+		"image_list": "Seznam obrázků",
+		"table_list": "Seznam tabulek",
 
 		"place_assignment": "Sem vložte zadání"
 	},
@@ -72,6 +74,8 @@
 		"abstract": "Abstract",
 		"keywords": "Keywords",
 		"abbrs": "List of abbreviations",
+		"image_list": "List of images",
+		"table_list": "List of tables",
 
 		"place_assignment": "Insert your assignment here"
 	}
