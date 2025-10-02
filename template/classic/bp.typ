@@ -31,7 +31,7 @@
     assert_not_none(author_gender, "author gender");
   }
 
-  mainpage(faculty_id, language, none, title, author, supervisor, study_programme);
+  mainpage(faculty_id, language, "bp", title, author, supervisor, study_programme);
   assignment(language, assignment_document);
   default_styling(false, faculty_color, {
     disclaimer(language, faculty_id, "bp", author, author_gender);
