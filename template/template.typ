@@ -23,13 +23,13 @@
 // - faculty (str): Factulty abbreviation. One of "fs", "ft", "fp", "ef", "fua", "fm", "fzs", "cxi".
 // - lang (str): Language code. This can be "cs" or "en".
 // - document (str): Type of document. This can be "bp" or "other".
-// - title (str): The title of the document.
+// - title (dictionary): The title of the document.
 // - author (str): The name of the document's author.
 // - author_gender (str): The gender of the document's author. Needed only for the `cs` language.
 // - supervisor (str): The name of the document's supervisor.
-// - programme (str): Study programme.
-// - abstract (content): The abstract.
-// - keywords (array): The abstract keywords.
+// - programme (dictionary): Study programme.
+// - abstract (dictionary): The abstract.
+// - keywords (dictionary): The abstract keywords.
 // - assignment (str): Filepath of the assignment document/page.
 // - citations (str): The location of the citation file.
 // - content (content): The content of the document
