@@ -98,9 +98,7 @@
   let info_fields = (
     ("study_programme", study_programme, false),
     ("study_branch", study_branch, false),
-    (
-      if not is_none(author) and author.contains(", ") {"authors" } else { "author" }, author, true
-    ),
+    ("author", author, true),
     ("supervisor", supervisor, false),
   )
   context {

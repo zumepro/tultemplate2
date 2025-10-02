@@ -11,14 +11,8 @@
 
   content
 ) = {
-  let force_langs = ("cs", "en");
   assert_not_none(title, "title");
-  assert_dict_has(force_langs, title, "title");
-
-  assert_not_none(study_programme, "study programme");
-  assert_in_arr(language, study_programme, "study programme");
-  assert_not_none(study_branch, "study branch");
-  assert_in_arr(language, study_branch, "study branch");
+  assert_dict_has((language,), title, "title");
 
   mainpage(faculty_id, language, none, title, author, supervisor, study_programme, study_branch);
   default_styling(true, faculty_color, {
