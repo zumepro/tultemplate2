@@ -191,6 +191,34 @@ Tady je praktická ukázka jednoduchého vložení obrázku s popiskem:
   Logo *TUL*
 ])
 
+Obrázky se zobrazí na začátku dokumentu v seznamu (pokud to daný typ dokumentu vyžaduje).
+
+== Tabulky
+
+Tabulky lze vytvářet takto:
+
+```typst
+#figure(table(
+  columns: 3,
+  table.header([], [*Sloupec 1*], [*Sloupec 2*]),
+  [*Řádek 1*], [a], [b],
+  [*Řádek 2*], [c], [d],
+), caption: "Moje krásná tabulka")
+```
+
+#highlight[Hlavičku tabulky (první řádek) je dobré zabalit do funkce header (viz. výše)], to je
+kvůli tomu, že Typst do vygenerovaného PDF souboru poté přidá metadata (například pro osoby se
+zrakovým postižením).
+
+#figure(table(
+  columns: 3,
+  table.header([], [*Sloupec 1*], [*Sloupec 2*]),
+  [*Řádek 1*], [a], [b],
+  [*Řádek 2*], [c], [d],
+), caption: "Moje krásná tabulka")
+
+Tabulky se zobrazí na začátku dokumentu v seznamu (pokud to daný typ dokumentu vyžaduje).
+
 == Citace
 
 Šablona podporuje správu citací pomocí standardního BibTeX @bibtex souboru, stejně jako
@@ -300,7 +328,7 @@ Zvýrazněné hodnoty jsou základní -- pokud vynecháte parametr, pak bude pou
   - Ve formátu `(<zkratka_jazyka>: "<nadpis>")`, například `(cs: "Můj nadpis")`
 #line()
 - `author` (autor/autoři dokumentu)
-  - Příklad: `"Pavel Novák"` nebo `"Petra Velká, Jindřich Peterka"` (oddělujte jména `", "`)
+  - Příklad: `"Pavel Novák"` nebo `"Petra Velká, Jindřich Peterka"`
 #line()
 - `author_gender` (rod autora v českém jazyce - není potřeba pro angličtinu)
   - `"masculine"` - Mužský rod
@@ -311,13 +339,13 @@ Zvýrazněné hodnoty jsou základní -- pokud vynecháte parametr, pak bude pou
   - Příklad: `"prof. Jindřich Jindřich"`
 #line()
 - `programme` (studijní program autora)
-  - Příklad: `"4242 - Odborná tvorba a zpracování krásných šablon"`
+  - Ve formátu `(<zkratka_jazyka>: "<název_programu>")`
 #line()
 - `abstract` (abstrakt)
   - Ve formátu `(<zkratka_jazyka>: [<abstrakt>])`, například `(cs: [Můj *krásný* abstrakt.])`
 #line()
 - `keywords` (klíčová slova zobrazovaná pod abstraktem)
-  - Ve formátu `("slovo1", "slovo2", ...)`
+  - Ve formátu `(<zkratka_jazyka>: ("slovo1", "slovo2", ...))`
 #line()
 - `assignment` (PDF soubor se zadáním)
   - Ve formě cesty k souboru, například: `"zadani.pdf"`. Pokud je tento argument vynechán, bude
