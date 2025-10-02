@@ -97,7 +97,9 @@
   // [field_name, field_value, bold]
   let info_fields = (
     ("study_programme", study_programme, false),
-    (if author.contains(", ") { "authors" } else { "author" }, author, true),
+    (
+      if not is_none(author) and author.contains(", ") {"authors" } else { "author" }, author, true
+    ),
     ("supervisor", supervisor, false),
   )
   context {
