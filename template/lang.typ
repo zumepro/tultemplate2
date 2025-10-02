@@ -1,4 +1,4 @@
-#import "utils.typ": assert_in_dict, assert_in_arr
+#import "utils.typ": assert_in_dict, assert_in_arr, map_none, ok_or
 
 #let lang_ids = (
   cs: 0,
@@ -22,16 +22,26 @@
 }
 
 #let replace_czech_gender(raw, gender) = {
+  let genders = (
+    feminine: 1,
+    masculine: 0,
+    we: 2,
+  );
+  assert_in_dict(gender, genders, "author gender");
   raw.replace(regex("\{g:([^|]*)\|([^|]*)\|([^}]*)\}"), (match) => {
-    if gender == "masculine" {
-      match.captures.at(0)
-    } else if gender == "feminine" {
-      match.captures.at(1)
-    } else if gender == "we" {
-      match.captures.at(2)
-    } else {
-      panic();
-    }
+    match.captures.at(genders.at(gender))
+  });
+}
+
+#let replace_english_pronounce(raw, pronounce) = {
+  let pronounce = ok_or(pronounce, "me");
+  let pronouns = (
+    me: 0,
+    we: 1,
+  );
+  assert_in_dict(pronounce, pronouns, "author gender");
+  raw.replace(regex("\{g:([^|]*)\|([^}]*)\}"), (match) => {
+    match.captures.at(pronouns.at(pronounce))
   });
 }
 
@@ -39,9 +49,9 @@
   let disclaimer = get_lang_item(language, "disclaimer_content");
   let replacements = get_lang_item(language, "disclaimer_replace").at(document_type);
   if language == "cs" {
-    let language_genders = ("feminine", "masculine", "we");
-    assert_in_arr(author_gender, language_genders, "author gender");
     disclaimer = replace_czech_gender(disclaimer, author_gender);
+  } else if language == "en" {
+    disclaimer = replace_english_pronounce(disclaimer, author_gender);
   }
   for (key, value) in replacements.pairs() {
     disclaimer = disclaimer.replace("{" + key + "}", value);
