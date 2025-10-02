@@ -10,7 +10,8 @@ watch_example:
 example: example.pdf
 
 TO_PACK := $(shell find template -type f) template/LICENSE
-PACK_TARGETS := $(TO_PACK:%=pack/tultemplate2/%) pack/tultemplate2/example.typ
+PACK_TARGETS := $(TO_PACK:%=pack/tultemplate2/%) pack/tultemplate2/example.typ \
+				pack/tultemplate2/citations.bib
 
 .PHONY: pack
 pack: pack/tultemplate2.zip
@@ -25,7 +26,7 @@ pack/tultemplate2.zip: $(PACK_TARGETS)
 	rm -f $@
 	cd pack && zip -r tultemplate2.zip tultemplate2
 
-pack/tultemplate2/example.typ: example.typ
+pack/tultemplate2/%: %
 	ln -f $< $@
 
 pack/tultemplate2/template/LICENSE: LICENSE
