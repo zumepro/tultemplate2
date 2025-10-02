@@ -40,6 +40,6 @@
     toc(language);
     abbrlist(language);
     content
-    bibliogr(citation_file);
+    bibliogr(language, citation_file);
   });
 }

@@ -303,8 +303,9 @@ Zvýrazněné hodnoty jsou základní -- pokud vynecháte parametr, pak bude pou
   - Příklad: `"Pavel Novák"` nebo `"Petra Velká, Jindřich Peterka"` (oddělujte jména `", "`)
 #line()
 - `author_gender` (rod autora v českém jazyce - není potřeba pro angličtinu)
-  - `"male"` - Mužský rod
-  - `"female"` - Ženský rod
+  - `"masculine"` - Mužský rod
+  - `"feminine"` - Ženský rod
+  - `"we"` - Množné číslo
 #line()
 - `supervisor` (vedoucí práce)
   - Příklad: `"prof. Jindřich Jindřich"`
