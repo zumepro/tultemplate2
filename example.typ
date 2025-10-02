@@ -1,8 +1,12 @@
 #import "template/template.typ": *
 
 #show: tultemplate2.with(
-  title: (cs: "Návod na použití Typst TUL šablony"),
+  document: "bp",
+  faculty: "fm",
+  title: (cs: "Návod na použití Typst TUL šablony", en: lorem(10)),
+  abstract: (cs: [lorem(100)], en: [lorem(100)]),
   author: "Ondřej Mekina, Matěj Žucha",
+  author_gender: "masculine",
   supervisor: "Ondřej Mekina",
 )
 

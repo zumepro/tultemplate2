@@ -39,7 +39,7 @@
   let disclaimer = get_lang_item(language, "disclaimer_content");
   let replacements = get_lang_item(language, "disclaimer_replace").at(document_type);
   if language == "cs" {
-    let language_genders = ("feminine", "masculine", "they");
+    let language_genders = ("feminine", "masculine", "we");
     assert_in_arr(author_gender, language_genders, "author gender");
     disclaimer = replace_czech_gender(disclaimer, author_gender);
   }
