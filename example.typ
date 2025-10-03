@@ -326,27 +326,38 @@ Zvýrazněné hodnoty jsou základní -- pokud vynecháte parametr, pak bude pou
 #line()
 - `title` (nadpis dokumentu)
   - Ve formátu `(<zkratka_jazyka>: "<nadpis>")`, například `(cs: "Můj nadpis")`
+  - Pro většinu dokumentů (kromě `other`) jsou vyžadovány verze _cs_ a _en_ (kvůli abstraktu).
 #line()
 - `author` (autor/autoři dokumentu)
   - Příklad: `"Pavel Novák"` nebo `"Petra Velká, Jindřich Peterka"`
 #line()
-- `author_gender` (rod autora v českém jazyce - není potřeba pro angličtinu)
-  - `"masculine"` - Mužský rod
-  - `"feminine"` - Ženský rod
-  - `"we"` - Množné číslo
+- `author_gender` (jazykový rod autora - není potřeba pro angličtinu, která má základní hodnotu)
+  - Pro vybraný jazyk _cs_:
+    - `"masculine"` - Mužský rod
+    - `"feminine"` - Ženský rod
+    - `"we"` - Množné číslo
+  - Pro vybraný jazyk _en_:
+    - *`"me"`* - První osoba jednotného čísla
+    - `"we"` - První osoba množného čísla
 #line()
 - `supervisor` (vedoucí práce) <arg_supervisor>
   - V podobě textového řetězce, příklad: `"prof. Jindřich Jindřich"`
   - Ve formátu `(name: "<jméno>", institute: "<institut>")` (toto lze využít například při DP)
 #line()
 - `consultant` (konzultant práce)
-  - Stejně jako u #link(label("arg_supervisor"), [`supervisor`])
+  - Stejně jako u #link(<arg_supervisor>, [`supervisor`])
 #line()
-- `programme` (studijní program autora)
+- `programme` (studijní program) <arg_programme>
   - Ve formátu `(<zkratka_jazyka>: "<název_programu>")`
+  - Je vyžadován jazyk, který je vybrán pro celou šablonu -- tohle je pojistka, aby uživatel šablony
+    nevynechal vybraný jazyk
+#line()
+- `branch` (studijní obor)
+  - Stejně jako #link(<arg_programme>, [`programme`])
 #line()
 - `abstract` (abstrakt)
   - Ve formátu `(<zkratka_jazyka>: [<abstrakt>])`, například `(cs: [Můj *krásný* abstrakt.])`
+  - Dokumenty vyžadují _cs_ i _en_ abstrakt (kromě typu dokumentu `other`).
 #line()
 - `keywords` (klíčová slova zobrazovaná pod abstraktem)
   - Ve formátu `(<zkratka_jazyka>: ("slovo1", "slovo2", ...))`
