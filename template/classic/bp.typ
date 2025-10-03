@@ -11,6 +11,7 @@
   tablelist,
   bibliogr
 )
+#import "../attachments.typ": attachment_list
 #import "../utils.typ": is_none, assert_dict_has, assert_not_none
 
 #let bp(
@@ -52,7 +53,8 @@
     imagelist(language);
     tablelist(language);
     pagebreak(weak: true);
-    content
+    content;
     bibliogr(language, citation_file);
+    attachment_list(language);
   });
 }

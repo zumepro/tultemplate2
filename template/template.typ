@@ -7,6 +7,9 @@
 // Git: https://git.zumepro.cz/tul/tultemplate2
 
 #import "prototyping.typ": todo, profile
+#import "attachments.typ": (
+  attachments, attach_content, attach_pdf, attach_link, attach_file_reference
+)
 
 // TUL Template 2
 //

@@ -40,6 +40,10 @@
 		"abbrs": "Seznam zkratek",
 		"image_list": "Seznam obrázků",
 		"table_list": "Seznam tabulek",
+		"attachments": "Přílohy",
+		"attachment": "Příloha",
+		"next_page_attachment": "začíná na další straně",
+		"attached_bellow": "dále přiloženo",
 
 		"place_assignment": "Sem vložte zadání"
 	},
@@ -74,6 +78,10 @@
 		"abbrs": "List of abbreviations",
 		"image_list": "List of images",
 		"table_list": "List of tables",
+		"attachments": "Attachments",
+		"attachment": "Attachment",
+		"next_page_attachment": "begins on the next page",
+		"attached_bellow": "attached bellow",
 
 		"place_assignment": "Insert your assignment here"
 	}

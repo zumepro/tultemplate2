@@ -10,6 +10,7 @@
   imagelist,
   tablelist,
 )
+#import "../attachments.typ": attachment_list
 #import "../utils.typ": is_none, assert_not_none, assert_dict_has, assert_in_arr
 
 #let other(
@@ -31,9 +32,8 @@
     imagelist(language);
     tablelist(language);
     pagebreak(to: "even", weak: true);
-    content
-
-    // bibliography
+    content;
     bibliography(citation_file, style: "../tul_citace.csl");
+    attachment_list(language);
   });
 }

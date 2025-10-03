@@ -251,7 +251,7 @@
         stack(
           dir: ltr,
           text(numbering(
-            "1. 1",
+            "1.1",
             counter(heading).at(element.location()).at(0),
             counter(selector).at(element.location()).at(0),
           )),
@@ -263,7 +263,7 @@
       ),
     )
   }
-  heading(title, numbering: none, outlined: false);
+  heading(title, numbering: none);
   for el in query(figure.where(kind: selector)) {
     if is_none(el.caption) {
       continue;
