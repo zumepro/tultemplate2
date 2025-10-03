@@ -30,7 +30,9 @@
 // - author (str): The name of the document's author.
 // - author_gender (str): The gender of the document's author. Needed only for the `cs` language.
 // - supervisor (str): The name of the document's supervisor.
+// - consultant (str): The name of the document's consultant.
 // - programme (dictionary): Study programme.
+// - branch (disctionary): Study branch
 // - abstract (dictionary): The abstract.
 // - keywords (dictionary): The abstract keywords.
 // - assignment (str): Filepath of the assignment document/page.
