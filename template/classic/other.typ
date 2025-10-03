@@ -17,14 +17,14 @@
   faculty_id, faculty_color, language, assignment_document, citation_file,
 
   // document info
-  title, author, _, supervisor, study_programme, study_branch, abstract_content, keywords,
+  title, author, _, supervisor, consultant, study_programme, study_branch, abstract_content, keywords,
 
   content
 ) = {
   assert_not_none(title, "title");
   assert_dict_has((language,), title, "title");
 
-  mainpage(faculty_id, language, none, title, author, supervisor, study_programme, study_branch);
+  mainpage(faculty_id, language, none, title, author, supervisor, consultant, study_programme, study_branch);
   default_styling(true, faculty_color, {
     toc(language);
     abbrlist(language);

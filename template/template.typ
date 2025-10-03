@@ -41,7 +41,7 @@
 
   // document info
   title: none, keywords: none, abstract: none, author: none, author_gender: none,
-  supervisor: none, programme: none, branch: none,
+  supervisor: none, consultant: none, programme: none, branch: none,
 
   // links
   assignment: none, citations: "citations.bib",
@@ -64,6 +64,7 @@
   assert_type_signature(author, "string | none", "author argument");
   assert_type_signature(author_gender, "string | none", "author gender argument");
   assert_type_signature(supervisor, "string | none", "supervisor argument");
+  assert_type_signature(consultant, "string | none", "consultant argument");
   assert_type_signature(
     programme, "dictionary[string : string] | none", "study programme argument"
   );
@@ -86,8 +87,8 @@
   // template call
   templates.at(style)(
     lang, faculty, document, citations, assignment,
-    title, author, author_gender, supervisor, programme, branch, abstract, keywords,
-    content
+    title, author, author_gender, supervisor, consultant,
+    programme, branch, abstract, keywords, content
   );
 
   import "prototyping.typ": assert_release_ready

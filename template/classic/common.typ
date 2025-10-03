@@ -96,7 +96,7 @@
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, study_programme, study_branch,
+  title, author, supervisor, consultant, study_programme, study_branch,
 ) = {
   let info_name_value_padding = 5em;
   let info_name_min_width = 10em;
@@ -121,6 +121,7 @@
     ("study_branch", study_branch, false),
     ("author", author, true),
     ("supervisor", supervisor, false),
+    ("consultant", consultant, false),
   )
   context {
     let max_field_name_width = calc.max(..info_fields.map((v) => {
@@ -155,13 +156,13 @@
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, study_programme, study_branch
+  title, author, supervisor, consultant, study_programme, study_branch
 ) = {
   import "../utils.typ": has_all_none, map_none
   let nonetype = type(none);
   page({
     if has_all_none((
-      document_type, title, author, supervisor, study_programme,
+      document_type, title, author, supervisor, consultant, study_programme,
     )) {
       place(center + horizon, align(left, faculty_logotype(faculty_id, language)));
     } else {
@@ -169,7 +170,7 @@
       align({
         info(
           faculty_id, language, document_type, map_none(title, (v) => v.at(language)),
-          author, supervisor, map_none(study_programme, (v) => v.at(language)),
+          author, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
           map_none(study_branch, (v) => v.at(language)),
         );
         v(5em);

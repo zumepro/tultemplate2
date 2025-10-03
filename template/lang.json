@@ -3,6 +3,7 @@
 		"author": "Autor",
 		"authors": "Autoři",
 		"supervisor": "Vedoucí práce",
+		"consultant": "Konzultant práce",
 		"study_programme": "Studijní program",
 		"study_branch": "Studijní obor",
 
@@ -47,6 +48,7 @@
 		"author": "Author",
 		"authors": "Authors",
 		"supervisor": "Supervisor",
+		"consultant": "Consultant",
 		"study_programme": "Study programme",
 		"study_branch": "Study branch",
 

@@ -18,7 +18,7 @@
   faculty_id, faculty_color, language, assignment_document, citation_file,
 
   // document info
-  title, author, author_gender, supervisor, study_programme, study_branch, abstract_content,
+  title, author, author_gender, supervisor, consultant, study_programme, study_branch, abstract_content,
   keywords,
 
   content
@@ -41,7 +41,7 @@
     assert_not_none(author_gender, "author gender");
   }
 
-  mainpage(faculty_id, language, "bp", title, author, supervisor, study_programme, study_branch);
+  mainpage(faculty_id, language, "bp", title, author, supervisor, consultant, study_programme, study_branch);
   assignment(language, assignment_document);
   default_styling(false, faculty_color, {
     disclaimer(language, faculty_id, "bp", author, author_gender);
