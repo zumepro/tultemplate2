@@ -2,8 +2,9 @@
 
 #show: tultemplate2.with(
   title: (cs: "Návod na použití Typst TUL šablony"),
-  author: "Ondřej Mekina, Matěj Žucha",
+  author: "Ondřej Mekina",
   supervisor: "Ondřej Mekina",
+  consultant: "Matěj Žucha"
 )
 
 = Lehký úvod do Typstu a této šablony
