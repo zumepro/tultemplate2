@@ -335,8 +335,12 @@ Zvýrazněné hodnoty jsou základní -- pokud vynecháte parametr, pak bude pou
   - `"feminine"` - Ženský rod
   - `"we"` - Množné číslo
 #line()
-- `supervisor` (vedoucí práce)
-  - Příklad: `"prof. Jindřich Jindřich"`
+- `supervisor` (vedoucí práce) <arg_supervisor>
+  - V podobě textového řetězce, příklad: `"prof. Jindřich Jindřich"`
+  - Ve formátu `(name: "<jméno>", institute: "<institut>")` (toto lze využít například při DP)
+#line()
+- `consultant` (konzultant práce)
+  - Stejně jako u #link(label("arg_supervisor"), [`supervisor`])
 #line()
 - `programme` (studijní program autora)
   - Ve formátu `(<zkratka_jazyka>: "<název_programu>")`

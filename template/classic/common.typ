@@ -1,6 +1,6 @@
 #import "../theme.typ": faculty_logotype, tul_logomark, faculty_color
 #import "../lang.typ": get_lang_item
-#import "../utils.typ": is_none
+#import "../utils.typ": is_none, assert_dict_has
 
 #let base_font = "Inter";
 #let mono_font = "Noto Sans Mono";
@@ -90,7 +90,30 @@
   );
 }
 
-//  DOCUMENT INFO
+// DOCUMENT INFO
+
+#let person_info(record, item_name) = {
+  if is_none(record) {
+    none
+  } else if type(record) == str {
+    record
+  } else if type(record) == dictionary {
+    if "name" in record {
+      record.at("name");
+      if "institute" in record {
+        text("\n    " + record.at("institute"), style: "italic")
+      }
+    } else {
+      let panic_message = (
+        item_name + " name is required (or try not specifying " + item_name + " at all)"
+      );
+      panic(panic_message);
+    }
+  } else {
+    let panic_message = "invalid " + item_name + " - expected a string or a dictionary";
+    panic(panic_message);
+  }
+}
 
 #let info(
   faculty_id,
@@ -120,8 +143,8 @@
     ("study_programme", study_programme, false),
     ("study_branch", study_branch, false),
     ("author", author, true),
-    ("supervisor", supervisor, false),
-    ("consultant", consultant, false),
+    ("supervisor", person_info(supervisor, "supervisor"), false),
+    ("consultant", person_info(consultant, "consultant"), false),
   )
   context {
     let max_field_name_width = calc.max(..info_fields.map((v) => {
@@ -133,7 +156,7 @@
     }), info_name_min_width.to-absolute());
     grid(
       columns: 2,
-      gutter: .5em,
+      gutter: .7em,
       ..info_fields.filter((v) => { type(v.at(1)) != type(none) }).map((v) => {
         (
           align(top, block(

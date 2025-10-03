@@ -28,9 +28,9 @@
   mainpage(faculty_id, language, none, title, author, supervisor, consultant, study_programme, study_branch);
   default_styling(true, faculty_color, {
     toc(language);
-    abbrlist(language);
-    imagelist(language);
     tablelist(language);
+    imagelist(language);
+    abbrlist(language);
     pagebreak(to: "even", weak: true);
     content;
     bibliography(citation_file, style: "../tul_citace.csl");

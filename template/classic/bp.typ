@@ -12,15 +12,15 @@
   bibliogr
 )
 #import "../attachments.typ": attachment_list
-#import "../utils.typ": is_none, assert_dict_has, assert_not_none
+#import "../utils.typ": is_none, assert_dict_has, assert_not_none, assert_type_signature
 
 #let bp(
   // general settings
   faculty_id, faculty_color, language, assignment_document, citation_file,
 
   // document info
-  title, author, author_gender, supervisor, consultant, study_programme, study_branch, abstract_content,
-  keywords,
+  title, author, author_gender, supervisor, consultant, study_programme, study_branch,
+  abstract_content, keywords,
 
   content
 ) = {
@@ -42,16 +42,22 @@
     assert_not_none(author_gender, "author gender");
   }
 
-  mainpage(faculty_id, language, "bp", title, author, supervisor, consultant, study_programme, study_branch);
+  assert_type_signature(supervisor, "string | none", "supervisor");
+  assert_type_signature(consultant, "string | none", "consultant");
+
+  mainpage(
+    faculty_id, language, "bp", title, author, supervisor, consultant, study_programme,
+    study_branch,
+  );
   assignment(language, assignment_document);
   default_styling(false, faculty_color, {
     disclaimer(language, faculty_id, "bp", author, author_gender);
     abstract("cs", title, abstract_content, keywords);
     abstract("en", title, abstract_content, keywords);
     toc(language);
-    abbrlist(language);
-    imagelist(language);
     tablelist(language);
+    imagelist(language);
+    abbrlist(language);
     pagebreak(weak: true);
     content;
     bibliogr(language, citation_file);

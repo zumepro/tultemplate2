@@ -68,8 +68,12 @@
   );
   assert_type_signature(author, "string | none", "author argument");
   assert_type_signature(author_gender, "string | none", "author gender argument");
-  assert_type_signature(supervisor, "string | none", "supervisor argument");
-  assert_type_signature(consultant, "string | none", "consultant argument");
+  assert_type_signature(
+    supervisor, "string | dictionary[string : string] | none", "supervisor argument"
+  );
+  assert_type_signature(
+    consultant, "string | dictionary[string : string] | none", "consultant argument"
+  );
   assert_type_signature(
     programme, "dictionary[string : string] | none", "study programme argument"
   );
