@@ -60,7 +60,8 @@
   }
 }
 
-#let attachments(attachments) = {
+#let attachments(..attachments) = {
+  let attachments = attachments.pos();
   assert_type_signature(
     attachments, "array[array[string | content]] | array[string | content]", "attachments"
   );
@@ -117,6 +118,9 @@
       return;
     }
     let data = eval(data);
+    if data == false {
+      return;
+    }
     heading(get_lang_item(language, "attachments"), numbering: none);
 
     // listing

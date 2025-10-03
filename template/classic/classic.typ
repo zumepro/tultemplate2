@@ -33,7 +33,7 @@
     faculty_id,
     faculty_color(faculty_id),
     language,
-    assignment_document,
+    map_none(assignment_document, (v) => "../../" + v),
     map_none(citation_file, (v) => "../../" + v),
     title,
     author,

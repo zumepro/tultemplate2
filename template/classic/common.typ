@@ -123,6 +123,7 @@
 ) = {
   let info_name_value_padding = 5em;
   let info_name_min_width = 10em;
+  let gutter = .7em;
 
   // document type
   if type(document_type) != type(none) {
@@ -156,7 +157,7 @@
     }), info_name_min_width.to-absolute());
     grid(
       columns: 2,
-      gutter: .7em,
+      gutter: gutter,
       ..info_fields.filter((v) => { type(v.at(1)) != type(none) }).map((v) => {
         (
           align(top, block(
@@ -168,7 +169,7 @@
       }).flatten(),
     );
     v(1em);
-    h(max_field_name_width + info_name_value_padding);
+    h(max_field_name_width + info_name_value_padding + gutter);
     text(get_lang_item(language, "city") + " " + str(datetime.today().year()), font: base_font);
   }
 }

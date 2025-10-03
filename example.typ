@@ -392,6 +392,30 @@ Při dalších použití bude vypadat takto: #abbr("ZK").
   Tedy zkratku _nepřidáváte_ přímo do seznamu zkratek, ale elegantně jí používáte přímo v textu.
 ]
 
+== Přílohy
+
+V některých typech dokumentů budete chtít přidat přílohy. Přílohy se přikládají v různých podobách:
+
+- Jako odkaz (URL/URI adresa)
+- Zmínka externího souboru (například další soubor nahraný do systému)
+- Přiložený obsah (vygenerovaný Typstem v tomto dokumentu -- je tedy součástí tohoto kódu)
+- Externí PDF soubor přiložený jako obsah (jiný PDF dokument, vložený do příloh v kompletní
+  podobě -- to je dobré například do tisku, kde můžete přílohy vytisknout s dokumentem)
+
+#highlight[
+  Přílohy lze definovat *pouze na jednom* místě v dokumentu, aby se zabránilo omylnému opakování
+  příloh. Přílohy doporučujeme definovat *na konci* souboru pro přehlednost.
+]
+
+Zde je ukázka definice příloh (je také použita na konci tohoto ukázkového souboru):
+
+```typst
+#attachments(
+  attach_link("Zdrojový kód této šablony", "https://git.zumepro.cz/tul/tultemplate2"),
+  attach_content("Testovací obsah vygenerovaný Typstem", [Sem lze psát _stylovaný_ obsah.]),
+)
+```
+
 = Workflow a jak si zjednoduššit práci
 
 Tyhle věci používat _nemusíte_, aby vám šablona fungovala. Nicméně často jsou poměrně fajn.
@@ -454,3 +478,8 @@ Takhle si můžete předpřipravit délku odstavců a vyzkoušet si, jestli se r
 do požadavků. Pak můžete postupně přepisovat/vyplňovat.
 
 Funkce `todo` vám zároveň zabrání v tom, aby se text Lorem Ipsum vyskytl ve výsledném dokumentu.
+
+#attachments(
+  attach_link("Zdrojový kód této šablony", "https://git.zumepro.cz/tul/tultemplate2"),
+  attach_content("Testovací obsah vygenerovaný Typstem", [Sem lze psát _stylovaný_ obsah.]),
+)
