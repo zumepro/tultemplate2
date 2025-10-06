@@ -21,3 +21,5 @@ That will compile the example document and view it.
 
 > [!IMPORTANT]
 > This repo uses git lfs to pull fonts. Please set it up (or download a packed build from releases).
+> When running in CLI - you'll want to include the embedded fonts:
+> `typst compile --font-path template/fonts example.typ`
