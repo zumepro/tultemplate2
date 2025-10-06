@@ -12,8 +12,8 @@
   language, faculty_id, document_type, citation_file, assignment_document,
 
   // document info
-  title, author, author_gender, supervisor, consultant, study_programme, study_branch, abstract,
-  acknowledgement, keywords,
+  title, author, author_gender, supervisor, consultant, study_programme, study_branch,
+  year_of_study, abstract, acknowledgement, keywords,
 
   // content
   content,
@@ -42,6 +42,7 @@
     consultant,
     study_programme,
     study_branch,
+    year_of_study,
     abstract,
     acknowledgement,
     keywords,

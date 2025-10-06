@@ -46,7 +46,8 @@
 
   // document info
   title: none, keywords: none, abstract: none, acknowledgement: none, author: none,
-  author_gender: none, supervisor: none, consultant: none, programme: none, branch: none,
+  author_gender: none, supervisor: none, consultant: none, programme: none,
+  branch: none, year_of_study: none,
 
   // links
   assignment: none, citations: "citations.bib",
@@ -81,6 +82,7 @@
     programme, "dictionary[string : string] | none", "study programme argument"
   );
   assert_type_signature(branch, "dictionary[string : string] | none", "study branch argument");
+  assert_type_signature(year_of_study, "integer | none", "year of study");
   assert_type_signature(assignment, "string | none", "assignment document argument");
   assert_type_signature(citations, "string", "citations file argument");
 
@@ -100,7 +102,7 @@
   templates.at(style)(
     lang, faculty, document, citations, assignment,
     title, author, author_gender, supervisor, consultant,
-    programme, branch, abstract, acknowledgement, keywords, content
+    programme, branch, year_of_study, abstract, acknowledgement, keywords, content
   );
 
   import "prototyping.typ": assert_release_ready

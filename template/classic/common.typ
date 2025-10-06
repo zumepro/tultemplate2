@@ -1,6 +1,6 @@
 #import "../theme.typ": faculty_logotype, tul_logomark, faculty_color
 #import "../lang.typ": get_lang_item
-#import "../utils.typ": is_none, assert_dict_has
+#import "../utils.typ": is_none, assert_dict_has, map_none
 
 #let base_font = "Inter";
 #let mono_font = "Noto Sans Mono";
@@ -119,7 +119,7 @@
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, consultant, study_programme, study_branch,
+  title, author, supervisor, consultant, study_programme, study_branch, year_of_study,
 ) = {
   let info_name_value_padding = 5em;
   let info_name_min_width = 10em;
@@ -141,11 +141,12 @@
   // other info
   // [field_name, field_value, bold]
   let info_fields = (
-    ("study_programme", study_programme, false),
-    ("study_branch", study_branch, false),
     ("author", author, true),
     ("supervisor", person_info(supervisor, "supervisor"), false),
     ("consultant", person_info(consultant, "consultant"), false),
+    ("study_programme", study_programme, false),
+    ("study_branch", study_branch, false),
+    ("year_of_study", map_none(year_of_study, (v) => str(v) + "."), false),
   )
   context {
     let max_field_name_width = calc.max(..info_fields.map((v) => {
@@ -180,7 +181,7 @@
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, consultant, study_programme, study_branch
+  title, author, supervisor, consultant, study_programme, study_branch, year_of_study,
 ) = {
   import "../utils.typ": has_all_none, map_none
   let nonetype = type(none);
@@ -195,7 +196,7 @@
         info(
           faculty_id, language, document_type, map_none(title, (v) => v.at(language)),
           author, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
-          map_none(study_branch, (v) => v.at(language)),
+          map_none(study_branch, (v) => v.at(language)), year_of_study,
         );
         v(5em);
       }, bottom);

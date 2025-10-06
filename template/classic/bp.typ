@@ -21,7 +21,7 @@
 
   // document info
   title, author, author_gender, supervisor, consultant, study_programme, study_branch,
-  abstract_content, acknowledgement_content, keywords,
+  year_of_study, abstract_content, acknowledgement_content, keywords,
 
   content
 ) = {
@@ -49,7 +49,7 @@
 
   mainpage(
     faculty_id, language, "bp", title, author, supervisor, consultant, study_programme,
-    study_branch,
+    study_branch, year_of_study,
   );
   assignment(language, assignment_document);
   default_styling(false, faculty_color, {
