@@ -12,7 +12,7 @@
   language, faculty_id, document_type, citation_file, assignment_document,
 
   // document info
-  title, author, author_gender, supervisor, consultant, study_programme, study_branch,
+  title, author, author_pronouns, supervisor, consultant, study_programme, study_branch,
   year_of_study, abstract, acknowledgement, keywords,
 
   // content
@@ -37,7 +37,7 @@
     map_none(citation_file, (v) => "../../" + v),
     title,
     author,
-    author_gender,
+    author_pronouns,
     supervisor,
     consultant,
     study_programme,

@@ -28,7 +28,7 @@
 // - document (str): Type of document. This can be "bp" or "other".
 // - title (dictionary): The title of the document.
 // - author (str): The name of the document's author.
-// - author_gender (str): The gender of the document's author. Needed only for the `cs` language.
+// - author_pronouns (str): The gender of the document's author. Needed only for the `cs` language.
 // - supervisor (str): The name of the document's supervisor.
 // - consultant (str): The name of the document's consultant.
 // - programme (dictionary): Study programme.
@@ -46,7 +46,7 @@
 
   // document info
   title: none, keywords: none, abstract: none, acknowledgement: none, author: none,
-  author_gender: none, supervisor: none, consultant: none, programme: none,
+  author_pronouns: none, supervisor: none, consultant: none, programme: none,
   branch: none, year_of_study: none,
 
   // links
@@ -71,7 +71,7 @@
     acknowledgement, "dictionary[string : string] | none", "acknowledgement content"
   );
   assert_type_signature(author, "string | none", "author argument");
-  assert_type_signature(author_gender, "string | none", "author gender argument");
+  assert_type_signature(author_pronouns, "string | none", "author gender argument");
   assert_type_signature(
     supervisor, "string | dictionary[string : string] | none", "supervisor argument"
   );
@@ -101,7 +101,7 @@
   // template call
   templates.at(style)(
     lang, faculty, document, citations, assignment,
-    title, author, author_gender, supervisor, consultant,
+    title, author, author_pronouns, supervisor, consultant,
     programme, branch, year_of_study, abstract, acknowledgement, keywords, content
   );
 

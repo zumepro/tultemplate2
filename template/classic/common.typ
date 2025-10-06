@@ -228,11 +228,11 @@
 
 // DISCLAIMER PAGE
 
-#let disclaimer(language, faculty_id, disclaimer_type, author, author_gender) = {
+#let disclaimer(language, faculty_id, disclaimer_type, author, author_pronouns) = {
   import "../lang.typ": disclaimer
   heading(get_lang_item(language, "disclaimer"), numbering: none, outlined: false);
   par(
-    text(disclaimer(language, disclaimer_type, author_gender))
+    text(disclaimer(language, disclaimer_type, author_pronouns))
   );
   v(5em);
   grid(

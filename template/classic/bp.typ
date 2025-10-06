@@ -20,7 +20,7 @@
   faculty_id, faculty_color, language, assignment_document, citation_file,
 
   // document info
-  title, author, author_gender, supervisor, consultant, study_programme, study_branch,
+  title, author, author_pronouns, supervisor, consultant, study_programme, study_branch,
   year_of_study, abstract_content, acknowledgement_content, keywords,
 
   content
@@ -41,7 +41,7 @@
   }
   assert_not_none(acknowledgement_content, "acknowledgement content");
   if language == "cs" {
-    assert_not_none(author_gender, "author gender");
+    assert_not_none(author_pronouns, "author gender");
   }
 
   assert_type_signature(supervisor, "string | none", "supervisor");
@@ -53,7 +53,7 @@
   );
   assignment(language, assignment_document);
   default_styling(false, faculty_color, {
-    disclaimer(language, faculty_id, "bp", author, author_gender);
+    disclaimer(language, faculty_id, "bp", author, author_pronouns);
     abstract("cs", title, abstract_content, keywords);
     abstract("en", title, abstract_content, keywords);
     acknowledgement(language, author, acknowledgement_content);

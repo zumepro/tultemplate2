@@ -45,13 +45,13 @@
   });
 }
 
-#let disclaimer(language, document_type, author_gender) = {
+#let disclaimer(language, document_type, author_pronouns) = {
   let disclaimer = get_lang_item(language, "disclaimer_content");
   let replacements = get_lang_item(language, "disclaimer_replace").at(document_type);
   if language == "cs" {
-    disclaimer = replace_czech_gender(disclaimer, author_gender);
+    disclaimer = replace_czech_gender(disclaimer, author_pronouns);
   } else if language == "en" {
-    disclaimer = replace_english_pronounce(disclaimer, author_gender);
+    disclaimer = replace_english_pronounce(disclaimer, author_pronouns);
   }
   for (key, value) in replacements.pairs() {
     disclaimer = disclaimer.replace("{" + key + "}", value);

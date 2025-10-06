@@ -331,7 +331,7 @@ Zvýrazněné hodnoty jsou základní -- pokud vynecháte parametr, pak bude pou
 - `author` (autor/autoři dokumentu)
   - Příklad: `"Pavel Novák"` nebo `"Petra Velká, Jindřich Peterka"`
 #line()
-- `author_gender` (jazykový rod autora - není potřeba pro angličtinu, která má základní hodnotu)
+- `author_pronouns` (jazykový rod autora - není potřeba pro angličtinu, která má základní hodnotu)
   - Pro vybraný jazyk _cs_:
     - `"masculine"` - Mužský rod
     - `"feminine"` - Ženský rod
