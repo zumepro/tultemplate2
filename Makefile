@@ -2,9 +2,9 @@
 view_example: documentation.pdf
 	xdg-open $<
 
-.PHONY: watch_example
-watch_example:
-	typst watch --font-path template/fonts example.typ & xdg-open documentation.pdf
+.PHONY: watch_documentation
+watch_documentation:
+	typst watch --font-path template/fonts documentation.typ & xdg-open documentation.pdf
 
 .PHONY: documentation
 documentation: documentation.pdf

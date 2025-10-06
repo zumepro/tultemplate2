@@ -76,6 +76,13 @@
   show raw.where(block: true): it => {
     block(it, fill: rgb("#eee"), inset: 1em)
   };
+  show link: it => {
+    if type(it.dest) == label or type(it.dest) == location {
+      it;
+    } else {
+      text(it, fill: faculty_color);
+    }
+  }
   set highlight(fill: faculty_color.lighten(90%));
 
   content

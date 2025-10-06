@@ -91,7 +91,7 @@ opravdu hodně vám to usnadní práci.
 
 // tohle je podnadpis :)
 #heading(
-  level: 3,
+  level: 2,
   range(1, 6).map((v) => range(1, v).map((_) => "pod").join("") + "nadpisy").join(", ") + ", ..."
 )<chained_subheading>
 
