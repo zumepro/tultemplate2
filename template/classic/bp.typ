@@ -56,7 +56,7 @@
     disclaimer(language, faculty_id, "bp", author, author_gender);
     abstract("cs", title, abstract_content, keywords);
     abstract("en", title, abstract_content, keywords);
-    acknowledgement(language, acknowledgement_content);
+    acknowledgement(language, author, acknowledgement_content);
     toc(language);
     tablelist(language);
     imagelist(language);

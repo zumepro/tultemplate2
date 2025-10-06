@@ -246,12 +246,14 @@
 
 // ACKNOWLEDGEMENT PAGE
 
-#let acknowledgement(language, content) = {
+#let acknowledgement(language, author, content) = {
   if is_none(content) {
     return;
   }
   heading(get_lang_item(language, "acknowledgement"), numbering: none, outlined: false);
   par(content.at(language));
+  v(2em);
+  align(right, author);
 }
 
 // ABSTRACT
