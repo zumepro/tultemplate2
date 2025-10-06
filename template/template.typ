@@ -45,8 +45,8 @@
   style: "classic", faculty: "tul", lang: "cs", document: "other",
 
   // document info
-  title: none, keywords: none, abstract: none, author: none, author_gender: none,
-  supervisor: none, consultant: none, programme: none, branch: none,
+  title: none, keywords: none, abstract: none, acknowledgement: none, author: none,
+  author_gender: none, supervisor: none, consultant: none, programme: none, branch: none,
 
   // links
   assignment: none, citations: "citations.bib",
@@ -65,6 +65,9 @@
   assert_type_signature(keywords, "dictionary[string : array[string]] | none", "keywords argument");
   assert_type_signature(
     abstract, "dictionary[string : string | content] | none", "abstract argument"
+  );
+  assert_type_signature(
+    acknowledgement, "dictionary[string : string] | none", "acknowledgement content"
   );
   assert_type_signature(author, "string | none", "author argument");
   assert_type_signature(author_gender, "string | none", "author gender argument");
@@ -97,7 +100,7 @@
   templates.at(style)(
     lang, faculty, document, citations, assignment,
     title, author, author_gender, supervisor, consultant,
-    programme, branch, abstract, keywords, content
+    programme, branch, abstract, acknowledgement, keywords, content
   );
 
   import "prototyping.typ": assert_release_ready

@@ -18,7 +18,8 @@
   faculty_id, faculty_color, language, assignment_document, citation_file,
 
   // document info
-  title, author, _, supervisor, consultant, study_programme, study_branch, abstract_content, keywords,
+  title, author, _, supervisor, consultant, study_programme, study_branch, abstract_content,
+  _, keywords,
 
   content
 ) = {

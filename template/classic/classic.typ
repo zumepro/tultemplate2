@@ -13,7 +13,7 @@
 
   // document info
   title, author, author_gender, supervisor, consultant, study_programme, study_branch, abstract,
-  keywords,
+  acknowledgement, keywords,
 
   // content
   content,
@@ -27,7 +27,7 @@
   map_none(title, (v) => assert_dict_has((language,), v, "title"));
   map_none(study_programme, (v) => assert_dict_has((language,), v, "study programme"));
   map_none(study_branch, (v) => assert_dict_has((language,), v, "study branch"));
-
+  map_none(acknowledgement, (v) => assert_dict_has((language,), v, "acknowledgement content"));
 
   document_types.at(document_type)(
     faculty_id,
@@ -43,6 +43,7 @@
     study_programme,
     study_branch,
     abstract,
+    acknowledgement,
     keywords,
     content,
   );

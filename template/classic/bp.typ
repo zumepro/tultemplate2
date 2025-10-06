@@ -5,6 +5,7 @@
   assignment,
   disclaimer,
   abstract,
+  acknowledgement,
   toc,
   abbrlist,
   imagelist,
@@ -20,7 +21,7 @@
 
   // document info
   title, author, author_gender, supervisor, consultant, study_programme, study_branch,
-  abstract_content, keywords,
+  abstract_content, acknowledgement_content, keywords,
 
   content
 ) = {
@@ -38,6 +39,7 @@
   if not is_none(keywords) {
     assert_dict_has(force_langs, keywords, "keywords");
   }
+  assert_not_none(acknowledgement_content, "acknowledgement content");
   if language == "cs" {
     assert_not_none(author_gender, "author gender");
   }
@@ -54,6 +56,7 @@
     disclaimer(language, faculty_id, "bp", author, author_gender);
     abstract("cs", title, abstract_content, keywords);
     abstract("en", title, abstract_content, keywords);
+    acknowledgement(language, acknowledgement_content);
     toc(language);
     tablelist(language);
     imagelist(language);

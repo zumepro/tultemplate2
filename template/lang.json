@@ -36,6 +36,7 @@
 		"date": "[day]. [month]. [year]",
 
 		"abstract": "Abstrakt",
+		"acknowledgement": "Poděkování",
 		"keywords": "Klíčová slova",
 		"abbrs": "Seznam zkratek",
 		"image_list": "Seznam obrázků",
@@ -74,6 +75,7 @@
 		"date": "[year]-[month]-[day]",
 
 		"abstract": "Abstract",
+		"acknowledgement": "Acknowledgement",
 		"keywords": "Keywords",
 		"abbrs": "List of abbreviations",
 		"image_list": "List of images",
