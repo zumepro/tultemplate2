@@ -422,8 +422,14 @@ Zde je ukázka definice příloh (je také použita na konci tohoto ukázkového
 
 ```typst
 #attachments(
-  attach_link("Zdrojový kód této šablony", "https://git.zumepro.cz/tul/tultemplate2"),
-  attach_content("Testovací obsah vygenerovaný Typstem", [Sem lze psát _stylovaný_ obsah.]),
+  attach_link(
+    "Zdrojový kód této šablony",
+    "https://git.zumepro.cz/tul/tultemplate2"
+  ),
+  attach_content(
+    "Testovací obsah vygenerovaný Typstem",
+    [Sem lze psát _stylovaný_ obsah.]
+  ),
 )
 ```
 
