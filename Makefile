@@ -33,6 +33,14 @@ pack/tultemplate2/template/LICENSE: LICENSE
 	@mkdir -p $(@D)
 	ln -f $< $@
 
+pack/tultemplate2/template/tul_citace.csl: template/tul_citace.csl
+	@mkdir -p $(@D)
+	cat $< | sed 's/^\s*\(.*\)$$/\1/' | tr -d '\n' > $@
+
+pack/tultemplate2/template/lang.json: template/lang.json
+	@mkdir -p $(@D)
+	cat $< | jq -c > $@
+
 pack/tultemplate2/template/%: template/%
 	@mkdir -p $(@D)
 	ln -f $< $@
