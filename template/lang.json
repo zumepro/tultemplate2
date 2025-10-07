@@ -5,7 +5,7 @@
 		"supervisor": "Vedoucí práce",
 		"consultant": "Konzultant práce",
 		"study_programme": "Studijní program",
-		"study_branch": "Studijní obor",
+		"study_specialization": "Specializace",
 		"year_of_study": "Ročník",
 
 		"bp": "Bakalářská práce",
@@ -73,7 +73,7 @@
 		"supervisor": "Supervisor",
 		"consultant": "Consultant",
 		"study_programme": "Study programme",
-		"study_branch": "Study branch",
+		"study_specialization": "Specialization",
 		"year_of_study": "Year of study",
 
 		"bp": "Bachelor thesis",

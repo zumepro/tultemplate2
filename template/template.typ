@@ -32,7 +32,7 @@
 // - supervisor (str): The name of the document's supervisor.
 // - consultant (str): The name of the document's consultant.
 // - programme (dictionary): Study programme.
-// - branch (disctionary): Study branch
+// - specialization (disctionary): Study specialization
 // - abstract (dictionary): The abstract.
 // - keywords (dictionary): The abstract keywords.
 // - assignment (str): Filepath of the assignment document/page.
@@ -47,7 +47,7 @@
   // document info
   title: none, keywords: none, abstract: none, acknowledgement: none, author: none,
   author_pronouns: none, supervisor: none, consultant: none, programme: none,
-  branch: none, year_of_study: none,
+  specialization: none, year_of_study: none,
 
   // links
   assignment: none, citations: "citations.bib",
@@ -81,7 +81,9 @@
   assert_type_signature(
     programme, "dictionary[string : string] | none", "study programme argument"
   );
-  assert_type_signature(branch, "dictionary[string : string] | none", "study branch argument");
+  assert_type_signature(
+    specialization, "dictionary[string : string] | none", "study specialization argument"
+  );
   assert_type_signature(year_of_study, "integer | none", "year of study");
   assert_type_signature(assignment, "string | none", "assignment document argument");
   assert_type_signature(citations, "string", "citations file argument");
@@ -102,7 +104,7 @@
   templates.at(style)(
     lang, faculty, document, citations, assignment,
     title, author, author_pronouns, supervisor, consultant,
-    programme, branch, year_of_study, abstract, acknowledgement, keywords, content
+    programme, specialization, year_of_study, abstract, acknowledgement, keywords, content
   );
 
   import "prototyping.typ": assert_release_ready

@@ -13,7 +13,7 @@
   language, faculty_id, document_type, citation_file, assignment_document,
 
   // document info
-  title, author, author_pronouns, supervisor, consultant, study_programme, study_branch,
+  title, author, author_pronouns, supervisor, consultant, study_programme, study_specialization,
   year_of_study, abstract, acknowledgement, keywords,
 
   // content
@@ -28,7 +28,7 @@
   assert_in_dict(document_type, document_types, "document type");
   map_none(title, (v) => assert_dict_has((language,), v, "title"));
   map_none(study_programme, (v) => assert_dict_has((language,), v, "study programme"));
-  map_none(study_branch, (v) => assert_dict_has((language,), v, "study branch"));
+  map_none(study_specialization, (v) => assert_dict_has((language,), v, "study specialization"));
   map_none(acknowledgement, (v) => assert_dict_has((language,), v, "acknowledgement content"));
 
   document_types.at(document_type)(
@@ -43,7 +43,7 @@
     supervisor,
     consultant,
     study_programme,
-    study_branch,
+    study_specialization,
     year_of_study,
     abstract,
     acknowledgement,

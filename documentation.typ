@@ -356,7 +356,7 @@ Zvýrazněné hodnoty jsou základní -- pokud vynecháte parametr, pak bude pou
   - Je vyžadován jazyk, který je vybrán pro celou šablonu -- tohle je pojistka, aby uživatel šablony
     nevynechal vybraný jazyk
 #line()
-- `branch` (studijní obor)
+- `specialization` (specializace)
   - Stejně jako #link(<arg_programme>, [`programme`])
 #line()
 - `abstract` (abstrakt)

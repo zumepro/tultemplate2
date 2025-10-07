@@ -20,7 +20,7 @@
   faculty_id, faculty_color, language, assignment_document, citation_file,
 
   // document info
-  title, author, author_pronouns, supervisor, consultant, study_programme, study_branch,
+  title, author, author_pronouns, supervisor, consultant, study_programme, study_specialization,
   year_of_study, abstract_content, acknowledgement_content, keywords,
 
   content
@@ -31,8 +31,8 @@
 
   assert_not_none(study_programme, "study programme");
   assert_dict_has((language,), study_programme, "study programme");
-  assert_not_none(study_branch, "study branch");
-  assert_dict_has((language,), study_branch, "study branch");
+  assert_not_none(study_specialization, "study specialization");
+  assert_dict_has((language,), study_specialization, "study specialization");
 
   assert_not_none(abstract_content, "abstract");
   assert_dict_has(force_langs, abstract_content, "abstract");
@@ -49,7 +49,7 @@
 
   mainpage(
     faculty_id, language, "bp", title, author, supervisor, consultant, study_programme,
-    study_branch, year_of_study,
+    study_specialization, year_of_study,
   );
   assignment(language, assignment_document);
   default_styling(false, faculty_color, {

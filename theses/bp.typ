@@ -14,7 +14,7 @@
   supervisor: "Ondřej Mekina",
   consultant: "Michal Procházka (nepovinný údaj)",
   programme: (cs: "Můj krásný studijní program"),
-  branch: (cs: "Můj krásný studijní obor"),
+  specialization: (cs: "Moje krásná studijní specializace"),
   abstract: (
     cs: [
       Tento dokument slouží jako praktická ukázka všech důležitcýh funkcí šablony _tultemplate2_,

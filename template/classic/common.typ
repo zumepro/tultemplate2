@@ -135,7 +135,7 @@
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, consultant, study_programme, study_branch, year_of_study,
+  title, author, supervisor, consultant, study_programme, study_specialization, year_of_study,
 ) = {
   let info_name_value_padding = 5em;
   let info_name_min_width = 10em;
@@ -161,7 +161,7 @@
     ("supervisor", person_info(supervisor, "supervisor"), false),
     ("consultant", person_info(consultant, "consultant"), false),
     ("study_programme", study_programme, false),
-    ("study_branch", study_branch, false),
+    ("study_specialization", study_specialization, false),
     ("year_of_study", map_none(year_of_study, (v) => str(v) + "."), false),
   )
   context {
@@ -197,7 +197,7 @@
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, consultant, study_programme, study_branch, year_of_study,
+  title, author, supervisor, consultant, study_programme, study_specialization, year_of_study,
 ) = {
   import "../utils.typ": has_all_none, map_none
   let nonetype = type(none);
@@ -212,7 +212,7 @@
         info(
           faculty_id, language, document_type, map_none(title, (v) => v.at(language)),
           author, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
-          map_none(study_branch, (v) => v.at(language)), year_of_study,
+          map_none(study_specialization, (v) => v.at(language)), year_of_study,
         );
         v(5em);
       }, bottom);
