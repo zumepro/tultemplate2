@@ -99,13 +99,15 @@ rovná se a mezera na začátku řádku, čili ve zdrojovém souboru Typstu je p
 = Můj nadpis první úrovně 
 ```
 
-Pro nadpis druhé úrovně pak použijeme dvě rovná se, pro nadpis třetí úrovně tři rovná se... Úrovní podnadpisů je dost na to, že vám pravděpodobně nedojdou.
+Pro nadpis druhé úrovně pak použijeme dvě rovná se, pro nadpis třetí úrovně tři rovná se.
+Šablona *tultemplate2* Vám ovšem bohužel nedovolí nadpis čtvrté a další úrovně, protože by takový
+nadpis porušoval směrnice TUL o formátování dokumentů. Ale nemusíte se bát. Pokud takový nadpis
+uděláte -- šablona vyhodí chybu, aby vás na to upozornila.
 
 ```typst
 = Nadpis
 == Podnadpis
 === Podpodnadpis
-==== už tomu asi rozumíte ...
 
 A pak obsah
 ```
@@ -165,8 +167,7 @@ https://en.wikipedia.org/wiki/List_of_URI_schemes.
 == Obrázky
 
 Obrázky je možné vkládat samotné, nebo i s popiskem.
-
-Obrázek se vloží pomocí funkce `image`:
+Obrázek se vloží pomocí funkce `image`.
 
 Přidání popisku a zároveň zalistování obrázku v indexu (aby se na ně třeba dalo odkazovat) lze
 udělat pomocí funkce `figure`.
@@ -302,7 +303,7 @@ Při dalších použití bude vypadat takto: #abbr("ZK").
 
 == Přílohy
 
-Na konec souboru (nebo klidně doprostřed či na začátek, hlavní je, že pouze jednou) je také možné dát strukturu generující přílohy. Momentálně jsou podporované dva typy příloh, odkaz a obsah.
+Na konec souboru (nebo klidně doprostřed či na začátek, hlavní je, že pouze jednou) je také možné dát strukturu generující přílohy. Momentálně jsou podporované čtyři typy příloh: odkaz, obsah, PDF soubor vložený na konec dokumentu a odkaz na externí soubor (například přiložený do systému s diplomovou prací).
 Jako demonstrace by měla postačit praktická ukázka, která ve zdrojovém kódu následuje hned za tímto odstavcem, a která generuje přílohy tohoto dokumentu.
 
 #attachments(
