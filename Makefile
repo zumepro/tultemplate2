@@ -6,6 +6,14 @@ view_example: documentation.pdf
 watch_documentation:
 	typst watch --font-path template/fonts documentation.typ & xdg-open documentation.pdf
 
+.PHONY: watch_bp_cs
+watch_bp_cs:
+	typst watch --root . --font-path template/fonts theses/BP_cs/BP.typ bp.pdf & xdg-open bp.pdf
+
+.PHONY: watch_dp_cs
+watch_dp_cs:
+	typst watch --root . --font-path template/fonts theses/DP_cs/DP.typ dp.pdf & xdg-open dp.pdf
+
 .PHONY: documentation
 documentation: documentation.pdf
 
