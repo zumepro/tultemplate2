@@ -36,7 +36,7 @@
 
   // text
   set text(font: serif_font);
-  set par(justify: true);
+  set par(justify: true, first-line-indent: 0.63cm);
 
   // figures
   let figure_numbering(realcount, c) = {
@@ -70,6 +70,13 @@
     v(2cm);
     it
   };
+  show heading.where(): it => {
+    if it.level > 3 {
+      panic("maximum allowed heading level is 3");
+    } else {
+      it
+    }
+  }
 
   // other
   show raw: set text(font: mono_font, size: mono_font_compensation);
@@ -84,6 +91,7 @@
     }
   }
   set highlight(fill: faculty_color.lighten(90%));
+  set line(stroke: (paint: faculty_color, thickness: .7pt), length: 100%);
 
   content
 }
@@ -378,9 +386,13 @@
 
 #let bibliogr(language, citations_file) = {
   if language == "cs" {
-    bibliography(citations_file, style: "../tul_citace.csl");
+    bibliography(
+      citations_file, style: "../tul_citace.csl", title: get_lang_item(language, "bibliography"),
+    );
   } else if language == "en" {
-    bibliography(citations_file, style: "iso-690-numeric");
+    bibliography(
+      citations_file, style: "iso-690-numeric", title: get_lang_item(language, "bibliography"),
+    );
   } else {
     panic("unknown language for bibliography '" + language + "'");
   }

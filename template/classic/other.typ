@@ -9,6 +9,7 @@
   abbrlist,
   imagelist,
   tablelist,
+  bibliogr,
 )
 #import "../attachments.typ": attachment_list
 #import "../utils.typ": is_none, assert_not_none, assert_dict_has, assert_in_arr
@@ -37,7 +38,7 @@
     abbrlist(language);
     pagebreak(to: "even", weak: true);
     content;
-    bibliography(citation_file, style: "../tul_citace.csl");
+    bibliogr(language, citation_file);
     attachment_list(language);
   });
 }

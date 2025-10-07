@@ -105,6 +105,10 @@ Velmi jednoduché. Stačí na začátek řádku dát znak `=` kolikrát chcete.
 A pak obsah
 ```
 
+#highlight[
+  V rámci šablony classic lze použít nadpisy *maximálně* třetí úrovně -- jinak šablona vyhodí chybu.
+]
+
 == Zvýrazňování textu
 
 Syntaxe je velmi podobná například markdownu. Stačí:
@@ -168,8 +172,7 @@ A některé funkce berou klasický obsah -- v těch je možné psát obsah jako 
 == Obrázky
 
 Obrázky je možné vkládat samotné i třeba s popiskem.
-
-Obrázek se vloží pomocí funkce `image`:
+Obrázek se vloží pomocí funkce `image`.
 
 Přidání popisku a zároveň zalistování obrázku v indexu (aby se na ně třeba dalo odkazovat) lze
 udělat pomocí funkce `figure`.
