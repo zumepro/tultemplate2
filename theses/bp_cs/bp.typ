@@ -76,6 +76,7 @@ raději
 přehlednější
 formátování
 a sám si obsah dělí na řádky, protože ve výsledném PDF souboru se stejně spojí do jednoho celistvého odstavce.
+Musí akorát ručně dbát na to, aby odstavce nebyly příliš krátké, ani příliš dlouhé.
 
 S souvislosti s odstavci bych ještě zmínil, že Typst se za vás stará také o zarovnávání písma a slov do bloků
 a dělení slov mezi řádky. Chováním odpovídá pravidlům českého pravopisu a typografie, takže se o to nemusíte vůbec starat.
@@ -101,19 +102,9 @@ Pro nadpis druhé úrovně pak použijeme dvě rovná se, pro nadpis třetí úr
 A pak obsah
 ```
 
-
 == Číslování kapitol
 
 Asi jste si všimli, že každý nadpis začíná číslem dané kapitoly. Toto číslování provádí Typst automaticky, promítne se následně i v sekci Obsah na začátku souboru, nemusíte se tak opět o nic starat.
-
-```typst
-= Nadpis
-== Podnadpis
-=== Podpodnadpis
-==== už tomu asi rozumíte ...
-
-A pak obsah.
-```
 
 = Používání funkcí
 
