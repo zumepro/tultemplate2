@@ -9,6 +9,7 @@
 		"year_of_study": "Ročník",
 
 		"bp": "Bakalářská práce",
+		"dp": "Diplomová práce",
 
 		"city": "Liberec",
 
@@ -22,6 +23,21 @@
 				"práce:ta": "bakalářská práce",
 				"práce:tu": "bakalářskou práci",
 				"práce:té": "bakalářské práce",
+				"moji": "moji",
+				"naše": "naše",
+				"naši": "naši",
+				"naší": "naší",
+				"mé": "mé",
+				"můj": "moje",
+				"svůj": "svoji",
+				"jejímu": "jejímu",
+				"zveřejněn": "zveřejněna"
+			},
+
+			"dp": {
+				"práce:ta": "diplomová práce",
+				"práce:tu": "diplomovou práci",
+				"práce:té": "diplomové práce",
 				"moji": "moji",
 				"naše": "naše",
 				"naši": "naši",
@@ -60,6 +76,7 @@
 		"year_of_study": "Year of study",
 
 		"bp": "Bachelor thesis",
+		"dp": "Diploma thesis",
 
 		"city": "Liberec",
 
@@ -71,6 +88,10 @@
 		"disclaimer_replace": {
 			"bp": {
 				"thesis": "bachelor thesis"
+			},
+
+			"dp": {
+				"thesis": "diploma thesis"
 			}
 		},
 
