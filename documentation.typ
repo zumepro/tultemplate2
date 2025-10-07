@@ -323,6 +323,7 @@ Zvýrazněné hodnoty jsou základní -- pokud vynecháte parametr, pak bude pou
 - `document` (typ dokumentu)
   - *`"other"`* - nespecifikovaný (neformální) typ dokumentu
   - `bp` - Bakalářská práce
+  - `dp` - Diplomová práce
 #line()
 - `title` (nadpis dokumentu)
   - Ve formátu `(<zkratka_jazyka>: "<nadpis>")`, například `(cs: "Můj nadpis")`
