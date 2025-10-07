@@ -1,27 +1,35 @@
-#import "../../template/template.typ": *
+#import "../template/template.typ": *
 
 #show: tultemplate2.with(
   style: "classic",
   faculty: "fm",
   lang: "cs",
-  document: "bp",
-  title: (cs: "Ukázka dokumentu typu Bakalářská práce pro FM TUL v češtině", en: "Example document for a Bachelor's thesis for FM TUL in Czech"),
+  document: "dp",
+  title: (
+    cs: "Ukázka dokumentu typu Diplomová práce pro FM TUL v češtině",
+    en: "Example document for a Master's thesis for FM TUL in Czech",
+  ),
   author: "Matěj Žucha",
   author_pronouns: "masculine",
   supervisor: "Ondřej Mekina",
   consultant: "Michal Procházka (nepovinný údaj)",
   programme: (cs: "Můj krásný studijní program"),
-  branch: (cs: "Můj krásný studijní obor"),
   abstract: (
-    cs: 
-    "Tento dokument slouží jako praktická ukázka všech důležitcýh funkcí šablony _tultemplate2_, s názornými příklady použítí a jejich podrobným popisem.",
-    en:
-    "This document serves as a practical demonstration of all the important features of the _tultemplate2_ template, with useful examples and their respective descriptions.",
+    cs: [
+      Tento dokument slouží jako praktická ukázka všech důležitcýh funkcí šablony _tultemplate2_,
+      s názornými příklady použítí a jejich podrobným popisem.
+    ],
+    en: [
+      This document serves as a practical demonstration of all the important features of the
+      _tultemplate2_ template, with useful examples and their respective descriptions.
+    ]
   ),
-  keywords: (cs: ("Ukázka", "Klíčových", "Slov", "Česky"), en: ("Example", "Keywords", "In", "English")),
+  keywords: (
+    cs: ("Ukázka", "Klíčových", "Slov", "Česky"),
+    en: ("Example", "Keywords", "In", "English"),
+  ),
   acknowledgement: (cs: "Lorem ipsum dolor sit amet."),
-  assignment: "theses/bp_cs/zadani.pdf",
-  citations: "theses/bp_cs/citace.bib",
+  citations: "citations.bib",
 )
 
 = Co najdete v této šabloně
@@ -176,7 +184,7 @@ udělat pomocí funkce `figure`.
 
 Tady je praktická ukázka jednoduchého vložení obrázku s popiskem:
 
-#figure(image("../../template/assets/tul_logo.svg", width: 25%), caption: [
+#figure(image("../template/assets/tul_logo.svg", width: 25%), caption: [
   Logo *TUL*
 ])
 
