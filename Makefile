@@ -9,10 +9,13 @@ watch_documentation:
 .PHONY: documentation
 documentation: documentation.pdf
 
+PACKDIR := pack/tultemplate2
+BUNDLEDIR := pack/bundle
+
 TO_PACK := $(shell find template -type f) template/LICENSE
-BUNDLE_TARGETS := $(TO_PACK:%=pack/tultemplate2/%) pack/tultemplate2/citations.bib
-PACK_TARGETS := $(BUNDLE_TARGETS) pack/tultemplate2/documentation.typ \
-				pack/tultemplate2/documentation.pdf
+BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/Makefile
+PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) $(PACKDIR)/documentation.typ \
+				$(PACKDIR)/documentation.pdf $(PACKDIR)/citations.bib
 
 .PHONY: pack
 pack: pack/tultemplate2.zip
@@ -30,22 +33,43 @@ pack/tultemplate2.zip: $(PACK_TARGETS)
 	rm -f $@
 	cd pack && zip -r tultemplate2.zip tultemplate2
 
-pack/tultemplate2/%: %
-	ln -f $< $@
-
-pack/tultemplate2/template/LICENSE: LICENSE
+$(PACKDIR)/%: %
 	@mkdir -p $(@D)
 	ln -f $< $@
 
-pack/tultemplate2/template/tul_citace.csl: template/tul_citace.csl
+$(BUNDLEDIR)/citations.bib:
+	@mkdir -p $(@D)
+	touch $@
+
+$(BUNDLEDIR)/Makefile: templategen.mk
+	@mkdir -p $(@D)
+	ln -f $< $@
+
+$(PACKDIR)/template/LICENSE: LICENSE
+	@mkdir -p $(@D)
+	ln -f $< $@
+
+$(BUNDLEDIR)/template/LICENSE: LICENSE
+	@mkdir -p $(@D)
+	ln -f $< $@
+
+$(PACKDIR)/template/tul_citace.csl $(BUNDLEDIR)/template/tul_citace.csl: template/tul_citace.csl
 	@mkdir -p $(@D)
 	cat $< | sed 's/^\s*\(.*\)$$/\1/' | tr -d '\n' > $@
 
-pack/tultemplate2/template/lang.json: template/lang.json
+$(PACKDIR)/template/lang.json: template/lang.json
 	@mkdir -p $(@D)
 	cat $< | jq -c > $@
 
-pack/tultemplate2/template/%: template/%
+$(BUNDLEDIR)/template/lang.json: template/lang.json
+	@mkdir -p $(@D)
+	cat $< | jq -c > $@
+
+$(PACKDIR)/template/%: template/%
+	@mkdir -p $(@D)
+	ln -f $< $@
+
+$(BUNDLEDIR)/template/%: template/%
 	@mkdir -p $(@D)
 	ln -f $< $@
 
