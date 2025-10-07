@@ -13,7 +13,7 @@
   bibliogr
 )
 #import "../attachments.typ": attachment_list
-#import "../utils.typ": is_none, assert_dict_has, assert_not_none, assert_type_signature
+#import "../utils.typ": is_none, assert_dict_has, assert_not_none, assert_type_signature, map_none
 
 #let dp(
   // general settings
@@ -31,8 +31,7 @@
 
   assert_not_none(study_programme, "study programme");
   assert_dict_has((language,), study_programme, "study programme");
-  assert_not_none(study_branch, "study branch");
-  assert_dict_has((language,), study_branch, "study branch");
+  map_none(study_branch, (v) => assert_dict_has((language,), v, "study branch"));
 
   assert_not_none(abstract_content, "abstract");
   assert_dict_has(force_langs, abstract_content, "abstract");
