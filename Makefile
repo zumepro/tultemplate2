@@ -10,11 +10,15 @@ watch_documentation:
 documentation: documentation.pdf
 
 TO_PACK := $(shell find template -type f) template/LICENSE
-PACK_TARGETS := $(TO_PACK:%=pack/tultemplate2/%) pack/tultemplate2/documentation.typ \
-				pack/tultemplate2/documentation.pdf pack/tultemplate2/citations.bib
+BUNDLE_TARGETS := $(TO_PACK:%=pack/tultemplate2/%) pack/tultemplate2/citations.bib
+PACK_TARGETS := $(BUNDLE_TARGETS) pack/tultemplate2/documentation.typ \
+				pack/tultemplate2/documentation.pdf
 
 .PHONY: pack
 pack: pack/tultemplate2.zip
+
+.PHONY: bundle
+bundle: $(BUNDLE_TARGETS)
 
 .PHONY: clean
 clean:
