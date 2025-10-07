@@ -48,12 +48,12 @@
   assert_type_signature(consultant, "string | none", "consultant");
 
   mainpage(
-    faculty_id, language, "bp", title, author, supervisor, consultant, study_programme,
+    faculty_id, language, "dp", title, author, supervisor, consultant, study_programme,
     study_branch, year_of_study,
   );
   assignment(language, assignment_document);
   default_styling(false, faculty_color, {
-    disclaimer(language, faculty_id, "bp", author, author_pronouns);
+    disclaimer(language, faculty_id, "dp", author, author_pronouns);
     abstract("cs", title, abstract_content, keywords);
     abstract("en", title, abstract_content, keywords);
     acknowledgement(language, author, acknowledgement_content);
