@@ -5,6 +5,7 @@
 
 // thesis types
 #import "bp.typ": bp
+#import "dp.typ": dp
 #import "other.typ": other
 
 #let template_classic(
@@ -21,6 +22,7 @@
   // argument pre-checking
   let document_types = (
     "bp": bp,
+    "dp": dp,
     "other": other,
   )
   assert_in_dict(document_type, document_types, "document type");
