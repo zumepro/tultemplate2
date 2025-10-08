@@ -39,7 +39,6 @@
   if not is_none(keywords) {
     assert_dict_has(force_langs, keywords, "keywords");
   }
-  assert_not_none(acknowledgement_content, "acknowledgement content");
   if language == "cs" {
     assert_not_none(author_pronouns, "author gender");
   }
