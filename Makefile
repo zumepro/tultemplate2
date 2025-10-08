@@ -47,9 +47,9 @@ $(PACKDIR)/%: %
 	@mkdir -p $(@D)
 	ln -f $< $@
 
-$(BUNDLEDIR)/citations.bib:
+$(BUNDLEDIR)/citations.bib: citations.bib
 	@mkdir -p $(@D)
-	touch $@
+	ln -f $< $@
 
 $(BUNDLEDIR)/bp.typ: theses/bp.typ
 	@mkdir -p $(@D)
