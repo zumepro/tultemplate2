@@ -68,7 +68,7 @@
     abstract, "dictionary[string : string | content] | none", "abstract argument"
   );
   assert_type_signature(
-    acknowledgement, "dictionary[string : string] | none", "acknowledgement content"
+    acknowledgement, "dictionary[string : string | content] | none", "acknowledgement content"
   );
   assert_type_signature(author, "string | none", "author argument");
   assert_type_signature(author_pronouns, "string | none", "author gender argument");
