@@ -54,8 +54,14 @@
   assignment(language, assignment_document);
   default_styling(false, faculty_color, {
     disclaimer(language, faculty_id, "bp", author, author_pronouns);
-    abstract("cs", title, abstract_content, keywords);
-    abstract("en", title, abstract_content, keywords);
+    if language == "cs" {
+      abstract("cs", title, abstract_content, keywords);
+      abstract("en", title, abstract_content, keywords);
+    }
+    if language == "en" {
+      abstract("en", title, abstract_content, keywords);
+      abstract("cs", title, abstract_content, keywords);
+    }
     acknowledgement(language, author, acknowledgement_content);
     toc(language);
     tablelist(language);
