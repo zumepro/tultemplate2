@@ -39,9 +39,8 @@ Tato šablona má sloužit jako ukázková bakalářská práce napsaná pomocí
 *tultemplate2*. Může posloužit jako jednoduchý základ i pro vaši práci, stačí se naučit používat
 pár užitečných funkcí, jako např. vkládání obrázků, tabulek, citací nebo odkazů.
 
-Na rozdíl od souboru _example.typ_, který je dostupný ke stažení na stránkách projektu, obsahuje
-tento dokument jenom to nejpotřebnější ze znalostí, co postačí k úspěšnému napsání práce. Jen pro
-úplnost je zde ve zkratce něco málo o jazyce typst a motivaci k tvorbě této šablony:
+Na rozdíl od souboru _documentation.typ_, který je dostupný ke stažení na stránkách projektu, obsahuje
+tento dokument jenom to nejpotřebnější ze znalostí, co postačí k úspěšnému napsání práce. Pokud vám budou nějaké funkce chybět, můžete se podívat do zmíněného souboru, anebo kontaktovat některého z autorů, kteří se vám pokusí pomoct. Jen pro úplnost je zde ve zkratce něco málo o jazyce typst a motivaci k tvorbě této šablony:
 
 Typst je profesionální sázecí nástroj podobný markdownu, LaTeXu/TeXu, groffu, atd.
 
@@ -76,7 +75,7 @@ nebo když použijete zmíněný prázdný řádek,
 
 
 anebo co se stane při použití dvou a více prázdných řádků. (spoiler: 1 a více prázdných řádků mají identické
-chování, pouze ukončení řádku je interpretováno stejně jako např. mezerník)
+chování, pouze ukončení řádku je interpretováno stejně jako např. mezerník nebo tabulátor)
 
 Uživatel má tím pádem svobodu v tom, jestli ve zdrojovém souboru používá dlouhé řádky plné textu,
 nebo
@@ -88,7 +87,7 @@ a sám si obsah dělí na řádky, protože ve výsledném PDF souboru se stejn�
 Musí akorát ručně dbát na to, aby odstavce nebyly příliš krátké, ani příliš dlouhé.
 
 S souvislosti s odstavci bych ještě zmínil, že Typst se za vás stará také o zarovnávání písma a slov do bloků
-a dělení slov mezi řádky. Chováním odpovídá pravidlům českého pravopisu a typografie, takže se o to nemusíte vůbec starat.
+a dělení slov mezi řádky, když už se na něj nevejdou. Chováním odpovídá pravidlům českého pravopisu a typografie, takže se o to nemusíte vůbec starat.
 
 == Nadpisy
 
