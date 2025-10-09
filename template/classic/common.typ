@@ -1,5 +1,5 @@
 #import "../theme.typ": faculty_logotype, tul_logomark, faculty_color
-#import "../lang.typ": get_lang_item
+#import "../lang.typ": get_lang_item, set_czech_nonbreakable_terms
 #import "../utils.typ": is_none, assert_dict_has, map_none
 
 #let base_font = "Inter";
@@ -15,7 +15,7 @@
 
 // TYPST ELEMENT STYLING
 
-#let default_styling(flip_bonding, faculty_color, content) = {
+#let default_styling(flip_bonding, faculty_color, content, language) = {
   // page
   set page(
     margin: if flip_bonding {
@@ -37,6 +37,9 @@
   // text
   set text(font: serif_font);
   set par(justify: true, first-line-indent: 0.63cm);
+  if language == "cs" {
+    content = set_czech_nonbreakable_terms(content);
+  }
 
   // figures
   let figure_numbering(realcount, c) = {

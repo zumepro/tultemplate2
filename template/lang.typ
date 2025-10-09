@@ -45,6 +45,34 @@
   });
 }
 
+#let set_czech_nonbreakable_terms(content) = {
+  let space_after = (
+    "[kosuvzai]",
+    "(tj|tzv|tzn)\.",
+  );
+  show regex("\b((?i)(" + space_after.join("|") + ") )+\w+\b"): match => {
+    box(match);
+  }
+
+  let nonbreaking_abbreviations = (
+    "a. s",
+    "s. r. o",
+    "v. o. s",
+    "k. s",
+    "n. p",
+    "p. o",
+    "č. ([pe]|ev)",
+    "ev?. č",
+  );
+  show regex(
+    "(?i)\b(" + nonbreaking_abbreviations.map((v) => { v.replace(".", "\\.") }).join("|") + ")\."
+  ): match => {
+    box(match);
+  }
+
+  content
+}
+
 #let disclaimer(language, document_type, author_pronouns) = {
   let disclaimer = get_lang_item(language, "disclaimer_content");
   let replacements = get_lang_item(language, "disclaimer_replace").at(document_type);

@@ -70,5 +70,5 @@
     content;
     bibliogr(language, citation_file);
     attachment_list(language);
-  });
+  }, language);
 }
