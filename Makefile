@@ -21,8 +21,8 @@ PACKDIR := pack/tultemplate2
 BUNDLEDIR := pack/bundle
 
 TO_PACK := $(shell find template -type f) template/LICENSE
-BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp.typ \
-				  $(BUNDLEDIR)/dp.typ $(BUNDLEDIR)/Makefile
+BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
+				  $(BUNDLEDIR)/bp_en.typ $(BUNDLEDIR)/dp_cs.typ $(BUNDLEDIR)/Makefile
 PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) $(PACKDIR)/documentation.typ \
 				$(PACKDIR)/documentation.pdf $(PACKDIR)/citations.bib
 
@@ -51,11 +51,7 @@ $(BUNDLEDIR)/citations.bib: citations.bib
 	@mkdir -p $(@D)
 	ln -f $< $@
 
-$(BUNDLEDIR)/bp.typ: theses/bp.typ
-	@mkdir -p $(@D)
-	awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' $< | sed 's/\.\.\/template\//template\//' > $@
-
-$(BUNDLEDIR)/dp.typ: theses/dp.typ
+$(BUNDLEDIR)/%.typ: theses/%.typ
 	@mkdir -p $(@D)
 	awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' $< | sed 's/\.\.\/template\//template\//' > $@
 
