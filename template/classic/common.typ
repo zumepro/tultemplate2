@@ -400,7 +400,12 @@
       gutter: 1em,
       ..abbrs.pairs().map((a) => {
         (
-          align(left, block(text(a.at(0), weight: "bold"), width: max_abbr_width + 1em)),
+          align(left, {
+            [
+              #block(text(a.at(0), weight: "bold"), width: max_abbr_width + 1em)
+              #label("abbr_" + a.at(0))
+            ]
+          }),
           text(a.at(1))
         )
       }).flatten()

@@ -18,10 +18,11 @@
     }
     "(" + abbrs.pairs().map((v) => { v.at(0) + ":\"" + v.at(1) + "\"" }).join(",") + ")"
   });
+  let target_label = label("abbr_" + abbreviation);
   if type(text) != type(none) {
-    text + " (" + abbreviation + ")";
+    link(target_label, text + " (" + abbreviation + ")");
   } else {
-    abbreviation;
+    link(target_label, abbreviation)
   }
 }
 
