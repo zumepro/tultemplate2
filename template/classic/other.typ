@@ -13,32 +13,22 @@
 )
 #import "../attachments.typ": attachment_list
 #import "../utils.typ": is_none, assert_not_none, assert_dict_has, assert_in_arr
+#import "../arguments.typ": req_arg
+#import "../theme.typ": faculty_color
 
-#let other(
-  // general settings
-  faculty_id, faculty_color, language, assignment_document, citation_file,
-
-  // document info
-  title, author, _, supervisor, consultant, study_programme, study_specialization, year_of_study,
-  abstract_content, _, keywords,
-
-  content
-) = {
-  assert_not_none(title, "title");
+#let other(args, content) = {
+  let (language, title) = req_arg(args, ("document.language", "title"));
   assert_dict_has((language,), title, "title");
 
-  mainpage(
-    faculty_id, language, none, title, author, supervisor, consultant, study_programme,
-    study_specialization, year_of_study,
-  );
-  default_styling(true, faculty_color, {
+  mainpage(args);
+  default_styling(true, faculty_color(req_arg(args, "document.faculty")), {
     toc(language);
     tablelist(language);
     imagelist(language);
     abbrlist(language);
     pagebreak(to: "even", weak: true);
     content;
-    bibliogr(language, citation_file);
+    bibliogr(args);
     attachment_list(language);
   }, language);
 }

@@ -1,6 +1,7 @@
 #import "../theme.typ": faculty_logotype, tul_logomark, faculty_color
 #import "../lang.typ": get_lang_item, set_czech_nonbreakable_terms
-#import "../utils.typ": is_none, assert_dict_has, map_none
+#import "../utils.typ": is_none, assert_dict_has, has_all_none, map_none
+#import "../arguments.typ": req_arg, get_arg
 
 #let base_font = "Inter";
 #let mono_font = "Noto Sans Mono";
@@ -145,7 +146,7 @@
   let gutter = .7em;
 
   // document type
-  if type(document_type) != type(none) {
+  if document_type != "other" {
     text(get_lang_item(language, document_type), weight: "bold", font: base_font);
     v(0em);
   }
@@ -196,24 +197,32 @@
 
 // MAINPAGE
 
-#let mainpage(
-  faculty_id,
-  language,
-  document_type,
-  title, author, supervisor, consultant, study_programme, study_specialization, year_of_study,
-) = {
-  import "../utils.typ": has_all_none, map_none
-  let nonetype = type(none);
+#let mainpage(args) = {
+  let (
+    language, document_type, faculty,
+    title, author, supervisor, consultant, study_programme, study_specialization, year_of_study,
+  ) = get_arg(args, (
+    "document.language",
+    "document.type",
+    "document.faculty",
+    "title",
+    "author.name",
+    "project.supervisor",
+    "project.consultant",
+    "author.programme",
+    "author.specialization",
+    "author.year_of_study",
+  ));
   page({
     if has_all_none((
       document_type, title, author, supervisor, consultant, study_programme,
     )) {
       place(center + horizon, align(left, faculty_logotype(faculty_id, language)));
     } else {
-      header(faculty_id, language);
+      header(faculty, language);
       align({
         info(
-          faculty_id, language, document_type, map_none(title, (v) => v.at(language)),
+          faculty, language, document_type, map_none(title, (v) => v.at(language)),
           author, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
           map_none(study_specialization, (v) => v.at(language)), year_of_study,
         );
@@ -225,11 +234,11 @@
 
 // ASSIGNMENT PAGE
 
-#let assignment(language, document) = {
-  if type(document) == type(none) {
+#let assignment(args) = {
+  if is_none(get_arg(args, "assignment")) {
     page(
       place(center + horizon, text(
-        get_lang_item(language, "place_assignment"),
+        get_lang_item(req_arg(args, "document.language"), "place_assignment"),
         fill: red,
         size: 3em,
         font: base_font,
@@ -247,8 +256,15 @@
 
 // DISCLAIMER PAGE
 
-#let disclaimer(language, faculty_id, disclaimer_type, author, author_pronouns) = {
+#let disclaimer(args) = {
   import "../lang.typ": disclaimer
+  let (language, faculty, disclaimer_type, author, author_pronouns) = req_arg(args, (
+    "document.language",
+    "document.faculty",
+    "document.type",
+    "author.name",
+    "author.pronouns",
+  ));
   heading(get_lang_item(language, "disclaimer"), numbering: none, outlined: false);
   par(
     text(disclaimer(language, disclaimer_type, author_pronouns))
@@ -266,7 +282,9 @@
 
 // ACKNOWLEDGEMENT PAGE
 
-#let acknowledgement(language, author, content) = {
+#let acknowledgement(args) = {
+  let content = get_arg(args, "acknowledgement");
+  let (language, author) = req_arg(args, ("document.language", "author.name"));
   if is_none(content) {
     return;
   }
@@ -278,8 +296,10 @@
 
 // ABSTRACT
 
-#let abstract(language, title, content, keywords) = {
-  heading(text(title.at(language), font: base_font), numbering: none, outlined: false);
+#let abstract(language, args) = {
+  heading(
+    text(req_arg(args, "title").at(language), font: base_font), numbering: none, outlined: false
+  );
   v(2em);
   heading(
     level: 2,
@@ -287,7 +307,8 @@
     numbering: none,
     outlined: false,
   );
-  text(content.at(language));
+  text(req_arg(args, "abstract.content").at(language));
+  let keywords = get_arg(args, "abstract.keywords");
   if not is_none(keywords) and type(keywords.at(language)) != type(none) {
     linebreak();
     linebreak();
@@ -387,7 +408,8 @@
 
 // BIBLIOGRAPHY
 
-#let bibliogr(language, citations_file) = {
+#let bibliogr(args) = {
+  let (language, citations_file) = req_arg(args, ("document.language", "citations"));
   if language == "cs" {
     bibliography(
       citations_file, style: "../tul_citace.csl", title: get_lang_item(language, "bibliography"),

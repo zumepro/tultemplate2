@@ -309,3 +309,11 @@
   }
   mapper(value)
 }
+
+#let deref(arr) = {
+  if arr.len() == 0 {
+    arr.at(0)
+  } else {
+    arr
+  }
+}

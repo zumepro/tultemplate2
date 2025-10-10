@@ -14,54 +14,53 @@
 )
 #import "../attachments.typ": attachment_list
 #import "../utils.typ": is_none, assert_dict_has, assert_not_none, assert_type_signature, map_none
+#import "../arguments.typ": req_arg, get_arg, map_arg
+#import "../theme.typ": faculty_color
 
-#let dp(
-  // general settings
-  faculty_id, faculty_color, language, assignment_document, citation_file,
-
-  // document info
-  title, author, author_pronouns, supervisor, consultant, study_programme, study_specialization,
-  year_of_study, abstract_content, acknowledgement_content, keywords,
-
-  content
-) = {
+#let dp(args, content) = {
   let force_langs = ("cs", "en");
-  assert_not_none(title, "title");
+
+  let title = req_arg(args, "title");
+  let abstract_content = req_arg(args, "abstract.content");
+  let keywords = req_arg(args, "abstract.keywords");
+  let title_pages = get_arg(args, "title_pages");
+  let language = req_arg(args, "document.language");
+
   assert_dict_has(force_langs, title, "title");
-
-  assert_not_none(study_programme, "study programme");
-  assert_dict_has((language,), study_programme, "study programme");
-  map_none(study_specialization, (v) => assert_dict_has((language,), v, "study specialization"));
-
-  assert_not_none(abstract_content, "abstract");
   assert_dict_has(force_langs, abstract_content, "abstract");
   if not is_none(keywords) {
     assert_dict_has(force_langs, keywords, "keywords");
   }
-  if language == "cs" {
-    assert_not_none(author_pronouns, "author gender");
+
+  if is_none(title_pages) {
+    let programme = req_arg(args, "author.programme");
+    assert_dict_has((language,), programme, "study programme");
+    let _ = map_arg(
+      args, "author.specialization", (v) => assert_dict_has((language,), v, "study specialization")
+    );
+    if language == "cs" {
+      let _ = req_arg(args, "author.pronouns");
+    }
   }
 
-  assert_type_signature(supervisor, "string | none", "supervisor");
-  assert_type_signature(consultant, "string | none", "consultant");
-
-  mainpage(
-    faculty_id, language, "dp", title, author, supervisor, consultant, study_programme,
-    study_specialization, year_of_study,
-  );
-  assignment(language, assignment_document);
-  default_styling(false, faculty_color, {
-    disclaimer(language, faculty_id, "dp", author, author_pronouns);
-    abstract("cs", title, abstract_content, keywords);
-    abstract("en", title, abstract_content, keywords);
-    acknowledgement(language, author, acknowledgement_content);
+  if is_none(title_pages) {
+    mainpage(args);
+    assignment(args);
+  }
+  default_styling(false, faculty_color(req_arg(args, "document.faculty")), {
+    if is_none(title_pages) {
+      disclaimer(args);
+    }
+    abstract("cs", args);
+    abstract("en", args);
+    acknowledgement(args);
     toc(language);
     tablelist(language);
     imagelist(language);
     abbrlist(language);
     pagebreak(weak: true);
     content;
-    bibliogr(language, citation_file);
+    bibliogr(args);
     attachment_list(language);
-  });
+  }, language);
 }

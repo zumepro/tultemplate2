@@ -26,6 +26,7 @@
 // - faculty (str): Factulty abbreviation. One of "fs", "ft", "fp", "ef", "fua", "fm", "fzs", "cxi".
 // - lang (str): Language code. This can be "cs" or "en".
 // - document (str): Type of document. This can be "bp" or "other".
+// - title_pages (str): The title pages exported from STAG (supported for some document types)
 // - title (dictionary): The title of the document.
 // - author (str): The name of the document's author.
 // - author_pronouns (str): The gender of the document's author. Needed only for the `cs` language.
@@ -45,6 +46,7 @@
   style: "classic", faculty: "tul", lang: "cs", document: "other",
 
   // document info
+  title_pages: none,
   title: none, keywords: none, abstract: none, acknowledgement: none, author: none,
   author_pronouns: none, supervisor: none, consultant: none, programme: none,
   specialization: none, year_of_study: none,
@@ -55,38 +57,30 @@
   // content
   content,
 ) = {
-  import "utils.typ": assert_in_dict, assert_type_signature
+  import "arguments.typ": (
+    arguments,
+    document_info,
+    author_info,
+    project_info,
+    abstract_info,
+    check_arguments,
+    req_arg,
+  )
 
-  // argument checking
-  assert_type_signature(style, "string", "visual style argument");
-  assert_type_signature(faculty, "string", "faculty id argument");
-  assert_type_signature(lang, "string", "language abbreviation argument");
-  assert_type_signature(document, "string | none", "document kind argument");
-  assert_type_signature(title, "dictionary[string : string] | none", "title argument");
-  assert_type_signature(keywords, "dictionary[string : array[string]] | none", "keywords argument");
-  assert_type_signature(
-    abstract, "dictionary[string : string | content] | none", "abstract argument"
+  let args = arguments(
+    document_info(style, faculty, lang, document),
+    title_pages,
+    title,
+    author_info(author, author_pronouns, programme, specialization, year_of_study),
+    project_info(supervisor, consultant),
+    abstract_info(abstract, keywords),
+    acknowledgement,
+    assignment,
+    citations,
   );
-  assert_type_signature(
-    acknowledgement, "dictionary[string : string | content] | none", "acknowledgement content"
-  );
-  assert_type_signature(author, "string | none", "author argument");
-  assert_type_signature(author_pronouns, "string | none", "author gender argument");
-  assert_type_signature(
-    supervisor, "string | dictionary[string : string] | none", "supervisor argument"
-  );
-  assert_type_signature(
-    consultant, "string | dictionary[string : string] | none", "consultant argument"
-  );
-  assert_type_signature(
-    programme, "dictionary[string : string] | none", "study programme argument"
-  );
-  assert_type_signature(
-    specialization, "dictionary[string : string] | none", "study specialization argument"
-  );
-  assert_type_signature(year_of_study, "integer | none", "year of study");
-  assert_type_signature(assignment, "string | none", "assignment document argument");
-  assert_type_signature(citations, "string", "citations file argument");
+  check_arguments(args);
+
+  import "utils.typ": assert_in_dict, assert_type_signature
 
   // templates
   import "classic/classic.typ": template_classic
@@ -101,11 +95,7 @@
   set text(lang: lang);
 
   // template call
-  templates.at(style)(
-    lang, faculty, document, citations, assignment,
-    title, author, author_pronouns, supervisor, consultant,
-    programme, specialization, year_of_study, abstract, acknowledgement, keywords, content
-  );
+  templates.at(style)(args, content);
 
   import "prototyping.typ": assert_release_ready
   assert_release_ready();
