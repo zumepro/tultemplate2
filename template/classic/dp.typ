@@ -1,21 +1,7 @@
-#import "../lang.typ": get_lang_item
-#import "common.typ": (
-  mainpage,
-  default_styling,
-  assignment,
-  disclaimer,
-  abstract,
-  acknowledgement,
-  toc,
-  abbrlist,
-  imagelist,
-  tablelist,
-  bibliogr
-)
-#import "../attachments.typ": attachment_list
-#import "../utils.typ": is_none, assert_dict_has, assert_not_none, assert_type_signature, map_none
 #import "../arguments.typ": req_arg, get_arg, map_arg
-#import "../theme.typ": faculty_color
+#import "../utils.typ": assert_dict_has, is_none
+#import "common.typ": mainpage, assignment, external_title_pages
+#import "thesis_base.typ": thesis_base
 
 #let dp(args, content) = {
   let force_langs = ("cs", "en");
@@ -35,9 +21,9 @@
   if is_none(title_pages) {
     let programme = req_arg(args, "author.programme");
     assert_dict_has((language,), programme, "study programme");
-    let _ = map_arg(
-      args, "author.specialization", (v) => assert_dict_has((language,), v, "study specialization")
-    );
+    map_arg(args, "author.specialization", (v) => {
+      assert_dict_has((language,), v, "study specialization");
+    });
     if language == "cs" {
       let _ = req_arg(args, "author.pronouns");
     }
@@ -46,21 +32,9 @@
   if is_none(title_pages) {
     mainpage(args);
     assignment(args);
+  } else {
+    external_title_pages(title_pages);
   }
-  default_styling(false, faculty_color(req_arg(args, "document.faculty")), {
-    if is_none(title_pages) {
-      disclaimer(args);
-    }
-    abstract("cs", args);
-    abstract("en", args);
-    acknowledgement(args);
-    toc(language);
-    tablelist(language);
-    imagelist(language);
-    abbrlist(language);
-    pagebreak(weak: true);
-    content;
-    bibliogr(args);
-    attachment_list(language);
-  }, language);
+
+  thesis_base(args, content);
 }

@@ -31,6 +31,7 @@
 
   args.assignment = map_arg(args, "assignment", (v) => "../../" + v);
   args.citations = map_arg(args, "citations", (v) => "../../" + v);
+  args.title_pages = map_arg(args, "title_pages", (v) => "../../" + v);
 
   document_types.at(req_arg(args, "document.type"))(args, content);
 }

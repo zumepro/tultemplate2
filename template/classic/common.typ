@@ -232,6 +232,14 @@
   }, margin: 2cm);
 }
 
+// _ EMBEDDED
+
+#let pdfembed(path) = {
+  import "@preview/muchpdf:0.1.1": muchpdf
+  set page(margin: 0em);
+  muchpdf(read(path, encoding: none));
+}
+
 // ASSIGNMENT PAGE
 
 #let assignment(args) = {
@@ -249,9 +257,13 @@
     );
     return;
   }
-  import "@preview/muchpdf:0.1.1": muchpdf
-  set page(margin: 0em);
-  muchpdf(read(document, encoding: none));
+  pdfembed(req_arg(args, "assignment"))
+}
+
+// EXTERNAL TITLE PAGES
+
+#let external_title_pages(path) = {
+  pdfembed(path);
 }
 
 // DISCLAIMER PAGE
