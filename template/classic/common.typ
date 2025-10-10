@@ -5,7 +5,7 @@
 
 #let base_font = "Inter";
 #let mono_font = "Noto Sans Mono";
-#let mono_font_compensation = 1.0408460259103642;
+#let mono_font_compensation = 1.3010575323879552;
 #let serif_font = "Merriweather";
 #let tul_logomark_size = 6.5em;
 
@@ -83,7 +83,7 @@
   }
 
   // other
-  show raw: set text(font: mono_font, size: mono_font_compensation * 11pt);
+  show raw: set text(font: mono_font, size: mono_font_compensation * 1em);
   show raw.where(block: true): it => {
     block(it, fill: rgb("#eee"), inset: 1em)
   };
