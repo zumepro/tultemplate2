@@ -222,6 +222,19 @@ zrakovým postižením).
 
 Tabulky se zobrazí na začátku dokumentu v seznamu (pokud to daný typ dokumentu vyžaduje).
 
+== Poznámky pod čarou
+
+Poznámky pod čarou jsou způsob sdělení dodatečných informácí, které pro čtenáře běžně nebudou velmi
+podstatné. Mohou sloužit například k upřesnění informací. #footnote[Nebo k doplnění technikálií]
+
+Poznámka pod čarou se vytvoří následovně:
+
+```typst
+#footnote[Moje poznámka]
+```
+
+Šablona automaticky vytvoří čáru s barvou vaší fakulty a pod ní vloží poznámky na dané straně.
+
 == Citace
 
 Šablona podporuje správu citací pomocí standardního BibTeX @bibtex souboru, stejně jako
