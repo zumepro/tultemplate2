@@ -297,7 +297,7 @@
     <sort>
       <key variable="citation-number"/>
     </sort>
-    <layout prefix="(" suffix=")" delimiter=", ">
+    <layout prefix="[" suffix="]" delimiter=", ">
       <group delimiter=", ">
         <text variable="citation-number"/>
         <group>
@@ -312,7 +312,7 @@
       <key variable="citation-number"/>
     </sort>
     <layout>
-      <text variable="citation-number" display="left-margin" suffix=". "/>
+      <text variable="citation-number" display="left-margin" prefix="[" suffix="] "/>
       <choose>
         <if type="book map" match="any">
           <group display="right-inline">
