@@ -4,6 +4,7 @@
   title: (cs: "Návod na použití Typst TUL šablony"),
   author: "Ondřej Mekina, Matěj Žucha",
   supervisor: "Ondřej Mekina",
+  citations: "citations.yml",
 )
 
 = Lehký úvod do Typstu a této šablony
@@ -254,6 +255,8 @@ Soubor, ze kterého se načtou citace lze změnit pomocí argumentu šablony:
   ...
 )
 ```
+
+Zde jsou další ukázky citací: @lotr @ipv6 @ipv6_intro
 
 == Vnitřní odkazy a kotvy
 

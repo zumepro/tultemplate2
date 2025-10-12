@@ -1,0 +1,73 @@
+# Pomocí YAML kotev lze definovat vyšší struktury, na které poté budeme ukazovat v konkrétních
+# citacích
+wikidata: &wikidata
+  type: blog
+  title: Wikidata
+  publisher: Wikimedia Foundation
+
+# Prosíme, nepoužívejte Wikipedii jako citační zdroj! Z nějakého důvodu to není dobře tolerováno
+# (i když ta kvalita je často vyšší než u primárních zdrojů).
+wikipedia: &wikipedia
+  type: blog
+  title: Wikipedia
+  author: Wikipedia contributors
+
+typst:
+  type: article
+  author: Wikidata
+  title: Q117858460 - Wikidata
+  # Rok zveřejnění původního zdroje
+  date: 2025
+  url:
+    # URL odkaz
+    value: https://www.wikidata.org/w/index.php?title=Q117858460&oldid=2404700455
+    # Kdy jsme citaci vytvořili (tedy kdy jsme my citovali)
+    date: 2025-10-12
+  # Tady používáme dříve definovanou strukturu (můžeme tak například odkazovat na kapitolu knihy,
+  # kterou máme definovanou zvlášť)
+  parent: *wikidata
+
+bibtex:
+  type: article
+  title: BibTeX - Wikipedia, The Free Encyclopedia
+  date: 2025
+  url:
+    value: https://en.wikipedia.org/w/index.php?title=BibTeX&oldid=1309039867
+    date: 2025-10-12
+  parent: *wikipedia
+
+lotr:
+  type: book
+  title: The Lord of the Rings
+  author:
+      # Můžeme uvést i více autorů (oddělené `-`, je to standardní YAML pole)
+      #
+      # Křestní jméno
+    - given-name: John Ronald Reuel
+      # Příjmení
+      name: Tolkien
+  # ISBN (ukáže se přímo v tomto formátu, oddělit čárkami musíte vy)
+  serial-number: { isbn: 9780261102439 }
+  date: 1991
+  publisher: Grafton
+
+ipv6: &ipv6
+  type: book
+  title: IPv6 internetový protokol verze 6
+  author:
+    - given-name: Pavel
+      name: Satrapa
+  publisher:
+    # Název vydavatele
+    name: CZ.NIC, z.s.p.o.
+    # Sídlo vydavatele
+    location: Praha
+  url: https://www.nic.cz/files/edice/IPv6-2019.pdf
+  serial-number: { isbn: 978-80-88168-43-0 }
+  date: 2019
+
+# Citace kapitoly
+ipv6_intro:
+  type: chapter
+  page-range: 23-40
+  parent: *ipv6

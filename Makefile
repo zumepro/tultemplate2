@@ -91,7 +91,7 @@ $(BUNDLEDIR)/template/%: template/%
 	@mkdir -p $(@D)
 	ln -f $< $@
 
-TEMPLATE_SRCS := $(shell find template -type f)
+TEMPLATE_SRCS := $(shell find template -type f) citations.yml
 
 bp.pdf: theses/bp.typ
 	typst compile --font-path template/fonts --root . $< $@
