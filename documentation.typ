@@ -6,6 +6,8 @@
   supervisor: "Ondřej Mekina",
 )
 
+#profile("release")
+
 = Lehký úvod do Typstu a této šablony
 
 Typst je profesionální sázecí nástroj podobný markdownu, LaTeXu/TeXu, groffu, atd.
