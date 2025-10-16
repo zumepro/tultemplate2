@@ -135,19 +135,21 @@
   }
 }
 
-#let info(
+#let info_base(
   faculty_id,
   language,
-  document_type,
-  title, author, supervisor, consultant, study_programme, study_specialization, year_of_study,
+  display_document_type,
+  title,
+  info_fields,
+  show_city: true,
 ) = {
   let info_name_value_padding = 5em;
   let info_name_min_width = 10em;
   let gutter = .7em;
 
   // document type
-  if document_type != "other" {
-    text(get_lang_item(language, document_type), weight: "bold", font: base_font);
+  if display_document_type != "other" and display_document_type != "other_asgn" {
+    text(get_lang_item(language, display_document_type), weight: "bold", font: base_font);
     v(0em);
   }
 
@@ -158,16 +160,6 @@
   );
   v(0em);
 
-  // other info
-  // [field_name, field_value, bold]
-  let info_fields = (
-    ("author", author, true),
-    ("supervisor", person_info(supervisor, "supervisor"), false),
-    ("consultant", person_info(consultant, "consultant"), false),
-    ("study_programme", study_programme, false),
-    ("study_specialization", study_specialization, false),
-    ("year_of_study", map_none(year_of_study, (v) => str(v) + "."), false),
-  )
   context {
     let max_field_name_width = calc.max(..info_fields.map((v) => {
       if type(v.at(1)) == type(none) {
@@ -191,8 +183,41 @@
     );
     v(1em);
     h(max_field_name_width + info_name_value_padding + gutter);
-    text(get_lang_item(language, "city") + " " + str(datetime.today().year()), font: base_font);
+    if show_city {
+      text(get_lang_item(language, "city") + " " + str(datetime.today().year()), font: base_font);
+    }
   }
+}
+
+#let info_mainpage(
+  faculty_id,
+  language,
+  document_type,
+  title, author, supervisor, consultant, study_programme, study_specialization, year_of_study,
+) = {
+  info_base(faculty_id, language, document_type, title, (
+    ("author", author, true),
+    ("supervisor", person_info(supervisor, "supervisor"), false),
+    ("consultant", person_info(consultant, "consultant"), false),
+    ("study_programme", study_programme, false),
+    ("study_specialization", study_specialization, false),
+    ("year_of_study", map_none(year_of_study, (v) => str(v) + "."), false),
+  ));
+}
+
+#let info_assignment(
+  faculty_id,
+  language,
+  document_type,
+  title, author, personal_number, study_programme, department, academical_year,
+) = {
+  info_base(faculty_id, language, document_type + "_asgn", title, (
+    ("names", author, true),
+    ("personal_number", personal_number, false),
+    ("study_programme", study_programme, false),
+    ("assigning_department", department, false),
+    ("academical_year", academical_year, false),
+  ), show_city: false);
 }
 
 // MAINPAGE
@@ -213,23 +238,42 @@
     "author.specialization",
     "author.year_of_study",
   ));
-  page({
-    if has_all_none((
-      document_type, title, author, supervisor, consultant, study_programme,
-    )) {
-      place(center + horizon, align(left, faculty_logotype(faculty_id, language)));
-    } else {
-      header(faculty, language);
-      align({
-        info(
-          faculty, language, document_type, map_none(title, (v) => v.at(language)),
-          author, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
-          map_none(study_specialization, (v) => v.at(language)), year_of_study,
-        );
-        v(5em);
-      }, bottom);
-    }
-  }, margin: 2cm);
+  set text(font: base_font);
+  set page(margin: 2cm);
+  pagebreak(weak: true);
+  if has_all_none((
+    document_type, title, author, supervisor, consultant, study_programme,
+  )) {
+    place(center + horizon, align(left, faculty_logotype(faculty_id, language)));
+  } else {
+    header(faculty, language);
+    align({
+      info_mainpage(
+        faculty, language, document_type, map_none(title, (v) => v.at(language)),
+        author, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
+        map_none(study_specialization, (v) => v.at(language)), year_of_study,
+      );
+      v(5em);
+    }, bottom);
+  }
+}
+
+#let assignmentpage(args, language, document_type, faculty, title, author, programme, content) = {
+  let (personal_number, department, academical_year) = req_arg(args, (
+    "personal_number", "department", "academical_year",
+  ));
+  set text(font: base_font);
+  set page(margin: 2cm);
+  pagebreak(weak: true);
+  header(faculty, language);
+  info_assignment(
+    faculty, language, document_type, title.at(language), author, personal_number,
+    programme.at(language), department, academical_year,
+  );
+  show heading: it => {
+    block(it, above: 1em, below: 1em);
+  }
+  content;
 }
 
 // _ EMBEDDED
@@ -257,7 +301,21 @@
     );
     return;
   }
-  pdfembed(req_arg(args, "assignment"))
+  let assignment = req_arg(args, "assignment");
+  if type(assignment) == str {
+    pdfembed(req_arg(args, "assignment"));
+  } else if type(assignment) == content {
+    req_arg(args, "assignment");
+  } else if type(assignment) == dictionary {
+    assignmentpage(
+      assignment,
+      ..req_arg(args, (
+        "document.language", "document.type", "document.faculty", "title", "author.name",
+        "author.programme",
+      )),
+      req_arg(assignment, "content"),
+    );
+  }
 }
 
 // EXTERNAL TITLE PAGES

@@ -7,9 +7,15 @@
 		"study_programme": "Studijní program",
 		"study_specialization": "Specializace",
 		"year_of_study": "Ročník",
+		"names": "Jméno a příjmení",
+		"assigning_department": "Zadávající katedra",
+		"personal_number": "Osobní číslo",
+		"academical_year": "Akademický rok",
 
 		"bp": "Bakalářská práce",
+		"bp_asgn": "Zadání bakalářské práce",
 		"dp": "Diplomová práce",
+		"dp_asgn": "Zadání diplomové práce",
 
 		"city": "Liberec",
 
@@ -75,9 +81,15 @@
 		"study_programme": "Study programme",
 		"study_specialization": "Specialization",
 		"year_of_study": "Year of study",
+		"names": "Name",
+		"assigning_department": "Assigning department",
+		"personal_number": "Personal number",
+		"academical_year": "Academical year",
 
 		"bp": "Bachelor thesis",
+		"bp_asgn": "Bachelor thesis assignment",
 		"dp": "Diploma thesis",
+		"dp_asgn": "Diploma thesis assignment",
 
 		"city": "Liberec",
 

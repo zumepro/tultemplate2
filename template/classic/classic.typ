@@ -31,7 +31,13 @@
     args, "acknowledgement", (v) => assert_dict_has((language,), v, "acknowledgement content")
   );
 
-  args.assignment = map_arg(args, "assignment", (v) => "../../" + v);
+  args.assignment = map_arg(args, "assignment", (v) => {
+    if type(v) == str {
+      "../../" + v
+    } else {
+      v
+    }
+  });
   args.citations = map_arg(args, "citations", (v) => "../../" + v);
   args.title_pages = map_arg(args, "title_pages", (v) => "../../" + v);
 

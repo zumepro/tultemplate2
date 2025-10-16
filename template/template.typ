@@ -34,6 +34,7 @@
 // - consultant (str): The name of the document's consultant.
 // - programme (dictionary): Study programme.
 // - specialization (disctionary): Study specialization
+// - year_of_study (int): Year of study
 // - abstract (dictionary): The abstract.
 // - keywords (dictionary): The abstract keywords.
 // - assignment (str): Filepath of the assignment document/page.
@@ -107,6 +108,8 @@
   title: none, author: none,
   author_pronouns: none, supervisor: none, consultant: none, programme: none,
   specialization: none, year_of_study: none,
+
+  assignment: none,
 ) = {
   import "arguments.typ": (
     arguments,
@@ -125,7 +128,7 @@
     project_info(supervisor, consultant),
     abstract_info(none, none),
     none,
-    none,
+    assignment,
     "",
   );
   check_arguments(args);
