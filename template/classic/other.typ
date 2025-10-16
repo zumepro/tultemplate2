@@ -16,11 +16,15 @@
 #import "../arguments.typ": req_arg
 #import "../theme.typ": faculty_color
 
-#let other(args, content) = {
+#let other_title_page(args) = {
   let (language, title) = req_arg(args, ("document.language", "title"));
   assert_dict_has((language,), title, "title");
-
   mainpage(args);
+}
+
+#let other_base(args, content) = {
+  let (language, title) = req_arg(args, ("document.language", "title"));
+
   default_styling(true, faculty_color(req_arg(args, "document.faculty")), {
     toc(language);
     tablelist(language);

@@ -8,18 +8,19 @@
 // thesis types
 #import "bp.typ": bp
 #import "dp.typ": dp
-#import "other.typ": other
-#import "thesis_base.typ": thesis_base
+#import "other.typ": other_title_page, other_base
+#import "thesis_base.typ": thesis_base, thesis_base_title_pages
 
-#let template_classic(args, content) = {
+#let document_types = (
+  "bp": (bp, thesis_base, thesis_base_title_pages),
+  "dp": (dp, thesis_base, thesis_base_title_pages),
+  "other": (other_title_page, other_base, (args) => {}),
+)
+
+#let prep_args(args) = {
   let language = req_arg(args, "document.language");
 
   // argument pre-checking
-  let document_types = (
-    "bp": bp,
-    "dp": dp,
-    "other": other,
-  )
   assert_in_dict(req_arg(args, "document.type"), document_types, "document type");
   map_arg(args, "title", (v) => assert_dict_has((language,), v, "title"));
   map_arg(args, "author.programme", (v) => assert_dict_has((language,), v, "study programme"));
@@ -34,10 +35,24 @@
   args.citations = map_arg(args, "citations", (v) => "../../" + v);
   args.title_pages = map_arg(args, "title_pages", (v) => "../../" + v);
 
-  if not is_none(get_arg(args, "title_pages")) and not req_arg(args, "document.type") == "other" {
+  args
+}
+
+#let template_classic(args, content) = {
+  let args = prep_args(args);
+
+  if not is_none(get_arg(args, "title_pages")) {
     external_title_pages(req_arg(args, "title_pages"));
-    thesis_base(args, content);
+    document_types.at(req_arg(args, "document.type")).at(1)(args, content);
   } else {
-    document_types.at(req_arg(args, "document.type"))(args, content);
+    document_types.at(req_arg(args, "document.type")).at(0)(args);
+    document_types.at(req_arg(args, "document.type")).at(1)(args, content);
   }
+}
+
+#let title_pages_classic(args) = {
+  let args = prep_args(args);
+
+  document_types.at(req_arg(args, "document.type")).at(0)(args);
+  document_types.at(req_arg(args, "document.type")).at(2)(args);
 }

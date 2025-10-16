@@ -101,6 +101,48 @@
   assert_release_ready();
 }
 
+#let tultitlepages2(
+  style: "classic", faculty: "tul", lang: "cs", document: "other",
+
+  title: none, author: none,
+  author_pronouns: none, supervisor: none, consultant: none, programme: none,
+  specialization: none, year_of_study: none,
+) = {
+  import "arguments.typ": (
+    arguments,
+    document_info,
+    author_info,
+    project_info,
+    abstract_info,
+    check_arguments,
+    req_arg,
+  )
+  let args = arguments(
+    document_info(style, faculty, lang, document),
+    none,
+    title,
+    author_info(author, author_pronouns, programme, specialization, year_of_study),
+    project_info(supervisor, consultant),
+    abstract_info(none, none),
+    none,
+    none,
+    "",
+  );
+  check_arguments(args);
+  import "utils.typ": assert_in_dict, assert_type_signature
+  import "classic/classic.typ": title_pages_classic
+  let title_pages = (
+    classic: title_pages_classic,
+  );
+  assert_in_dict(style, title_pages, "template name");
+
+  import "lang.typ": lang_ids
+  assert_in_dict(lang, lang_ids, "language abbreviation");
+  set text(lang: lang);
+
+  title_pages.at(style)(args);
+}
+
 // Make a new abbreviation
 //
 // - abbreviation (str): The abbreviation

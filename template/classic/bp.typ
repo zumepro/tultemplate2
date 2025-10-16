@@ -3,7 +3,7 @@
 #import "common.typ": mainpage, assignment, external_title_pages
 #import "thesis_base.typ": thesis_base
 
-#let bp(args, content) = {
+#let bp(args) = {
   let language = req_arg(args, "document.language");
   let programme = req_arg(args, "author.programme");
   assert_dict_has((language,), programme, "study programme");
@@ -15,5 +15,4 @@
 
   mainpage(args);
   assignment(args);
-  thesis_base(args, content);
 }
