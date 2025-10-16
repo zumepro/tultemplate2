@@ -158,7 +158,7 @@
   };
   let is_subset(subset, of, matcher) = {
     for item in subset {
-      if not has_value(item, of, matcher) {
+      if not has_value(item, of, matcher) and not has_value("any", of, matcher) {
         return false;
       }
     }
