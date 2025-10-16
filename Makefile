@@ -7,12 +7,12 @@ watch_documentation:
 	typst watch --font-path template/fonts documentation.typ & xdg-open documentation.pdf
 
 .PHONY: watch_bp_cs
-watch_bp_cs: bp.pdf
-	xdg-open bp.pdf & typst watch --root . --font-path template/fonts theses/bp.typ bp.pdf
+watch_bp_cs: bp_cs.pdf
+	xdg-open bp_cs.pdf & typst watch --root . --font-path template/fonts theses/bp_cs.typ bp_cs.pdf
 
 .PHONY: watch_dp_cs
 watch_dp_cs: dp.pdf
-	xdg-open dp.pdf & typst watch --root . --font-path template/fonts theses/dp.typ dp.pdf
+	xdg-open dp_cs.pdf & typst watch --root . --font-path template/fonts theses/dp_cs.typ dp_cs.pdf
 
 .PHONY: documentation
 documentation: documentation.pdf
@@ -36,7 +36,7 @@ bundle: $(BUNDLE_TARGETS)
 .PHONY: clean
 clean:
 	rm -rf pack
-	rm -f documentation.pdf bp.pdf dp.pdf
+	rm -f documentation.pdf bp_cs.pdf bp_assignment_cs.pdf dp_cs.pdf
 
 pack/tultemplate2.zip: $(PACK_TARGETS)
 	@mkdir -p $(@D)
@@ -93,13 +93,10 @@ $(BUNDLEDIR)/template/%: template/%
 
 TEMPLATE_SRCS := $(shell find template -type f) citations.yml
 
-bp.pdf: theses/bp.typ
-	typst compile --font-path template/fonts --root . $< $@
-
-dp.pdf: theses/dp.typ
-	typst compile --font-path template/fonts --root . $< $@
-
 documentation.pdf: documentation.typ $(TEMPLATE_SRCS)
 	typst compile --font-path template/fonts $<
+
+%.pdf: theses/%.typ
+	typst compile --font-path template/fonts --root . $< $@
 
 include tests/make.mk
