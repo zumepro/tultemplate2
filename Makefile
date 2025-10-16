@@ -11,7 +11,7 @@ watch_bp_cs: bp_cs.pdf
 	xdg-open bp_cs.pdf & typst watch --root . --font-path template/fonts theses/bp_cs.typ bp_cs.pdf
 
 .PHONY: watch_dp_cs
-watch_dp_cs: dp.pdf
+watch_dp_cs: dp_cs.pdf
 	xdg-open dp_cs.pdf & typst watch --root . --font-path template/fonts theses/dp_cs.typ dp_cs.pdf
 
 .PHONY: documentation
@@ -91,7 +91,7 @@ $(BUNDLEDIR)/template/%: template/%
 	@mkdir -p $(@D)
 	ln -f $< $@
 
-TEMPLATE_SRCS := $(shell find template -type f) citations.yml
+TEMPLATE_SRCS := $(shell find template -type f)
 
 documentation.pdf: documentation.typ $(TEMPLATE_SRCS)
 	typst compile --font-path template/fonts $<
