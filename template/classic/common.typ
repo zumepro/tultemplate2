@@ -429,11 +429,15 @@
   let (language, citations_file) = req_arg(args, ("document.language", "citations"));
   if language == "cs" {
     bibliography(
-      citations_file, style: "../tul_citace.csl", title: get_lang_item(language, "bibliography"),
+      citations_file,
+      style: "../citation_styles/tul-csn690-numeric-square_brackets.csl",
+      title: get_lang_item(language, "bibliography"),
     );
   } else if language == "en" {
     bibliography(
-      citations_file, style: "iso-690-numeric", title: get_lang_item(language, "bibliography"),
+      citations_file,
+      style: "../citation_styles/iso690-numeric-square_brackets.csl",
+      title: get_lang_item(language, "bibliography"),
     );
   } else {
     panic("unknown language for bibliography '" + language + "'");

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never" default-locale="en-US">
   <info>
-    <title>ISO-690 (TUL)</title>
-    <id>https://git.zumepro.cz/tul/tultemplate2/src/branch/master/template/tul_citace.csl</id>
-    <link href="https://git.zumepro.cz/tul/tultemplate2/src/branch/master/template/tul_citace.csl" rel="self"/>
+    <title>ISO-690 (numeric, English)</title>
+    <id>http://www.zotero.org/styles/iso690-numeric-en</id>
+    <link href="https://git.zumepro.cz/tul/tultemplate2/src/branch/master/template/citation_styles/iso690-numeric-square_brackets" rel="self"/>
     <link href="http://www.zotero.org/styles/iso690-numeric-en" rel="template"/>
     <author>
       <name>Ondřej Mekina</name>
@@ -11,23 +11,23 @@
     </author>
     <category citation-format="numeric"/>
     <category field="generic-base"/>
-    <summary>Citační styl založen na ČSN ISO 690:2022, upraven pro použití na Technické Univerzitě v Liberci</summary>
-    <updated>2025-10-12T13:44:00+00:00</updated>
+    <summary>Style based on ISO 690:2010(E), V1.1, square brackets</summary>
+    <updated>2025-10-16T20:31:00+01:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale>
     <terms>
       <term name="no date">[no date]</term>
-      <term name="in">v</term>
+      <term name="in">in</term>
       <term name="online">online</term>
-      <term name="accessed">citováno</term>
-      <term name="retrieved">dostupné</term>
-      <term name="from">z</term>
+      <term name="accessed">accessed</term>
+      <term name="retrieved">Available</term>
+      <term name="from">from</term>
     </terms>
   </locale>
   <macro name="author">
     <names variable="author">
-      <name and="text" name-as-sort-order="all" sort-separator=", " delimiter="; " delimiter-precedes-last="never">
+      <name and="text" name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="never">
         <name-part name="family" text-case="uppercase"/>
         <name-part name="given"/>
       </name>
@@ -70,7 +70,7 @@
   </macro>
   <macro name="container-author">
     <names variable="container-author">
-      <name and="text" name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="always">
+      <name and="text" name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="never">
         <name-part name="family" text-case="uppercase"/>
         <name-part name="given"/>
       </name>
@@ -110,17 +110,11 @@
       <if type="book thesis map motion_picture song manuscript" match="any">
         <text variable="title" font-style="italic" suffix=". "/>
       </if>
-
       <else-if type="paper-conference speech chapter article-journal article-magazine article-newspaper entry entry-dictionary entry-encyclopedia post-weblog post webpage broadcast" match="any">
-        <text variable="title" suffix=". " font-style="italic"/>
-        <choose>
-          <if variable="URL">
-            <text term="online" text-case="capitalize-first" suffix=". "/>
-          </if>
-        </choose>
+        <text variable="title" suffix=". "/>
         <choose>
           <if type="chapter paper-conference" match="any">
-            <text term="in" text-case="capitalize-first" suffix=": "/>
+            <text term="in" text-case="capitalize-first" suffix="&#160;: "/>
           </if>
         </choose>
         <choose>
@@ -128,21 +122,20 @@
             <text macro="container-responsability"/>
             <choose>
               <if variable="container-title event" match="any">
-                <text value=". "/>
+                <text value=", "/>
               </if>
             </choose>
           </if>
         </choose>
         <choose>
           <if variable="container-title">
-            <text variable="container-title" suffix="."/>
+            <text variable="container-title" font-style="italic" suffix="."/>
           </if>
           <else>
             <text variable="event" font-style="italic" suffix="."/>
           </else>
         </choose>
       </else-if>
-
       <else-if type="report">
         <text variable="number" suffix=": "/>
         <text variable="title" font-style="italic"/>
@@ -153,6 +146,11 @@
       <else>
         <text variable="title" font-style="italic" suffix="."/>
       </else>
+    </choose>
+    <choose>
+      <if variable="URL">
+        <text term="online" text-case="capitalize-first" prefix=" "/>
+      </if>
     </choose>
   </macro>
   <macro name="number">
@@ -185,8 +183,8 @@
     <choose>
       <if variable="issued">
         <date variable="issued">
-          <date-part name="day" suffix=".&#160;"/>
-          <date-part name="month" form="numeric" suffix=".&#160;"/>
+          <date-part name="day" suffix=" "/>
+          <date-part name="month" suffix=" "/>
           <date-part name="year"/>
         </date>
       </if>
@@ -196,25 +194,25 @@
     <text variable="edition" form="long"/>
   </macro>
   <macro name="publisher-group">
-    <group delimiter=":&#160;">
+    <group delimiter="&#160;: ">
       <text variable="publisher-place"/>
       <text variable="publisher"/>
     </group>
   </macro>
   <macro name="issue">
     <group delimiter=", ">
-      <text variable="volume" prefix="vol.&#160;"/>
+      <text variable="volume" prefix="Vol.&#160;"/>
       <choose>
         <if variable="volume">
-          <text variable="issue" prefix="čí.&#160;"/>
-          <text variable="page" prefix="str.&#160;"/>
+          <text variable="issue" prefix="no.&#160;"/>
+          <text variable="page" prefix="p.&#160;"/>
         </if>
         <else-if variable="issue">
-          <text variable="issue" prefix="Čí.&#160;"/>
-          <text variable="page" prefix="str.&#160;"/>
+          <text variable="issue" prefix="No.&#160;"/>
+          <text variable="page" prefix="p.&#160;"/>
         </else-if>
         <else>
-          <text variable="page" prefix="Str.&#160;"/>
+          <text variable="page" prefix="P.&#160;"/>
         </else>
       </choose>
     </group>
@@ -223,11 +221,11 @@
     <choose>
       <if variable="URL">
         <group prefix=" [" suffix="]">
-          <text term="accessed"/>
+          <text term="accessed" text-case="capitalize-first"/>
           <date variable="accessed">
+            <date-part name="day" prefix="&#160;"/>
+            <date-part name="month" prefix="&#160;"/>
             <date-part name="year" prefix="&#160;"/>
-            <date-part name="month" form="numeric-leading-zeros" prefix="-"/>
-            <date-part name="day" form="numeric-leading-zeros" prefix="-"/>
           </date>
         </group>
       </if>
@@ -245,7 +243,7 @@
         <text variable="number-of-pages" suffix="&#160;p"/>
       </if>
       <else-if type="chapter paper-conference article-newspaper" match="any">
-        <text variable="page" prefix="str.&#160;"/>
+        <text variable="page" prefix="p.&#160;"/>
       </else-if>
       <else-if type="report patent" match="any">
         <text variable="page" suffix="&#160;p"/>
@@ -265,7 +263,7 @@
           <if variable="URL">
             <group>
               <text term="retrieved" suffix=" " text-case="capitalize-first"/>
-              <text term="from" suffix=":&#160;"/>
+              <text term="from" suffix=": "/>
               <text variable="URL"/>
             </group>
           </if>
@@ -411,8 +409,8 @@
             <text macro="responsability" suffix=". "/>
             <text macro="title" suffix=". "/>
             <text macro="date" suffix=". "/>
-            <text macro="url" suffix=". "/>
             <text macro="accessed" suffix=". "/>
+            <text macro="url"/>
           </group>
         </else-if>
         <else-if type="broadcast motion_picture song" match="any">
