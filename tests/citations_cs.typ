@@ -15,5 +15,5 @@
 #bibliography(
   "citations.bib",
   title: "Bibliography - CZ",
-  style: "../template/citation_styles/tul-csn690-numeric-square_brackets.csl"
+  style: "../template/citations/tul-csn690-numeric-square_brackets.csl"
 )

@@ -488,13 +488,13 @@
   if language == "cs" {
     bibliography(
       citations_file,
-      style: "../citation_styles/tul-csn690-numeric-square_brackets.csl",
+      style: "../citations/tul-csn690-numeric-square_brackets.csl",
       title: get_lang_item(language, "bibliography"),
     );
   } else if language == "en" {
     bibliography(
       citations_file,
-      style: "../citation_styles/iso690-numeric-square_brackets.csl",
+      style: "../citations/iso690-numeric-square_brackets.csl",
       title: get_lang_item(language, "bibliography"),
     );
   } else {

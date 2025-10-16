@@ -14,5 +14,5 @@
 #bibliography(
   "citations.bib",
   title: "Bibliography - EN",
-  style: "../template/citation_styles/iso690-numeric-square_brackets.csl",
+  style: "../template/citations/iso690-numeric-square_brackets.csl",
 )
