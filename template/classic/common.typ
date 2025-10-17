@@ -37,7 +37,7 @@
 
   // text
   set text(font: serif_font);
-  set par(justify: true, first-line-indent: 0.63cm);
+  set par(justify: true);
   if language == "cs" {
     content = set_czech_nonbreakable_terms(content);
   }
