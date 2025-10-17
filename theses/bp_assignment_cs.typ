@@ -1,9 +1,9 @@
 #import "../template/template.typ": *
 
 #tultitlepages2(
-  author: "James Bond",
+  author: "Ondřej Mekina, Matěj Žucha",
   author_pronouns: "masculine",
-  supervisor: "Q",
+  supervisor: "Ondřej Mekina",
   document: "bp",
   faculty: "fm",
   programme: (cs: "MI6000000007 Přísně tajné"),
