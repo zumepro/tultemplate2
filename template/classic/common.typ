@@ -82,7 +82,7 @@
   }
 
   // other
-  show raw: set text(font: mono_font, size: 1.25em);
+  show raw.where(block: false): set text(font: mono_font, size: 1.25em);
   show raw.where(block: true): it => {
     block(it, fill: rgb("#eee"), inset: 1em)
   };
