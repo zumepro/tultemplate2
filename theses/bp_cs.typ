@@ -133,12 +133,12 @@ _kurzívou_
 Další stylování lze dělat právě přes funkce, viz třeba:
 
 ```typst
-#underline[podtrženo]
 #strike[přeškrtnuto]
 #highlight[zvýrazněno]
+#underline[podtrženo] // podtržení by se NEMĚLO používat
 ```
 
-Pro úplnost a ukázku je zde přímo v textu *tučný text*, _text kurzívou_, #underline[podtržený text], #strike[přeškrtnutý text] a #highlight[text zvýrazněný podle barvy příslušící vaší fakultě].
+Pro úplnost a ukázku je zde přímo v textu *tučný text*, _text kurzívou_, #strike[přeškrtnutý text] a #highlight[text zvýrazněný podle barvy příslušící vaší fakultě], #underline[podtržený text] (ačkoli typografové doporučují podtržení nepoužívat).
 
 == Odkazy<links>
 
