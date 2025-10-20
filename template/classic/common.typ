@@ -327,13 +327,13 @@
 
 #let disclaimer(args) = {
   import "../lang.typ": disclaimer
-  let (language, faculty, disclaimer_type, author, author_pronouns) = req_arg(args, (
+  let (language, faculty, disclaimer_type, author) = req_arg(args, (
     "document.language",
     "document.faculty",
     "document.type",
     "author.name",
-    "author.pronouns",
   ));
+  let author_pronouns = get_arg(args, "author.pronouns");
   heading(get_lang_item(language, "disclaimer"), numbering: none, outlined: false);
   par(
     text(disclaimer(language, disclaimer_type, author_pronouns))
