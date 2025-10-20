@@ -5,16 +5,12 @@
   faculty: "fm",
   lang: "cs",
   document: "bp",
+  title_pages: "bp_cs_assignment.pdf",
   title: (
     cs: "Ukázka dokumentu typu Bakalářská práce pro FM TUL v češtině",
     en: "Example document for a Bachelor's thesis for FM TUL in Czech",
   ),
   author: "Matěj Žucha",
-  author_pronouns: "masculine",
-  supervisor: "Ondřej Mekina",
-  consultant: "Michal Procházka (nepovinný údaj)",
-  programme: (cs: "Můj krásný studijní program"),
-  specialization: (cs: "Moje krásná studijní specializace"),
   abstract: (
     cs: [
       Tento dokument slouží jako praktická ukázka všech důležitcýh funkcí šablony _tultemplate2_,

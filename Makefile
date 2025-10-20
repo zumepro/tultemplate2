@@ -6,13 +6,9 @@ view_documentation: documentation.pdf
 watch_documentation:
 	typst watch --font-path template/fonts documentation.typ & xdg-open documentation.pdf
 
-.PHONY: watch_bp_cs
-watch_bp_cs: bp_cs.pdf
-	xdg-open bp_cs.pdf & typst watch --root . --font-path template/fonts theses/bp_cs.typ bp_cs.pdf
-
-.PHONY: watch_dp_cs
-watch_dp_cs: dp_cs.pdf
-	xdg-open dp_cs.pdf & typst watch --root . --font-path template/fonts theses/dp_cs.typ dp_cs.pdf
+.PHONY: watch_%
+watch_%: %.pdf %_assignment.pdf
+	xdg-open $< & typst watch --root . --font-path template/fonts theses/$*.typ $<
 
 .PHONY: documentation
 documentation: documentation.pdf
@@ -96,7 +92,10 @@ TEMPLATE_SRCS := $(shell find template -type f)
 documentation.pdf: documentation.typ $(TEMPLATE_SRCS)
 	typst compile --font-path template/fonts $<
 
-%.pdf: theses/%.typ
+%_assignment.pdf: theses/%_assignment.typ
+	typst compile --font-path template/fonts --root . $< $@
+
+%.pdf: theses/%.typ %_assignment.pdf
 	typst compile --font-path template/fonts --root . $< $@
 
 include tests/make.mk

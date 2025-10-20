@@ -1,7 +1,7 @@
 #import "../template/template.typ": *
 
 #tultitlepages2(
-  author: "Ondřej Mekina, Matěj Žucha",
+  author: "Matěj Žucha",
   author_pronouns: "masculine",
   supervisor: "Ondřej Mekina",
   document: "bp",

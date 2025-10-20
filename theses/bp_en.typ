@@ -5,16 +5,12 @@
   faculty: "fm",
   lang: "en",
   document: "bp",
+  title_pages: "bp_en_assignment.pdf",
   title: (
     en: "Example document for a Bachelor's thesis for FM TUL in English",
     cs: "Ukázka dokumentu typu Bakalářská práce pro FM TUL v angličtině",
   ),
   author: "Matěj Žucha",
-  author_pronouns: "me",
-  supervisor: "Ondřej Mekina",
-  consultant: "Michal Procházka (nepovinný údaj)",
-  programme: (en: "My beautiful study programme"),
-  branch: (en: "My beautiful study branch"),
   abstract: (
     en: [
       This document serves as a practical demonstration of all the important features of the

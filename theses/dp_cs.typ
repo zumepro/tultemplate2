@@ -5,15 +5,12 @@
   faculty: "fm",
   lang: "cs",
   document: "dp",
+  title_pages: "dp_cs_assignment.pdf",
   title: (
     cs: "Ukázka dokumentu typu Diplomová práce pro FM TUL v češtině",
     en: "Example document for a Master's thesis for FM TUL in Czech",
   ),
   author: "Matěj Žucha",
-  author_pronouns: "masculine",
-  supervisor: "Ondřej Mekina",
-  consultant: "Michal Procházka (nepovinný údaj)",
-  programme: (cs: "Můj krásný studijní program"),
   abstract: (
     cs: [
       Tento dokument slouží jako praktická ukázka všech důležitcýh funkcí šablony _tultemplate2_,
