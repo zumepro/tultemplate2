@@ -70,7 +70,19 @@
 		"next_page_attachment": "začíná na další straně",
 		"attached_bellow": "dále přiloženo",
 
-		"place_assignment": "Sem vložte zadání"
+		"place_assignment": "Sem vložte zadání",
+
+		"break_rules": {
+			"space_after": [
+				"((?i)[kosuvzai])",
+				"(tj|tzv|tzn)\\."
+			],
+			"nonbreaking_terms": [
+				"(s\\. r\\. o|a\\. s|v\\. o\\. s)\\.",
+				"č\\. ([pe]|ev)\\.",
+				"ev?\\. č\\."
+			]
+		}
 	},
 
 	"en": {
