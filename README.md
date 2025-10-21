@@ -38,11 +38,11 @@ previous TUL template developers. But even now we feel like we're far from perfe
 think you could help us or give us any advice to make this project thrive, please **reach out**.
 
 This project was inspired by Pavel Satrapa's TUL LaTeX bundle
-(https://www.nti.tul.cz/~satrapa/vyuka/latex-tul/). It aims to be a modern and more robust
-alternative.
+(https://www.nti.tul.cz/~satrapa/vyuka/latex-tul/).
 
-By rewriting in Typst, we have access to scripting. So we can programmatically pull up some
-information, translationa and abort the compilation when necessary.
+Our project aims to be a modern and more robust alternative. By rewriting in Typst, we have access
+to scripting. So we can programmatically pull up some information, translation and abort the
+compilation when necessary.
 
 Oh and also... it's hella fast.
 
@@ -99,5 +99,5 @@ make bp_cs.pdf
 Will generate an example bachelor's thesis in czech.
 
 We also have:
-- `bp_en.pdf` (partially translate - if you wish to help translating, we'll gladly welcome it)
+- `bp_en.pdf` (only partially translated - if you wish to help translating, we'll gladly welcome it)
 - `dp_cs.pdf`
