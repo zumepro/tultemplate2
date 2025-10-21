@@ -93,7 +93,7 @@ Stejně jako v jiných programech, i Typst podporuje nadpisy více úrovní. Pro
 rovná se a mezera na začátku řádku, čili ve zdrojovém souboru Typstu je používán takto:
 
 ```typst
-= Můj nadpis první úrovně 
+= Můj nadpis první úrovně
 ```
 
 Pro nadpis druhé úrovně pak použijeme dvě rovná se, pro nadpis třetí úrovně tři rovná se.
@@ -129,7 +129,7 @@ Syntaxe základního zvýraznění je velmi podobná například Markdownu. Sta�
 ```typst
 *tučně*
 _kurzívou_
-``` 
+```
 
 Další stylování lze dělat právě přes funkce, viz třeba:
 
