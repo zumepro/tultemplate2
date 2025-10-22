@@ -80,7 +80,9 @@
 			"nonbreaking_terms": [
 				"(s\\. r\\. o|a\\. s|v\\. o\\. s)\\.",
 				"č\\. ([pe]|ev)\\.",
-				"ev?\\. č\\."
+				"ev?\\. č\\.",
+				"(?i)Technická univerzita v Liberci\\b",
+				"(?i)Česká republika\\b"
 			]
 		}
 	},
