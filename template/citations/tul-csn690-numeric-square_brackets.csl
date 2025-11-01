@@ -17,7 +17,7 @@
   </info>
   <locale>
     <terms>
-      <term name="no date">[no date]</term>
+      <term name="no date">[bez data]</term>
       <term name="in">v</term>
       <term name="online">online</term>
       <term name="accessed">citováno</term>
@@ -148,7 +148,7 @@
         <text variable="title" font-style="italic"/>
       </else-if>
       <else-if type="patent">
-        <text variable="title" suffix="."/>
+        <text variable="title" font-style="italic" suffix="."/>
       </else-if>
       <else>
         <text variable="title" font-style="italic" suffix="."/>
@@ -203,18 +203,18 @@
   </macro>
   <macro name="issue">
     <group delimiter=", ">
-      <text variable="volume" prefix="vol.&#160;"/>
+      <text variable="volume" prefix="Vol.&#160;"/>
       <choose>
         <if variable="volume">
-          <text variable="issue" prefix="čí.&#160;"/>
-          <text variable="page" prefix="str.&#160;"/>
+          <text variable="issue" prefix="č.&#160;"/>
+          <text variable="page" prefix="s.&#160;"/>
         </if>
         <else-if variable="issue">
-          <text variable="issue" prefix="Čí.&#160;"/>
-          <text variable="page" prefix="str.&#160;"/>
+          <text variable="issue" prefix="Č.&#160;"/>
+          <text variable="page" prefix="s.&#160;"/>
         </else-if>
         <else>
-          <text variable="page" prefix="Str.&#160;"/>
+          <text variable="page" prefix="S.&#160;"/>
         </else>
       </choose>
     </group>
@@ -410,6 +410,7 @@
           <group display="right-inline">
             <text macro="responsability" suffix=". "/>
             <text macro="title" suffix=". "/>
+            <text macro="publisher-group" suffix=", "/>
             <text macro="date" suffix=". "/>
             <text macro="url" suffix=". "/>
             <text macro="accessed" suffix=". "/>
@@ -458,8 +459,8 @@
           <group display="right-inline">
             <text macro="responsability" suffix=". "/>
             <text macro="title" suffix=". "/>
-            <text macro="number" suffix=". "/>
             <text macro="date" suffix=". "/>
+            <text macro="number" suffix=". "/>
             <text macro="publisher-group" suffix=". "/>
             <text macro="accessed" suffix=". "/>
             <text macro="collection" suffix=". "/>
@@ -487,9 +488,6 @@
       </choose>
       <group display="right-inline">
         <text macro="archive"/>
-      </group>
-      <group display="right-inline">
-        <text macro="abstract"/>
       </group>
       <group display="right-inline">
         <text macro="note"/>

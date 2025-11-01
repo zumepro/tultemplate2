@@ -487,9 +487,6 @@
         <text macro="archive"/>
       </group>
       <group display="right-inline">
-        <text macro="abstract"/>
-      </group>
-      <group display="right-inline">
         <text macro="note"/>
       </group>
     </layout>
