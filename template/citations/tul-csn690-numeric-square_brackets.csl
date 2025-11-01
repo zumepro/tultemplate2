@@ -17,4 +17,37 @@
     <title-short>TUL</title-short>
     <updated>2025-11-01T19:00:33.673095652+01:00</updated>
   </info>
+  <locale lang="cs">
+    <term name="ad">&#160;př.&#160;n.&#160;l.</term>
+    <term name="bc">&#160;n.&#160;l.</term>
+    <term name="open-quote">„</term>
+    <term name="close-quote">“</term>
+    <term name="page-range-delimiter">‑</term>
+    <term name="accessed">citováno</term>
+    <term name="and others">a další</term>
+    <term name="available at">dostupné z</term>
+    <term name="no date">bez data</term>
+    <term name="retrieved">dostupné</term>
+    <term name="from">z</term>
+    <term name="and others">a další</term>
+    <term name="and">a</term>
+  </locale>
+  <macro name="author">
+    <names variable="author">
+      <name and="text" name-as-sort-order="first" sort-separator=", " delimiter="; " delimiter-precedes-et-al="never" delimiter-precedes-last="never" et-al-use-first="5">
+        <name-part name="family" text-case="uppercase"/>
+      </name>
+      <et-al term="and others"/>
+    </names>
+  </macro>
+  <citation prefix="[" suffix="]" delimiter=", ">
+    <layout>
+      <text variable="citation-number"/>
+    </layout>
+  </citation>
+  <bibliography>
+    <layout>
+      <text macro="author"/>
+    </layout>
+  </bibliography>
 </style>
