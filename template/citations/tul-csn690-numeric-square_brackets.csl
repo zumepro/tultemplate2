@@ -171,21 +171,32 @@
             <text macro="title" suffix=". " font-style="italic"/>
             <text macro="format" suffix=". "/>
             <text macro="published-in" suffix=". "/>
-            <text macro="published"/>
-            <choose>
-              <if variable="volume issue page" match="any">
-                <text value=", "/>
-                <text macro="numbering-paging" suffix=". "/>
-              </if>
-              <else>
-                <text value=". "/>
-              </else>
-            </choose>
+            <text macro="published" suffix=". "/>
             <text macro="id" suffix=". "/>
             <text macro="url" suffix=". "/>
             <text macro="accessed"/>
           </group>
         </if>
+        <else-if type="book">
+          <group>
+            <text macro="author" suffix=". "/>
+            <text macro="title" suffix=". " font-style="italic"/>
+            <text macro="numbering-paging" suffix=". "/>
+            <text macro="publisher"/>
+            <choose>
+              <if variable="issued" match="any">
+                <text value=", "/>
+              </if>
+              <else>
+                <text value=". "/>
+              </else>
+            </choose>
+            <text macro="published" suffix=". "/>
+            <text macro="id" suffix=". "/>
+            <text macro="url" suffix=". "/>
+            <text macro="accessed"/>
+          </group>
+        </else-if>
         <else>
           <text value="TODO"/>
         </else>
