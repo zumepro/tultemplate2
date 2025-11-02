@@ -18,19 +18,22 @@
     <updated>2025-11-01T19:00:33.673095652+01:00</updated>
   </info>
   <locale lang="cs">
-    <term name="ad">&#160;př.&#160;n.&#160;l.</term>
-    <term name="bc">&#160;n.&#160;l.</term>
-    <term name="open-quote">„</term>
-    <term name="close-quote">“</term>
-    <term name="page-range-delimiter">‑</term>
-    <term name="accessed">citováno</term>
-    <term name="and others">a další</term>
-    <term name="available at">dostupné z</term>
-    <term name="no date">bez data</term>
-    <term name="retrieved">dostupné</term>
-    <term name="from">z</term>
-    <term name="and others">a další</term>
-    <term name="and">a</term>
+    <terms>
+      <term name="ad">&#160;př.&#160;n.&#160;l.</term>
+      <term name="online">online</term>
+      <term name="bc">&#160;n.&#160;l.</term>
+      <term name="open-quote">„</term>
+      <term name="close-quote">“</term>
+      <term name="page-range-delimiter">‑</term>
+      <term name="accessed">citováno</term>
+      <term name="and others">a další</term>
+      <term name="available at">dostupné z</term>
+      <term name="no date">bez data</term>
+      <term name="retrieved">dostupné</term>
+      <term name="from">z</term>
+      <term name="and others">a další</term>
+      <term name="and">a</term>
+    </terms>
   </locale>
   <macro name="author">
     <names variable="author">
@@ -40,6 +43,119 @@
       <et-al term="and others"/>
     </names>
   </macro>
+  <macro name="title">
+    <text variable="title"/>
+  </macro>
+  <macro name="format">
+    <choose>
+      <if variable="URL">
+        <text term="online" text-case="capitalize-first"/>
+      </if>
+    </choose>
+  </macro>
+  <macro name="published-in">
+    <choose>
+      <if type="article-journal article-magazine" match="any">
+        <choose>
+          <if variable="container-title">
+            <text variable="container-title"/>
+          </if>
+          <else-if variable="container-title-short">
+            <text variable="container-title-short"/>
+          </else-if>
+        </choose>
+      </if>
+    </choose>
+  </macro>
+  <macro name="publisher">
+    <choose>
+      <if variable="publisher-place">
+        <text variable="publisher-place"/>
+        <choose>
+          <if variable="publisher">
+            <text value=":&#160;"/>
+          </if>
+        </choose>
+      </if>
+    </choose>
+    <text variable="publisher"/>
+  </macro>
+  <macro name="numbering-paging">
+    <choose>
+      <if variable="volume">
+        <text variable="volume" prefix="sv.&#160;"/>
+        <choose>
+          <if variable="issue page" match="any">
+            <text value=", "/>
+          </if>
+        </choose>
+      </if>
+    </choose>
+    <choose>
+      <if variable="issue">
+        <text variable="issue" prefix="č.&#160;"/>
+        <choose>
+          <if variable="page" match="any">
+            <text value=", "/>
+          </if>
+        </choose>
+      </if>
+    </choose>
+    <text variable="page" prefix="str.&#160;"/>
+  </macro>
+  <macro name="published">
+    <date variable="issued">
+      <date-part name="year"/>
+      <date-part name="month" form="numeric-leading-zeros" prefix="-"/>
+      <date-part name="day" form="numeric-leading-zeros" prefix="-"/>
+    </date>
+  </macro>
+  <macro name="id">
+    <choose>
+      <if variable="ISSN">
+        <text prefix="ISSN&#160;" variable="ISSN"/>
+        <choose>
+          <if variable="ISBN DOI" match="any">
+            <text value=". "/>
+          </if>
+        </choose>
+      </if>
+    </choose>
+    <choose>
+      <if variable="ISBN">
+        <text prefix="ISBN&#160;" variable="ISBN"/>
+        <choose>
+          <if variable="DOI">
+            <text value=". "/>
+          </if>
+        </choose>
+      </if>
+    </choose>
+    <text prefix="DOI&#160;" variable="DOI"/>
+  </macro>
+  <macro name="accessed">
+    <choose>
+      <if variable="accessed">
+        <group prefix="[" suffix="]">
+          <text term="accessed" suffix=" "/>
+          <date variable="accessed">
+            <date-part name="year"/>
+            <date-part name="month" form="numeric-leading-zeros" prefix="-"/>
+            <date-part name="day" form="numeric-leading-zeros" prefix="-"/>
+          </date>
+        </group>
+      </if>
+    </choose>
+  </macro>
+  <macro name="url">
+    <choose>
+      <if variable="URL">
+        <text term="retrieved" text-case="capitalize-first" suffix=" "/>
+        <text term="from" suffix=":&#160;"/>
+        <text variable="URL"/>
+      </if>
+    </choose>
+  </macro>
   <citation prefix="[" suffix="]" delimiter=", ">
     <layout>
       <text variable="citation-number"/>
@@ -47,7 +163,33 @@
   </citation>
   <bibliography>
     <layout>
-      <text macro="author"/>
+      <text variable="citation-number" display="left-margin" prefix="[" suffix="]"/>
+      <choose>
+        <if type="article-journal article-magazine" match="any">
+          <group>
+            <text macro="author" suffix=". "/>
+            <text macro="title" suffix=". " font-style="italic"/>
+            <text macro="format" suffix=". "/>
+            <text macro="published-in" suffix=". "/>
+            <text macro="published"/>
+            <choose>
+              <if variable="volume issue page" match="any">
+                <text value=", "/>
+                <text macro="numbering-paging" suffix=". "/>
+              </if>
+              <else>
+                <text value=". "/>
+              </else>
+            </choose>
+            <text macro="id" suffix=". "/>
+            <text macro="url" suffix=". "/>
+            <text macro="accessed"/>
+          </group>
+        </if>
+        <else>
+          <text value="TODO"/>
+        </else>
+      </choose>
     </layout>
   </bibliography>
 </style>
