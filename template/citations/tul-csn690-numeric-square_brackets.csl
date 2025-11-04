@@ -54,18 +54,8 @@
     </choose>
   </macro>
   <macro name="published-in">
-    <choose>
-      <if type="article-journal article-magazine" match="any">
-        <choose>
-          <if variable="container-title">
-            <text variable="container-title"/>
-          </if>
-          <else-if variable="container-title-short">
-            <text variable="container-title-short"/>
-          </else-if>
-        </choose>
-      </if>
-    </choose>
+    <!-- TODO: FIX: Doesn't work for webpage -->
+    <text variable="container-title"/>
   </macro>
   <macro name="publisher">
     <choose>
@@ -164,23 +154,11 @@
   <bibliography>
     <layout>
       <text variable="citation-number" display="left-margin" prefix="[" suffix="]"/>
-      <choose>
-        <if type="article-journal article-magazine" match="any">
-          <group>
-            <text macro="author" suffix=". "/>
-            <text macro="title" suffix=". " font-style="italic"/>
-            <text macro="format" suffix=". "/>
-            <text macro="published-in" suffix=". "/>
-            <text macro="published" suffix=". "/>
-            <text macro="id" suffix=". "/>
-            <text macro="url" suffix=". "/>
-            <text macro="accessed"/>
-          </group>
-        </if>
-        <else-if type="book">
-          <group>
-            <text macro="author" suffix=". "/>
-            <text macro="title" suffix=". " font-style="italic"/>
+      <group>
+        <text macro="author" suffix=". "/>
+        <text macro="title" suffix=". " font-style="italic"/>
+        <choose>
+          <if type="book">
             <text macro="numbering-paging" suffix=". "/>
             <text macro="publisher"/>
             <choose>
@@ -191,16 +169,20 @@
                 <text value=". "/>
               </else>
             </choose>
-            <text macro="published" suffix=". "/>
-            <text macro="id" suffix=". "/>
-            <text macro="url" suffix=". "/>
-            <text macro="accessed"/>
-          </group>
-        </else-if>
-        <else>
-          <text value="TODO"/>
-        </else>
-      </choose>
+          </if>
+          <else-if type="article-journal article-magazine article-newspaper post-weblog webpage" match="any">
+            <text macro="format" suffix=". "/>
+            <text macro="published-in" suffix=". "/>
+            <text macro="publisher" suffix=". "/>
+          </else-if>
+          <else>
+            <text value=" TODO "/>
+          </else>
+        </choose>
+        <text macro="published" suffix=". "/>
+        <text macro="id" suffix=". "/>
+        <text macro="accessed"/>
+      </group>
     </layout>
   </bibliography>
 </style>
