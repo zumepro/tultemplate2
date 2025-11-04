@@ -160,23 +160,22 @@
         <choose>
           <if type="book">
             <text macro="numbering-paging" suffix=". "/>
-            <text macro="publisher"/>
-            <choose>
-              <if variable="issued" match="any">
-                <text value=", "/>
-              </if>
-              <else>
-                <text value=". "/>
-              </else>
-            </choose>
           </if>
           <else-if type="article-journal article-magazine article-newspaper post-weblog webpage" match="any">
             <text macro="format" suffix=". "/>
             <text macro="published-in" suffix=". "/>
-            <text macro="publisher" suffix=". "/>
           </else-if>
           <else>
             <text value=" TODO "/>
+          </else>
+        </choose>
+        <text macro="publisher"/>
+        <choose>
+          <if variable="issued" match="any">
+            <text value=", "/>
+          </if>
+          <else>
+            <text value=". "/>
           </else>
         </choose>
         <text macro="published" suffix=". "/>
