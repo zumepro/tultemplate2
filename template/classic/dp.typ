@@ -1,7 +1,6 @@
 #import "../arguments.typ": req_arg, get_arg, map_arg
 #import "../utils.typ": assert_dict_has, is_none
 #import "common.typ": mainpage, assignment, external_title_pages
-#import "thesis_base.typ": thesis_base
 
 #let dp(args) = {
   let language = req_arg(args, "document.language");
