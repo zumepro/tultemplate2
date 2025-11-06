@@ -16,6 +16,8 @@
 		"bp_asgn": "Zadání bakalářské práce",
 		"dp": "Diplomová práce",
 		"dp_asgn": "Zadání diplomové práce",
+		"prj": "Projekt",
+		"prj_asgn": "Zadání projektu",
 
 		"city": "Liberec",
 
@@ -23,7 +25,7 @@
 		"bibliography": "Použitá literatura",
 
 		"disclaimer": "Prohlášení",
-		"disclaimer_content": "Prohlašuj{g:i|i|eme}, že {svůj} {práce:tu} js{g:em|em|me} vypracoval{g:|a|i} samostatně jako původní dílo s použitím uvedené literatury a na základě konzultací s vedoucím {{g:mé|mé|naší}} bakalářské práce a konzultantem.\n\nJs{g:em|em|me} si vědom{g:|a|i} toho, že na {{g:moji|moji|naši}} {práce:tu} se plně vztahuje zákon č. 121/2000 Sb., o právu autorském, zejména § 60 – školní dílo.\n\nBer{g:u|u|eme} na vědomí, že Technická univerzita v Liberci nezasahuje do {g:mých|mých|našich} autorských práv užitím {{g:mé|mé|naší}} {práce:té} pro vnitřní potřebu Technické univerzity v Liberci.\n\nUžij{g:i|i|eme}-li {práce:tu} nebo poskytn{g:u|u|eme}-li licenci k {jejímu} využití, js{g:em|em|me} si vědom{g:|a|i} povinnosti informovat o této skutečnosti Technickou univerzitu v Liberci; v tomto případě má Technická univerzita v Liberci právo od{g:e|e|} {g:mne|mne|nás} požadovat úhradu nákladů, které vynaložila na vytvoření díla, až do jejich skutečné výše.\n\nSoučasně čestně prohlašuj{g:i|i|eme}, že text elektronické podoby práce vložený do IS/STAG se shoduje s textem tištěné podoby práce.\n\nBer{g:u|u|eme} na vědomí, že {{g:můj|můj|naše}} {práce:ta} bude {zveřejněn} Technickou univerzitou v Liberci v souladu s § 47b zákona č. 111/1998 Sb., o vysokých školách a o změně a doplnění dalších zákonů (zákon o vysokých školách), ve znění pozdějších předpisů.\n\nJs{g:em|em|me} si vědom{g:|a|i} následků, které podle zákona o vysokých školách mohou vyplývat z porušení tohoto prohlášení.",
+		"disclaimer_content": "Prohlašuj{g:i|i|eme}, že {svůj} {práce:tu} js{g:em|em|me} vypracoval{g:|a|i} samostatně jako původní dílo s použitím uvedené literatury a na základě konzultací s vedoucím {{g:mé|mé|naší}} {práce:té} a konzultantem.\n\nJs{g:em|em|me} si vědom{g:|a|i} toho, že na {{g:moji|moji|naši}} {práce:tu} se plně vztahuje zákon č. 121/2000 Sb., o právu autorském, zejména § 60 – školní dílo.\n\nBer{g:u|u|eme} na vědomí, že Technická univerzita v Liberci nezasahuje do {g:mých|mých|našich} autorských práv užitím {{g:mé|mé|naší}} {práce:té} pro vnitřní potřebu Technické univerzity v Liberci.\n\nUžij{g:i|i|eme}-li {práce:tu} nebo poskytn{g:u|u|eme}-li licenci k {jejímu} využití, js{g:em|em|me} si vědom{g:|a|i} povinnosti informovat o této skutečnosti Technickou univerzitu v Liberci; v tomto případě má Technická univerzita v Liberci právo od{g:e|e|} {g:mne|mne|nás} požadovat úhradu nákladů, které vynaložila na vytvoření díla, až do jejich skutečné výše.\n\nSoučasně čestně prohlašuj{g:i|i|eme}, že text elektronické podoby práce vložený do IS/STAG se shoduje s textem tištěné podoby práce.\n\nBer{g:u|u|eme} na vědomí, že {{g:můj|můj|naše}} {práce:ta} bude {zveřejněn} Technickou univerzitou v Liberci v souladu s § 47b zákona č. 111/1998 Sb., o vysokých školách a o změně a doplnění dalších zákonů (zákon o vysokých školách), ve znění pozdějších předpisů.\n\nJs{g:em|em|me} si vědom{g:|a|i} následků, které podle zákona o vysokých školách mohou vyplývat z porušení tohoto prohlášení.",
 
 		"disclaimer_replace": {
 			"bp": {
@@ -54,6 +56,21 @@
 				"svůj": "svoji",
 				"jejímu": "jejímu",
 				"zveřejněn": "zveřejněna"
+			},
+
+			"prj": {
+				"práce:ta": "projekt",
+				"práce:tu": "projekt",
+				"práce:té": "projektu",
+				"moji": "můj",
+				"naše": "náš",
+				"naši": "náš",
+				"naší": "náš",
+				"mé": "mého",
+				"můj": "můj",
+				"svůj": "svůj",
+				"jejímu": "jeho",
+				"zveřejněn": "zveřejněn"
 			}
 		},
 
@@ -104,6 +121,8 @@
 		"bp_asgn": "Bachelor thesis assignment",
 		"dp": "Diploma thesis",
 		"dp_asgn": "Diploma thesis assignment",
+		"prj": "Project",
+		"prj_asgn": "Project assignment",
 
 		"city": "Liberec",
 
@@ -120,6 +139,10 @@
 
 			"dp": {
 				"thesis": "diploma thesis"
+			},
+
+			"prj": {
+				"thesis": "project"
 			}
 		},
 

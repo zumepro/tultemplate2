@@ -8,12 +8,14 @@
 // thesis types
 #import "bp.typ": bp
 #import "dp.typ": dp
+#import "prj.typ": prj
 #import "other.typ": other_title_page, other_base
 #import "thesis_base.typ": thesis_base, thesis_base_title_pages
 
 #let document_types = (
   "bp": (bp, thesis_base, thesis_base_title_pages),
   "dp": (dp, thesis_base, thesis_base_title_pages),
+  "prj": (prj, thesis_base, thesis_base_title_pages),
   "other": (other_title_page, other_base, (args) => {}),
 )
 
