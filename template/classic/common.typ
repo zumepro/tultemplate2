@@ -287,7 +287,7 @@
 
 #let assignment(args, show_fallback: true) = {
   if is_none(get_arg(args, "assignment")) {
-    if show_fallback {
+    if not show_fallback {
       return;
     }
     page(
