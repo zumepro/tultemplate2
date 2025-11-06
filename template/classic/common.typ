@@ -285,8 +285,11 @@
 
 // ASSIGNMENT PAGE
 
-#let assignment(args) = {
+#let assignment(args, show_fallback: true) = {
   if is_none(get_arg(args, "assignment")) {
+    if show_fallback {
+      return;
+    }
     page(
       place(center + horizon, text(
         get_lang_item(req_arg(args, "document.language"), "place_assignment"),
@@ -477,26 +480,29 @@
     show repeat: none;
     block(text(it, weight: "bold", size: 1.2em), above: 1.5em);
   };
-  outline(title: get_lang_item(language, "toc"));
+  context {
+    if query(heading.where(bookmarked: true)).len() > 0 {
+      outline(title: get_lang_item(language, "toc"));
+    }
+  }
 }
 
 // BIBLIOGRAPHY
 
 #let bibliogr(args) = {
   let (language, citations_file) = req_arg(args, ("document.language", "citations"));
-  if language == "cs" {
-    bibliography(
-      citations_file,
-      style: "../citations/tul-csn690-numeric-square_brackets.csl",
-      title: get_lang_item(language, "bibliography"),
-    );
-  } else if language == "en" {
-    bibliography(
-      citations_file,
-      style: "../citations/iso690-numeric-square_brackets.csl",
-      title: get_lang_item(language, "bibliography"),
-    );
-  } else {
-    panic("unknown language for bibliography '" + language + "'");
+  let styles = (
+    "cs": "../citations/tul-csn690-numeric-square_brackets.csl",
+    "en": "../citations/iso690-numeric-square_brackets.csl",
+  );
+  let style = styles.at(language);
+  context {
+    if query(ref.where(element: none)).len() > 0 {
+      bibliography(
+        citations_file,
+        style: style,
+        title: get_lang_item(language, "bibliography"),
+      );
+    }
   }
 }
