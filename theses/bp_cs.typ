@@ -5,12 +5,35 @@
   faculty: "fm",
   lang: "cs",
   document: "bp",
-  title_pages: "bp_cs_assignment.pdf",
+  assignment: (
+    personal_number: "A00000007",
+    department: "Ústav šablon",
+    academical_year: "2025/2026",
+    content: [
+      = Zásady pro vypracování:
+      + Seznamte se s možnostmi šablon
+      + Navrhněte několik možných stylů šablon
+      + Seznamte se s nástrojem Typst
+      + Implementujte šablonu
+      + Zkonzultujte šablonu
+      + Opravte spoustu věcí
+      + Zkonzultujte šablonu
+      + Opravte spoustu věcí
+      + Zkonzultujte šablonu
+      + Snad už nebude nic potřeba opravit
+      = Seznam odborné literatury:
+      _Přísně tajné_
+    ],
+  ),
   title: (
     cs: "Ukázka dokumentu typu Bakalářská práce pro FM TUL v češtině",
     en: "Example document for a Bachelor's thesis for FM TUL in Czech",
   ),
   author: "Matěj Žucha",
+  author_pronouns: "masculine",
+  programme: (cs: "MI6000000007 Přísně tajné"),
+  specialization: (cs: "Vytváření šablon"),
+  supervisor: "Ondřej Mekina",
   abstract: (
     cs: [
       Tento dokument slouží jako praktická ukázka všech důležitcýh funkcí šablony _tultemplate2_,

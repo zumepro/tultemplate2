@@ -7,7 +7,7 @@ watch_documentation:
 	typst watch --font-path template/fonts documentation.typ & xdg-open documentation.pdf
 
 .PHONY: watch_%
-watch_%: %.pdf %_assignment.pdf
+watch_%: %.pdf
 	xdg-open $< & typst watch --root . --font-path template/fonts theses/$*.typ $<
 
 .PHONY: documentation
@@ -32,7 +32,7 @@ bundle: $(BUNDLE_TARGETS)
 .PHONY: clean
 clean:
 	rm -rf pack
-	rm -f documentation.pdf bp_cs.pdf bp_assignment_cs.pdf dp_cs.pdf
+	rm -f ./*.pdf
 
 pack/tultemplate2.zip: $(PACK_TARGETS)
 	@mkdir -p $(@D)
@@ -92,10 +92,7 @@ TEMPLATE_SRCS := $(shell find template -type f)
 documentation.pdf: documentation.typ $(TEMPLATE_SRCS)
 	typst compile --font-path template/fonts $<
 
-%_assignment.pdf: theses/%_assignment.typ
-	typst compile --font-path template/fonts --root . $< $@
-
-%.pdf: theses/%.typ %_assignment.pdf
+%.pdf: theses/%.typ
 	typst compile --font-path template/fonts --root . $< $@
 
 include tests/make.mk
