@@ -1,6 +1,6 @@
 # tultemplate2
 
-Easy Typst template for TUL documents. Begin by compiling `example.typ` and reading it.
+Easy Typst template for TUL documents. Begin by compiling `documentation.typ` and reading it.
 
 ## Recommended usage
 
