@@ -11,7 +11,7 @@
 	  in
 	  {
 	    devShell = with pkgs; mkShell {
-		  buildInputs = [ typst gnumake jq xdg-utils ];
+		  buildInputs = [ typst gnumake jq xdg-utils zip ];
 		};
 	  }
 	);
