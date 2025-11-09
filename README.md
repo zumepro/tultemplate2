@@ -50,7 +50,7 @@ Oh and also... it's hella fast.
 
 > [!IMPORTANT]
 > This repo uses git lfs to pull fonts. Please set it up (or download a packed build from releases).
-> When running in CLI - you'll want to include the embedded fonts:
+> When running in CLI - you'll want to include the embedded fonts (or run using make):
 > `typst compile --font-path template/fonts example.typ`
 
 ### Dependencies
@@ -60,6 +60,10 @@ Oh and also... it's hella fast.
 - `GNU Make` for Makefiles
 - Typst command (`typst` on Snap / `typst` package on Arch-based repos - AUR not required)
 - `zip` if you want to make packed builds (perhaps for the on-line editor)
+
+or
+
+- Nix (use `nix develop` to enter the development shell and you can skip dependency installation)
 
 ### Building your own thesis
 
