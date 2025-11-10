@@ -88,13 +88,15 @@ You can build (and view) it by running:
 make
 ```
 
+This will compile it once and open it using `xdg-open`.
+
 Or when using Nix:
 
 ```sh
 nix build
 ```
 
-This will compile it once and open it using `xdg-open`.
+That will output `result/documentation.pdf` which you can view.
 
 ### Building thesis examples
 
