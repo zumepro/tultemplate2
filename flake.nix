@@ -8,10 +8,27 @@
     utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        dependencies = with pkgs; [ typst gnumake jq xdg-utils zip ];
       in
       {
+        packages.documentation = pkgs.stdenv.mkDerivation {
+          pname = "documentation";
+          version = "1.2";
+          src = ./.;
+          buildInputs = dependencies;
+          buildPhase = ''
+            make documentation.pdf
+          '';
+          installPhase = ''
+            mkdir -p $out
+            cp -r documentation.pdf $out/ || true
+          '';
+        };
+
+        packages.default = self.packages.${system}.documentation;
+
         devShell = with pkgs; mkShell {
-          buildInputs = [ typst gnumake jq xdg-utils zip ];
+          buildInputs = dependencies;
         };
       }
     );

@@ -88,6 +88,12 @@ You can build (and view) it by running:
 make
 ```
 
+Or when using Nix:
+
+```sh
+nix build
+```
+
 This will compile it once and open it using `xdg-open`.
 
 ### Building thesis examples
