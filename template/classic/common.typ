@@ -114,7 +114,7 @@
 #let person_info(record, item_name) = {
   if is_none(record) {
     none
-  } else if type(record) == str {
+  } else if type(record) == str or type(record) == content {
     record
   } else if type(record) == dictionary {
     if "name" in record {
@@ -200,7 +200,7 @@
     ("consultant", person_info(consultant, "consultant"), false),
     ("study_programme", study_programme, false),
     ("study_specialization", study_specialization, false),
-    ("year_of_study", map_none(year_of_study, (v) => str(v) + "."), false),
+    ("year_of_study", year_of_study, false),
   ));
 }
 
@@ -368,6 +368,14 @@
 
 // ABSTRACT
 
+#let display_keywords(keywords) = {
+  if type(keywords) == array {
+    keywords.join(", ")
+  } else if type(keywords) == str or type(keywords) == content {
+    keywords
+  }
+}
+
 #let abstract(language, args) = {
   heading(
     text(req_arg(args, "title").at(language), font: base_font), numbering: none, outlined: false
@@ -385,7 +393,7 @@
     linebreak();
     linebreak();
     text(get_lang_item(language, "keywords") + ": ", weight: "bold", font: base_font);
-    text(keywords.at(language).join(", "));
+    display_keywords(keywords.at(language))
   }
 }
 

@@ -8,21 +8,21 @@
     type: "string",
   ),
   title_pages: "string | boolean | none",
-  title: "dictionary[string : string] | none",
+  title: "dictionary[string : string | content] | none",
   author: (
-    name: "string | none",
+    name: "string | content | none",
     pronouns: "string | none",
-    programme: "dictionary[string : string] | none",
-    specialization: "dictionary[string : string] | none",
-    year_of_study: "integer | none",
+    programme: "dictionary[string : string | content] | none",
+    specialization: "dictionary[string : string | content] | none",
+    year_of_study: "string | content | none",
   ),
   project: (
-    supervisor: "string | dictionary[string : string] | none",
-    consultant: "string | dictionary[string : string] | none",
+    supervisor: "string | content | dictionary[string : string | content] | none",
+    consultant: "string | content | dictionary[string : string | content] | none",
   ),
   abstract: (
     content: "dictionary[string : string | content] | none",
-    keywords: "dictionary[string : array[string]] | none",
+    keywords: "dictionary[string : string | content | array[string]] | none",
   ),
   acknowledgement: "dictionary[string : string | content] | none",
   assignment: "dictionary[string : any] | content | string | none",
@@ -30,9 +30,9 @@
 );
 
 #let assignment_structure = (
-  personal_number: "string",
-  department: "string",
-  academical_year: "string",
+  personal_number: "string | content",
+  department: "string | content",
+  academical_year: "string | content",
   content: "content",
 );
 

@@ -1,9 +1,9 @@
 #import "template/template.typ": *
 
 #show: tultemplate2.with(
-  title: (cs: "Návod na použití Typst TUL šablony"),
-  author: "Ondřej Mekina, Matěj Žucha",
-  supervisor: "Ondřej Mekina",
+  title: (cs: [Návod na použití Typst TUL šablony]),
+  author: [Ondřej Mekina, Matěj Žucha],
+  supervisor: [Ondřej Mekina],
 )
 
 #profile("release")
@@ -363,6 +363,12 @@ Zde je ukázka definice příloh (je také použita na konci tohoto ukázkového
   ),
 )
 ```
+
+#pagebreak(weak: true)
+== Argumenty šablony
+
+#import "template/arguments.typ": print_argument_docs
+#print_argument_docs()
 
 = Workflow a jak si zjednoduššit práci
 

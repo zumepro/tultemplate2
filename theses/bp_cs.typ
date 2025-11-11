@@ -6,9 +6,9 @@
   lang: "cs",
   document: "bp",
   assignment: (
-    personal_number: "A00000007",
-    department: "Ústav šablon",
-    academical_year: "2025/2026",
+    personal_number: [A00000007],
+    department: [Ústav šablon],
+    academical_year: [2025/2026],
     content: [
       = Zásady pro vypracování:
       + Seznamte se s možnostmi šablon
@@ -26,14 +26,14 @@
     ],
   ),
   title: (
-    cs: "Ukázka dokumentu typu Bakalářská práce pro FM TUL v češtině",
-    en: "Example document for a Bachelor's thesis for FM TUL in Czech",
+    cs: [Ukázka dokumentu typu Bakalářská práce pro FM TUL v češtině],
+    en: [Example document for a Bachelor's thesis for FM TUL in Czech],
   ),
-  author: "Matěj Žucha",
+  author: [Matěj Žucha],
   author_pronouns: "masculine",
-  programme: (cs: "MI6000000007 Přísně tajné"),
-  specialization: (cs: "Vytváření šablon"),
-  supervisor: "Ondřej Mekina",
+  programme: (cs: [MI6000000007 Přísně tajné]),
+  specialization: (cs: [Vytváření šablon]),
+  supervisor: [Ondřej Mekina],
   abstract: (
     cs: [
       Tento dokument slouží jako praktická ukázka všech důležitcýh funkcí šablony _tultemplate2_,
@@ -45,10 +45,10 @@
     ],
   ),
   keywords: (
-    cs: ("Ukázka", "Klíčových", "Slov", "Česky"),
-    en: ("Example", "Keywords", "In", "English"),
+    cs: [Ukázka, Klíčových, Slov, Česky],
+    en: [Example, Keywords, In, English],
   ),
-  acknowledgement: (cs: "Lorem ipsum dolor sit amet."),
+  acknowledgement: (cs: [Lorem ipsum dolor sit amet.]),
   citations: "citations.bib",
 )
 
