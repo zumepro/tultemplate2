@@ -364,12 +364,6 @@ Zde je ukázka definice příloh (je také použita na konci tohoto ukázkového
 )
 ```
 
-#pagebreak(weak: true)
-== Argumenty šablony
-
-#import "template/arguments.typ": print_argument_docs
-#print_argument_docs()
-
 = Workflow a jak si zjednoduššit práci
 
 Tyhle věci používat _nemusíte_, aby vám šablona fungovala. Nicméně často jsou poměrně fajn.
@@ -432,6 +426,18 @@ Takhle si můžete předpřipravit délku odstavců a vyzkoušet si, jestli se r
 do požadavků. Pak můžete postupně přepisovat/vyplňovat.
 
 Funkce `todo` vám zároveň zabrání v tom, aby se text Lorem Ipsum vyskytl ve výsledném dokumentu.
+
+#pagebreak(weak: true)
+= Argumenty šablony
+
+Následujících pár stránek je kompletní soupis argumentů, které tato šablona přijímá.
+Pokud s šablonou nemáte rozsáhlé zkušenosti, doporučujeme raději využít generátoru
+(https://tulsablona.zumepro.cz/generate/).
+
+// Automaticky generovaný seznam argumentů
+#import "template/arguments.typ": print_argument_docs
+#print_argument_docs()
+
 
 #attachments(
   attach_link("Zdrojový kód této šablony", "https://git.zumepro.cz/tul/tultemplate2"),

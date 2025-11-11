@@ -11,7 +11,8 @@
 #let float = type_primitive("float", "a 'float'", "desetinné číslo");
 #let bool = type_primitive("boolean", "a 'boolean'", "pravdivostní hodnota");
 #let string = type_primitive("string", "a 'string'", "textový řetězec");
-#let content = type_primitive("content", "a 'content'", "obsah generovaný Typst syntaxí");
+#let cont = type_primitive("content", "a 'content'", "obsah generovaný Typst syntaxí");
+#let null = type_primitive("none", "a 'none'", "prázdná hodnota");
 
 #let literal(value) = {
   (type: "literal", value: value)
@@ -59,6 +60,20 @@
   (type: "struct", pairs: res)
 }
 
+#let dbg_literal(literal, is_content: false) = {
+  let res = if type(literal) == str {
+    "\"" + literal + "\""
+  } else {
+    "'" + str(literal) + "'"
+  };
+  if is_content {
+    raw(res)
+  } else {
+    res
+  }
+}
+
+
 #let signature_check(value, signature, name_prefix) = {
   let error_target_name(target, name_prefix) = {
     name_prefix + if "doc" in target { " ('" + target.doc.argname + "')" } else { "" }
@@ -66,14 +81,6 @@
 
   let error_value_name(value) = {
     str(type(value))
-  }
-
-  let dbg_literal(literal) = {
-    if type(literal) == str {
-      "\"" + literal + "\""
-    } else {
-      "'" + str(literal) + "'"
-    }
   }
 
   let error_expected_type(target) = {
@@ -245,24 +252,40 @@
       ":";
       list(
         {
-          "S klíči typu ";
-          typeinfo(target.val);
+          "S klíči: ";
+          typeinfo(target.key);
         },
         {
-          "S hodnotami typu ";
-          typeinfo(target.key);
+          "S hodnotami: ";
+          typeinfo(target.val);
         },
       );
     } else if target.type == "slice" {
-
+      try_doc(target, mapper: (v) => { v; ": "; });
+      [pole různé délky (_array_) s prvky: ];
+      typeinfo(target.items, disable_doc: true);
     } else if target.type == "tuple" {
-
+      try_doc(target, mapper: (v) => { v; ": "; });
+      [pole (_array_) s upřesněnými prvky: ];
+      list(
+        ..target.items.map((v) => {
+          list.item({
+            typeinfo(v);
+          });
+        })
+      );
     } else if target.type == "primitive" {
-      text(target.type_name_cs + " (");
-      text(target.type_id, style: "italic");
-      text(")");
-      try_doc(target, mapper: (v) => { [ -- ]; text(v); });
+      if target.type_id == "none" {
+        text("prázdné ('none')");
+        try_doc(target, mapper: (v) => { [ -- ]; text(v); });
+      } else {
+        text(target.type_name_cs + " (");
+        text(target.type_id, style: "italic");
+        text(")");
+        try_doc(target, mapper: (v) => { [ -- ]; text(v); });
+      }
     } else if target.type == "variants" {
+      try_doc(target, mapper: (v) => { text(v); ":"; });
       list(
         ..target.variants.map((v) => {
           list.item({
@@ -270,6 +293,9 @@
           });
         })
       );
+    } else if target.type == "literal" {
+      dbg_literal(target.value, is_content: true);
+      try_doc(target, mapper: (v) => { [ -- ]; text(v); });
     } else {
       panic();
     }
@@ -284,14 +310,14 @@
     if "doc" in target and type(target.doc.argname) != type(none) {
       args.push({
         raw(target.doc.argname);
-        [: ]
-        typeinfo(target, flatten: true)
+        [ -- ]
+        typeinfo(target);
       });
     }
   }
 
   if not is_nested {
-    list(..args.flatten());
+    list(spacing: 2em, ..args.flatten());
   } else {
     args.flatten()
   }
