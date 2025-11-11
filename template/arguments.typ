@@ -4,7 +4,7 @@
 #let lang_keys = variants(literal("cs"), literal("en"));
 #let nonrec_str = doc(string, none, "Je doporučeno použít 'content', pokud je to možné");
 #let cont_or_str = variants(cont, nonrec_str);
-#let opt_cont_or_str = variants(cont, nonrec_str);
+#let opt_cont_or_str = variants(cont, nonrec_str, null);
 
 #let arguments_structure = struct(
   keyval(literal("document"), struct( // document
@@ -22,6 +22,7 @@
       doc(literal("fm"), none, "Fakulta mechatroniky, informatiky a mezioborových studií"),
       doc(literal("fzs"), none, "Fakulta zdravotnických studií"),
       doc(literal("cxi"), none, "Ústav pro nanomateriály, pokročilé technologie a inovace"),
+      doc(literal("tul"), none, "Obecný styl a paleta TUL"),
     )), "faculty", "Fakulta (na základě toho budou vybrány barvy, logotypy, ...)"),
 
     doc(keyval(literal("language"), variants( // document.language
@@ -33,6 +34,7 @@
       doc(literal("bp"), none, "Bakalářská práce"),
       doc(literal("dp"), none, "Diplomová práce"),
       doc(literal("prj"), none, "Projekt (ročník před odevzdáním bakalářské práce)"),
+      doc(literal("other"), none, "Další dokumenty"),
     )), "document", "Typ dokumentu"),
   )),
 
@@ -63,15 +65,15 @@
     )), "author", "Jméno autora včetně titulů"),
 
     doc(keyval( // author.programme
-      literal("programme"), dict(keyval(lang_keys, opt_cont_or_str))
+      literal("programme"), variants(dict(keyval(lang_keys, cont_or_str)), null)
     ), "programme", "Studijní program, pod kterým byl tento dokument vytvořen"),
 
     doc(keyval( // author.specialization
-      literal("specialization"), dict(keyval(lang_keys, opt_cont_or_str))
+      literal("specialization"), variants(dict(keyval(lang_keys, cont_or_str)), null)
     ), "specialization", "Specializace, pod kterou byl tento dokument vytvořen"),
 
     doc(keyval( // author.year_of_study
-      literal("year_of_study"), dict(keyval(lang_keys, opt_cont_or_str))
+      literal("year_of_study"), opt_cont_or_str
     ), "year_of_study", "Specializace, pod kterou byl tento dokument vytvořen"),
   )),
 
@@ -89,25 +91,28 @@
 
   keyval(literal("abstract"), struct( // abstract
     doc(
-      keyval(literal("content"), struct(..lang_keys.variants.map((k) => { // abstract.content
-        keyval(k, variants(cont, nonrec_str, slice(string)))
-      }))),
-      "abstract", "Abstrakt projektu"
+      keyval(
+        literal("content"), // abstract.content
+        variants(struct(..lang_keys.variants.map((k) => {
+          keyval(k, variants(cont, nonrec_str, slice(string)))
+        })), null)
+      ),
+      "abstract", "Abstrakt projektu",
     ),
 
     doc(
       keyval(
         literal("keywords"), // abstract.keywords
-        struct(..lang_keys.variants.map((k) => {
+        variants(struct(..lang_keys.variants.map((k) => {
           keyval(k, variants(cont, nonrec_str, slice(string)))
-        })),
+        })), null),
       ),
       "keywords", "Klíčová slova projektu"
     ),
   )),
 
   doc( // acknowledgement
-    keyval(literal("acknowledgement"), dict(keyval(lang_keys, opt_cont_or_str))),
+    keyval(literal("acknowledgement"), variants(dict(keyval(lang_keys, cont_or_str)), null)),
     "acknowledgement", "Poděkování",
   ),
 
@@ -161,28 +166,11 @@
 }
 
 #let check_arguments(args, structure: arguments_structure, namespace: none) = {
-  let check_arguments_dict(structure, args, argument_path) = {
-    for (key, value) in structure.pairs() {
-      argument_path.push(str(key).replace("_", " "));
-
-      if not key in args {
-        panic("invalid arguments definition");
-      }
-      let arg = args.at(key);
-
-      if type(value) == dictionary {
-        check_arguments_dict(value, arg, argument_path);
-      } else if type(value) == str {
-        assert_type_signature(arg, value, argument_path.join(" "));
-      } else {
-        panic("invalid arguments definition");
-      }
-
-      let _ = argument_path.pop();
-    }
+  let res = signature_check(args, structure, "");
+  if not res.at(0) {
+    let panic_message = res.at(1);
+    panic(panic_message);
   }
-
-  check_arguments_dict(structure, args, if is_none(namespace) { () } else { (namespace,) });
 }
 
 #let get_arg_single(args, path) = {
