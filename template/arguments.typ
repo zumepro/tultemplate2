@@ -6,7 +6,6 @@
 #let cont_or_str = variants(cont, nonrec_str);
 #let opt_cont_or_str = variants(cont, nonrec_str);
 
-// "fs", "ft", "fp", "ef", "fua", "fm", "fzs", "cxi"
 #let arguments_structure = struct(
   keyval(literal("document"), struct( // document
     doc(
@@ -133,6 +132,24 @@
     "assignment", "Stránka / stránky se zadáním",
   ),
 
+  doc( // presentation_info
+    keyval(literal("presentation_info"), struct(
+      doc(
+        keyval(literal("append_thanks"), bool), none,
+        "Zda na konec prezentace vložit poděkování za pozornost",
+      ),
+      doc(
+        keyval(literal("wide"), bool), none,
+        "Jestli použít široký režim (16:9 - `true`) nebo úzký (4:3 - `false`)",
+      ),
+      doc(
+        keyval(literal("first_heading_is_fullpage"), bool), none,
+        ("Pokud je nastaveno `true`, pak se nadpisy první úrovně budou vkládat na " +
+        "samostatnou stránku"),
+      ),
+    )), none, "Argumenty pro dokument typu `presentation`",
+  ),
+
   doc( // citations
     keyval(literal("citations"), string),
     "citations", "Cesta k souboru s citacemi",
@@ -142,50 +159,6 @@
 #let print_argument_docs() = {
   signature_docs(arguments_structure);
 }
-
-#let arguments_structure = (
-  document: (
-    visual_style: "string",
-    faculty: "string",
-    language: "string",
-    type: "string",
-  ),
-  title_pages: "string | boolean | none",
-  title: "dictionary[string : string | content] | none",
-  author: (
-    name: "string | content | none",
-    pronouns: "string | none",
-    programme: "dictionary[string : string | content] | none",
-    specialization: "dictionary[string : string | content] | none",
-    year_of_study: "string | content | none",
-  ),
-  project: (
-    supervisor: "string | content | dictionary[string : string | content] | none",
-    consultant: "string | content | dictionary[string : string | content] | none",
-  ),
-  abstract: (
-    content: "dictionary[string : string | content] | none",
-    keywords: "dictionary[string : string | content | array[string]] | none",
-  ),
-  acknowledgement: "dictionary[string : string | content] | none",
-  assignment: "dictionary[string : any] | content | string | none",
-  presentation_info: "dictionary[string: any] | none",
-  citations: "string",
-);
-
-#let assignment_structure = (
-  personal_number: "string | content",
-  department: "string | content",
-  academical_year: "string | content",
-  content: "content",
-);
-
-#let presentation_structure = (
-  append_thanks: "boolean",
-  wide: "boolean",
-  first_heading_is_fullpage: "boolean",
-)
-
 
 #let check_arguments(args, structure: arguments_structure, namespace: none) = {
   let check_arguments_dict(structure, args, argument_path) = {
@@ -279,21 +252,6 @@
   }
 }
 
-#let assignment_info(assignment) = {
-  if type(assignment) == dictionary {
-    assert_dict_has(assignment_structure.keys(), assignment, "assignment");
-    check_arguments(assignment, structure: assignment_structure, namespace: "assignment");
-  }
-  assignment
-}
-
-#let presentation_info(presentation) = {
-  if not is_none(presentation) {
-    check_arguments(presentation, structure: presentation_structure, namespace: "presentation")
-  }
-  presentation
-}
-
 #let arguments(
   document_info,
   title_pages,
@@ -314,8 +272,8 @@
     project: project_info,
     abstract: abstract_info,
     acknowledgement: acknowledgement,
-    assignment: assignment_info(assignment),
-    presentation_info: presentation_info(presentation),
+    assignment: assignment,
+    presentation_info: presentation,
     citations: citations,
   )
 }
