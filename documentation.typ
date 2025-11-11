@@ -102,7 +102,6 @@ Velmi jednoduché. Stačí na začátek řádku dát znak `=` kolikrát chcete.
 = Nadpis
 == Podnadpis
 === Podpodnadpis
-==== už tomu asi rozumíte ...
 
 A pak obsah
 ```

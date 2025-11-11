@@ -81,7 +81,7 @@ are edited.
 
 While Word users are used to changing the document directly using buttons and keyboard shortcuts, Typst (and also LaTeX)
 use a so-called source file, which is nothing more than an ordinary text file, and can then, on request, compile this
-source file – i.e., turn it into the final document, for example in PDF format.
+source file -- i.e., turn it into the final document, for example in PDF format.
 
 That’s why here you will find a description of all the important functions not as a gallery of images showing which
 buttons to click, but rather as an example and guide to all the special text sequences that Typst supports and that
@@ -125,7 +125,7 @@ A small but very practical feature.
 
 == Headings
 
-The first important feature, apart from writing the text itself (which requires no special syntax), is the usage of headings.  
+The first important feature, apart from writing the text itself (which requires no special syntax), is the usage of headings.
 Just like in other programs, Typst also supports multi-level headings. For a first-level heading, an equals sign followed
 by a space is used at the beginning of a line, meaning that in a Typst source file it is written like this:
 
@@ -133,7 +133,7 @@ by a space is used at the beginning of a line, meaning that in a Typst source fi
 = My first level heading
 ```
 
-For a second-level heading, we then use two equals signs; for a third-level heading, three equals signs… 
+For a second-level heading, we then use two equals signs; for a third-level heading, three equals signs...
 There are enough subheading levels that you’ll probably never run out. However, the TUL guidelines for writing reports
 forbid usage of level four heading or larger, so you can (and should) only use headings from level 1 to 3.
 If you try to use fourth-level or larger heading, the template will warn you not to do that and will refuse to compile
@@ -143,7 +143,6 @@ until you fix this. More on this behavior later.
 = Heading
 == Subheading
 === Subsubheading
-==== you probably understand by now ...
 
 And then your content
 ```
@@ -151,7 +150,7 @@ And then your content
 == Chapter Numbering
 
 You’ve probably noticed that each heading begins with the number of its respective chapter. Typst handles this numbering
-automatically, and it’s also reflected in the **Table of Contents** at the start of the document, so you don’t have to
+automatically, and it’s also reflected in the *Table of Contents* at the start of the document, so you don’t have to
 worry about it yourself.
 
 == Template compile-time checks
@@ -197,8 +196,8 @@ and #highlight[text highlighted with your faculty’s color], as well as #underl
 
 == Links<links>
 
-You can create links to URLs/URIs, emails, phone numbers, and more.  
-A URL (URI) link can be written directly, without calling any function — just type it in:
+You can create links to URLs/URIs, emails, phone numbers, and more.
+A URL (URI) link can be written directly, without calling any function --- just type it in:
 
 https://git.zumepro.cz/tul/tultemplate2
 
@@ -214,7 +213,7 @@ If we want to link to less common things (like email addresses), we can call the
 #link("mailto:ondrej@mekina.cz")
 ```
 
-You can find other prefixes (URI schemes) on Wikipedia:  
+You can find other prefixes (URI schemes) on Wikipedia:
 https://en.wikipedia.org/wiki/List_of_URI_schemes.
 
 == Images
@@ -242,10 +241,10 @@ Here’s a practical example of inserting an image with a caption:
   Logo of *TUL*
 ])
 
-The first parameter of the function is the displayed content — in our case, the mentioned `image`. You can then specify various parameters for it; in the example, we define the image width as a percentage.  
+The first parameter of the function is the displayed content --- in our case, the mentioned `image`. You can then specify various parameters for it; in the example, we define the image width as a percentage.
 The last parameter is `caption`, which lets us set the figure’s (or image’s) caption text.
 
-If the document type requires it, images will automatically appear in a list at the beginning of the document. Typst handles this automatically for you — all you need to do is add images wherever appropriate, and they’ll show up correctly in the **List of Figures**, complete with references and page numbers.  
+If the document type requires it, images will automatically appear in a list at the beginning of the document. Typst handles this automatically for you --- all you need to do is add images wherever appropriate, and they’ll show up correctly in the *List of Figures*, complete with references and page numbers.
 Images are also numbered automatically according to the predefined style, similar to chapters.
 
 == Tables
@@ -261,9 +260,9 @@ Tables can be created like this:
 ), caption: "My beautiful table")
 ```
 
-The `columns` parameter specifies the number of columns in the table. Then comes any number of table cells — for clarity, the rows are separated in the example. Finally, there’s again a `caption` parameter, used to provide a caption for the table.
+The `columns` parameter specifies the number of columns in the table. Then comes any number of table cells --- for clarity, the rows are separated in the example. Finally, there’s again a `caption` parameter, used to provide a caption for the table.
 
-#highlight[It’s a good idea to wrap the table header (the first row) in the `header` function (as shown above)] — this ensures Typst includes extra metadata in the generated PDF (for example, for people with visual impairments).
+#highlight[It’s a good idea to wrap the table header (the first row) in the `header` function (as shown above)] --- this ensures Typst includes extra metadata in the generated PDF (for example, for people with visual impairments).
 
 #figure(table(
   columns: 3,
@@ -272,18 +271,18 @@ The `columns` parameter specifies the number of columns in the table. Then comes
   [*Row 2*], [c], [d],
 ), caption: "My beautiful table")
 
-Tables also appear at the beginning of the document in a list (if required by the document type).  
+Tables also appear at the beginning of the document in a list (if required by the document type).
 As you’ve probably noticed by now, Typst’s template takes care of this automatically.
 
 == Citations
 
-The template supports citation management using a standard BibTeX file @bibtex, just like LaTeX. Almost every website or program that supports citations can generate BibTeX-formatted entries.  
-You simply add the code for such a citation, in the proper format, to the file _citations.bib_. Once added, you can reference it using `@citation_name` or `#cite(<citation_name>)`.  
+The template supports citation management using a standard BibTeX file @bibtex, just like LaTeX. Almost every website or program that supports citations can generate BibTeX-formatted entries.
+You simply add the code for such a citation, in the proper format, to the file _citations.bib_. Once added, you can reference it using `@citation_name` or `#cite(<citation_name>)`.
 For example, I can reference the Typst citation as #cite(<typst>).
 
-The format of the _citations.bib_ file is exactly the same as in LaTeX. You can even copy entries directly from sites like [citace.com](https://www.citace.com) in BibTeX format — Typst understands that format, too.  
-If you open a `.bib` file, you’ll see that it’s simply a plain text file with a specific structure.  
-The provided sample file already contains several citations — for instance, the one named `typst`, which was already used above.
+The format of the _citations.bib_ file is exactly the same as in LaTeX. You can even copy entries directly from sites like [citace.com](https://www.citace.com) in BibTeX format --- Typst understands that format, too.
+If you open a `.bib` file, you’ll see that it’s simply a plain text file with a specific structure.
+The provided sample file already contains several citations --- for instance, the one named `typst`, which was already used above.
 
 You can change the file from which citations are loaded using a template argument (i.e., in the structure at the beginning of your Typst document):
 
@@ -295,11 +294,11 @@ You can change the file from which citations are loaded using a template argumen
 )
 ```
 
-== Internal Links and Anchors<example_link>
+== Internal Links and Anchors<example_anchor>
 
-Let’s continue from the **Links** section (@links).
+Let’s continue from the *Links* section (@links).
 
-You can also create internal links — for instance, to chapters, pages, or labeled images (those wrapped with the `figure` function).
+You can also create internal links --- for instance, to chapters, pages, or labeled images (those wrapped with the `figure` function).
 
 ```typst
 = A Good Chapter<good_chapter>
@@ -319,12 +318,12 @@ You place the anchor anywhere in the file, and you can reference it the same way
 @anchor_name
 ```
 
-For example, we can take a look at this illustrative reference (@example_link).
+For example, we can take a look at this illustrative reference (@example_anchor).
 
 == Abbreviations
 
-The LaTeX TUL template includes a list of abbreviations at the beginning of the document. Therefore, we’ve included one here as well.  
-This list is configured to appear only if there is *at least one* abbreviation defined — which seemed quite logical.
+The LaTeX TUL template includes a list of abbreviations at the beginning of the document. Therefore, we’ve included one here as well.
+This list is configured to appear only if there is *at least one* abbreviation defined --- which seemed quite logical.
 
 You can create (define) an abbreviation with #abbr("ABC", "Alphabet") like this:
 
@@ -339,23 +338,23 @@ After that, you can use the abbreviation #abbr("ABC") directly without redefinin
 ```
 
 The template automatically ensures the following:
-- The abbreviation appears in the list of abbreviations  
-- When you use an abbreviation for the first time, the template *requires* you to define it  
+- The abbreviation appears in the list of abbreviations
+- When you use an abbreviation for the first time, the template *requires* you to define it
 - The definition is used only once (the first time it appears)
 
-When used for the first time (definition), the abbreviation will look like this:  
-#abbr("ABR", "Abbreviation").  
+When used for the first time (definition), the abbreviation will look like this:
+#abbr("ABR", "Abbreviation").
 In subsequent uses, it will appear as: #abbr("ABR").
 
 #highlight[
-  In other words, you do _not_ add abbreviations directly to the abbreviation list.  
+  In other words, you do _not_ add abbreviations directly to the abbreviation list.
   You simply use them elegantly within the text itself.
 ]
 
 == Attachments
 
-At the end of the file (or anywhere else, as long as it’s included only once), you can add a structure that generates attachments.  
-Currently, two types of attachments are supported — links and content.  
+At the end of the file (or anywhere else, as long as it’s included only once), you can add a structure that generates attachments.
+Currently, two types of attachments are supported --- links and content.
 As a demonstration, here’s a practical example (included right after this paragraph in the source code), which generates the attachments for this document:
 
 #attachments(

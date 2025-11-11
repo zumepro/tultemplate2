@@ -47,7 +47,7 @@
   keywords: (
     cs: [Ukázka, Klíčových, Slov, Česky],
     en: [Example, Keywords, In, English],
-  )
+  ),
   acknowledgement: (cs: [Lorem ipsum dolor sit amet.]),
   citations: "citations.bib",
 )
