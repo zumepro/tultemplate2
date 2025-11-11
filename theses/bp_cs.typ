@@ -36,7 +36,7 @@
   supervisor: [Ondřej Mekina],
   abstract: (
     cs: [
-      Tento dokument slouží jako praktická ukázka všech důležitcýh funkcí šablony _tultemplate2_,
+      Tento dokument slouží jako praktická ukázka všech důležitých funkcí šablony _tultemplate2_,
       s názornými příklady použítí a jejich podrobným popisem.
     ],
     en: [
@@ -108,6 +108,12 @@ Musí akorát ručně dbát na to, aby odstavce nebyly příliš krátké, ani p
 S souvislosti s odstavci bych ještě zmínil, že Typst se za vás stará také o zarovnávání písma a slov do bloků
 a dělení slov mezi řádky, když už se na něj nevejdou. Chováním odpovídá pravidlům českého pravopisu a typografie, takže se o to nemusíte vůbec starat.
 
+== Klikatelný obsah
+
+Pokud používáte oficiální Typst online editor, můžete jednoduše klepnout na jakýkoliv text v pravé části (náhledové PDF), který se dá měnit,
+a editor podle toho automaticky přesune váš kurzor na správné místo.
+Je to sice drobná, ale zato velmi užitečná funkce.
+
 == Nadpisy
 
 První důležitá funkce kromě psaní samotného textu, k čemuž není zapotřebí žádná speciální syntax, jsou nadpisy.
@@ -134,6 +140,13 @@ A pak obsah
 == Číslování kapitol
 
 Asi jste si všimli, že každý nadpis začíná číslem dané kapitoly. Toto číslování provádí Typst automaticky, promítne se následně i v sekci Obsah na začátku souboru, nemusíte se tak opět o nic starat.
+
+= Kontrola šablony při kompilaci
+
+Tato šablona je vytvořena tak, že když se ji pokusíte zkompilovat s nesprávnou syntaxí nebo s nějakou
+chybějící důležitou částí hlavičky,
+nenechá vás to provést. Vždy se podívejte na chybové hlášky, které šablona vypisuje, protože vás snadno navedou k opravě všech chyb.
+Můžete to vyzkoušet tak, že smažete něco z hlavičky nebo že např. použijete funkci, která není nikde definovaná.
 
 = Používání funkcí
 

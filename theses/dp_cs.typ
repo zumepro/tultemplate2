@@ -5,39 +5,61 @@
   faculty: "fm",
   lang: "cs",
   document: "dp",
-  title_pages: "dp_cs_assignment.pdf",
-  title: (
-    cs: "Ukázka dokumentu typu Diplomová práce pro FM TUL v češtině",
-    en: "Example document for a Master's thesis for FM TUL in Czech",
+  assignment: (
+    personal_number: [A00000007],
+    department: [Ústav šablon],
+    academical_year: [2025/2026],
+    content: [
+      = Zásady pro vypracování:
+      + Seznamte se s možnostmi šablon
+      + Navrhněte několik možných stylů šablon
+      + Seznamte se s nástrojem Typst
+      + Implementujte šablonu
+      + Zkonzultujte šablonu
+      + Opravte spoustu věcí
+      + Zkonzultujte šablonu
+      + Opravte spoustu věcí
+      + Zkonzultujte šablonu
+      + Snad už nebude nic potřeba opravit
+      = Seznam odborné literatury:
+      _Přísně tajné_
+    ],
   ),
-  author: "Matěj Žucha",
+  title: (
+    cs: [Ukázka dokumentu typu Diplomová práce pro FM TUL v češtině],
+    en: [Example document for a Diploma thesis for FM TUL in Czech],
+  ),
+  author: [Matěj Žucha],
+  author_pronouns: "masculine",
+  programme: (cs: [MI6000000007 Přísně tajné]),
+  specialization: (cs: [Vytváření šablon]),
+  supervisor: [Ondřej Mekina],
   abstract: (
     cs: [
-      Tento dokument slouží jako praktická ukázka všech důležitcýh funkcí šablony _tultemplate2_,
+      Tento dokument slouží jako praktická ukázka všech důležitých funkcí šablony _tultemplate2_,
       s názornými příklady použítí a jejich podrobným popisem.
     ],
     en: [
       This document serves as a practical demonstration of all the important features of the
       _tultemplate2_ template, with useful examples and their respective descriptions.
-    ]
+    ],
   ),
   keywords: (
-    cs: ("Ukázka", "Klíčových", "Slov", "Česky"),
-    en: ("Example", "Keywords", "In", "English"),
+    cs: [Ukázka, Klíčových, Slov, Česky],
+    en: [Example, Keywords, In, English],
   ),
-  acknowledgement: (cs: "Lorem ipsum dolor sit amet."),
+  acknowledgement: (cs: [Lorem ipsum dolor sit amet.]),
   citations: "citations.bib",
 )
 
 = Co najdete v této šabloně
 
-Tato šablona má sloužit jako ukázková bakalářská práce napsaná pomocí jazyka *Typst* a šablony
+Tato šablona má sloužit jako ukázková diplomová práce napsaná pomocí jazyka *Typst* a šablony
 *tultemplate2*. Může posloužit jako jednoduchý základ i pro vaši práci, stačí se naučit používat
 pár užitečných funkcí, jako např. vkládání obrázků, tabulek, citací nebo odkazů.
 
-Na rozdíl od souboru _example.typ_, který je dostupný ke stažení na stránkách projektu, obsahuje
-tento dokument jenom to nejpotřebnější ze znalostí, co postačí k úspěšnému napsání práce. Jen pro
-úplnost je zde ve zkratce něco málo o jazyce typst a motivaci k tvorbě této šablony:
+Na rozdíl od souboru _documentation.typ_, který je dostupný ke stažení na stránkách projektu, obsahuje
+tento dokument jenom to nejpotřebnější ze znalostí, co postačí k úspěšnému napsání práce. Pokud vám budou nějaké funkce chybět, můžete se podívat do zmíněného souboru, anebo kontaktovat některého z autorů, kteří se vám pokusí pomoct. Jen pro úplnost je zde ve zkratce něco málo o jazyce typst a motivaci k tvorbě této šablony:
 
 Typst je profesionální sázecí nástroj podobný markdownu, LaTeXu/TeXu, groffu, atd.
 
@@ -72,7 +94,7 @@ nebo když použijete zmíněný prázdný řádek,
 
 
 anebo co se stane při použití dvou a více prázdných řádků. (spoiler: 1 a více prázdných řádků mají identické
-chování, pouze ukončení řádku je interpretováno stejně jako např. mezerník)
+chování, pouze ukončení řádku je interpretováno stejně jako např. mezerník nebo tabulátor)
 
 Uživatel má tím pádem svobodu v tom, jestli ve zdrojovém souboru používá dlouhé řádky plné textu,
 nebo
@@ -84,7 +106,13 @@ a sám si obsah dělí na řádky, protože ve výsledném PDF souboru se stejn�
 Musí akorát ručně dbát na to, aby odstavce nebyly příliš krátké, ani příliš dlouhé.
 
 S souvislosti s odstavci bych ještě zmínil, že Typst se za vás stará také o zarovnávání písma a slov do bloků
-a dělení slov mezi řádky. Chováním odpovídá pravidlům českého pravopisu a typografie, takže se o to nemusíte vůbec starat.
+a dělení slov mezi řádky, když už se na něj nevejdou. Chováním odpovídá pravidlům českého pravopisu a typografie, takže se o to nemusíte vůbec starat.
+
+== Klikatelný obsah
+
+Pokud používáte oficiální Typst online editor, můžete jednoduše klepnout na jakýkoliv text v pravé části (náhledové PDF), který se dá měnit,
+a editor podle toho automaticky přesune váš kurzor na správné místo.
+Je to sice drobná, ale zato velmi užitečná funkce.
 
 == Nadpisy
 
@@ -113,6 +141,13 @@ A pak obsah
 
 Asi jste si všimli, že každý nadpis začíná číslem dané kapitoly. Toto číslování provádí Typst automaticky, promítne se následně i v sekci Obsah na začátku souboru, nemusíte se tak opět o nic starat.
 
+= Kontrola šablony při kompilaci
+
+Tato šablona je vytvořena tak, že když se ji pokusíte zkompilovat s nesprávnou syntaxí nebo s nějakou
+chybějící důležitou částí hlavičky,
+nenechá vás to provést. Vždy se podívejte na chybové hlášky, které šablona vypisuje, protože vás snadno navedou k opravě všech chyb.
+Můžete to vyzkoušet tak, že smažete něco z hlavičky nebo že např. použijete funkci, která není nikde definovaná.
+
 = Používání funkcí
 
 Používání většiny funkcionalit Typstu je prováděno pomocí tzv. volání funkce. Je to velmi podobné předchozím ukázkám,
@@ -139,7 +174,7 @@ Další stylování lze dělat právě přes funkce, viz třeba:
 #underline[podtrženo] // podtržení by se NEMĚLO používat
 ```
 
-Pro úplnost a ukázku je zde přímo v textu *tučný text*, _text kurzívou_, #strike[přeškrtnutý text], #highlight[text zvýrazněný podle barvy příslušící vaší fakultě] a #underline[podtržený text] (ačkoli typografové doporučují podtržení nepoužívat).
+Pro úplnost a ukázku je zde přímo v textu *tučný text*, _text kurzívou_, #strike[přeškrtnutý text] a #highlight[text zvýrazněný podle barvy příslušící vaší fakultě], #underline[podtržený text] (ačkoli typografové doporučují podtržení nepoužívat).
 
 == Odkazy<links>
 
