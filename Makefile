@@ -17,8 +17,9 @@ PACKDIR := pack/tultemplate2
 BUNDLEDIR := pack/bundle
 
 TO_PACK := $(shell find template -type f) template/LICENSE
+BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en
 BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
-				  $(BUNDLEDIR)/bp_en.typ $(BUNDLEDIR)/dp_cs.typ $(BUNDLEDIR)/Makefile
+				  $(BUNDLE_THESES:%=$(BUNDLEDIR)/%.typ) $(BUNDLEDIR)/Makefile
 PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) $(PACKDIR)/documentation.typ \
 				$(PACKDIR)/documentation.pdf $(PACKDIR)/citations.bib
 
