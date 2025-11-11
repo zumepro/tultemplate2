@@ -143,43 +143,6 @@
   signature_docs(arguments_structure);
 }
 
-#let arguments_structure = (
-  document: (
-    visual_style: "string",
-    faculty: "string",
-    language: "string",
-    type: "string",
-  ),
-  title_pages: "string | boolean | none",
-  title: "dictionary[string : string | content] | none",
-  author: (
-    name: "string | content | none",
-    pronouns: "string | none",
-    programme: "dictionary[string : string | content] | none",
-    specialization: "dictionary[string : string | content] | none",
-    year_of_study: "string | content | none",
-  ),
-  project: (
-    supervisor: "string | content | dictionary[string : string | content] | none",
-    consultant: "string | content | dictionary[string : string | content] | none",
-  ),
-  abstract: (
-    content: "dictionary[string : string | content] | none",
-    keywords: "dictionary[string : string | content | array[string]] | none",
-  ),
-  acknowledgement: "dictionary[string : string | content] | none",
-  assignment: "dictionary[string : any] | content | string | none",
-  citations: "string",
-);
-
-#let assignment_structure = (
-  personal_number: "string | content",
-  department: "string | content",
-  academical_year: "string | content",
-  content: "content",
-);
-
-
 #let check_arguments(args, structure: arguments_structure, namespace: none) = {
   let check_arguments_dict(structure, args, argument_path) = {
     for (key, value) in structure.pairs() {
@@ -272,14 +235,6 @@
   }
 }
 
-#let assignment_info(assignment) = {
-  if type(assignment) == dictionary {
-    assert_dict_has(assignment_structure.keys(), assignment, "assignment");
-    check_arguments(assignment, structure: assignment_structure, namespace: "assignment");
-  }
-  assignment
-}
-
 #let arguments(
   document_info,
   title_pages,
@@ -299,7 +254,7 @@
     project: project_info,
     abstract: abstract_info,
     acknowledgement: acknowledgement,
-    assignment: assignment_info(assignment),
+    assignment: assignment,
     citations: citations,
   )
 }
