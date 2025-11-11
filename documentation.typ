@@ -426,6 +426,18 @@ do požadavků. Pak můžete postupně přepisovat/vyplňovat.
 
 Funkce `todo` vám zároveň zabrání v tom, aby se text Lorem Ipsum vyskytl ve výsledném dokumentu.
 
+#pagebreak(weak: true)
+= Argumenty šablony
+
+Následujících pár stránek je kompletní soupis argumentů, které tato šablona přijímá.
+Pokud s šablonou nemáte rozsáhlé zkušenosti, doporučujeme raději využít generátoru
+(https://tulsablona.zumepro.cz/generate/).
+
+// Automaticky generovaný seznam argumentů
+#import "template/arguments.typ": print_argument_docs
+#print_argument_docs()
+
+
 #attachments(
   attach_link("Zdrojový kód této šablony", "https://git.zumepro.cz/tul/tultemplate2"),
   attach_content("Testovací obsah vygenerovaný Typstem", [Sem lze psát _stylovaný_ obsah.]),
