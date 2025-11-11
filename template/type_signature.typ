@@ -73,6 +73,9 @@
   }
 }
 
+#let dbg_type(value) = {
+  str(type(value))
+}
 
 #let signature_check(value, signature, name_prefix) = {
   let error_target_name(target, name_prefix) = {
@@ -115,11 +118,12 @@
       error_target_name(target_doc)
     } else {
       error_target_name(target, name_prefix)
-    } + " " + if is_value {
-      "is unexpected"
-    } else {
-      "has an unexpected type '" + error_value_name(value) + "'"
-    } + ", expected " + error_expected_type(target)
+    } + (
+      " of type '" +
+      dbg_type(value) +
+      "' is unexpected, expected " +
+      error_expected_type(target)
+    )
   }
 
   let in_variants(value, variants, matcher) = {
@@ -129,6 +133,14 @@
       }
     }
     false
+  }
+
+  let opt_suffix(prefix, suffix: " ") = {
+    if prefix.len() == 0 {
+      ""
+    } else {
+      prefix + suffix
+    }
   }
 
   let matches_type(value, target, name_prefix: "") = {
@@ -159,21 +171,26 @@
         for (key, val) in value.pairs() {
           if key not in target.pairs {
             return (
-              false, name_prefix + " contains an unexpected key " + dbg_literal(key)
+              false, opt_suffix(name_prefix) + "contains an unexpected key " + dbg_literal(key)
             );
           }
-          matches_type(
-            val, target.pairs.at(key), name_prefix: name_prefix + " " + str(key)
-          )
+          let res = matches_type(
+            val, target.pairs.at(key), name_prefix: opt_suffix(name_prefix) + str(key)
+          );
+          if not res.at(0) {
+            return res;
+          } else {
+            res
+          }
         }
       } else if target.type == "dictionary" {
         for (key, val) in value.pairs() {
-          let cur = matches_type(key, target.key, name_prefix: name_prefix + " key");
+          let cur = matches_type(key, target.key, name_prefix: opt_suffix(name_prefix) + "key");
           if not cur.at(0) {
             return cur;
           }
           let cur = matches_type(
-            val, target.val, name_prefix: name_prefix + " value"
+            val, target.val, name_prefix: opt_suffix(name_prefix) + "value"
           );
           if not cur.at(0) {
             return cur;
@@ -187,7 +204,7 @@
       if target.type == "slice" {
         for (idx, val) in value.enumerate() {
           let cur = matches_type(
-            val, target.items, name_prefix: name_prefix + " item at index " + str(idx)
+            val, target.items, name_prefix: opt_suffix(name_prefix) + "item at index " + str(idx)
           );
           if not cur.at(0) {
             return cur;
@@ -197,10 +214,13 @@
       } else if target.type == "tuple" {
         for (idx, target) in target.items.enumerate() {
           if idx >= value.len() {
-            return (false, name_prefix + " is missing an item: " + error_expected_type(target))
+            return (
+              false, opt_suffix(name_prefix) + "is missing an item: " + error_expected_type(target)
+            )
           }
           let cur = matches_type(
-            value.at(idx), target, name_prefix: name_prefix + " item at index " + str(idx)
+            value.at(idx), target,
+            name_prefix: opt_suffix(name_prefix) + "item at index " + str(idx)
           );
           if not cur.at(0) {
             return cur;
