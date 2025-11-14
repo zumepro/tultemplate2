@@ -100,16 +100,25 @@ That will output `result/documentation.pdf` which you can view.
 
 ### Building thesis examples
 
-Thesis examples are in `theses`. They also have assignments pulled from an external file.
+Thesis examples are in `theses`. In the files with names like `bp_en.typ` you can find the example
+header for each thesis (and after that some spelling substitutions for the build system).
+And in `theses/content_cs.typ` and `theses/content_en.typ` is the content for the theses.
 
 Using:
 
 ```sh
-make bp_cs.pdf
+make thesis_bp_cs
 ```
 
-Will generate an example bachelor's thesis in czech.
+Will view an example bachelor's thesis in czech. If you want to keep the PDF file after viewing:
 
-We also have:
-- `bp_en.pdf` (only partially translated - if you wish to help translating, we'll gladly welcome it)
-- `dp_cs.pdf`
+```sh
+make target/bp_cs.pdf
+```
+
+We also have (at the moment):
+- `bp_en`
+- `dp_cs`
+- `dp_en`
+- `prj_cs`
+- `prj_en`
