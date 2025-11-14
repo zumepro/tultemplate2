@@ -29,9 +29,9 @@ bundle: $(BUNDLE_TARGETS)
 watch_documentation: $(BUILD_DIR)/documentation.pdf
 	xdg-open $< & typst watch --font-path template/fonts documentation.typ $<
 
-.PHONY: watch_%
-watch_%: $(BUILD_DIR)/%.pdf
-	xdg-open $< & typst watch --root . --font-path template/fonts theses/$*.typ $<
+.PHONY: thesis_%
+thesis_%: $(BUILD_DIR)/%.pdf
+	xdg-open $<
 
 .PHONY: documentation
 documentation: $(BUILD_DIR)/documentation.pdf
@@ -64,12 +64,37 @@ define minify_json
 	cat $(1) | jq -c > $(2)
 endef
 
-# == DIRECT BUILDS ==
+define replace_with_file_line
+	sed "s/$(1)/$$(sed '$(3)q;d' $(2))/g"
+endef
+
+# == DOCUMENTATION ==
 
 $(BUILD_DIR)/documentation.pdf: documentation.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
 	typst compile --font-path template/fonts $< $@
 
-$(BUILD_DIR)/%.pdf: theses/%.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
+# == THESES EXAMPLES ==
+
+$(BUILD_DIR)/subs_%.txt: theses/%.typ | $(BUILD_DIR)
+	awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' $< > $@
+
+$(BUILD_DIR)/header_%.txt: theses/%.typ
+	awk 'BEGIN{RS=""; ORS="\n\n"} NR<3{print}' $< > $@
+
+$(BUILD_DIR)/content_%_cs.txt: $(BUILD_DIR)/subs_%_cs.txt theses/content_cs.typ
+	cat theses/content_cs.typ | \
+		$(call replace_with_file_line,{{ta}},$<,1) | $(call replace_with_file_line,{{tou}},$<,2) | \
+		awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' > $@
+
+$(BUILD_DIR)/content_%_en.txt: $(BUILD_DIR)/subs_%_en.txt theses/content_en.typ
+	cat theses/content_en.typ | \
+		$(call replace_with_file_line,{{what}},$<,1) | \
+		awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' > $@
+
+$(BUILD_DIR)/%.typ: $(BUILD_DIR)/header_%.txt $(BUILD_DIR)/content_%.txt | $(BUILD_DIR)
+	cat $^ > $@
+
+$(BUILD_DIR)/%.pdf: $(BUILD_DIR)/%.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
 	typst compile --font-path template/fonts --root . $< $@
 
 # == PACKS - clean builds for direct use ==
@@ -124,8 +149,8 @@ $(BUNDLEDIR)/template/%: template/% | $(BUNDLEDIR)/template
 	@mkdir -p $(@D)
 	ln -f $< $@
 
-$(BUNDLEDIR)/%.typ: theses/%.typ | $(BUNDLEDIR)
-	awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' $< | sed 's/\.\.\/template\//template\//' > $@
+$(BUNDLEDIR)/%.typ: $(BUILD_DIR)/content_%.txt | $(BUNDLEDIR)
+	sed 's/\.\.\/template\//template\//' $< > $@
 
 # == TESTS ==
 
