@@ -23,7 +23,8 @@ Ondřej Mekina <ondrej@mekina.cz>
 ## Our goals and dreams
 
 We dream of a simple way for students to make documents. Of a workflow revolving not around
-citations, fonts, paragraphs and other formal bs, but around the actual content of the document.
+citations, fonts, paragraphs and other formal nonsense, but around the actual content of the
+document.
 
 We aim to provide a robust (but simple) framework to build official documents at TUL.
 
@@ -76,6 +77,38 @@ sadly, Typst does not yet support emitting multiple errors or warnings at once).
 
 It will also give you some tips (like to upload the assignment PDF from STAG) on how to structure
 the thesis. And at the end, it will generate a whole example document for you.
+
+Now, if you don't want to use the generator, drop into the repo directory and run:
+
+```sh
+make pack
+```
+
+This will generate outputs at `target/pack/tultemplate2` and `target/pack/tultemplate2.zip`.
+We recommend copying the files (either from the zip or the directory) somewhere else and (in there)
+running:
+
+```sh
+make view_documentation
+```
+
+After you have created your own `filename.typ` you can run:
+
+```sh
+make view_filename
+```
+
+or
+
+```sh
+make watch_filename
+```
+
+The `Makefile` provided in the packed build is just an example... feel free to adjust it according
+to your needs.
+
+The packed builds also provide `documentation.pdf` such that you can jump into it straight away
+or keep it around during the writing of your own thesis.
 
 ### Building documentation
 
