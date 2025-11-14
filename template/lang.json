@@ -18,6 +18,8 @@
 		"dp_asgn": "Zadání diplomové práce",
 		"prj": "Projekt",
 		"prj_asgn": "Zadání projektu",
+		"sp": "Semestrální práce",
+		"sp_asgn": "Zadání semestrální práce",
 
 		"city": "Liberec",
 
@@ -123,6 +125,8 @@
 		"dp_asgn": "Diploma thesis assignment",
 		"prj": "Project",
 		"prj_asgn": "Project assignment",
+		"sp": "Term paper",
+		"sp_asgn": "Term paper assignment",
 
 		"city": "Liberec",
 
