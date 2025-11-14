@@ -8,7 +8,7 @@ BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en
 BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
 				  $(BUNDLE_THESES:%=$(BUNDLEDIR)/%.typ) $(BUNDLEDIR)/Makefile
 PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) $(PACKDIR)/documentation.typ \
-				$(PACKDIR)/documentation.pdf $(PACKDIR)/citations.bib
+				$(PACKDIR)/documentation.pdf $(PACKDIR)/citations.bib $(PACKDIR)/Makefile
 
 TEMPLATE_SRCS := $(shell find template -type f)
 
@@ -106,6 +106,9 @@ $(PACKDIR)/template: | $(PACKDIR)
 	mkdir $@
 
 $(PACKDIR)/template/LICENSE: LICENSE | $(PACKDIR)/template
+	ln -f $< $@
+
+$(PACKDIR)/Makefile: packed.mk | $(PACKDIR)
 	ln -f $< $@
 
 $(PACKDIR)/template/tul_citace.csl: template/tul_citace.csl | $(PACKDIR)/template

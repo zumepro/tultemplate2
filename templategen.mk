@@ -9,5 +9,6 @@ watch: $(THESIS_FILE).pdf
 view: $(THESIS_FILE).pdf
 	xdg-open $<
 
+.PHONY: %.pdf
 %.pdf: %.typ
 	typst compile $(TYPST_FONTPATH) $<
