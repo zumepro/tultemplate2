@@ -16,18 +16,20 @@
 
 #let force_langs = ("cs", "en");
 
-#let thesis_base(args, content) = {
+#let thesis_base(args, content, show_disclaimer: true, require_abstract: true) = {
   assert_dict_has(force_langs, req_arg(args, "title"), "title");
-  assert_dict_has(force_langs, req_arg(args, "abstract.content"), "abstract");
-  assert_dict_has(force_langs, req_arg(args, "abstract.keywords"), "keywords");
+  if require_abstract {
+    assert_dict_has(force_langs, req_arg(args, "abstract.content"), "abstract");
+    assert_dict_has(force_langs, req_arg(args, "abstract.keywords"), "keywords");
+  }
 
   let language = req_arg(args, "document.language");
   default_styling(false, faculty_color(req_arg(args, "document.faculty")), {
-    if is_none(get_arg(args, "title_pages")) {
+    if show_disclaimer and is_none(get_arg(args, "title_pages")) {
       disclaimer(args);
     }
-    abstract("cs", args);
-    abstract("en", args);
+    abstract("cs", args, require: require_abstract);
+    abstract("en", args, require: require_abstract);
     acknowledgement(args);
     toc(language);
     tablelist(language);

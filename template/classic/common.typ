@@ -376,7 +376,10 @@
   }
 }
 
-#let abstract(language, args) = {
+#let abstract(language, args, require: true) = {
+  if not require and is_none(get_arg(args, "abstract.content")) {
+    return;
+  }
   heading(
     text(req_arg(args, "title").at(language), font: base_font), numbering: none, outlined: false
   );
