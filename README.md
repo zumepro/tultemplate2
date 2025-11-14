@@ -123,14 +123,6 @@ make
 
 This will compile it once and open it using `xdg-open`.
 
-Or when using Nix:
-
-```sh
-nix build
-```
-
-That will output `result/documentation.pdf` which you can view.
-
 ### Building thesis examples
 
 Thesis examples are in `theses`. In the files with names like `bp_en.typ` you can find the example
