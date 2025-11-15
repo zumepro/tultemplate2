@@ -26,8 +26,8 @@
     ],
   ),
   title: (
-    cs: [Ukázka dokumentu typu Diplomová práce pro FM TUL v češtině],
-    en: [Example document for a Diploma thesis for FM TUL in Czech],
+    cs: [Ukázka dokumentu typu Diplomová práce pro FM TUL v angličtině],
+    en: [Example document for a Diploma thesis for FM TUL in English],
   ),
   author: [Matěj Žucha],
   author_pronouns: "me",

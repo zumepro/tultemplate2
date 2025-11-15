@@ -26,8 +26,8 @@
     ],
   ),
   title: (
-    cs: [Ukázka dokumentu typu Projekt pro FM TUL v češtině],
-    en: [Example document for a Project report for FM TUL in Czech],
+    cs: [Ukázka dokumentu typu Projekt pro FM TUL v angličtině],
+    en: [Example document for a Project report for FM TUL in English],
   ),
   author: [Matěj Žucha],
   author_pronouns: "me",

@@ -26,8 +26,8 @@
     ],
   ),
   title: (
-    cs: [Ukázka dokumentu typu Bakalářská práce pro FM TUL v češtině],
-    en: [Example document for a Bachelor's thesis for FM TUL in Czech],
+    cs: [Ukázka dokumentu typu Bakalářská práce pro FM TUL v angličtině],
+    en: [Example document for a Bachelor's thesis for FM TUL in English],
   ),
   author: [Matěj Žucha],
   author_pronouns: "me",
