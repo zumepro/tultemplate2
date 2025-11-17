@@ -20,7 +20,7 @@ to the maintainer:
 
 Ondřej Mekina <ondrej@mekina.cz>
 
-## Our goals and dreams
+## The goals of this template
 
 We dream of a simple way for students to make documents. Of a workflow revolving not around
 citations, fonts, paragraphs and other formal nonsense, but around the actual content of the
