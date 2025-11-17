@@ -26,8 +26,8 @@
     ],
   ),
   title: (
-    cs: [Ukázka dokumentu typu Bakalářská práce pro FM TUL v angličtině],
-    en: [Example document for a Bachelor's thesis for FM TUL in English],
+    cs: [Ukázka dokumentu typu Semestrální práce pro FM TUL v češtině],
+    en: [Example document for a Term paper for FM TUL in Czech],
   ),
   author: [Matěj Žucha],
   author_pronouns: "me",
@@ -36,4 +36,4 @@
   citations: "citations.bib",
 )
 
-Seminar thesis
+Term paper

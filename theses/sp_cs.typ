@@ -26,8 +26,8 @@
     ],
   ),
   title: (
-    cs: [Ukázka dokumentu typu Seminární práce pro FM TUL v češtině],
-    en: [Example document for a Seminar thesis for FM TUL in Czech],
+    cs: [Ukázka dokumentu typu Semestrální práce pro FM TUL v češtině],
+    en: [Example document for a Term paper for FM TUL in Czech],
   ),
   author: [Matěj Žucha],
   author_pronouns: "masculine",
@@ -36,5 +36,5 @@
   citations: "citations.bib",
 )
 
-Seminární práce
-seminární práci
+Semestrální práce
+Vaší semestrální prací
