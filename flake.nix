@@ -13,6 +13,9 @@
       {
         devShell = with pkgs; mkShell {
           buildInputs = dependencies;
+          shellHook = ''
+            unset SOURCE_DATE_EPOCH
+          '';
         };
       }
     );
