@@ -37,4 +37,4 @@
 )
 
 Semestrální práce
-Vaší semestrální prací
+vaší semestrální prací
