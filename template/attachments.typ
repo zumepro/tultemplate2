@@ -154,7 +154,7 @@
         );
         query(label(attachment.at(1))).at(0).value;
       } else if attachment_type == "pdf" {
-        import "@preview/muchpdf:0.1.1": muchpdf
+        import "./pdf.typ": embed_full
         page(place(center + horizon, heading(
           level: 2,
           get_lang_item(language, "attachment") + " " +
@@ -164,7 +164,7 @@
           outlined: false,
         )), margin: 0em);
         set page(margin: 0em);
-        muchpdf(read("../" + attachment.at(1), encoding: none), width: 100%);
+        embed_full(read("../" + attachment.at(1), encoding: none));
       }
     }
   }

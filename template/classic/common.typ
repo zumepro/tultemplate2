@@ -278,9 +278,8 @@
 // _ EMBEDDED
 
 #let pdfembed(path) = {
-  import "@preview/muchpdf:0.1.1": muchpdf
-  set page(margin: 0em);
-  muchpdf(read(path, encoding: none));
+  import "../pdf.typ": embed_full
+  embed_full(read(path, encoding: none));
 }
 
 // ASSIGNMENT PAGE
