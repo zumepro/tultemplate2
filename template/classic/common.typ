@@ -261,6 +261,7 @@
   let (personal_number, department, academical_year) = req_arg(args, (
     "personal_number", "department", "academical_year",
   ));
+  set heading(bookmarked: false, outlined: false);
   set text(font: base_font);
   set page(margin: 2cm);
   pagebreak(weak: true);
@@ -491,7 +492,7 @@
     block(text(it, weight: "bold", size: 1.2em), above: 1.5em);
   };
   context {
-    if query(heading.where(bookmarked: true)).len() > 0 {
+    if query(heading.where(outlined: true)).len() > 0 {
       outline(title: get_lang_item(language, "toc"));
     }
   }
