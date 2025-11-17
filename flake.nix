@@ -8,15 +8,49 @@
     utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        dependencies = with pkgs; [ typst gnumake jq xdg-utils zip ];
+        buildInputs = with pkgs; [ typst gnumake jq xdg-utils zip ];
+        name = "tultemplate2";
+        envSetup = ''
+          unset SOURCE_DATE_EPOCH
+        '';
+        build = target: pkgs.stdenv.mkDerivation {
+          inherit buildInputs target;
+          name = name + "-" + target;
+          src = ./.;
+          buildPhase = ''
+            ${envSetup}
+            make target/$target
+          '';
+          installPhase = ''
+            mkdir $out
+            cp target/$target $out
+          '';
+        };
       in
       {
         devShell = with pkgs; mkShell {
-          buildInputs = dependencies;
-          shellHook = ''
-            unset SOURCE_DATE_EPOCH
+          inherit buildInputs;
+          shellHook = envSetup;
+        };
+      } // (with pkgs; {
+        packages.documentation = build "documentation.pdf";
+        packages.theses = stdenv.mkDerivation {
+          name = name + "-theses";
+          dontUnpack = true;
+          buildInputs = builtins.map (v: build v) [
+            "bp_cs.pdf" "bp_en.pdf"
+            "dp_cs.pdf" "dp_en.pdf"
+            "prj_cs.pdf" "prj_en.pdf"
+            "sp_cs.pdf" "sp_en.pdf"
+          ];
+          installPhase = ''
+            mkdir $out
+            for input in $buildInputs
+            do
+              cp -R $input/. $out
+            done
           '';
         };
-      }
+      })
     );
 }
