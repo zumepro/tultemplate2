@@ -14,6 +14,8 @@ TEMPLATE_SRCS := $(shell find template -type f)
 
 # == MAIN TARGETS ==
 
+.PRECIOUS: $(BUILD_DIR)/%.pdf
+
 .PHONY: view_documentation
 view_documentation: $(BUILD_DIR)/documentation.pdf
 	xdg-open $<
