@@ -135,11 +135,7 @@ Using:
 make thesis_bp_cs
 ```
 
-Will view an example bachelor's thesis in czech. If you want to keep the PDF file after viewing:
-
-```sh
-make target/bp_cs.pdf
-```
+Will make and view an example bachelor's thesis in czech.
 
 We also have (at the moment):
 - `bp_en`
