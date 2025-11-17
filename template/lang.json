@@ -94,7 +94,7 @@
 		"break_rules": {
 			"space_after": [
 				"((?i)[kosuvzai])",
-				"(tj|tzv|tzn)\\."
+				"(tj|tzv|tzn|např)\\."
 			],
 			"nonbreaking_terms": [
 				"(s\\. r\\. o|a\\. s|v\\. o\\. s)\\.",
