@@ -13,19 +13,20 @@
         envSetup = ''
           unset SOURCE_DATE_EPOCH
         '';
-        build = target: pkgs.stdenv.mkDerivation {
-          inherit buildInputs target;
+        build_with_target = target: buildOutput: pkgs.stdenv.mkDerivation {
+          inherit buildInputs target buildOutput;
           name = name + "-" + target;
           src = ./.;
           buildPhase = ''
             ${envSetup}
-            make target/$target
+            make $target
           '';
           installPhase = ''
             mkdir $out
-            cp target/$target $out
+            cp -R $buildOutput $out
           '';
         };
+        build = target: build_with_target ("target/" + target) ("target/" + target);
       in
       {
         devShell = with pkgs; mkShell {
@@ -58,6 +59,9 @@
           packages.documentation = documentation;
           packages.theses = theses;
           packages.default = merge [documentation theses] name;
+          packages.pack = build_with_target "pack" (builtins.map (v: "target/pack/" + v) [
+            "tultemplate2" "tultemplate2.zip"
+          ]);
         }
       )
     );
