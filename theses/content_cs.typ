@@ -2,7 +2,7 @@
 
 #show: tultemplate2
 
-= Co najdete v této šabloně
+= Úvod do této šablony
 
 Tato šablona má sloužit jako ukázka práce typu `{{ta}}` v nástroji *Typst* a šabloně *tultemplate2*.
 Může posloužit jako jednoduchý základ i pro vaši práci, stačí se naučit používat pár užitečných funkcí, jako např. vkládání obrázků, tabulek, citací nebo odkazů.
@@ -16,7 +16,7 @@ Typst je profesionální sázecí nástroj podobný Markdownu, LaTeXu/TeXu, Grof
 Typst je moderní obdobou starších nástrojů, které postrádají spoustu důležitých funkcí, bez kterých se v dnešní době prakticky nedá fungovat.
 Uživatel často musí importovat nepřeberné množství balíčků, které poskytují (podle mě) naprosto základní funkcionalitu -- jako například správná podpora UTF-8 znaků, formátování prvků na základě jazykového lokálu, apod.
 
-= Začínáme se šablonou
+== Začínáme pracovat
 
 Tuto šablonu jste si pravděpodobně stáhli z generátoru na webu https://tulsablona.zumepro.cz a vložili ji do Typst online editoru.
 Tím pádem vidíte kromě zdrojového kódu také výsledný PDF soubor.
@@ -24,7 +24,37 @@ Jak už asi víte, hlavní rozdíl mezi tradičními textovými procesory jako M
 
 Zatímco ve Wordu jsou uživatelé zvyklí, že pomocí tlačítek a klávesových zkratek mění dokument napřímo, Typst (a i LaTeX) používají tzv. zdrojový soubor, který není ničím jiným než obyčejným textovým souborem, a následně na vyžádání umí tento zdrojový soubor zkompilovat tj. proměnit na výsledný dokument, např. ve formátu PDF.
 
-Proto zde najdete popis všech důležitých funkcí nikoliv jako galerii obrázků toho, na která tlačítka se má klikat, nýbrž jako ukázka a návod všech speciálních sekvencí textu, které Typst podporuje a které šablona vyhodnocuje jinak než obsah zprávy.
+Proto v tomto dokumentu najdete popis všech důležitých funkcí nikoliv jako galerii obrázků toho, na která tlačítka se má klikat, nýbrž jako ukázka a návod všech speciálních sekvencí textu, které Typst podporuje a které šablona vyhodnocuje jinak než obsah zprávy.
+
+#rect[
+  *TIP*:
+  Uložte si tento dokument pro pozdější použití.
+  Až budete hledat nějakou specifickou funkci, můžete se k ní prokliknout přes seznam obsahu nahoře.
+]
+
+== Klikatelný obsah
+
+Pokud používáte oficiální Typst online editor, můžete jednoduše klepnout na jakýkoliv text v pravé části (náhledové PDF), který se dá měnit, a editor podle toho automaticky přesune váš kurzor na správné místo.
+Je to sice drobná, ale zato velmi užitečná funkce.
+
+#rect[
+  *TIP*:
+  Zkuste například dvakrát poklepat na obsah abstraktu (nebo název práce u projektů a semestrálních prací) a začít psát.
+]
+
+== Kontrola šablony při kompilaci
+
+Tato šablona je vytvořena tak, že když se ji pokusíte zkompilovat s nesprávnou syntaxí nebo s nějakou chybějící důležitou částí hlavičky, nenechá vás to provést.
+Vždy se podívejte na chybové hlášky, které šablona vypisuje, protože vás snadno navedou k opravě všech chyb.
+Můžete to vyzkoušet tak, že smažete něco z hlavičky nebo že např. použijete funkci, která není nikde definovaná.
+
+Pokud jste hlavičku vygenerovali z generátoru -- neměli byste s ní mít žádné problémy.
+Generátor je nastaven tak, aby vás nenechal vygenerovat špatnou hlavičku.
+
+= Základní formátování obsahu
+
+Formátování (sázení) textu v Typstu je ve většině případů velice jednoduché.
+V této kapitole vám ukážeme nějaké základy, které budete běžně používat.
 
 == Odstavce
 
@@ -52,11 +82,6 @@ Musí akorát ručně dbát na to, aby odstavce nebyly příliš krátké, ani p
 V souvislosti s odstavci bych ještě zmínil, že Typst se za vás stará také o zarovnávání písma a slov do bloků
 a dělení slov mezi řádky, když už se na něj nevejdou.
 
-== Klikatelný obsah
-
-Pokud používáte oficiální Typst online editor, můžete jednoduše klepnout na jakýkoliv text v pravé části (náhledové PDF), který se dá měnit, a editor podle toho automaticky přesune váš kurzor na správné místo.
-Je to sice drobná, ale zato velmi užitečná funkce.
-
 == Nadpisy
 
 První důležitá funkce kromě psaní samotného textu, k čemuž není zapotřebí žádná černá magie, jsou nadpisy.
@@ -80,24 +105,15 @@ A pak obsah
 
 == Číslování kapitol
 
-Asi jste si všimli, že každý nadpis začíná číslem dané kapitoly.
+Asi jste si všimli, že ve výstupu každý nadpis začíná číslem dané kapitoly.
 Toto číslování provádí Typst automaticky, promítne se následně i v sekci *Obsah* na začátku souboru, nemusíte se tak opět o nic starat.
 
-= Kontrola šablony při kompilaci
-
-Tato šablona je vytvořena tak, že když se ji pokusíte zkompilovat s nesprávnou syntaxí nebo s nějakou chybějící důležitou částí hlavičky, nenechá vás to provést.
-Vždy se podívejte na chybové hlášky, které šablona vypisuje, protože vás snadno navedou k opravě všech chyb.
-Můžete to vyzkoušet tak, že smažete něco z hlavičky nebo že např. použijete funkci, která není nikde definovaná.
-
-= Používání funkcí
-
-Používání většiny funkcionalit Typstu je prováděno pomocí tzv. volání funkce. Je to velmi podobné předchozím ukázkám, akorát místo toho, aby se text obalil pouze jedním symbolem či podobnou jednoduchou značkou, obalíme text jménem dané funkce.
-Syntaxe vypadá nějak takto:
-```typst
-#Název_funkce[samotný text nebo jiné parametry]
-```
-Pokud v editoru napíšete symbol hashtagu, začne vám automaticky našeptávat všechny možné funkce a jejich popisy.
-Přejdeme rovnou k dalším praktickým příkladům.
+#rect[
+  *TIP*:
+  Schválně si zkuste napsat nadpis čtvrté úrovně.
+  Alespoň se tak jednodušše seznámíte se způsobem, jakým vám tato šablona skrz Typst hlásí chyby.
+  Pokud se při poklikání na error ocitnete v jiném souboru -- prostě se jednodušše vraťte přes menu souborů.
+]
 
 == Zvýrazňování textu
 
@@ -140,6 +156,93 @@ Funkci link nejprve v kulatých závorkách dáte cíl odkazu (například URL a
 
 Dalši předpony (URI schémata) můžete najít třeba na Wikipedii
 https://en.wikipedia.org/wiki/List_of_URI_schemes.
+
+== Citace
+
+Šablona podporuje správu citací pomocí standardního BibLaTeX @bibtex souboru, stejně jako například LaTeX.
+Generování citací v BibLaTeX zápisu umí téměř každá stránka nebo program, které mají pro citace podporu -- doporučujeme použít buď #link("https://www.zotero.org/")[Zotero] nebo #link("https://www.citacepro.com/")[Citace.com].
+Kód takovéto citace ve vhodném formátu stačí přidat do souboru _citations.bib_, poté je možné se na ně odkazovat pomocí `@jmeno_citace`, nebo `#cite(<jmeno_citace>)`.
+Můžu se tak třeba odkázat na citaci Typstu #cite(<typst>).
+
+Formát souboru _citations.bib_ je naprosto stejný jako pro LaTeX.
+Tyto citace lze přímo vložit třeba z webu https://www.citace.com ve formátu BibLaTeX -- Typst tento formát také umí přečíst.
+Můžete se do souboru s příponou .bib podívat, zjistíte, že je to opravdu jen obyčejný textový soubor se specifickou strukturou.
+V přiloženém ukázkovém souboru už nějaké citace jsou - např. již použitá citace se jménem `typst`.
+
+Soubor, ze kterého se načtou citace lze změnit pomocí argumentu šablony (tj. struktura na začátku souboru):
+
+```typst
+#show: tultemplate2.with(
+  ...
+  citations: "jinysoubor.bib",
+  ...
+)
+```
+
+== Vnitřní odkazy a kotvy<ukazka_odkazu>
+
+Trochu navážeme na *Odkazy* (@links).
+
+Můžete dělat i vnitřní odkazy třeba na kapitoly, stránky nebo obrázky s popiskem (zabalené ve `figure`).
+
+```typst
+= Dobrá kapitola<dobra_kapitola>
+
+Podívejme se na Dobrou kapitolu (@dobra_kapitola).
+```
+
+Takhle vypadá kotva:
+
+```typst
+<nazev_kotvy>
+```
+
+Kotvu dáte na zalistovaný obsah (například za nadpis nebo obrázek) a můžete na ní odkazovat stejně jako na citace:
+
+```typst
+@nazev_kotvy
+```
+Můžeme se podívat na názornou ukázku odkazu (@ukazka_odkazu).
+
+== Zkratky
+
+LaTeX TUL šablona má na začátku dokumentu seznam zkratek -- proto jsme ho přidali i do této šablony.
+Seznam zkratek je v této šabloně nastaven tak, aby se zobrazoval pouze pokud je v něm alespoň jedna zkratka (přišlo nám to poměrně logické).
+
+Zkratku #abbr("ABC", "Abeceda") vytvoříte (definujete) v textu například takto:
+
+```typst
+Zkratka #abbr("ABC", "Abeceda") je zkratka pro abecedu písmen.
+```
+
+Potom zkratku #abbr("ABC") už použijete přímo (bez opakované definice):
+
+```typst
+První písmeno #abbr("ABC") je písmeno "A".
+```
+
+Šablona zajistí následující věci:
+- Zkratka se zobrazí v seznamu zkratek
+- Při prvním použití zkratky vás šablona donutí zkratku definovat
+- Zkratka bude definována pouze jednou (poprvé), jinak na vás šablona začne červeně křičet
+
+Při prvním použití zkratky (při definici) bude zkratka v textu vypadat takto: #abbr("ZK", "Zkratka")
+
+Při dalších použití bude vypadat takto: #abbr("ZK")
+
+#highlight[
+  Tedy zkratku _nepřidáváte_ přímo do seznamu zkratek, ale elegantně jí používáte přímo v textu.
+]
+
+= Používání funkcí
+
+Používání většiny funkcionalit Typstu je prováděno pomocí tzv. volání funkce. Je to velmi podobné předchozím ukázkám, akorát místo toho, aby se text obalil pouze jedním symbolem či podobnou jednoduchou značkou, obalíme text jménem dané funkce.
+Syntaxe vypadá nějak takto:
+```typst
+#název_funkce[samotný text nebo jiné parametry]
+```
+Pokud v editoru napíšete symbol hashtagu, začne vám automaticky našeptávat všechny možné funkce a jejich popisy.
+Přejdeme rovnou k dalším praktickým příkladům.
 
 == Obrázky
 
@@ -202,84 +305,7 @@ Nakonec je zde opět parametr `caption` sloužící k zadání popisku tabulky.
 Tabulky se zobrazí na začátku dokumentu v seznamu (pokud to daný typ dokumentu vyžaduje).
 Jak už jste asi pochopili, i toto provede šablona automaticky.
 
-== Citace
-
-Šablona podporuje správu citací pomocí standardního BibLaTeX @bibtex souboru, stejně jako například LaTeX.
-Generování citací v BibLaTeX zápisu umí téměř každá stránka nebo program, které mají pro citace podporu -- doporučujeme použít buď #link("https://www.zotero.org/")[Zotero] nebo #link("https://www.citacepro.com/")[Citace.com].
-Kód takovéto citace ve vhodném formátu stačí přidat do souboru _citations.bib_, poté je možné se na ně odkazovat pomocí `@jmeno_citace`, nebo `#cite(<jmeno_citace>)`.
-Můžu se tak třeba odkázat na citaci Typstu #cite(<typst>).
-
-Formát souboru _citations.bib_ je naprosto stejný jako pro LaTeX.
-Tyto citace lze přímo vložit třeba z webu https://www.citace.com ve formátu BibLaTeX -- Typst tento formát také umí přečíst.
-Můžete se do souboru s příponou .bib podívat, zjistíte, že je to opravdu jen obyčejný textový soubor se specifickou strukturou.
-V přiloženém ukázkovém souboru už nějaké citace jsou - např. již použitá citace se jménem `typst`.
-
-Soubor, ze kterého se načtou citace lze změnit pomocí argumentu šablony (tj. struktura na začátku souboru):
-
-```typst
-#show: tultemplate2.with(
-  ...
-  citations: "jinysoubor.bib",
-  ...
-)
-```
-
-== Vnitřní odkazy a kotvy<ukazka_odkazu>
-
-Trochu navážeme na *Odkazy* (@links).
-
-Můžete dělat i vnitřní odkazy třeba na kapitoly, stránky nebo obrázky s popiskem (zabalené ve `figure`).
-
-```typst
-= Dobrá kapitola<dobra_kapitola>
-
-Podívejme se na Dobrou kapitolu (@dobra_kapitola).
-```
-
-Takhle vypadá kotva:
-
-```typst
-<nazev_kotvy>
-```
-
-Kotvu dáte na zalistovaný obsah (například za nadpis nebo obrázek) a můžete na ní odkazovat stejně jako na citace:
-
-```typst
-@nazev_kotvy
-```
-Můžeme se podívat na názornou ukázku odkazu (@ukazka_odkazu).
-
-== Zkratky
-
-LaTeX TUL šablona má na začátku dokumentu seznam zkratek -- proto jsme ho přidali i do této šablony.
-Seznam zkratek je v této šabloně nastaven tak, aby se zobrazoval pouze pokud je v něm alespoň jedna zkratka (přišlo nám to poměrně logické).
-
-Zkratku #abbr("ABC", "Abeceda") vytvoříte (definujete) pomocí:
-
-```typst
-#abbr("ABC", "Abeceda")
-```
-
-Potom zkratku #abbr("ABC") už můžete použít přímo (bez opakované definice):
-
-```typst
-#abbr("ABC")
-```
-
-Šablona zajistí následující věci:
-- Zkratka se zobrazí v seznamu zkratek
-- Při prvním použití zkratky vás šablona donutí zkratku definovat
-- Zkratka bude definována pouze jednou (poprvé), jinak na vás šablona začne červeně křičet
-
-Při prvním použití zkratky (při definici) bude zkratka v textu vypadat takto: #abbr("ZK", "Zkratka")
-
-Při dalších použití bude vypadat takto: #abbr("ZK")
-
-#highlight[
-  Tedy zkratku _nepřidáváte_ přímo do seznamu zkratek, ale elegantně jí používáte přímo v textu.
-]
-
-== Přílohy
+= Přílohy
 
 Na konec souboru je také možné přidat seznam příloh.
 Momentálně jsou podporované čtyři typy příloh: odkaz, obsah, PDF soubor vložený na konec dokumentu a odkaz na externí soubor (například přiložený do systému s {{tou}}).
@@ -289,4 +315,3 @@ Jako demonstrace by měla postačit praktická ukázka, která ve zdrojovém kó
   attach_link("Zdrojový kód této šablony", "https://git.zumepro.cz/tul/tultemplate2"),
   attach_content("Testovací obsah vygenerovaný Typstem", [Sem lze psát _stylovaný_ obsah.]),
 )
-
