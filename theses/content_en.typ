@@ -32,14 +32,30 @@ That's why in this document you'll find a description of all the important funct
   When you'll search for a specific function, you can jump right to it through the table of contents above.
 ]
 
-== Clickable content
+== The header and the content
 
-When using the official Typst online editor, you can simply click on any text in the right side (the preview PDF), and your cursor will jump directly to that text in the source file.
+If you look at the document's source (on the right side, if you're in the online editor), you can notice that the source is consisting of two main parts: the header (which can look quite scary on the first look) and the content.
+
+=== Header
+
+The header defines some important information for the document to successfully generate --- for example: the faculty, thesis title, etc.
+
+The information in the header can be either changed manually or by clicking on the content and typing.
+More on that right in the next chapter.
+
+=== Content
+
+The content is marginally the actual text of your thesis.
+The source of the document, besides the text, also contains some special characters (we call it syntax), which instruct Typst on how you wish to format your thesis.
+
+== Clickable content in the header
+
+When using the official Typst online editor, you can simply click on almost any text on the right half of your screen (the preview PDF), and your cursor will jump directly to that text in the source file.
 A small but very practical feature.
 
 #rect[
   *TIP*:
-  Try double-tapping the content of the abstract (or the thesis title for projects and term papers) and then start typing.
+  Try double-tapping the content of the abstract (or the thesis title for projects and term papers --- when you don't have the title pages from STAG) and then start typing.
 ]
 
 == Template compile-time checks
@@ -135,6 +151,56 @@ More styling options can be applied through functions, for example:
 For completeness and demonstration, here in the text we have *bold text*, _italic text_, #strike[struck-through text],
 and #highlight[text highlighted with your faculty's color].
 It's also possible to typeset #underline[underlined text] (although typographers generally advise against using underlining).
+
+== Breaking lines
+
+Did Typst break your line and you don't like it? Let's solve it.
+
+=== Forced linebreak
+
+If you want to break a line somewhere precisely, you can just append the character "`/`" at the end of the line.
+Like so:
+
+```typst
+*Alice*: How to write a good thesis? \
+*Bob*: Using Typst!
+```
+
+In the example above the question mark will be the last symbol on the first line --- Typst won't merge the lines here.
+
+=== Unbreakable space
+
+You may have heard this term before.
+Perhaps you wish to write some name that shouldn't have a linebreak in it, you can use the symbol "`~`".
+
+```typst
+Yes, I go to the Technical University of~Liberec.
+```
+
+Above, Typst will never break the line between the word "of" and the word "Liberec".
+The tilde symbol won't appear in the output file --- there will be a space instead.
+
+== How to write a special character
+
+Some characters like `_`, `*`, `~`, ... are special (as you know by now).
+But what if you want to write them... like really write them (in your thesis).
+
+All you need to do is to prepend a backslash before the character and it becomes a normal character.
+
+```typst
+You can write underscore like so: \_
+```
+
+You can write underscore like so: \_
+
+Do you want to write a backslash itself?
+Can you guess how to do it? ... You prepend a backslash before it.
+
+```typst
+Like so: \\
+```
+
+Like so: \\
 
 == Links<links>
 

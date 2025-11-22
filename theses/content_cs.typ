@@ -32,14 +32,30 @@ Proto v tomto dokumentu najdete popis všech důležitých funkcí nikoliv jako 
   Až budete hledat nějakou specifickou funkci, můžete se k ní prokliknout přes seznam obsahu nahoře.
 ]
 
-== Klikatelný obsah
+== Hlavička a obsah
 
-Pokud používáte oficiální Typst online editor, můžete jednoduše klepnout na jakýkoliv text v pravé části (náhledové PDF), který se dá měnit, a editor podle toho automaticky přesune váš kurzor na správné místo.
+Když se podíváte na zdroj dokumentu (vlevo, pokud jste v online editoru), tak si můžete všimnout, že zdroj se skládá z dvou hlavních části: hlavičku (ta na první pohled může vypadat docela strašidelně) a obsah.
+
+=== Hlavička
+
+Hlavička definuje všechny potřebné informace pro úspěšné vygenerování dokumentu -- například fakultu, název práce, atd.
+
+Údaje v hlavičce buď můžete upravit rovnou ručně, nebo se k obsahu prokliknout a začít psát.
+Na to navážeme hned v další kapitole.
+
+=== Obsah
+
+Obsah je už z většiny samotný text vaší práce.
+Zdroj dokumentu, kromě samotného textu, také obsahuje speciální znaky (odborně tomu říkáme syntaxe), které Typstu vysvětlí jak si dokument přejete naformátovat.
+
+== Klikatelný obsah v hlavičce
+
+Pokud používáte oficiální Typst online editor, můžete jednoduše klepnout na téměř jakýkoliv text na pravé půlce obrazovky (náhledové PDF), a editor podle toho automaticky přesune váš kurzor na správné místo.
 Je to sice drobná, ale zato velmi užitečná funkce.
 
 #rect[
   *TIP*:
-  Zkuste například dvakrát poklepat na obsah abstraktu (nebo název práce u projektů a semestrálních prací) a začít psát.
+  Zkuste například dvakrát poklepat na obsah abstraktu (nebo název práce u projektů a semestrálních prací -- pokud nemáte titulní strany ze STAGu) a začít psát.
 ]
 
 == Kontrola šablony při kompilaci
@@ -134,6 +150,57 @@ Další stylování lze dělat právě přes funkce, viz třeba:
 
 Pro úplnost a ukázku je zde přímo v textu *tučný text*, _text kurzívou_, #strike[přeškrtnutý text] a #highlight[text zvýrazněný podle barvy příslušící vaší fakultě].
 Lze sázet také #underline[podtržený text] (ačkoli typografové doporučují podtržení nepoužívat).
+
+== Zalamování řádků
+
+Typst vám nějak zalomil řádek a vám se to nelíbí? Pojďme to vyřešit.
+
+=== Nucené zalomení rádku
+
+Pokud chcete vynutit zalomení, stačí na konec řádku ve zdrojovém souboru napsat znak "`/`".
+Například:
+
+```typst
+*Alice*: Jak napsat skvělou práci? \
+*Bob*: Pomocí Typstu!
+```
+
+V příkladu výše bude otazník posledním znakem prvního řádku -- Typst nám tady řádky nespojí.
+
+=== Nezalomitelná mezera
+
+Možná už jste tento pojem někdy slyšeli.
+Pokud chcete například napsat nějaký název a nemá v něm být zalomení řádku, můžete použít znak "`~`".
+Ukázka:
+
+```typst
+Ano, chodím na Technickou univerzitu v~Liberci.
+```
+
+V ukázce výše ve výstupu Typst nikdy neukončí řádek mezi písmenem "v" a slovem "Liberci".
+Vlnovka se ve výstupu nezobrazí -- místo ní bude mezera.
+
+== Jak napsat speciální znak
+
+Znaky jako `_`, `*`, `~`, ... jsou speciální (jak už nyní víte).
+Ale co když je chcete napsat... jako opravdu napsat (do své práce).
+
+Stačí před jakýkoliv znak napsat zpětné lomítko (AltGr / Pravý Alt + Q na české klávesnici) a stane se z něj znak normální.
+
+```typst
+Takhle tedy můžete například zapsat znak podtržítka: \_
+```
+
+Takhle tedy můžete například zapsat znak podtržítka: \_
+
+Chcete napsat samotné zpětné lomítko?
+Uhádnete jak se to dělá? ... Dáte před něj zpětné lomítko.
+
+```typst
+Nějak takhle: \\
+```
+
+Nějak takhle: \\
 
 == Odkazy<links>
 
