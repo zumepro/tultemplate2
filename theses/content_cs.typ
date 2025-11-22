@@ -202,6 +202,27 @@ Nějak takhle: \\
 
 Nějak takhle: \\
 
+== Pomlčky
+
+Možná jste někdy slyšeli, že pokud napíšete na klávesnici pomlčku, tak to není skutečná pomlčka.
+Píšete totiž ve skutečnosti spojovník, který se má používat na slovo-spojování.
+
+Jak napsat pomlčku? Stačí napsat víc spojovníků za sebou.
+
+```typst
+-- // Krátká pomlčka
+--- // Dlouhá pomlčka
+```
+
+#highlight[
+  V češtině se k účelům spojování logických celků používá výhradně krátká pomlčka -- tedy "--".
+]
+
+#rect[
+  *TIP*:
+  Zkuste si znaky zkopírovat a vložit například do #link("https://apps.timwhitlock.info/unicode/inspect")[Unicode Inspektoru] -- ten vám ukáže podrobnosti o nějakém znaku.
+]
+
 == Odkazy<links>
 
 Odkazy je možné dělat na URL/URI zdroje, emaily, telefony, atd...
@@ -371,6 +392,52 @@ Nakonec je zde opět parametr `caption` sloužící k zadání popisku tabulky.
 
 Tabulky se zobrazí na začátku dokumentu v seznamu (pokud to daný typ dokumentu vyžaduje).
 Jak už jste asi pochopili, i toto provede šablona automaticky.
+
+= Pokročilé formátování obsahu
+
+Dále si ukážeme neobvyklé (ale stále užitečné) způsoby formátování obsahu.
+
+== Speciální znaky v textu
+
+Díky Typstu už speciální znaky neusíte kopírovat z internetu.
+Typst má na speciální znaky funkci "`sym`".
+V online editoru stačí napsat "`#sym.`" a editor vám začne našeptávat velkou spoustu znaků.
+
+Například znak #sym.pi (pí) lze zapsat takto:
+
+```typst
+#sym.pi
+```
+
+Další znaky lze najít v dokumentaci Typstu: https://typst.app/docs/reference/symbols/sym/
+
+== Horní / spodní text
+
+Občas můžete chtít napsat text v menší velikosti a zarovnat ho na horní nebo spodní okraj řádku.
+
+=== Horní text
+
+Horní#super[text] lze napsat takto:
+
+```typst
+Horní#super[text]
+```
+
+=== Spodní text
+
+Spodní#sub[text] lze napsat takto:
+
+```typst
+Spodní#sub[text]
+```
+
+== Ještě stále nemáte dost?
+
+V tomto dokumentu naleznete vše, co v drtivé většině případů budete potřebovat ke psaní své práce.
+
+Pokud se ale chcete dozvědět _ještě_ víc, pak vám doporučujeme se podívat na dokumentaci formátování obsahu přímo od vývojářů Typstu.
+
+https://typst.app/docs/reference/text/
 
 = Přílohy
 

@@ -202,6 +202,25 @@ Like so: \\
 
 Like so: \\
 
+== Dashes
+
+You may have heard that if you write a dash on a keyboard --- it's really a hyphen.
+How to actually write a dash then?
+
+```typst
+-- // En dash
+--- // Em dash
+```
+
+#highlight[
+  To join logical groups in English, we strictly use the em dash --- so "---".
+]
+
+#rect[
+  *TIP*:
+  Try copy-pasting symbols to #link("https://apps.timwhitlock.info/unicode/inspect")[Unicode Inspector] --- it will show you the details of a symbol.
+]
+
 == Links<links>
 
 You can create links to URLs/URIs, emails, phone numbers, and more.
@@ -377,6 +396,52 @@ Finally, there's again a `caption` parameter, used to provide a caption for the 
 
 Tables also appear at the beginning of the document in a list (if required by the document type).
 As you've probably noticed by now, this template takes care of this automatically too.
+
+= Advanced content formatting
+
+Now we'll look into some uncommon (but still useful) ways of content formatting.
+
+== Special symbols in text
+
+Thanks to Typst, you can quit copy-pasting symbols from the internet.
+Typst has a function for special symbols --- function "`sym`".
+In the online editor, you can just type "`#sym.`" and the editor will start autocompleting a load of symbols.
+
+The symbol #sym.pi (pi), for example, can be written as so:
+
+```typst
+#sym.pi
+```
+
+You can find more symbols in the Typst reference documentation: https://typst.app/docs/reference/symbols/sym/
+
+== Superscript / subscript
+
+You may wish to write a smaller text aligned to the top of the line or to the bottom of the line.
+
+=== Superscript
+
+Super#super[script] can be written as:
+
+```typst
+Super#super[script]
+```
+
+=== Subscript
+
+Sub#sub[script] can be written as:
+
+```typst
+Sub#sub[script]
+```
+
+== You want more?
+
+In this document you'll find all the stuff that you will, in the majority of cases, need to write your thesis.
+
+However, if you want to know _even more_, we recommend checking out the documentation on how to format content from the Typst developers.
+
+https://typst.app/docs/reference/text/
 
 = Attachments
 
