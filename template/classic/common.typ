@@ -95,6 +95,7 @@
   }
   set highlight(fill: faculty_color.lighten(90%));
   set line(stroke: (paint: faculty_color, thickness: .7pt), length: 100%);
+  set rect(stroke: (paint: faculty_color, thickness: .7pt));
 
   content
 }
