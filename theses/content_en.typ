@@ -235,7 +235,7 @@ Internally, this automatically calls the `link` function.
 
 If we want to link to less common things (like email addresses), we can call the `link` function explicitly:
 ```typst
-#link("mailto:ondrej@mekina.cz")[Email of this template's maintainer]
+#link("mailto:info@tul.cz")[Email of TUL informations]
 ```
 First, you pass the link target (perhaps a URL address) in parentheses to the link function and then you follow up with the content that will be displayed in the document enclosed in brackets.
 

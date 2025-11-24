@@ -237,7 +237,7 @@ Tohle interně volá funkci `link`.
 
 Pokud odkazujeme na méně časté věci (jako emaily), můžeme použít funkci `link` přímo:
 ```typst
-#link("mailto:ondrej@mekina.cz")[Email maintainera této šablony]
+#link("mailto:info@tul.cz")[Email TUL informací]
 ```
 
 Funkci link nejprve v kulatých závorkách dáte cíl odkazu (například URL adresu) a dále v hranatých závorkách obsah, který se zobrazí v dokumentu.
