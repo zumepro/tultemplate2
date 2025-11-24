@@ -48,17 +48,10 @@
             '';
           };
           documentation = build "documentation.pdf";
-          theses = merge (builtins.map (v: build v) [
-              "bp_cs.pdf" "bp_en.pdf"
-              "dp_cs.pdf" "dp_en.pdf"
-              "prj_cs.pdf" "prj_en.pdf"
-              "sp_cs.pdf" "sp_en.pdf"
-          ]) (name + "-" + "theses");
         in
         {
           packages.documentation = documentation;
-          packages.theses = theses;
-          packages.default = merge [documentation theses] name;
+          packages.default = merge [documentation] name;
           packages.pack = build_with_target "pack" (builtins.map (v: "target/pack/" + v) [
             "tultemplate2" "tultemplate2.zip"
           ]);
