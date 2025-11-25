@@ -237,7 +237,7 @@ Tohle interně volá funkci `link`.
 
 Pokud odkazujeme na méně časté věci (jako emaily), můžeme použít funkci `link` přímo:
 ```typst
-#link("mailto:info@tul.cz")[Email TUL informací]
+#link("mailto:ondrej@mekina.cz")[Email maintainera této šablony]
 ```
 
 Funkci link nejprve v kulatých závorkách dáte cíl odkazu (například URL adresu) a dále v hranatých závorkách obsah, který se zobrazí v dokumentu.
@@ -321,93 +321,6 @@ Při dalších použití bude vypadat takto: #abbr("ZK")
 #highlight[
   Tedy zkratku _nepřidáváte_ přímo do seznamu zkratek, ale elegantně jí používáte přímo v textu.
 ]
-
-= Specifická použití
-
-V této kapitole se podíváme na některá specifická použití.
-Můžete zde tedy najít věci, které nebudete vůbec potřebovat.
-Pokud vás z této kapitoly nic nezajímá, tak ji klidně přeskočte -- zlobit se nebudeme.
-
-== Rovnice, vzorečky a matematika
-
-Pokud vaše práce bude obsahovat matematické značení, pak je tato kapitola pro vás.
-V této kapitole vám představíme nějaké základy -- pokud vám tyto základy stačit nebudou, doporučujeme se obrátit na dokumentaci Typstu: https://typst.app/docs/reference/math/
-
-=== Matematický režim
-
-Matematický režim má speciální syntaxi pro zápis matematických výrazů.
-V matematickém režimu tato šablona použije jiný font -- vhodný pro zápis čísel a speciálních matematických znaků.
-
-Pokud chcete vstoupit do matematického režimu, obklopte výraz znaky dolaru "`$`".
-
-```typst
-$1 + 1 = 42$
-```
-
-Ukázka: $1 + 1 = 42$
-
-Jak sami vidíte, v matematickém režimu používáte poměrně srozumitelný způsob zápisu.
-Dále si ukážeme nějaké specifické zápisy.
-
-=== Sčítání
-
-Součet zapíšete pomocí znaku "`+`".
-
-```typst
-$1 + 2 = 3$
-```
-
-Ukázka: $1 + 2 = 3$
-
-=== Odčítání
-
-Rozdíl zapíšete pomocí znaku "`-`".
-
-```typst
-$3 - 2 = 1$
-```
-
-Ukázka: $3 - 2 = 1$
-
-=== Násobení<nasobeni>
-
-Součin zapíšete pomocí příkazu "`dot`". Jedná se o ekvivalent LaTeXového "`cdot`".
-#highlight[Narozdíl od LaTeXu před příkazy v matematickém režimu nepřidáváte zpětné lomítko "`\`".]
-
-```typst
-$2 dot 3 = 6$
-```
-
-Ukázka: $2 dot 3 = 6$
-
-=== Dělení
-
-Podíl zapíšete pomocí znaku "`/`".
-
-```typst
-$1 / 2 = 0.5$
-```
-
-Ukázka: $1 / 2 = 0.5$
-
-Pokud chcete do zlomku dát výraz, a ne pouhé číslo, zabalte čitatel / jmenovatel do kulatých závorek.
-
-```typst
-$(1 + 1) / (4 - 2) = 2 / 2 = 1$
-```
-
-Ukázka: $(1 + 1) / (4 - 2) = 2 / 2 = 1$
-
-=== Text
-
-Jak můžeme vidět u Násobení (@nasobeni), pokud napíšeme v matematickém režimu slovo, Typst ho bude interpretovat jako příkaz.
-Pokud ale chceme napsat skutečně text, který se vykreslí do dokumentu, obklopíme text uvozovkami.
-
-```typst
-$69 "cm"$
-```
-
-Ukázka: $69 "cm"$
 
 = Používání funkcí
 
@@ -526,82 +439,6 @@ Pokud se ale chcete dozvědět _ještě_ víc, pak vám doporučujeme se podíva
 
 https://typst.app/docs/reference/text/
 
-= Balíčky
-
-Nenašli jste nějakou funkci v tomto dokumentu ani v Typst dokumentaci?
-Žádný problém. Je naprosto možné, že na to bude existovat nějaký pěkný balíček.
-
-Stejně jako například LaTeX, Typst má na výběr velké množství balíčků, které vám poskytnou dodatečné funkce.
-Tyto balíčky stáhnete pomocí velmi jednoduchého příkazu "`import`".
-_Po_ příkazu import můžete používat naimportované funkce z balíčku.
-
-== Ukázka balíčku
-
-Pokud bych tak chtěl stáhnout například balíček "`alchemist`" na vykreslování chemických struktur, použiji následující import:
-
-```typst
-#import "@preview/alchemist:0.1.8": skeletize, fragment, branch, double, single
-```
-
-Textový řetězec (text v uvozovkách) je název balíčku a jeho verze -- název a verzi najdete na seznamu balíčků viz. @seznam_balicku.
-
-Všechno za dvojtečkou jsou funkce, které chcete importovat (oddělené čárkami).
-Pokud budete chtít naimportovat úplně všechny funkce balíčku, pak použijete hvězdičku:
-
-```typst
-#import "@preview/alchemist:0.1.8": *
-```
-
-Ukázka použití balíčku alchemist (podívejte se do zdroje dokumentu):
-
-// ___ Ukázka balíčku Alchemist ___
-
-#import "@preview/alchemist:0.1.8": skeletize, fragment, branch, double, single
-
-#skeletize({ // příkaz na vykreslení chemické struktury
-  fragment(name: "S", "S") // síra uprostřed
-
-  // kyslíky
-  branch({
-    double(angle: 3, atom-sep: 1.422) // dvojná vazba
-    fragment(name: "O1", "O") // kyslík (name musí být unikátní -- proto ta jednička)
-  })
-  branch({
-    double(angle: 1, atom-sep: 1.422)
-    fragment(name: "O2", "O")
-  })
-  branch({
-    single(angle: -1, atom-sep: 1.574) // jednoduchá vazba
-    fragment(name: "O3", "O")
-    branch({
-      single(angle: 1, atom-sep: .97)
-      fragment(name: "H1", "H") // vodík
-    })
-  })
-  branch({
-    single(angle: -3, atom-sep: 1.574)
-    fragment(name: "O4", "O")
-    branch({
-      single(angle: -2, atom-sep: .97)
-      fragment(name: "H2", "H")
-    })
-  })
-})
-
-// __ Konec ukázky ___
-
-== Seznam balíčků<seznam_balicku>
-
-Balíčků je opravdu mnoho a všechny je v tomto dokumentu ukázat nemůžeme.
-Vy si ale nějaký můžete vybrat a ten vyzkoušet.
-
-Doporučujeme balíčky hledat pomocí vyhledávání v Typst Universe.
-Seznam balíčků v Typst Universe je dostupný na URL: https://typst.app/universe/search/?kind=packages
-
-Když si z tohoto seznamu nějaký balíček rozkliknete a budete ho chtít naimportovat -- stačí si v sekci "How to add" zkopírovat příkaz import pomocí tlačítka a tento příkaz vložit někam do obsahu vašeho dokumentu (například před první použití jeho funkcí).
-
-Balíček stačí naimportovat pouze jednou. Pokud chcete naimportovat další funkce, jednodušše je přidejte oddělené čárkou za příkaz import.
-
 = Přílohy
 
 Na konec souboru je také možné přidat seznam příloh.
@@ -611,4 +448,6 @@ Jako demonstrace by měla postačit praktická ukázka, která ve zdrojovém kó
 #attachments(
   attach_link("Zdrojový kód této šablony", "https://git.zumepro.cz/tul/tultemplate2"),
   attach_content("Testovací obsah vygenerovaný Typstem", [Sem lze psát _stylovaný_ obsah.]),
+  attach_pdf("Vložení PDF přílohy přímo do práce", "example-pdf-appendix.pdf"),
+  attach_file_reference("Reference na externí soubor", "example-file-appendix.zip"),
 )

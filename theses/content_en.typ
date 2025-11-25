@@ -235,7 +235,7 @@ Internally, this automatically calls the `link` function.
 
 If we want to link to less common things (like email addresses), we can call the `link` function explicitly:
 ```typst
-#link("mailto:info@tul.cz")[Email of TUL informations]
+#link("mailto:ondrej@mekina.cz")[Email of this template's maintainer]
 ```
 First, you pass the link target (perhaps a URL address) in parentheses to the link function and then you follow up with the content that will be displayed in the document enclosed in brackets.
 
@@ -321,93 +321,6 @@ In subsequent uses, it will appear as: #abbr("ABR")
   In other words, you do _not_ add abbreviations directly to the abbreviation list.
   You simply use them elegantly within the text itself.
 ]
-
-= Specific usage
-
-In this chapter you'll find some specific concepts.
-You can find things that you might not need at all.
-If nothing of this chapter interests you, go right ahead and skip it --- we won't be angry.
-
-== Equations, formulas and maths
-
-If your thesis will contain some mathematical notation, this chapter is for you.
-In this chapter we'll cover some basics --- if the basics in this document won't be enough for you, we recommend checking out the Typst documentation: https://typst.app/docs/reference/math/
-
-=== Math mode
-
-The math mode has a special syntax for typesetting mathematics.
-In the math mode, the template will use a different font --- a font suitable for typing numbers and special mathematical symbols.
-
-If you want to enter the math mode, surround the content with the dollar sign "`$`".
-
-```typst
-$1 + 1 = 42$
-```
-
-Shown as: $1 + 1 = 42$
-
-As you can see, in the math mode you use a pretty understandable syntax.
-Let's get to some specific expressiosn now.
-
-=== Addition
-
-Addition can be written using the "`+`" sign.
-
-```typst
-$1 + 2 = 3$
-```
-
-Shown as: $1 + 2 = 3$
-
-=== Subtraction
-
-Subtraction can be written using the "`-`" symbol.
-
-```typst
-$3 - 2 = 1$
-```
-
-Shown as: $3 - 2 = 1$
-
-=== Multiplication<multiplication>
-
-Multiplication can be written using the command "`dot`". It's an equivalent of the LaTeX command "`cdot`".
-#highlight[Contrary to LaTeX, you don't add the backslash "`\`" to call a command in the math mode.]
-
-```typst
-$2 dot 3 = 6$
-```
-
-Shown as: $2 dot 3 = 6$
-
-=== Division
-
-Division can be written using the "`/`" symbol.
-
-```typst
-$1 / 2 = 0.5$
-```
-
-Shown as: $1 / 2 = 0.5$
-
-If you want to put an expression in the fraction, and not just a number, wrap the numerator / denominator in parentheses.
-
-```typst
-$(1 + 1) / (4 - 2) = 2 / 2 = 1$
-```
-
-Shown as: $(1 + 1) / (4 - 2) = 2 / 2 = 1$
-
-=== Text
-
-As you can see in Multiplication (@multiplication), if we write a word in the math mode, Typst will interpret it as a command.
-If you want to write real text, shown in the document, instead, we must surround the text with double-quotes.
-
-```typst
-$69 "cm"$
-```
-
-Shown as: $69 "cm"$
 
 = Using Functions
 
@@ -530,82 +443,6 @@ However, if you want to know _even more_, we recommend checking out the document
 
 https://typst.app/docs/reference/text/
 
-= Packages
-
-You want some function but you couldn't find it in this document nor in the Typst documentation?
-No problem. Chances are, there is a package for it.
-
-Similarly to LaTeX, Typst has a broad range of packages with additional functions.
-You can download and use those packages with the very simple "`import`" command.
-_After_ the import you can directly use the imported functions from the package.
-
-== Package example
-
-If I wish to download the package "`alchemist`" (for drawing chemical structures) for example, I will use the following import:
-
-```typst
-#import "@preview/alchemist:0.1.8": skeletize, fragment, branch, double, single
-```
-
-The text string (text in the double-quotes) is the package name and it's version --- you can find the name and the version in the package list in @package_list.
-
-After the colon are the functions which you wish to import (comma-separated).
-If you wish to import everything from the package, use an asterisk:
-
-```typst
-#import "@preview/alchemist:0.1.8": *
-```
-
-Example usage of the alchemist package (look at the document source):
-
-// ___ Example with the Alchemist package ___
-
-#import "@preview/alchemist:0.1.8": skeletize, fragment, branch, double, single
-
-#skeletize({ // the command to render the chemical structure
-  fragment(name: "S", "S") // sulfur in the middle
-
-  // oxygens
-  branch({
-    double(angle: 3, atom-sep: 1.422) // double bond
-    fragment(name: "O1", "O") // oxygen (name must be unique --- hence the one)
-  })
-  branch({
-    double(angle: 1, atom-sep: 1.422)
-    fragment(name: "O2", "O")
-  })
-  branch({
-    single(angle: -1, atom-sep: 1.574) // simple bond
-    fragment(name: "O3", "O")
-    branch({
-      single(angle: 1, atom-sep: .97)
-      fragment(name: "H1", "H") // hydrogen
-    })
-  })
-  branch({
-    single(angle: -3, atom-sep: 1.574)
-    fragment(name: "O4", "O")
-    branch({
-      single(angle: -2, atom-sep: .97)
-      fragment(name: "H2", "H")
-    })
-  })
-})
-
-// __ Example end ___
-
-== Package list<package_list>
-
-There is a load of packages and we can't show all of them in this document.
-But you can pick one and go try it.
-
-We recommend searching for packages through the Typst Universe.
-The package list in Typst Universe is available at: https://typst.app/universe/search/?kind=packages
-
-If you pick some package from this list, open it in the listing and will wish to import it --- just use the copy button in the section "How to add" and paste the command in your document (before the first usage of it's functions for example).
-
-You need to import the package just once. If you'll want to import more functions, just add them after the import comma-separated.
-
 = Attachments
 
 At the end of the file, you can add the list of attachments.
@@ -615,5 +452,7 @@ As a demonstration, there's a practical example included right after this paragr
 #attachments(
   attach_link("Source code of this template", "https://git.zumepro.cz/tul/tultemplate2"),
   attach_content("Test content generated by Typst", [Here you can write _styled_ content.]),
+  attach_pdf("Insert a PDF file directly into the thesis", "example-pdf-appendix.pdf"),
+  attach_file_reference("Reference to an external file", "example-file-appendix.zip"),
 )
 
