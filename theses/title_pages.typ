@@ -8,7 +8,7 @@
 
 #set text(lang: "cs")
 #align(center + horizon, text([
-  *Nahraďte tento soubor* "`title-pages.pdf`" souborem se zadáním vygenerovaným *ze~STAGu*.
+  *Nahraďte soubor "`title-pages.pdf`"* souborem se zadáním vygenerovaným *ze~STAGu*.
 ], color, 2em))
 
 #text([
@@ -28,7 +28,7 @@
 
 #set text(lang: "en")
 #align(center + horizon, text([
-  *Replace this file* "`title-pages.pdf`" with the title pages document with assignment genenerated *from~STAG*.
+  *Replace file "`title-pages.pdf`"* with the title pages document with assignment genenerated *from~STAG*.
 ], color, 2em))
 
 #text([
