@@ -34,13 +34,13 @@
             cp -R $buildOutput $out
           '';
         };
-        build = target: build_with_target ("target/" + target) ("target/" + target);
       in
       {
         devShell = with pkgs; mkShell {
           inherit buildInputs;
           shellHook = envSetup;
         };
+        packages.bundle = build_with_target "bundle" "target/pack/bundle/.";
       }
     );
 }
