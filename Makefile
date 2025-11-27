@@ -11,7 +11,8 @@ TEMPLATE_SRCS := $(shell find template -type f) $(LIBS:%=template/lib/%) \
 TO_PACK := $(TEMPLATE_SRCS) template/LICENSE
 BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en sp_cs sp_en
 BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
-				  $(BUNDLE_THESES:%=$(BUNDLEDIR)/%.typ) $(BUNDLEDIR)/Makefile
+				  $(BUNDLE_THESES:%=$(BUNDLEDIR)/%.typ) $(BUNDLEDIR)/Makefile \
+				  $(BUNDLEDIR)/title-pages.pdf
 PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) $(PACKDIR)/documentation.typ \
 				$(PACKDIR)/documentation.pdf $(PACKDIR)/citations.bib $(PACKDIR)/Makefile
 
@@ -173,6 +174,9 @@ $(BUNDLEDIR)/template/%: template/% | $(BUNDLEDIR)/template
 
 $(BUNDLEDIR)/%.typ: $(BUILD_DIR)/content_%.txt | $(BUNDLEDIR)
 	sed 's/\.\.\/template\//template\//' $< > $@
+
+$(BUNDLEDIR)/title-pages.pdf: theses/title_pages.typ | $(BUNDLEDIR)
+	typst compile --root . --font-path template/fonts $< $@
 
 # == TESTS ==
 
