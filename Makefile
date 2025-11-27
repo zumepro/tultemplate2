@@ -168,6 +168,7 @@ $(BUNDLEDIR)/citations.bib: citations.bib | $(BUNDLEDIR)
 	ln -f $< $@
 
 $(BUNDLEDIR)/template/%: template/% | $(BUNDLEDIR)/template
+	@mkdir -p $(@D)
 	ln -f $< $@
 
 $(BUNDLEDIR)/%.typ: $(BUILD_DIR)/content_%.txt | $(BUNDLEDIR)
