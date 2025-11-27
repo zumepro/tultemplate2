@@ -6,14 +6,14 @@ BUNDLEDIR := $(PACKS_ROOT)/bundle
 LIB_MUCHPDFTOOLS := lib.typ much_pdf_tools.wasm
 LIBS := $(LIB_MUCHPDFTOOLS:%=much_pdf_tools/%)
 
-TO_PACK := $(shell find template -type f) template/LICENSE $(LIBS:%=template/lib/%)
+TEMPLATE_SRCS := $(shell find template -type f) $(LIBS:%=template/lib/%) \
+				 template/example_appendix.pdf
+TO_PACK := $(TEMPLATE_SRCS) template/LICENSE
 BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en sp_cs sp_en
 BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
 				  $(BUNDLE_THESES:%=$(BUNDLEDIR)/%.typ) $(BUNDLEDIR)/Makefile
 PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) $(PACKDIR)/documentation.typ \
 				$(PACKDIR)/documentation.pdf $(PACKDIR)/citations.bib $(PACKDIR)/Makefile
-
-TEMPLATE_SRCS := $(shell find template -type f) $(LIBS:%=template/lib/%)
 
 # == MAIN TARGETS ==
 
@@ -113,6 +113,9 @@ $(BUILD_DIR)/%.typ: $(BUILD_DIR)/header_%.txt $(BUILD_DIR)/content_%.txt | $(BUI
 $(BUILD_DIR)/%.pdf: $(BUILD_DIR)/%.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
 	typst compile --font-path template/fonts --root . $< $@
 
+template/example_appendix.pdf: theses/example_appendix.typ
+	typst compile --font-path template/fonts --root . $< $@
+
 # == PACKS - clean builds for direct use ==
 
 $(PACKDIR)/%: % | $(PACKDIR)
@@ -165,7 +168,6 @@ $(BUNDLEDIR)/citations.bib: citations.bib | $(BUNDLEDIR)
 	ln -f $< $@
 
 $(BUNDLEDIR)/template/%: template/% | $(BUNDLEDIR)/template
-	@mkdir -p $(@D)
 	ln -f $< $@
 
 $(BUNDLEDIR)/%.typ: $(BUILD_DIR)/content_%.txt | $(BUNDLEDIR)

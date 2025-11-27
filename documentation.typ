@@ -429,5 +429,5 @@ Funkce `todo` vám zároveň zabrání v tom, aby se text Lorem Ipsum vyskytl ve
 #attachments(
   attach_link("Zdrojový kód této šablony", "https://git.zumepro.cz/tul/tultemplate2"),
   attach_content("Testovací obsah vygenerovaný Typstem", [Sem lze psát _stylovaný_ obsah.]),
-  attach_pdf("Ukázkový PDF soubor s dvěma stranami", "tests/pdf_embedding_02.pdf"),
+  attach_pdf("Ukázkový PDF soubor s dvěma stranami", "template/example_appendix.pdf"),
 )

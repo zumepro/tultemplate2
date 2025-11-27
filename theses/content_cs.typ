@@ -448,6 +448,6 @@ Jako demonstrace by měla postačit praktická ukázka, která ve zdrojovém kó
 #attachments(
   attach_link("Zdrojový kód této šablony", "https://git.zumepro.cz/tul/tultemplate2"),
   attach_content("Testovací obsah vygenerovaný Typstem", [Sem lze psát _stylovaný_ obsah.]),
-  attach_pdf("Vložení PDF přílohy přímo do práce", "example-pdf-appendix.pdf"),
+  attach_pdf("Vložení PDF přílohy přímo do práce", "template/example_appendix.pdf"),
   attach_file_reference("Reference na externí soubor", "example-file-appendix.zip"),
 )
