@@ -12,7 +12,7 @@ TO_PACK := $(TEMPLATE_SRCS) template/LICENSE
 BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en sp_cs sp_en
 BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
 				  $(BUNDLE_THESES:%=$(BUNDLEDIR)/%.typ) $(BUNDLEDIR)/Makefile \
-				  $(BUNDLEDIR)/title-pages.pdf
+				  $(BUNDLEDIR)/title-pages.pdf $(BUNDLEDIR)/assignment.pdf
 PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) $(PACKDIR)/documentation.typ \
 				$(PACKDIR)/documentation.pdf $(PACKDIR)/citations.bib $(PACKDIR)/Makefile
 
@@ -176,6 +176,9 @@ $(BUNDLEDIR)/%.typ: $(BUILD_DIR)/content_%.txt | $(BUNDLEDIR)
 	sed 's/\.\.\/template\//template\//' $< > $@
 
 $(BUNDLEDIR)/title-pages.pdf: theses/title_pages.typ | $(BUNDLEDIR)
+	typst compile --root . --font-path template/fonts $< $@
+
+$(BUNDLEDIR)/assignment.pdf: theses/assignment.typ | $(BUNDLEDIR)
 	typst compile --root . --font-path template/fonts $< $@
 
 # == TESTS ==
