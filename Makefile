@@ -3,11 +3,13 @@ PACKS_ROOT := $(BUILD_DIR)/pack
 PACKDIR := $(PACKS_ROOT)/tultemplate2
 BUNDLEDIR := $(PACKS_ROOT)/bundle
 
-LIB_MUCHPDFTOOLS := lib.typ much_pdf_tools.wasm
-LIBS := $(LIB_MUCHPDFTOOLS:%=much_pdf_tools/%)
+LIBDIR := template/lib
+LIB_MUCHPDFTOOLS := $(LIBDIR)/much_pdf_tools
+LIB_TARGETS_MUCHPDFTOOLS := lib.typ much_pdf_tools.wasm
+LIB_URL_MUCHPDFTOOLS := https://tulsablona.zumepro.cz/lib/much_pdf_tools
 
-TEMPLATE_SRCS := $(shell find template -type f) $(LIBS:%=template/lib/%) \
-				 template/example_appendix.pdf
+TEMPLATE_SRCS := $(shell find template -type f) \
+				 $(LIB_TARGETS_MUCHPDFTOOLS:%=$(LIB_MUCHPDFTOOLS)/%) template/example_appendix.pdf
 TO_PACK := $(TEMPLATE_SRCS) template/LICENSE
 BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en sp_cs sp_en
 BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
@@ -77,13 +79,17 @@ endef
 
 # == LIBS ==
 
-template/lib:
-	mkdir -p $@
+$(LIBDIR):
+	mkdir $@
 
-$(LIB_MUCHPDFTOOLS:%=template/lib/much_pdf_tools/%): | template/lib
-	cd template/lib && wget "https://tulsablona.zumepro.cz/lib/much_pdf_tools.tar.gz" && \
-		tar -xvf much_pdf_tools.tar.gz && \
-		rm much_pdf_tools.tar.gz
+$(LIB_MUCHPDFTOOLS): | $(LIBDIR)
+	mkdir $@
+
+template/lib/much_pdf_tools/lib.typ: | $(LIB_MUCHPDFTOOLS)
+	cd $(LIB_MUCHPDFTOOLS) && wget "$(LIB_URL_MUCHPDFTOOLS)/lib.typ"
+
+template/lib/much_pdf_tools/much_pdf_tools.wasm: | $(LIB_MUCHPDFTOOLS)
+	cd $(LIB_MUCHPDFTOOLS) && wget "$(LIB_URL_MUCHPDFTOOLS)/much_pdf_tools.wasm"
 
 # == DOCUMENTATION ==
 
