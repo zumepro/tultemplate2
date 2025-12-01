@@ -26,6 +26,7 @@
   ),
   acknowledgement: "dictionary[string : string | content] | none",
   assignment: "dictionary[string : any] | content | string | none",
+  presentation_info: "dictionary[string: any] | none",
   citations: "string",
 );
 
@@ -35,6 +36,10 @@
   academical_year: "string | content",
   content: "content",
 );
+
+#let presentation_structure = (
+  append_thanks: "boolean",
+)
 
 
 #let check_arguments(args, structure: arguments_structure, namespace: none) = {
@@ -137,6 +142,13 @@
   assignment
 }
 
+#let presentation_info(presentation) = {
+  if not is_none(presentation) {
+    check_arguments(presentation, structure: presentation_structure, namespace: "presentation")
+  }
+  presentation
+}
+
 #let arguments(
   document_info,
   title_pages,
@@ -146,6 +158,7 @@
   abstract_info,
   acknowledgement,
   assignment,
+  presentation,
   citations,
 ) = {
   (
@@ -157,6 +170,7 @@
     abstract: abstract_info,
     acknowledgement: acknowledgement,
     assignment: assignment_info(assignment),
+    presentation_info: presentation_info(presentation),
     citations: citations,
   )
 }

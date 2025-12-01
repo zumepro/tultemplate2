@@ -12,16 +12,18 @@
 #import "sp.typ": sp
 #import "other.typ": other_title_page, other_base
 #import "thesis_base.typ": thesis_base, thesis_base_title_pages
+#import "presentation.typ": presentation
 
 #let document_types = (
-  "bp": (bp, thesis_base, thesis_base_title_pages),
-  "dp": (dp, thesis_base, thesis_base_title_pages),
-  "prj": (prj, thesis_base, thesis_base_title_pages),
-  "sp": (sp, thesis_base.with(
+  "bp": (root: bp, base: thesis_base, title_pages: thesis_base_title_pages),
+  "dp": (root: dp, base: thesis_base, title_pages: thesis_base_title_pages),
+  "prj": (root: prj, base: thesis_base, title_pages: thesis_base_title_pages),
+  "sp": (root: sp, base: thesis_base.with(
     show_disclaimer: false,
     require_abstract: false,
-  ), thesis_base_title_pages),
-  "other": (other_title_page, other_base, (args) => {}),
+  ), title_pages: thesis_base_title_pages),
+  "other": (root: other_title_page, base: other_base),
+  "presentation": (base: presentation,),
 )
 
 #let prep_args(args) = {
@@ -54,18 +56,31 @@
 #let template_classic(args, content) = {
   let args = prep_args(args);
 
-  if not is_none(get_arg(args, "title_pages")) {
-    external_title_pages(req_arg(args, "title_pages"));
-    document_types.at(req_arg(args, "document.type")).at(1)(args, content);
+  let doctype = req_arg(args, "document.type");
+  let doc = document_types.at(doctype);
+  if "root" in doc {
+    if not is_none(get_arg(args, "title_pages")) {
+      external_title_pages(req_arg(args, "title_pages"));
+      doc.at("base")(args, content);
+    } else {
+      doc.at("root")(args);
+      doc.at("base")(args, content);
+    }
   } else {
-    document_types.at(req_arg(args, "document.type")).at(0)(args);
-    document_types.at(req_arg(args, "document.type")).at(1)(args, content);
+    doc.at("base")(args, content);
   }
 }
 
 #let title_pages_classic(args) = {
   let args = prep_args(args);
 
-  document_types.at(req_arg(args, "document.type")).at(0)(args);
-  document_types.at(req_arg(args, "document.type")).at(2)(args);
+  let doctype = req_arg(args, "document.type");
+  let doc = document_types.at(doctype);
+  if "title_pages" in doc {
+    doc.at("root")(args);
+    doc.at("title_pages")(args);
+  } else {
+    let panic_message = "document of type '" + doctype + "' can't generate title pages";
+    panic(panic_message);
+  }
 }

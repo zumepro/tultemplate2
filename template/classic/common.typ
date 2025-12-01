@@ -6,7 +6,6 @@
 #let base_font = "Inter";
 #let mono_font = "Noto Sans Mono";
 #let serif_font = "Merriweather";
-#let tul_logomark_size = 6.5em;
 
 // COUNTERS
 
@@ -15,25 +14,7 @@
 
 // TYPST ELEMENT STYLING
 
-#let default_styling(flip_bonding, faculty_color, content, language) = {
-  // page
-  set page(
-    margin: if flip_bonding {
-      (inside: 4cm, top: 3cm, bottom: 3cm)
-    } else {
-      (left: 4cm, top: 3cm, bottom: 3cm)
-    },
-    numbering: "1", footer: {
-    context {
-      let page = counter(page).get().at(0);
-      if flip_bonding {
-        align(str(page), if calc.rem(page, 2) == 1 { right } else { left });
-      } else {
-        align(str(page), right);
-      }
-    }
-  });
-
+#let common_styling(faculty_color, language, content) = {
   // text
   set text(font: base_font);
   set par(justify: true);
@@ -41,45 +22,11 @@
     content = set_czech_nonbreakable_terms(content);
   }
 
-  // figures
-  let figure_numbering(realcount, c) = {
-    context realcount.step();
-    context numbering("1. 1", counter(heading).get().at(0), c)
-  };
-  show figure.where(kind: image): set figure(numbering: figure_numbering.with(image_count));
-  show figure.where(kind: table): set figure(numbering: figure_numbering.with(table_count));
-  show figure.where(kind: table): set figure.caption(position: top);
-  show figure: it => {
-    block(it, above: 2em, below: 2em);
-  }
-  set image(width: 80%);
-
-  // heading
-  set heading(numbering: "1.1.1 ");
+  // headings
   show heading: it => {
     set par(justify: false);
-    block(
-      above: 2em,
-      below: 2em,
-      text(it, faculty_color, font: "TUL Mono", size: 1.2em)
-    );
+    text(it, faculty_color, font: "TUL Mono", size: 1.2em)
   };
-  show heading.where(level: 1): it => {
-    // reset figure counters
-    context counter(figure.where(kind: image)).update(0);
-    context counter(figure.where(kind: table)).update(0);
-
-    pagebreak(weak: true);
-    v(2cm);
-    it
-  };
-  show heading.where(): it => {
-    if it.level > 3 {
-      panic("maximum allowed heading level is 3");
-    } else {
-      it
-    }
-  }
 
   // other
   show raw.where(block: false): set text(font: mono_font, size: 1.25em);
@@ -100,12 +47,70 @@
   content
 }
 
+#let default_styling(flip_bonding, faculty_color, content, language) = {
+  // page
+  set page(
+    margin: if flip_bonding {
+      (inside: 4cm, top: 3cm, bottom: 3cm)
+    } else {
+      (left: 4cm, top: 3cm, bottom: 3cm)
+    },
+    numbering: "1", footer: {
+    context {
+      let page = counter(page).get().at(0);
+      if flip_bonding {
+        align(str(page), if calc.rem(page, 2) == 1 { right } else { left });
+      } else {
+        align(str(page), right);
+      }
+    }
+  });
+
+  // figures
+  let figure_numbering(realcount, c) = {
+    context realcount.step();
+    context numbering("1. 1", counter(heading).get().at(0), c)
+  };
+  show figure.where(kind: image): set figure(numbering: figure_numbering.with(image_count));
+  show figure.where(kind: table): set figure(numbering: figure_numbering.with(table_count));
+  show figure.where(kind: table): set figure.caption(position: top);
+  show figure: it => {
+    block(it, above: 2em, below: 2em);
+  }
+  set image(width: 80%);
+
+  // heading
+  set heading(numbering: "1.1.1 ");
+  show heading.where(level: 1): it => {
+    // reset figure counters
+    context counter(figure.where(kind: image)).update(0);
+    context counter(figure.where(kind: table)).update(0);
+
+    pagebreak(weak: true);
+    v(2cm);
+    block(
+      above: 2em,
+      below: 2em,
+      it,
+    );
+  };
+  show heading.where(): it => {
+    if it.level > 3 {
+      panic("maximum allowed heading level is 3");
+    } else {
+      it
+    }
+  }
+
+  common_styling(faculty_color, language, content);
+}
+
 
 #let header(faculty_id, language) = {
   let logotype = faculty_logotype(faculty_id, language);
   grid(
     block(logotype, width: 100%),
-    block(align(right, block(tul_logomark(faculty_id), height: tul_logomark_size))),
+    block(align(right, tul_logomark(faculty_id))),
     columns: 2
   );
 }

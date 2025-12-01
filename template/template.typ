@@ -39,6 +39,7 @@
 // - keywords (dictionary): The abstract keywords.
 // - assignment (str): Filepath of the assignment document/page.
 // - citations (str): The location of the citation file.
+// - presentation (dictionary): Arguments for the presentation
 // - content (content): The content of the document
 //
 //-> none
@@ -52,8 +53,10 @@
   author_pronouns: none, supervisor: none, consultant: none, programme: none,
   specialization: none, year_of_study: none,
 
-  // links
-  assignment: none, citations: "citations.bib",
+  // nested
+  assignment: none, presentation: none,
+
+  citations: "citations.bib",
 
   // content
   content,
@@ -77,6 +80,7 @@
     abstract_info(abstract, keywords),
     acknowledgement,
     assignment,
+    presentation,
     citations,
   );
   check_arguments(args);
@@ -129,6 +133,7 @@
     abstract_info(none, none),
     none,
     assignment,
+    none,
     "",
   );
   check_arguments(args);

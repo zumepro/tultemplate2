@@ -108,6 +108,9 @@ $(BUILD_DIR)/documentation.pdf: documentation.typ $(TEMPLATE_SRCS) | $(BUILD_DIR
 
 # == THESES EXAMPLES ==
 
+$(BUILD_DIR)/presentation_%.typ: theses/presentation_%.typ | $(BUILD_DIR)
+	ln -f $< $@
+
 $(BUILD_DIR)/subs_%.txt: theses/%.typ | $(BUILD_DIR)
 	awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' $< > $@
 

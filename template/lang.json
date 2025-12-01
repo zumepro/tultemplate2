@@ -91,6 +91,8 @@
 
 		"place_assignment": "Sem vložte zadání",
 
+		"thanks_for_attention": "Děkuji za pozornost",
+
 		"break_rules": {
 			"space_after": [
 				"((?i)[kosuvzai])",
@@ -163,6 +165,8 @@
 		"next_page_attachment": "begins on the next page",
 		"attached_bellow": "attached bellow",
 
-		"place_assignment": "Insert your assignment here"
+		"place_assignment": "Insert your assignment here",
+
+		"thanks_for_attention": "Thank you for your attention"
 	}
 }

@@ -96,14 +96,22 @@
   return logotype_text;
 }
 
-#let faculty_logotype(faculty_id, lang) = {
-  let theme_color = faculty_color(faculty_id);
+#let faculty_logotype(faculty_id, lang, color: none) = {
+  let theme_color = if type(color) == type(none) {
+    faculty_color(faculty_id)
+  } else {
+    color
+  };
   let logotype_text = faculty_logotype_text(faculty_id, lang);
   text(logotype_text, font: "TUL Mono", theme_color, weight: "black");
 }
 
-#let tul_logomark(faculty_id) = {
-  let theme_color = faculty_color(faculty_id);
+#let tul_logomark(faculty_id, color: none) = {
+  let theme_color = if type(color) == type(none) {
+    faculty_color(faculty_id)
+  } else {
+    color
+  };
   let image_raw = bytes(read("./assets/tul_logo.svg").replace("black", theme_color.to-hex()));
-  image(image_raw, fit: "contain")
+  image(image_raw, fit: "contain", height: 6.5em)
 }
