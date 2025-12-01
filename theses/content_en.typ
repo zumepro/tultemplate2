@@ -158,7 +158,7 @@ Did Typst break your line and you don't like it? Let's solve it.
 
 === Forced linebreak
 
-If you want to break a line somewhere precisely, you can just append the character "`/`" at the end of the line.
+If you want to break a line somewhere precisely, you can just append the character "`\`" at the end of the line.
 Like so:
 
 ```typst

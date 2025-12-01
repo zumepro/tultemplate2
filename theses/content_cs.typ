@@ -157,7 +157,7 @@ Typst vám nějak zalomil řádek a vám se to nelíbí? Pojďme to vyřešit.
 
 === Nucené zalomení rádku
 
-Pokud chcete vynutit zalomení, stačí na konec řádku ve zdrojovém souboru napsat znak "`/`".
+Pokud chcete vynutit zalomení, stačí na konec řádku ve zdrojovém souboru napsat znak "`\`".
 Například:
 
 ```typst
@@ -185,7 +185,7 @@ Vlnovka se ve výstupu nezobrazí -- místo ní bude mezera.
 Znaky jako `_`, `*`, `~`, ... jsou speciální (jak už nyní víte).
 Ale co když je chcete napsat... jako opravdu napsat (do své práce).
 
-Stačí před jakýkoliv znak napsat zpětné lomítko (AltGr / Pravý Alt + Q na české klávesnici) a stane se z něj znak normální.
+Stačí před jakýkoliv znak napsat zpětné lomítko (AltGr / Pravý Alt + Q na české klávesnici na Windows/Linuxu, Na Macu klávesa vedle levého shiftu) a stane se z něj znak normální.
 
 ```typst
 Takhle tedy můžete například zapsat znak podtržítka: \_
