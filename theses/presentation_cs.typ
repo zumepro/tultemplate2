@@ -11,6 +11,7 @@
   ),
   presentation: (
     append_thanks: true,
+    aspect_16-9: true,
   ),
   citations: "citations.bib",
 )
