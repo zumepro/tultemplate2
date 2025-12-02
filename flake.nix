@@ -108,6 +108,7 @@
           "sp_cs" "sp_en"
           "presentation_cs"
         ]) typstPkgs;
+        packages.pack = build_with_targets "pack" ["pack"] ["target/pack/."] [];
       }
     );
 }
