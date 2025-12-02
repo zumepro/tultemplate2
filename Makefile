@@ -1,3 +1,5 @@
+TYPST_PACKAGES ?=
+
 BUILD_DIR := target
 PACKS_ROOT := $(BUILD_DIR)/pack
 PACKDIR := $(PACKS_ROOT)/tultemplate2
@@ -77,6 +79,14 @@ define replace_with_file_line
 	sed "s/$(1)/$$(sed '$(3)q;d' $(2))/g"
 endef
 
+define typst_pkgs
+$(if $(TYPST_PACKAGES), --package-cache-path $(TYPST_PACKAGES))
+endef
+
+define typst_compile
+	typst compile --font-path template/fonts$(call typst_pkgs) --root .
+endef
+
 # == LIBS ==
 
 $(LIBDIR):
@@ -94,7 +104,7 @@ template/lib/much_pdf_tools/much_pdf_tools.wasm: | $(LIB_MUCHPDFTOOLS)
 # == DOCUMENTATION ==
 
 $(BUILD_DIR)/documentation.pdf: documentation.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
-	typst compile --font-path template/fonts $< $@
+	$(call typst_compile) $< $@
 
 # == THESES EXAMPLES ==
 
@@ -118,10 +128,10 @@ $(BUILD_DIR)/%.typ: $(BUILD_DIR)/header_%.txt $(BUILD_DIR)/content_%.txt | $(BUI
 	cat $^ > $@
 
 $(BUILD_DIR)/%.pdf: $(BUILD_DIR)/%.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
-	typst compile --font-path template/fonts --root . $< $@
+	$(call typst_compile) $< $@
 
 template/example_appendix.pdf: theses/example_appendix.typ
-	typst compile --font-path template/fonts --root . $< $@
+	$(call typst_compile) $< $@
 
 # == PACKS - clean builds for direct use ==
 
@@ -182,10 +192,10 @@ $(BUNDLEDIR)/%.typ: $(BUILD_DIR)/content_%.txt | $(BUNDLEDIR)
 	sed 's/\.\.\/template\//template\//' $< > $@
 
 $(BUNDLEDIR)/title-pages.pdf: theses/title_pages.typ | $(BUNDLEDIR)
-	typst compile --root . --font-path template/fonts $< $@
+	$(call typst_compile) $< $@
 
 $(BUNDLEDIR)/assignment.pdf: theses/assignment.typ | $(BUNDLEDIR)
-	typst compile --root . --font-path template/fonts $< $@
+	$(call typst_compile) $< $@
 
 # == TESTS ==
 
