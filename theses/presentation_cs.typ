@@ -11,24 +11,38 @@
   ),
   presentation: (
     append_thanks: true,
-    wide: true,
+    wide: false,
     first_heading_is_fullpage: true,
   ),
   citations: "citations.bib",
 )
 
-= První slide
+= Úvod
 
-== Úvod
+== Jak použít prezentaci
 
-Tohle je úvod
+- tato šablona slouží jako ukázka použití Typst TUL šablony k tvorbě prezentace
+- můžete zde používat všechny funkcionality Typstu, stejně jako u ostatních dokumentů
+- slajdy fungují podobně jako v Latexu - každý nadpis je nový slajd
+  - v případě použití _first_heading_is_fullpage_ neplatí - viz dále
+- možno používat i nadpisy druhé úrovně
 
-== Text
+= Možnosti šablony
 
-Text text
+== Argumenty funkce šablony
 
-= Další slide
+- _append_thanks_: Jestli na závěr přidat slajd s poděkováním
+- _wide_: Použití formátu 16:9 místo 4:3 na všechny slajdy
+- _first_heading_is_fullpage_: V případě použití vloží každý nadpis 1. úrovně na samostatný slajd, takže logicky rozčlení prezentaci
+  - zároveň tvoří nový slajd pro každý nadpis 2. úrovně
 
-Tohle je další slide
+== Struktura
 
-Tady jsou citace: @typst @bibtex
+- prezentace začíná titulní stranou - nastaveno pomocí generátoru
+- na začátku není automaticky generovaný obsah - uživatel ho může snadno vytvořit pomocí odrážek či číslovaného seznamu
+- po samotném obsahu přichází slajd s citacemi - automaticky generováno
+- volitelně poděkování
+
+== Použití citací
+
+- tady jsou citace: Citace 1 @typst a citace 2 @bibtex
