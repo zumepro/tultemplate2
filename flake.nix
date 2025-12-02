@@ -106,6 +106,7 @@
           "dp_cs" "dp_en"
           "prj_cs" "prj_en"
           "sp_cs" "sp_en"
+          "presentation_cs"
         ]) typstPkgs;
       }
     );
