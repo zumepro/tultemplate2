@@ -39,6 +39,8 @@
 
 #let presentation_structure = (
   append_thanks: "boolean",
+  wide: "boolean",
+  first_heading_is_fullpage: "boolean",
 )
 
 

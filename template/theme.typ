@@ -9,6 +9,10 @@
         "TECHNICKÁ UNIVERZITA V LIBERCI&",
         "TECHNICAL UNIVERSITY OF LIBEREC&",
       ),
+      (
+        "TUL&",
+        "TUL&",
+      ),
     ),
 
     fs: (
@@ -16,6 +20,10 @@
       (
         "FAKULTA STROJNÍ TUL&",
         "FACULTY OF MECHANICAL ENGINEERING TUL&",
+      ),
+      (
+        "FS TUL&",
+        "FME TUL&",
       ),
     ),
 
@@ -25,6 +33,10 @@
         "FAKULTA TEXTILNÍ TUL&",
         "FACULTY OF TEXTILE ENGINEERING TUL&",
       ),
+      (
+        "FT TUL&",
+        "FT TUL&",
+      ),
     ),
 
     fp: (
@@ -32,6 +44,10 @@
       (
         "FAKULTA\nPŘÍRODOVĚDNĚ-HUMANITNÍ\nA PEDAGOGICKÁ TUL&",
         "FACULTY OF SCIENCE,\nHUMANITIES AND\nEDUCATION TUL&",
+      ),
+      (
+        "FP TUL&",
+        "FED TUL&",
       ),
     ),
 
@@ -41,6 +57,10 @@
         "EKONOMICKÁ FAKULTA TUL&",
         "FACULTY OF ECONOMICS TUL&",
       ),
+      (
+        "EF TUL&",
+        "FE TUL&",
+      ),
     ),
 
     fua: (
@@ -48,6 +68,10 @@
       (
         "FAKULTA UMĚNÍ A ARCHITEKTURY TUL&",
         "FACULTY OF ARTS AND ARCHITECTURE TUL&",
+      ),
+      (
+        "FUA TUL&",
+        "FAA TUL&",
       ),
     ),
 
@@ -57,6 +81,10 @@
         "FAKULTA MECHATRONIKY,\nINFORMATIKY A MEZIOBOROVÝCH\nSTUDIÍ TUL&",
         "FACULTY OF MECHATRONICS,\nINFORMATICS AND\nINTERDISCIPLINARY STUDIES TUL&",
       ),
+      (
+        "FM TUL&",
+        "FM TUL&",
+      ),
     ),
 
     fzs: (
@@ -65,6 +93,10 @@
         "FAKULTA ZDRAVOTNICKÝCH STUDIÍ TUL&",
         "FACULTY OF HEALTH STUDIES TUL&",
       ),
+      (
+        "FZS TUL&",
+        "FHS TUL&",
+      ),
     ),
 
     cxi: (
@@ -72,6 +104,10 @@
       (
         "ÚSTAV PRO NANOMATERIÁLY,\nPOKROČILÉ TECHNOLOGIE\nA INOVACE TUL&",
         "INSTITUTE FOR NANOMATERIALS,\nADVANCED TECHNOLOGY\nAND INNOVATION TUL&",
+      ),
+      (
+        "CXI TUL&",
+        "CXI TUL&",
       ),
     ),
 
@@ -89,20 +125,20 @@
   return theme_color;
 }
 
-#let faculty_logotype_text(faculty_id, lang) = {
+#let faculty_logotype_text(faculty_id, lang, long: true) = {
   let theme = faculty_theme(faculty_id);
-  let logotype_text = theme.at(1).at(lang_id(lang));
+  let logotype_text = theme.at(if long { 1 } else { 2 }).at(lang_id(lang));
   assert(type(logotype_text) == str);
   return logotype_text;
 }
 
-#let faculty_logotype(faculty_id, lang, color: none) = {
+#let faculty_logotype(faculty_id, lang, color: none, long: true) = {
   let theme_color = if type(color) == type(none) {
     faculty_color(faculty_id)
   } else {
     color
   };
-  let logotype_text = faculty_logotype_text(faculty_id, lang);
+  let logotype_text = faculty_logotype_text(faculty_id, lang, long: long);
   text(logotype_text, font: "TUL Mono", theme_color, weight: "black");
 }
 

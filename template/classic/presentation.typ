@@ -4,14 +4,15 @@
 #import "../lang.typ": get_lang_item
 #import "common.typ": common_styling, bibliogr, base_font
 
+#let header_margin = 20pt
+#let footer_margin = header_margin
 
-#let set_page_style(lang, faculty, faculty_color, content, paper) = {
+#let set_page_style(lang, faculty, faculty_color, paper, content) = {
   context {
-    let footer_margin = 20pt
-    let footer_logotype = faculty_logotype(faculty, lang)
+    let footer_logotype = faculty_logotype(faculty, lang, long: false)
     let footer_height = measure(footer_logotype).height + footer_margin
     set page(paper: paper, margin: (bottom: footer_height, rest: 1cm), footer-descent: 0%, footer: {
-      box(outset: (top: footer_margin, bottom: footer_margin), {
+      text(box(outset: (top: footer_margin, bottom: footer_margin), {
         footer_logotype
         h(1fr)
         context text(
@@ -19,24 +20,42 @@
           font: "TUL Mono",
           faculty_color,
         )
-      })
+      }), size: 11pt)
     })
+    set text(size: 1.3em)
     content
   }
 }
 
-#let set_heading_styles(content) = {
-  show heading.where(level: 1): it => {
+#let set_heading_styles(first_heading_is_fullpage, faculty_color, content) = {
+  let slide_title = (it) => {
     pagebreak(weak: true)
-    box(text(it, size: 1.25em), inset: (top: 2em, bottom: 2em))
+    box(it, inset: (top: 1em, bottom: 1em))
   }
-  content
+  show heading.where(level: 1): it => {
+    if first_heading_is_fullpage {
+      page(place(center + horizon, it), header: none, margin: (top: 0em))
+    } else {
+      slide_title(it)
+    }
+  }
+  if first_heading_is_fullpage {
+    show heading.where(level: 2): it => {
+      slide_title(it)
+    }
+    content
+  } else {
+    content
+  }
 }
 
-#let apply_style(language, faculty, faculty_color, content, paper) = {
+#let apply_style(language, faculty, faculty_color, paper, first_heading_fullpage, content) = {
   common_styling(
     faculty_color, language,
-    set_page_style(language, faculty, faculty_color, set_heading_styles(content), paper)
+    set_page_style(
+      language, faculty, faculty_color, paper,
+      set_heading_styles(first_heading_fullpage, faculty_color, content)
+    )
   )
 }
 
@@ -82,20 +101,23 @@
   let faculty_color = faculty_color(faculty)
   let presentation_args = req_arg(args, "presentation_info")
   let author = req_arg(args, "author.name")
-  let paper = "presentation-4-3"
-  
-  if presentation_args.at("aspect_16-9") {
-    paper = "presentation-16-9"
+  let paper = if presentation_args.at("wide") {
+    "presentation-16-9"
+  } else {
+    "presentation-4-3"
   }
+  
   mainpage(
     language, faculty, faculty_color,
     req_arg(args, "title").at(language), author, paper,
   )
-  apply_style(language, faculty, faculty_color, {
-    content
-    bibliogr(args)
-  }, paper)
+  apply_style(language, faculty, faculty_color, paper,
+    presentation_args.at("first_heading_is_fullpage"), {
+      content
+      bibliogr(args)
+    },
+  )
   if presentation_args.at("append_thanks") {
-    thankspage(language, faculty, faculty_color, author, paper,)
+    thankspage(language, faculty, faculty_color, author, paper)
   }
 }

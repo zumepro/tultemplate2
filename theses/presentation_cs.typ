@@ -11,7 +11,8 @@
   ),
   presentation: (
     append_thanks: true,
-    aspect_16-9: true,
+    wide: true,
+    first_heading_is_fullpage: true,
   ),
   citations: "citations.bib",
 )
