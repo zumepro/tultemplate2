@@ -7,6 +7,11 @@
 #let header_margin = 20pt
 #let footer_margin = header_margin
 
+#let paper_compensation = (
+  presentation-4-3: 1.2570145903479237,
+  presentation-16-9: 1,
+)
+
 #let set_page_style(lang, faculty, faculty_color, paper, content) = {
   context {
     let footer_logotype = faculty_logotype(faculty, lang, long: false)
@@ -22,7 +27,7 @@
         )
       }), size: 11pt)
     })
-    set text(size: 1.3em)
+    set text(size: 1.5em * paper_compensation.at(paper))
     content
   }
 }
@@ -83,14 +88,19 @@
 
 #let mainpage(language, faculty, faculty_color, title, author, paper) = {
   signedpage(language, faculty, faculty_color, author, {
-    place(center + horizon, text(title, size: 2em, font: "TUL Mono", white))
+    place(center + horizon, text(
+      title, size: 2em * paper_compensation.at(paper), font: "TUL Mono", white
+    ))
   }, paper)
 }
 
 #let thankspage(language, faculty, faculty_color, author, paper) = {
   signedpage(language, faculty, faculty_color, author, {
     place(center + horizon, text(
-      get_lang_item(language, "thanks_for_attention"), size: 2em, font: "TUL Mono", white
+      get_lang_item(language, "thanks_for_attention"),
+      size: 2em * paper_compensation.at(paper),
+      font: "TUL Mono",
+      white,
     ))
   }, paper)
 }
