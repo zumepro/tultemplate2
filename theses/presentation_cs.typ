@@ -23,7 +23,7 @@
 
 - tato šablona slouží jako ukázka použití Typst TUL šablony k tvorbě prezentace
 - můžete zde používat všechny funkcionality Typstu, stejně jako u ostatních dokumentů
-- slajdy fungují podobně jako v Latexu - každý nadpis je nový slajd
+- slajdy fungují podobně jako v Latexu - každý nadpis 1. úrovně tvoří nový slajd
   - v případě použití _first_heading_is_fullpage_ neplatí - viz dále
 - možno používat i nadpisy druhé úrovně
 
@@ -33,8 +33,9 @@
 
 - _append_thanks_: Jestli na závěr přidat slajd s poděkováním
 - _wide_: Použití formátu 16:9 místo 4:3 na všechny slajdy
-- _first_heading_is_fullpage_: V případě použití vloží každý nadpis 1. úrovně na samostatný slajd, takže logicky rozčlení prezentaci
+- _first_heading_is_fullpage_: vloží každý nadpis 1. úrovně na samostatný slajd, takže logicky rozčlení prezentaci
   - zároveň tvoří nový slajd pro každý nadpis 2. úrovně
+  - pokud je vypnuta, nadpisy 2. úrovně *netvoří* nový slajd
 
 == Struktura
 
