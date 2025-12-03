@@ -7,7 +7,7 @@
   document: "presentation",
   author: [Ondřej Mekina],
   title: (
-    en: [Ukázka prezentace v šabloně tultemplate2],
+    en: [Example presentation using the tultemplate2 template],
   ),
   presentation: (
     append_thanks: true,

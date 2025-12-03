@@ -13,7 +13,7 @@ LIB_URL_MUCHPDFTOOLS := https://tulsablona.zumepro.cz/lib/much_pdf_tools
 TEMPLATE_SRCS := $(shell find template -type f) \
 				 $(LIB_TARGETS_MUCHPDFTOOLS:%=$(LIB_MUCHPDFTOOLS)/%) template/example_appendix.pdf
 TO_PACK := $(TEMPLATE_SRCS) template/LICENSE
-BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en sp_cs sp_en presentation_cs
+BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en sp_cs sp_en presentation_cs presentation_en
 BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
 				  $(BUNDLE_THESES:%=$(BUNDLEDIR)/%.typ) $(BUNDLEDIR)/Makefile \
 				  $(BUNDLEDIR)/title-pages.pdf $(BUNDLEDIR)/assignment.pdf
