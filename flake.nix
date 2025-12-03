@@ -106,7 +106,7 @@
           "dp_cs" "dp_en"
           "prj_cs" "prj_en"
           "sp_cs" "sp_en"
-          "presentation_cs"
+          "presentation_cs" "presentation_en"
         ]) typstPkgs;
         packages.pack = build_with_targets "pack" ["pack"] ["target/pack/."] [];
       }
