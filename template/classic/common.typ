@@ -343,6 +343,7 @@
     "author.name",
   ));
   let author_pronouns = get_arg(args, "author.pronouns");
+  set page(footer: none)
   heading(get_lang_item(language, "disclaimer"), numbering: none, outlined: false);
   par(
     text(disclaimer(language, disclaimer_type, author_pronouns))
@@ -366,6 +367,7 @@
   if is_none(content) {
     return;
   }
+  set page(footer: none)
   heading(get_lang_item(language, "acknowledgement"), numbering: none, outlined: false);
   par(content.at(language));
   v(2em);
@@ -386,6 +388,7 @@
   if not require and is_none(get_arg(args, "abstract.content")) {
     return;
   }
+  set page(footer: none)
   heading(
     text(req_arg(args, "title").at(language), font: base_font), numbering: none, outlined: false
   );
