@@ -473,12 +473,13 @@
     let max_abbr_width = if abbrs.len() > 0 {
       calc.max(abbrs.keys().map((v) => measure(v).width)).at(0)
     } else { return };
+    let abbr_pairs = abbrs.pairs().sorted(key: it => it.at(0))
     pagebreak(weak: true);
     heading(get_lang_item(language, "abbrs"), numbering: none);
     align(center, grid(
       columns: 2,
       gutter: 1em,
-      ..abbrs.pairs().map((a) => {
+      ..abbr_pairs.map((a) => {
         (
           align(left, {
             [
@@ -486,7 +487,7 @@
               #label("abbr_" + a.at(0))
             ]
           }),
-          text(a.at(1))
+          align(left, text(a.at(1)))
         )
       }).flatten()
     ));
