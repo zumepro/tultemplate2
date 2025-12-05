@@ -37,7 +37,7 @@
     if type(it.dest) == label or type(it.dest) == location {
       it;
     } else {
-      text(it, fill: faculty_color);
+      text(underline(it), fill: faculty_color);
     }
   }
   set highlight(fill: faculty_color.lighten(90%));
