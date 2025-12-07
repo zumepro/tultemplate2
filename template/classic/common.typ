@@ -247,9 +247,9 @@
   set page(margin: 2cm);
   pagebreak(weak: true);
   if has_all_none((
-    document_type, title, author, supervisor, consultant, study_programme,
+    title, author, supervisor, consultant, study_programme, study_specialization, year_of_study
   )) {
-    place(center + horizon, align(left, faculty_logotype(faculty_id, language)));
+    place(center + horizon, align(left, text(faculty_logotype(faculty, language), size: 1.5em)));
   } else {
     header(faculty, language);
     align({

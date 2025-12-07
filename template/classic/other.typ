@@ -13,17 +13,18 @@
 )
 #import "../attachments.typ": attachment_list
 #import "../utils.typ": is_none, assert_not_none, assert_dict_has, assert_in_arr
-#import "../arguments.typ": req_arg
+#import "../arguments.typ": req_arg, get_arg, map_arg
 #import "../theme.typ": faculty_color
 
 #let other_title_page(args) = {
-  let (language, title) = req_arg(args, ("document.language", "title"));
-  assert_dict_has((language,), title, "title");
+  let language = req_arg(args, "document.language");
+  let title = get_arg(args, "title");
+  map_arg(args, "title", (v) => { assert_dict_has((language,), v, "title") })
   mainpage(args);
 }
 
 #let other_base(args, content) = {
-  let (language, title) = req_arg(args, ("document.language", "title"));
+  let language = req_arg(args, "document.language");
 
   default_styling(true, faculty_color(req_arg(args, "document.faculty")), {
     toc(language);
