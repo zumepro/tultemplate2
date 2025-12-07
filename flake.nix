@@ -109,6 +109,9 @@
           "presentation_cs" "presentation_en"
         ]) typstPkgs;
         packages.pack = build_with_targets "pack" ["pack"] ["target/pack/."] [];
+        packages.minimal = build_with_targets "minimal" ["minimal"] [
+          "target/pack/minimal/."
+        ] [];
       }
     );
 }

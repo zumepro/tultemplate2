@@ -2,23 +2,32 @@ TYPST_PACKAGES ?=
 
 BUILD_DIR := target
 PACKS_ROOT := $(BUILD_DIR)/pack
+PACKSTAGING := $(PACKS_ROOT)/staging
 PACKDIR := $(PACKS_ROOT)/tultemplate2
 BUNDLEDIR := $(PACKS_ROOT)/bundle
+MINIMALDIR := $(PACKS_ROOT)/minimal
 
 LIBDIR := template/lib
 LIB_MUCHPDFTOOLS := $(LIBDIR)/much_pdf_tools
 LIB_TARGETS_MUCHPDFTOOLS := lib.typ much_pdf_tools.wasm
 LIB_URL_MUCHPDFTOOLS := https://tulsablona.zumepro.cz/lib/much_pdf_tools
 
-TEMPLATE_SRCS := $(shell find template -type f) \
-				 $(LIB_TARGETS_MUCHPDFTOOLS:%=$(LIB_MUCHPDFTOOLS)/%) template/example_appendix.pdf
-TO_PACK := $(TEMPLATE_SRCS) template/LICENSE
+MINIMAL_ASSET_ROOTS := template/assets template/fonts template/citations
+MINIMAL_SRCS := $(shell find template -type f -regex '^.*\.typ$$') \
+				$(shell find $(MINIMAL_ASSET_ROOTS) -type f) \
+				template/lang.json \
+				$(LIB_TARGETS_MUCHPDFTOOLS:%=$(LIB_MUCHPDFTOOLS)/%)
+TEMPLATE_SRCS := $(MINIMAL_SRCS) template/example_appendix.pdf
+ADD_TO_PACK := template/LICENSE
+TO_PACK_MINIMAL := $(MINIMAL_SRCS) $(ADD_TO_PACK)
+TO_PACK := $(TEMPLATE_SRCS) $(ADD_TO_PACK)
 BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en sp_cs sp_en presentation_cs presentation_en
 BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
 				  $(BUNDLE_THESES:%=$(BUNDLEDIR)/%.typ) $(BUNDLEDIR)/Makefile \
 				  $(BUNDLEDIR)/title-pages.pdf $(BUNDLEDIR)/assignment.pdf
 PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) $(PACKDIR)/documentation.typ \
 				$(PACKDIR)/documentation.pdf $(PACKDIR)/citations.bib $(PACKDIR)/Makefile
+MINIMAL_TARGETS := $(TO_PACK_MINIMAL:%=$(MINIMALDIR)/%)
 
 # == MAIN TARGETS ==
 
@@ -34,6 +43,9 @@ pack: $(PACKDIR)/tultemplate2.zip
 .PHONY: bundle
 bundle: $(BUNDLE_TARGETS)
 	@echo "!! Bundles are made for tultemplategen and not for direct use !!"
+
+.PHONY: minimal
+minimal: $(MINIMAL_TARGETS) $(MINIMALDIR)/tultemplate2_minimal.zip
 
 .PHONY: watch_documentation
 watch_documentation: $(BUILD_DIR)/documentation.pdf
@@ -59,10 +71,16 @@ $(BUILD_DIR):
 $(PACKS_ROOT): | $(BUILD_DIR)
 	mkdir $@
 
+$(PACKSTAGING): | $(PACKS_ROOT)
+	mkdir $@
+
 $(PACKDIR): | $(PACKS_ROOT)
 	mkdir $@
 
 $(BUNDLEDIR): | $(PACKS_ROOT)
+	mkdir $@
+
+$(MINIMALDIR): | $(PACKS_ROOT)
 	mkdir $@
 
 # == UTILS ==
@@ -136,59 +154,49 @@ $(BUILD_DIR)/%.pdf: $(BUILD_DIR)/%.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
 template/example_appendix.pdf: theses/example_appendix.typ
 	$(call typst_compile) $< $@
 
-# == PACKS - clean builds for direct use ==
+# == PACK STAGING - files prepared for packing or bundling ==
 
-$(PACKDIR)/%: % | $(PACKDIR)
-	ln -f $< $@
-
-$(PACKDIR)/template: | $(PACKDIR)
+$(PACKSTAGING)/template: | $(PACKSTAGING)
 	mkdir $@
 
-$(PACKDIR)/template/LICENSE: LICENSE | $(PACKDIR)/template
+$(PACKSTAGING)/template/citations: | $(PACKSTAGING)/template
+	mkdir $@
+
+$(PACKSTAGING)/template/LICENSE: LICENSE | $(PACKSTAGING)/template
 	ln -f $< $@
 
-$(PACKDIR)/Makefile: packed.mk | $(PACKDIR)
-	ln -f $< $@
-
-$(PACKDIR)/template/tul_citace.csl: template/tul_citace.csl | $(PACKDIR)/template
+$(PACKSTAGING)/template/citations/%: template/citations/% | $(PACKSTAGING)/template/citations
 	$(call minify_csl,$<,$@)
 
-$(PACKDIR)/template/lang.json: template/lang.json | $(PACKDIR)/template
+$(PACKSTAGING)/template/lang.json: template/lang.json | $(PACKSTAGING)/template
 	$(call minify_json,$<,$@)
 
-$(PACKDIR)/template/%: template/% | $(PACKDIR)/template
+$(PACKSTAGING)/documentation.pdf: $(BUILD_DIR)/documentation.pdf | $(PACKSTAGING)
+	ln -f $< $@
+
+$(PACKSTAGING)/%.pdf: $(BUILD_DIR)/%.pdf | $(PACKSTAGING)
+	ln -f $< $@
+
+$(PACKSTAGING)/%: % | $(PACKSTAGING)
 	@mkdir -p $(@D)
 	ln -f $< $@
 
-$(PACKDIR)/%.pdf: $(BUILD_DIR)/%.pdf | $(PACKDIR)
+# == PACKS - clean builds for direct use ==
+
+$(PACKDIR)/Makefile: packed.mk | $(PACKDIR)
 	ln -f $< $@
 
 $(PACKDIR)/tultemplate2.zip: $(PACK_TARGETS) | $(PACKDIR)
 	rm -f $@
 	cd $(PACKS_ROOT) && zip -r tultemplate2.zip tultemplate2
 
+$(PACKDIR)/%: $(PACKSTAGING)/% | $(PACKDIR)
+	@mkdir -p $(@D)
+	ln -f $< $@
+
 # == BUNDLES - packs for tultemplategen ==
 
-$(BUNDLEDIR)/template: | $(BUNDLEDIR)
-	mkdir $@
-
-$(BUNDLEDIR)/template/LICENSE: LICENSE | $(BUNDLEDIR)/template
-	ln -f $< $@
-
 $(BUNDLEDIR)/Makefile: templategen.mk | $(BUNDLEDIR)
-	ln -f $< $@
-
-$(BUNDLEDIR)/template/tul_citace.csl: template/tul_citace.csl | $(BUNDLEDIR)/template
-	$(call minify_csl,$<,$@)
-
-$(BUNDLEDIR)/template/lang.json: template/lang.json | $(BUNDLEDIR)/template
-	$(call minify_json,$<,$@)
-
-$(BUNDLEDIR)/citations.bib: citations.bib | $(BUNDLEDIR)
-	ln -f $< $@
-
-$(BUNDLEDIR)/template/%: template/% | $(BUNDLEDIR)/template
-	@mkdir -p $(@D)
 	ln -f $< $@
 
 $(BUNDLEDIR)/presentation_%.typ: theses/presentation_%.typ | $(BUNDLEDIR)
@@ -202,6 +210,20 @@ $(BUNDLEDIR)/title-pages.pdf: theses/title_pages.typ | $(BUNDLEDIR)
 
 $(BUNDLEDIR)/assignment.pdf: theses/assignment.typ | $(BUNDLEDIR)
 	$(call typst_compile) $< $@
+
+$(BUNDLEDIR)/%: $(PACKSTAGING)/% | $(BUNDLEDIR)
+	@mkdir -p $(@D)
+	ln -f $< $@
+
+# == MINIMAL - stripped-down template packs ==
+
+$(MINIMALDIR)/%: $(PACKSTAGING)/% | $(MINIMALDIR)
+	@mkdir -p $(@D)
+	ln -f $< $@
+
+$(MINIMALDIR)/tultemplate2_minimal.zip: $(MINIMAL_TARGETS) | $(MINIMALDIR)
+	rm -f $@
+	cd $(MINIMALDIR) && zip -r $(notdir $@) template
 
 # == TESTS ==
 
