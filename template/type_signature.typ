@@ -1,5 +1,5 @@
-#let doc(inner, argument_name, explanation) = {
-  inner.doc = (argname: argument_name, expl: explanation);
+#let doc(inner, argument_name, explanations) = {
+  inner.doc = (argname: argument_name, expl: explanations)
   inner
 }
 
@@ -41,21 +41,21 @@
 #let struct(..keyvals) = {
   let copy_doc(from, to) = {
     if "doc" in from {
-      let to = to;
-      to.doc = from.doc;
+      let to = to
+      to.doc = from.doc
       to
     } else {
       to
     }
   }
 
-  let keyvals = keyvals.pos();
-  let res = ().to-dict();
+  let keyvals = keyvals.pos()
+  let res = ().to-dict()
   for keyval in keyvals {
     if keyval.key.type != "literal" {
-      panic("invalid type signature, struct keys must be literals");
+      panic("invalid type signature, struct keys must be literals")
     }
-    res.insert(keyval.key.value, copy_doc(keyval, keyval.val));
+    res.insert(keyval.key.value, copy_doc(keyval, keyval.val))
   }
   (type: "struct", pairs: res)
 }
@@ -65,7 +65,7 @@
     "\"" + literal + "\""
   } else {
     "'" + str(literal) + "'"
-  };
+  }
   if is_content {
     raw(res)
   } else {
@@ -88,9 +88,9 @@
 
   let error_expected_type(target) = {
     if target.type == "variants" {
-      let variants = target.variants;
-      let last = variants.pop();
-      let res = (variants.map((v) => { error_expected_type(v) })).join(", ");
+      let variants = target.variants
+      let last = variants.pop()
+      let res = (variants.map(v => { error_expected_type(v) })).join(", ")
       if type(last) != type(none) {
         if type(res) != type(none) {
           res + " or " + error_expected_type(last)
@@ -109,27 +109,30 @@
     } else if target.type == "literal" {
       dbg_literal(target.value)
     } else {
-      panic();
+      panic()
     }
   }
 
   let error(target, name_prefix, value, is_value: false, target_doc: none) = {
-    if type(target_doc) != type(none) {
-      error_target_name(target_doc)
-    } else {
-      error_target_name(target, name_prefix)
-    } + (
-      " of type '" +
-      dbg_type(value) +
-      "' is unexpected, expected " +
-      error_expected_type(target)
+    (
+      if type(target_doc) != type(none) {
+        error_target_name(target_doc)
+      } else {
+        error_target_name(target, name_prefix)
+      }
+        + (
+          " of type '"
+            + dbg_type(value)
+            + "' is unexpected, expected "
+            + error_expected_type(target)
+        )
     )
   }
 
   let in_variants(value, variants, matcher) = {
     for variant in variants {
       if matcher(value, variant).at(0) == true {
-        return true;
+        return true
       }
     }
     false
@@ -161,39 +164,43 @@
       if target.type == "struct" {
         for key in target.pairs.keys() {
           if key not in value {
-            return (false, (
-              error_target_name(target, name_prefix) +
-              " is missing an entry for key " +
-              dbg_literal(key)
-            ));
+            return (
+              false,
+              (
+                error_target_name(target, name_prefix)
+                  + " is missing an entry for key "
+                  + dbg_literal(key)
+              ),
+            )
           }
         }
         for (key, val) in value.pairs() {
           if key not in target.pairs {
             return (
-              false, opt_suffix(name_prefix) + "contains an unexpected key " + dbg_literal(key)
-            );
+              false,
+              opt_suffix(name_prefix) + "contains an unexpected key " + dbg_literal(key),
+            )
           }
           let res = matches_type(
-            val, target.pairs.at(key), name_prefix: opt_suffix(name_prefix) + str(key)
-          );
+            val,
+            target.pairs.at(key),
+            name_prefix: opt_suffix(name_prefix) + str(key),
+          )
           if not res.at(0) {
-            return res;
+            return res
           } else {
             res
           }
         }
       } else if target.type == "dictionary" {
         for (key, val) in value.pairs() {
-          let cur = matches_type(key, target.key, name_prefix: opt_suffix(name_prefix) + "key");
+          let cur = matches_type(key, target.key, name_prefix: opt_suffix(name_prefix) + "key")
           if not cur.at(0) {
-            return cur;
+            return cur
           }
-          let cur = matches_type(
-            val, target.val, name_prefix: opt_suffix(name_prefix) + "value"
-          );
+          let cur = matches_type(val, target.val, name_prefix: opt_suffix(name_prefix) + "value")
           if not cur.at(0) {
-            return cur;
+            return cur
           }
         }
         (true,)
@@ -204,10 +211,12 @@
       if target.type == "slice" {
         for (idx, val) in value.enumerate() {
           let cur = matches_type(
-            val, target.items, name_prefix: opt_suffix(name_prefix) + "item at index " + str(idx)
-          );
+            val,
+            target.items,
+            name_prefix: opt_suffix(name_prefix) + "item at index " + str(idx),
+          )
           if not cur.at(0) {
-            return cur;
+            return cur
           }
         }
         (true,)
@@ -215,15 +224,17 @@
         for (idx, target) in target.items.enumerate() {
           if idx >= value.len() {
             return (
-              false, opt_suffix(name_prefix) + "is missing an item: " + error_expected_type(target)
+              false,
+              opt_suffix(name_prefix) + "is missing an item: " + error_expected_type(target),
             )
           }
           let cur = matches_type(
-            value.at(idx), target,
-            name_prefix: opt_suffix(name_prefix) + "item at index " + str(idx)
-          );
+            value.at(idx),
+            target,
+            name_prefix: opt_suffix(name_prefix) + "item at index " + str(idx),
+          )
           if not cur.at(0) {
-            return cur;
+            return cur
           }
         }
         (true,)
@@ -242,11 +253,11 @@
   matches_type(value, signature, name_prefix: name_prefix)
 }
 
-#let signature_docs(target, is_nested: false) = {
+#let signature_docs(target, is_nested: false, lang: "en") = {
   let typeinfo(target, flatten: false, disable_doc: false) = {
-    let try_doc(target, mapper: (v) => { v }) = {
+    let try_doc(target, mapper: v => { v }) = {
       if "doc" in target and not disable_doc {
-        mapper(target.doc.expl);
+        mapper(target.doc.expl.at(lang))
       } else {
         ""
       }
@@ -254,90 +265,114 @@
 
     if target.type == "struct" {
       if not flatten {
-        [slovník s přesnými atributy (_dictionary_)];
-        try_doc(target, mapper: (v) => { [ -- ]; v; });
-        ":";
+        [slovník s přesnými atributy (_dictionary_)]
+        try_doc(target, mapper: v => {
+          [ -- ]
+          v
+        })
+        ":"
       }
-      list(
-        ..target.pairs.pairs().map(((key, val)) => {
-          raw(key);
-          try_doc(val, mapper: (v) => { [ -- ]; text(v); });
+      list(..target
+        .pairs
+        .pairs()
+        .map(((key, val)) => {
+          raw(key)
+          try_doc(val, mapper: v => {
+            [ -- ]
+            text(v)
+          })
           ": "
-          typeinfo(val, disable_doc: true);
-        })
-      );
+          typeinfo(val, disable_doc: true)
+        }))
     } else if target.type == "dictionary" {
-      [slovník (_dictionary_)];
-      try_doc(target, mapper: (v) => { [ -- ]; v; });
-      ":";
+      [slovník (_dictionary_)]
+      try_doc(target, mapper: v => {
+        [ -- ]
+        v
+      })
+      ":"
       list(
         {
-          "S klíči: ";
-          typeinfo(target.key);
+          "S klíči: "
+          typeinfo(target.key)
         },
         {
-          "S hodnotami: ";
-          typeinfo(target.val);
+          "S hodnotami: "
+          typeinfo(target.val)
         },
-      );
+      )
     } else if target.type == "slice" {
-      try_doc(target, mapper: (v) => { v; ": "; });
-      [pole různé délky (_array_) s prvky: ];
-      typeinfo(target.items, disable_doc: true);
+      try_doc(target, mapper: v => {
+        v
+        ": "
+      })
+      [pole různé délky (_array_) s prvky: ]
+      typeinfo(target.items, disable_doc: true)
     } else if target.type == "tuple" {
-      try_doc(target, mapper: (v) => { v; ": "; });
-      [pole (_array_) s upřesněnými prvky: ];
-      list(
-        ..target.items.map((v) => {
-          list.item({
-            typeinfo(v);
-          });
+      try_doc(target, mapper: v => {
+        v
+        ": "
+      })
+      [pole (_array_) s upřesněnými prvky: ]
+      list(..target.items.map(v => {
+        list.item({
+          typeinfo(v)
         })
-      );
+      }))
     } else if target.type == "primitive" {
       if target.type_id == "none" {
-        text("prázdné ('none')");
-        try_doc(target, mapper: (v) => { [ -- ]; text(v); });
+        text("prázdné ('none')")
+        try_doc(target, mapper: v => {
+          [ -- ]
+          text(v)
+        })
       } else {
-        text(target.type_name_cs + " (");
-        text(target.type_id, style: "italic");
-        text(")");
-        try_doc(target, mapper: (v) => { [ -- ]; text(v); });
+        text(target.type_name_cs + " (")
+        text(target.type_id, style: "italic")
+        text(")")
+        try_doc(target, mapper: v => {
+          [ -- ]
+          text(v)
+        })
       }
     } else if target.type == "variants" {
-      try_doc(target, mapper: (v) => { text(v); ":"; });
-      list(
-        ..target.variants.map((v) => {
-          list.item({
-            typeinfo(v);
-          });
+      try_doc(target, mapper: v => {
+        text(v)
+        ":"
+      })
+      list(..target.variants.map(v => {
+        list.item({
+          typeinfo(v)
         })
-      );
+      }))
     } else if target.type == "literal" {
-      dbg_literal(target.value, is_content: true);
-      try_doc(target, mapper: (v) => { [ -- ]; text(v); });
+      dbg_literal(target.value, is_content: true)
+      try_doc(target, mapper: v => {
+        [ -- ]
+        text(v)
+      })
     } else {
-      panic();
+      panic()
     }
   }
 
-  let args = ();
+  let args = ()
   if target.type == "struct" {
     for val in target.pairs.values() {
-      args.push(signature_docs(val, is_nested: true));
+      args.push(signature_docs(val, is_nested: true, lang: lang))
     }
   } else {
     if "doc" in target and type(target.doc.argname) != type(none) {
       args.push({
-        raw(target.doc.argname);
+        raw(target.doc.argname)
         [ -- ]
-        typeinfo(target);
-      });
+        typeinfo(target)
+      })
     }
   }
 
   if not is_nested {
-    list(spacing: 2em, ..args.flatten());
+    list(spacing: 2em, ..args.flatten())
   } else {
     args.flatten()
   }

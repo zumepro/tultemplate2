@@ -1,242 +1,443 @@
-#import "utils.typ": assert_type_signature, is_none, map_none, deref, assert_dict_has
+#import "utils.typ": assert_dict_has, assert_type_signature, deref, is_none, map_none
 #import "type_signature.typ": *
 
-#let lang_keys = variants(literal("cs"), literal("en"));
-#let nonrec_str = doc(string, none, "Je doporučeno použít 'content', pokud je to možné");
-#let cont_or_str = variants(cont, nonrec_str);
-#let opt_cont_or_str = variants(cont, nonrec_str, null);
 
-#let arguments_structure = struct(
-  keyval(literal("document"), struct( // document
-    doc(
-      keyval(literal("visual_style"), variants(literal("classic"))), // document.visual_style
-      "style", "Vizuální styl šablony"
-    ),
+#let arguments_structure = {
+  let lang_keys = variants(literal("cs"), literal("en"))
+  let nonrec_str = doc(string, none, (
+    cs: "Je doporučeno použít 'content', pokud je to možné",
+    en: "It is recommended to use 'content' where that's possible",
+  ))
+  let cont_or_str = variants(cont, nonrec_str)
+  let opt_cont_or_str = variants(cont, nonrec_str, null)
 
-    doc(keyval(literal("faculty"), variants( // document.faculty
-      doc(literal("fs"), none, "Fakulta strojní"),
-      doc(literal("ft"), none, "Fakulta textilní"),
-      doc(literal("fp"), none, "Fakulta přírodovědně-humanitní a pedagogická"),
-      doc(literal("ef"), none, "Ekonomická fakulta"),
-      doc(literal("fua"), none, "Fakulta umění a architektury"),
-      doc(literal("fm"), none, "Fakulta mechatroniky, informatiky a mezioborových studií"),
-      doc(literal("fzs"), none, "Fakulta zdravotnických studií"),
-      doc(literal("cxi"), none, "Ústav pro nanomateriály, pokročilé technologie a inovace"),
-      doc(literal("tul"), none, "Obecný styl a paleta TUL"),
-    )), "faculty", "Fakulta (na základě toho budou vybrány barvy, logotypy, ...)"),
+  // == DOCUMENT ==
+  let document = {
+    let visual_style = doc(keyval(literal("visual_style"), variants(literal("classic"))), "style", (
+      cs: "Vizuální styl šablony",
+      en: "Visual style of the template",
+    ))
 
-    doc(keyval(literal("language"), variants( // document.language
-      doc(literal("cs"), none, "Čeština"),
-      doc(literal("en"), none, "Angličtina"),
-    )), "lang", "Primární jazyk dokumentu"),
-
-    doc(keyval(literal("type"), variants( // document.type
-      doc(literal("bp"), none, "Bakalářská práce"),
-      doc(literal("dp"), none, "Diplomová práce"),
-      doc(literal("prj"), none, "Projekt (ročník před odevzdáním bakalářské práce)"),
-      doc(literal("other"), none, "Další dokumenty"),
-    )), "document", "Typ dokumentu"),
-  )),
-
-  doc(keyval(literal("title_pages"), variants( // title_pages
-      doc(string, none, "Cesta k souboru PDF, který má být vložen"),
-      doc(null, none, (
-        "Stránky jsou generovány pomocí šablony. Tohle u některých prací může vyžadovat doplnění" +
-        " informací (argumentů)."
+    let faculty = doc(
+      keyval(literal("faculty"), variants(
+        doc(literal("fs"), none, (cs: "Fakulta strojní", en: "Faculty of mechanical engineering")),
+        doc(literal("ft"), none, (cs: "Fakulta textilní", en: "Faculty of textile engineering")),
+        doc(literal("fp"), none, (
+          cs: "Fakulta přírodovědně-humanitní a pedagogická",
+          en: "Faculty of science, humanities and education",
+        )),
+        doc(literal("ef"), none, (cs: "Ekonomická fakulta", en: "Faculty of economics")),
+        doc(literal("fua"), none, (
+          cs: "Fakulta umění a architektury",
+          en: "Faculty of arts and architecture",
+        )),
+        doc(literal("fm"), none, (
+          cs: "Fakulta mechatroniky, informatiky a mezioborových studií",
+          en: "Faculty of mechatronics, informatics and interdisciplinary studies",
+        )),
+        doc(literal("fzs"), none, (
+          cs: "Fakulta zdravotnických studií",
+          en: "Faculty of health studies",
+        )),
+        doc(literal("cxi"), none, (
+          cs: "Ústav pro nanomateriály, pokročilé technologie a inovace",
+          en: "Institute for nanomaterials, advanced technology and innovation",
+        )),
+        doc(literal("tul"), none, (cs: "Obecný styl TUL", en: "Generic TUL theme")),
       )),
-  )), "title_pages", "Způsob generování stránek na začátku dokumentu"),
-
-  doc(keyval(literal("title"), dict(keyval(variants( // title
-    doc(literal("cs"), none, "Název práce v češtině"),
-    doc(literal("en"), none, "Název práce v angličtině"),
-  ), cont_or_str))), "title", "Název práce"),
-
-  keyval(literal("author"), struct( // author
-    doc(keyval( // author.name
-      literal("name"), opt_cont_or_str
-    ), "author", "Jméno autora včetně titulů"),
-
-    doc(keyval(literal("pronouns"), variants( // author.pronouns
-      doc(literal("masculine"), none, "Pro češtinu, oslovení v mužském rodě"),
-      doc(literal("feminine"), none, "Pro češtinu, oslovení v ženském rodě"),
-      doc(literal("we"), none, "Pro češtinu a angličtinu, oslovení v množném čísle"),
-      doc(literal("me"), none, "Pro angličtinu, oslovení v jednotném čísle"),
-      doc(null, none, "Pro angličtinu, oslovení v jednotném čísle"),
-    )), "author", "Jméno autora včetně titulů"),
-
-    doc(keyval( // author.programme
-      literal("programme"), variants(dict(keyval(lang_keys, cont_or_str)), null)
-    ), "programme", "Studijní program, pod kterým byl tento dokument vytvořen"),
-
-    doc(keyval( // author.specialization
-      literal("specialization"), variants(dict(keyval(lang_keys, cont_or_str)), null)
-    ), "specialization", "Specializace, pod kterou byl tento dokument vytvořen"),
-
-    doc(keyval( // author.year_of_study
-      literal("year_of_study"), opt_cont_or_str
-    ), "year_of_study", "Specializace, pod kterou byl tento dokument vytvořen"),
-  )),
-
-  keyval(literal("project"), struct( // project
-    doc(keyval(literal("supervisor"), variants(cont, nonrec_str, struct( // project.supervisor
-      doc(keyval(literal("name"), cont_or_str), none, "Jméno vedoucího projektu"),
-      doc(keyval(literal("institute"), cont_or_str), none, "Ústav vedoucího projektu"),
-    ), null)), "supervisor", "Vedoucí projektu"),
-
-    doc(keyval(literal("consultant"), variants(cont, nonrec_str, struct( // project.consultant
-      doc(keyval(literal("name"), cont_or_str), none, "Jméno konzultanta projektu"),
-      doc(keyval(literal("institute"), cont_or_str), none, "Ústav konzultanta projektu"),
-    ), null)), "consultant", "Konzultant projektu"),
-  )),
-
-  keyval(literal("abstract"), struct( // abstract
-    doc(
-      keyval(
-        literal("content"), // abstract.content
-        variants(struct(..lang_keys.variants.map((k) => {
-          keyval(k, variants(cont, nonrec_str, slice(string)))
-        })), null)
+      "faculty",
+      (
+        cs: "Fakulta (na základě toho budou vybrány barvy, logotypy, ...)",
+        en: "Faculty (based on this, the theme of the document will be chosen)",
       ),
-      "abstract", "Abstrakt projektu",
-    ),
+    )
 
-    doc(
-      keyval(
-        literal("keywords"), // abstract.keywords
-        variants(struct(..lang_keys.variants.map((k) => {
-          keyval(k, variants(cont, nonrec_str, slice(string)))
-        })), null),
-      ),
-      "keywords", "Klíčová slova projektu"
-    ),
-  )),
+    let language = doc(
+      keyval(literal("language"), variants(
+        doc(literal("cs"), none, (cs: "Čeština", en: "Czech")),
+        doc(literal("en"), none, (cs: "Angličtina", en: "English")),
+      )),
+      "lang",
+      (cs: "Primární jazyk dokumentu", en: "Primary language of the document"),
+    )
 
-  doc( // acknowledgement
-    keyval(literal("acknowledgement"), variants(dict(keyval(lang_keys, cont_or_str)), null)),
-    "acknowledgement", "Poděkování",
-  ),
+    let type = doc(
+      keyval(literal("type"), variants(
+        doc(literal("bp"), none, (cs: "Bakalářská práce", en: "Bachelor's thesis")),
+        doc(literal("dp"), none, (cs: "Diplomová práce", en: "Diploma thesis")),
+        doc(literal("prj"), none, (
+          cs: "Projekt (ročník před odevzdáním bakalářské práce)",
+          en: "Project (the year before bachelor's thesis)",
+        )),
+        doc(literal("sp"), none, (cs: "Semestrální práce", en: "Term paper")),
+        doc(literal("presentation"), none, (cs: "Prezentace", en: "Presentation")),
+        doc(literal("other"), none, (cs: "Obecný dokument", en: "Generic dokument")),
+      )),
+      "document",
+      (cs: "Typ dokumentu", en: "The type of the document"),
+    )
 
-  doc( // assignment
-    keyval(literal("assignment"), variants(
-      doc(string, none, "Zadání bude vloženo z PDF souboru s touto cestou"),
-      doc(
-        struct(
-          keyval(literal("personal_number"), cont_or_str),
-          keyval(literal("department"), cont_or_str),
-          keyval(literal("academical_year"), cont_or_str),
-          doc(keyval(literal("content"), cont), none, "Obsah zadání (zobrazen pod informacemi)"),
+    keyval(literal("document"), struct(visual_style, faculty, language, type))
+  }
+
+  // == TITLE PAGES ==
+  let title_pages = doc(
+    keyval(
+      literal("title_pages"),
+      variants(
+        doc(string, none, (
+          cs: "Cesta k souboru PDF, který má být vložen",
+          en: "The path to the PDF document to insert",
+        )),
+        doc(
+          null,
+          none,
+          (
+            cs: "Stránky jsou generovány pomocí šablony. Tohle u některých prací může vyžadovat doplnění informací (argumentů).",
+            en: "The pages are generated through the template. This can require more arguments for certain documents.",
+          ),
         ),
-        none, "Zadání bude vygenerováno šablonou"
       ),
-      doc(
-        null, none,
-        "Pokud je zadání vyžadováno typem dokumentu, bude vložena strana s upozorněním na vložení",
-      ),
-      doc(cont, none, "Zdrojový kód se zadáním (tato možnost se nedoporučuje)"),
-    )),
-    "assignment", "Stránka / stránky se zadáním",
-  ),
+    ),
+    "title_pages",
+    (
+      cs: "Způsob generování stránek na začátku dokumentu",
+      en: "Method of inserting/generating the first few pages of the document",
+    ),
+  )
 
-  doc( // presentation_info
-    keyval(literal("presentation_info"), struct(
-      doc(
-        keyval(literal("append_thanks"), bool), none,
-        "Zda na konec prezentace vložit poděkování za pozornost",
+  // == TITLE ==
+  let title = doc(
+    keyval(literal("title"), dict(keyval(
+      variants(
+        // title
+        doc(literal("cs"), none, (cs: "Název práce v češtině", en: "Document title in Czech")),
+        doc(literal("en"), none, (cs: "Název práce v angličtině", en: "Document title in English")),
       ),
-      doc(
-        keyval(literal("wide"), bool), none,
-        "Jestli použít široký režim (16:9 - `true`) nebo úzký (4:3 - `false`)",
-      ),
-      doc(
-        keyval(literal("first_heading_is_fullpage"), bool), none,
-        ("Pokud je nastaveno `true`, pak se nadpisy první úrovně budou vkládat na " +
-        "samostatnou stránku"),
-      ),
-    )), none, "Argumenty pro dokument typu `presentation`",
-  ),
+      cont_or_str,
+    ))),
+    "title",
+    (cs: "Název práce", en: "Document title"),
+  )
 
-  doc( // citations
+  // == AUTHOR ==
+  let author = {
+    let name = doc(keyval(literal("name"), opt_cont_or_str), "author", (
+      cs: "Jméno autora včetně titulů",
+      en: "The name of the author including titles",
+    ))
+
+    let pronouns = doc(
+      keyval(literal("pronouns"), variants(
+        doc(literal("masculine"), none, (
+          cs: "Pro češtinu, oslovení v mužském rodě",
+          en: "For Czech (masculine)",
+        )),
+        doc(literal("feminine"), none, (
+          cs: "Pro češtinu, oslovení v ženském rodě",
+          en: "For Czech (feminine)",
+        )),
+        doc(literal("we"), none, (
+          cs: "Pro češtinu a angličtinu, oslovení v množném čísle",
+          en: "For Czech and English, plural",
+        )),
+        doc(literal("me"), none, (
+          cs: "Pro angličtinu, oslovení v jednotném čísle",
+          en: "For English, singular",
+        )),
+        doc(null, none, (
+          cs: "Pro angličtinu, oslovení v jednotném čísle",
+          en: "Fallback for English, singular",
+        )),
+      )),
+      "author",
+      (cs: "Oslovení autora / autorů", en: "Author pronouns"),
+    )
+
+    let programme = doc(
+      keyval(literal("programme"), variants(dict(keyval(lang_keys, cont_or_str)), null)),
+      "programme",
+      (
+        cs: "Studijní program, pod kterým byl tento dokument vytvořen",
+        en: "Study programme of the author",
+      ),
+    )
+
+    let specialization = doc(
+      keyval(literal("specialization"), variants(dict(keyval(lang_keys, cont_or_str)), null)),
+      "specialization",
+      (
+        cs: "Specializace, pod kterou byl tento dokument vytvořen",
+        en: "Specialization of the author",
+      ),
+    )
+
+    let year_of_study = doc(keyval(literal("year_of_study"), opt_cont_or_str), "year_of_study", (
+      cs: "Ročník studia autora",
+      en: "The year of study of the author",
+    ))
+
+    keyval(literal("author"), struct(name, pronouns, programme, specialization, year_of_study))
+  }
+
+  // == PROJECT ==
+  let project = {
+    let supervisor = doc(
+      keyval(literal("supervisor"), variants(
+        cont,
+        nonrec_str,
+        struct(
+          doc(keyval(literal("name"), cont_or_str), none, (
+            cs: "Jméno vedoucího projektu",
+            en: "The name of the project's supervisor",
+          )),
+          doc(keyval(literal("institute"), cont_or_str), none, (
+            cs: "Ústav vedoucího projektu",
+            en: "The institute of the project's supervisor",
+          )),
+        ),
+        null,
+      )),
+      "supervisor",
+      (cs: "Vedoucí projektu", en: "Project supervisor"),
+    )
+
+    let consultant = doc(
+      keyval(literal("consultant"), variants(
+        cont,
+        nonrec_str,
+        struct(
+          doc(keyval(literal("name"), cont_or_str), none, (
+            cs: "Jméno konzultanta projektu",
+            en: "Name of the project's consultant",
+          )),
+          doc(keyval(literal("institute"), cont_or_str), none, (
+            cs: "Ústav konzultanta projektu",
+            en: "The institute of the project's consultant",
+          )),
+        ),
+        null,
+      )),
+      "consultant",
+      (cs: "Konzultant projektu", en: "Project's consultant"),
+    )
+
+    keyval(literal("project"), struct(supervisor, consultant))
+  }
+
+  // == ABSTRACT ==
+  let abstract = {
+    let content = doc(
+      keyval(literal("content"), variants(
+        struct(..lang_keys.variants.map(k => {
+          keyval(k, variants(cont, nonrec_str, slice(string)))
+        })),
+        null,
+      )),
+      "abstract",
+      (cs: "Abstrakt projektu", en: "Project's abstract"),
+    )
+
+    let keywords = doc(
+      keyval(literal("keywords"), variants(
+        struct(..lang_keys.variants.map(k => {
+          keyval(k, variants(cont, nonrec_str, slice(string)))
+        })),
+        null,
+      )),
+      "keywords",
+      (cs: "Klíčová slova projektu", en: "Project's keywords"),
+    )
+
+    keyval(literal("abstract"), struct(content, keywords))
+  }
+
+  // == ACKNOWLEDGEMENT ==
+  let acknowledgement = doc(
+    keyval(literal("acknowledgement"), variants(dict(keyval(lang_keys, cont_or_str)), null)),
+    "acknowledgement",
+    (cs: "Poděkování", en: "Acknowledgement"),
+  )
+
+  // == ASSIGNMENT ==
+  let assignment = doc(
+    // assignment
+    keyval(
+      literal("assignment"),
+      variants(
+        doc(string, none, (
+          cs: "Zadání bude vloženo z PDF souboru s touto cestou",
+          en: "The assignment will be inserted from a PDF file with this path",
+        )),
+        doc(
+          struct(
+            keyval(literal("personal_number"), cont_or_str),
+            keyval(literal("department"), cont_or_str),
+            keyval(literal("academical_year"), cont_or_str),
+            doc(keyval(literal("content"), cont), none, (
+              cs: "Obsah zadání (zobrazen pod informacemi)",
+              en: "Content of the assignment (shown bellow informations)",
+            )),
+          ),
+          none,
+          (
+            cs: "Zadání bude vygenerováno šablonou",
+            en: "The assignment will be creating through this template",
+          ),
+        ),
+        doc(
+          null,
+          none,
+          (
+            cs: "Pokud je zadání vyžadováno typem dokumentu, bude vložena strana s upozorněním na vložení",
+            en: "If the assignment is required by the document type, a page with a warning will be inserted",
+          ),
+        ),
+        doc(cont, none, (
+          cs: "Zdrojový kód se zadáním (tato možnost se nedoporučuje)",
+          en: "Source code for the page (is not recommended)",
+        )),
+      ),
+    ),
+    "assignment",
+    (cs: "Stránka / stránky se zadáním", en: "Page / pages with the assignment"),
+  )
+
+  // == PRESENTATION ==
+  let presentation_info = {
+    let append_thanks = doc(keyval(literal("append_thanks"), bool), none, (
+      cs: "Zda na konec prezentace vložit poděkování za pozornost",
+      en: "Whether to thank for attention at the end of the presentation",
+    ))
+
+    let wide = doc(keyval(literal("wide"), bool), none, (
+      cs: "Jestli použít široký režim (16:9 - `true`) nebo úzký (4:3 - `false`)",
+      en: "Whether to use widescreen format (16:9 - `true`) or narrow format (4:3 - `false`)",
+    ))
+
+    let first_heading_is_fullpage = doc(
+      keyval(literal("first_heading_is_fullpage"), bool),
+      none,
+      (
+        cs: "Pokud je nastaveno `true`, pak se nadpisy první úrovně budou vkládat na samostatnou stránku",
+        en: "When set to `true`, headings of first level will be on a separate page",
+      ),
+    )
+
+    doc(
+      keyval(literal("presentation_info"), variants(null, struct(
+        append_thanks,
+        wide,
+        first_heading_is_fullpage,
+      ))),
+      "presentation",
+      (
+        cs: "Argumenty pro dokument typu `presentation`",
+        en: "Arguments for a document of type `presentation`",
+      ),
+    )
+  }
+
+  // == CITATIONS ==
+  let citations = doc(
+    // citations
     keyval(literal("citations"), string),
-    "citations", "Cesta k souboru s citacemi",
-  ),
-);
+    "citations",
+    (cs: "Cesta k souboru s citacemi", en: "A path to the citations file"),
+  )
+
+  struct(
+    document,
+    title_pages,
+    title,
+    author,
+    project,
+    abstract,
+    acknowledgement,
+    assignment,
+    presentation_info,
+    citations,
+  )
+}
 
 #let print_argument_docs() = {
-  signature_docs(arguments_structure);
+  signature_docs(arguments_structure)
 }
 
 #let check_arguments(args, structure: arguments_structure, namespace: none) = {
-  let res = signature_check(args, structure, "");
+  let res = signature_check(args, structure, "")
   if not res.at(0) {
-    let panic_message = res.at(1);
-    panic(panic_message);
+    let panic_message = res.at(1)
+    panic(panic_message)
   }
 }
 
 #let get_arg_single(args, path) = {
-  let args = args;
+  let args = args
   for segment in path.split(".") {
     if segment not in args {
-      panic("invalid argument query path: " + str(path));
+      panic("invalid argument query path: " + str(path))
     }
-    args = args.at(segment);
+    args = args.at(segment)
   }
   args
 }
 
 #let get_arg(args, path) = {
   if type(path) == array {
-    let res = ();
+    let res = ()
     for path in path {
-      res.push(get_arg_single(args, path));
+      res.push(get_arg_single(args, path))
     }
     res
   } else if type(path) == str {
     get_arg_single(args, path)
   } else {
-    panic("invalid argument path");
+    panic("invalid argument path")
   }
 }
 
 #let req_arg_single(args, path) = {
-  let arg = get_arg_single(args, path);
+  let arg = get_arg_single(args, path)
   if is_none(arg) {
-    let panic_message = path.split(".").join(" ").replace("_", " ") + " is missing";
-    panic(panic_message);
+    let panic_message = (
+      path.split(".").join(" ").replace("_", " ") + " is missing"
+    )
+    panic(panic_message)
   }
   arg
 }
 
 #let req_arg(args, path) = {
   if type(path) == array {
-    let res = ();
+    let res = ()
     for path in path {
-      res.push(req_arg_single(args, path));
+      res.push(req_arg_single(args, path))
     }
     res
   } else if type(path) == str {
     req_arg_single(args, path)
   } else {
-    panic("invalid argument path");
+    panic("invalid argument path")
   }
 }
 
 #let map_arg_single(args, path, mapper) = {
-  let arg = get_arg(args, path);
+  let arg = get_arg(args, path)
   map_none(arg, mapper)
 }
 
 #let map_arg(args, path, mapper) = {
   if type(path) == array {
-    let res = ();
+    let res = ()
     for path in path {
-      res.push(map_arg_single(args, path, mapper));
+      res.push(map_arg_single(args, path, mapper))
     }
     res
   } else if type(path) == str {
     map_arg_single(args, path, mapper)
   } else {
-    panic("invalid argument path");
+    panic("invalid argument path")
   }
 }
 
@@ -266,7 +467,12 @@
   )
 }
 
-#let document_info(visual_style, faculty_abbreviation, language_abbreviation, document_type) = {
+#let document_info(
+  visual_style,
+  faculty_abbreviation,
+  language_abbreviation,
+  document_type,
+) = {
   (
     visual_style: visual_style,
     faculty: faculty_abbreviation,
