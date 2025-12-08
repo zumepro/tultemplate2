@@ -97,7 +97,17 @@
       in
       {
         devShell = with pkgs; mkShell {
-          inherit buildInputs;
+          buildInputs = buildInputs ++ [ (pkgs.stdenv.mkDerivation {
+            name = name + "-typstfmt";
+            dontUnpack = true;
+            installPhase = ''
+              mkdir -p $out/bin
+              ln -s ${typstyle}/bin/typstyle $out/bin/typstyle
+              ln -s ${writeShellScript "tultypstfmt" ''
+                typstyle --inplace -l 100 $@
+              ''} $out/bin/ttfmt
+            '';
+          }) ];
           shellHook = envSetup;
         };
         packages.bundle = build_with_targets "bundle" ["bundle"] ["target/pack/bundle/."] [];
