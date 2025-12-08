@@ -77,7 +77,16 @@
       (cs: "Typ dokumentu", en: "The type of the document"),
     )
 
-    keyval(literal("document"), struct(visual_style, faculty, language, type))
+    let content_only = doc(
+      keyval(literal("content_only"), bool),
+      "content_only",
+      (
+        cs: "Zda u dokumentu typu `other` generovat pouze obsah",
+        en: "Whether to generate only content for document of type `other`",
+      ),
+    )
+
+    keyval(literal("document"), struct(visual_style, faculty, language, type, content_only))
   }
 
   // == TITLE PAGES ==
@@ -481,12 +490,14 @@
   faculty_abbreviation,
   language_abbreviation,
   document_type,
+  content_only,
 ) = {
   (
     visual_style: visual_style,
     faculty: faculty_abbreviation,
     language: language_abbreviation,
     type: document_type,
+    content_only: content_only,
   )
 }
 

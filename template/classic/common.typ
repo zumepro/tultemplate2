@@ -466,8 +466,17 @@
 
 // ABBREVIATION LIST
 
-#let abbrlist(language) = {
+#let abbrlist(language, hidden: false) = {
   import "../abbreviations.typ": abbrlist
+  if hidden {
+    context {
+      let abbrs = abbrlist()
+      for abbr in abbrs.pairs() {
+        [#metadata("empty")#label("abbr_" + abbr.at(0))]
+      }
+    }
+    return
+  }
   context {
     let abbrs = abbrlist();
     let max_abbr_width = if abbrs.len() > 0 {

@@ -40,6 +40,7 @@
 // - assignment (str): Filepath of the assignment document/page.
 // - citations (str): The location of the citation file.
 // - presentation (dictionary): Arguments for the presentation
+// - content_only (bool): Whether to output content only (this works for documents of type `other`)
 // - content (content): The content of the document
 //
 //-> none
@@ -51,7 +52,7 @@
   title_pages: none,
   title: none, keywords: none, abstract: none, acknowledgement: none, author: none,
   author_pronouns: none, supervisor: none, consultant: none, programme: none,
-  specialization: none, year_of_study: none,
+  specialization: none, year_of_study: none, content_only: false,
 
   // nested
   assignment: none, presentation: none,
@@ -72,7 +73,7 @@
   )
 
   let args = arguments(
-    document_info(style, faculty, lang, document),
+    document_info(style, faculty, lang, document, content_only),
     title_pages,
     title,
     author_info(author, author_pronouns, programme, specialization, year_of_study),
@@ -125,7 +126,7 @@
     req_arg,
   )
   let args = arguments(
-    document_info(style, faculty, lang, document),
+    document_info(style, faculty, lang, document, false),
     none,
     title,
     author_info(author, author_pronouns, programme, specialization, year_of_study),
