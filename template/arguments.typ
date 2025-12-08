@@ -341,9 +341,18 @@
   // == CITATIONS ==
   let citations = doc(
     // citations
-    keyval(literal("citations"), string),
+    keyval(literal("citations"), variants(
+      doc(string, none, (
+        cs: "Cesta k souboru s bibliografií",
+        en: "The path to the bibliography file",
+      )),
+      doc(slice(string), none, (
+        cs: "Cesty k souborům s bibliografií",
+        en: "Paths to the bibliography files",
+      )),
+    )),
     "citations",
-    (cs: "Cesta k souboru s citacemi", en: "A path to the citations file"),
+    (cs: "Zdroj bibliografie", en: "Bibliography source"),
   )
 
   struct(
@@ -360,8 +369,8 @@
   )
 }
 
-#let print_argument_docs() = {
-  signature_docs(arguments_structure)
+#let print_argument_docs(lang: "en") = {
+  signature_docs(arguments_structure, lang: lang)
 }
 
 #let check_arguments(args, structure: arguments_structure, namespace: none) = {

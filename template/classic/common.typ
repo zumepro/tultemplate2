@@ -511,7 +511,7 @@
 // BIBLIOGRAPHY
 
 #let bibliogr(args) = {
-  let (language, citations_file) = req_arg(args, ("document.language", "citations"));
+  let (language, citations) = req_arg(args, ("document.language", "citations"));
   let styles = (
     "cs": "../citations/tul-csn690-numeric-square_brackets.csl",
     "en": "../citations/iso690-numeric-square_brackets.csl",
@@ -520,7 +520,7 @@
   context {
     if query(ref.where(element: none)).len() > 0 {
       bibliography(
-        citations_file,
+        citations,
         style: style,
         title: get_lang_item(language, "bibliography"),
       );

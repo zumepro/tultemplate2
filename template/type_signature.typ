@@ -3,16 +3,21 @@
   inner
 }
 
-#let type_primitive(id, name, cs_name) = {
-  (type: "primitive", type_id: id, type_name: name, type_name_cs: cs_name)
+#let type_primitive(id, name, cs_name, en_name) = {
+  (type: "primitive", type_id: id, type_name: name, primitive_expl: (cs: cs_name, en: en_name))
 }
 
-#let int = type_primitive("integer", "an 'integer'", "celé číslo");
-#let float = type_primitive("float", "a 'float'", "desetinné číslo");
-#let bool = type_primitive("boolean", "a 'boolean'", "pravdivostní hodnota");
-#let string = type_primitive("string", "a 'string'", "textový řetězec");
-#let cont = type_primitive("content", "a 'content'", "obsah generovaný Typst syntaxí");
-#let null = type_primitive("none", "a 'none'", "prázdná hodnota");
+#let int = type_primitive("integer", "an 'integer'", "celé číslo", "a whole number");
+#let float = type_primitive("float", "a 'float'", "desetinné číslo", "a decimal number");
+#let bool = type_primitive("boolean", "a 'boolean'", "pravdivostní hodnota", "a truthiness value");
+#let string = type_primitive("string", "a 'string'", "textový řetězec", "a text string");
+#let cont = type_primitive(
+  "content",
+  "a 'content'",
+  "obsah generovaný Typst syntaxí",
+  "content generated with Typst syntax",
+);
+#let null = type_primitive("none", "a 'none'", "prázdná hodnota", "empty value");
 
 #let literal(value) = {
   (type: "literal", value: value)
@@ -254,6 +259,19 @@
 }
 
 #let signature_docs(target, is_nested: false, lang: "en") = {
+  let lang_expr = (
+    with_keys: (cs: "S klíči", en: "With keys"),
+    with_values: (cs: "S hodnotami", en: "With values"),
+    empty: (cs: [prádzné (_none_)], en: [empty (_none_)]),
+    struct: (
+      cs: [slovník s přesnými atributy (_dictionary_)],
+      en: [a dictionary with exact atributes (_dictionary_)],
+    ),
+    dict: (cs: [slovník (_dictionary_)], en: [_dictionary_]),
+    slice: (cs: [pole různé délky (_array_): ], en: [variable-length array (_array_): ]),
+    tuple: (cs: [pole s přesnými prvky (_array_): ], en: [array with exact items (_array_): ]),
+  )
+
   let typeinfo(target, flatten: false, disable_doc: false) = {
     let try_doc(target, mapper: v => { v }) = {
       if "doc" in target and not disable_doc {
@@ -265,7 +283,7 @@
 
     if target.type == "struct" {
       if not flatten {
-        [slovník s přesnými atributy (_dictionary_)]
+        lang_expr.struct.at(lang)
         try_doc(target, mapper: v => {
           [ -- ]
           v
@@ -285,7 +303,7 @@
           typeinfo(val, disable_doc: true)
         }))
     } else if target.type == "dictionary" {
-      [slovník (_dictionary_)]
+      lang_expr.struct.at(lang)
       try_doc(target, mapper: v => {
         [ -- ]
         v
@@ -293,11 +311,11 @@
       ":"
       list(
         {
-          "S klíči: "
+          lang_expr.with_keys.at(lang) + ": "
           typeinfo(target.key)
         },
         {
-          "S hodnotami: "
+          lang_expr.with_values.at(lang) + ": "
           typeinfo(target.val)
         },
       )
@@ -306,14 +324,14 @@
         v
         ": "
       })
-      [pole různé délky (_array_) s prvky: ]
+      lang_expr.slice.at(lang)
       typeinfo(target.items, disable_doc: true)
     } else if target.type == "tuple" {
       try_doc(target, mapper: v => {
         v
         ": "
       })
-      [pole (_array_) s upřesněnými prvky: ]
+      lang_expr.tuple.at(lang)
       list(..target.items.map(v => {
         list.item({
           typeinfo(v)
@@ -321,13 +339,13 @@
       }))
     } else if target.type == "primitive" {
       if target.type_id == "none" {
-        text("prázdné ('none')")
+        lang_expr.empty.at(lang)
         try_doc(target, mapper: v => {
           [ -- ]
           text(v)
         })
       } else {
-        text(target.type_name_cs + " (")
+        text(target.primitive_expl.at(lang) + " (")
         text(target.type_id, style: "italic")
         text(")")
         try_doc(target, mapper: v => {

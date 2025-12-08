@@ -435,7 +435,7 @@ Pokud s šablonou nemáte rozsáhlé zkušenosti, doporučujeme raději využít
 
 // Automaticky generovaný seznam argumentů
 #import "template/arguments.typ": print_argument_docs
-#print_argument_docs()
+#print_argument_docs(lang: "cs")
 
 
 #attachments(
