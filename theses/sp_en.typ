@@ -10,24 +10,12 @@
     department: [Department of templates],
     academical_year: [2025/2026],
     content: [
-      = Principles for drafting:
-      + Familiarize yourself with available templates
-      + Design several possible template styles
-      + Learn to use Typst
-      + Implement the template
-      + Review the template
-      + Fix many issues
-      + Review the template
-      + Fix many issues
-      + Review the template
-      + Hopefully nothing more needs fixing
-      = List of professional literature:
-      _Top secret_
+      __assignment__
     ],
   ),
   title: (
-    cs: [Ukázka dokumentu typu Semestrální práce pro FM TUL v češtině],
-    en: [Example document for a Term paper for FM TUL in Czech],
+    cs: [Ukázka dokumentu typu Semestrální práce v češtině],
+    en: [Example document for a Term paper in Czech],
   ),
   author: [Matěj Žucha],
   author_pronouns: "me",

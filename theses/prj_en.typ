@@ -10,24 +10,12 @@
     department: [Department of templates],
     academical_year: [2025/2026],
     content: [
-      = Principles for drafting:
-      + Familiarize yourself with available templates
-      + Design several possible template styles
-      + Learn to use Typst
-      + Implement the template
-      + Review the template
-      + Fix many issues
-      + Review the template
-      + Fix many issues
-      + Review the template
-      + Hopefully nothing more needs fixing
-      = List of professional literature:
-      _Top secret_
+      __assignment__
     ],
   ),
   title: (
-    cs: [Ukázka dokumentu typu Projekt pro FM TUL v angličtině],
-    en: [Example document for a Project report for FM TUL in English],
+    cs: [Ukázka dokumentu typu Projekt v angličtině],
+    en: [Example document for a Project report in English],
   ),
   author: [Matěj Žucha],
   author_pronouns: "me",

@@ -132,8 +132,17 @@ $(BUILD_DIR)/presentation_%.typ: theses/presentation_%.typ | $(BUILD_DIR)
 $(BUILD_DIR)/subs_%.txt: theses/%.typ | $(BUILD_DIR)
 	awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' $< > $@
 
-$(BUILD_DIR)/header_%.txt: theses/%.typ
+$(BUILD_DIR)/header_base_%.txt: theses/%.typ | $(BUILD_DIR)
 	awk 'BEGIN{RS=""; ORS="\n\n"} NR<3{print}' $< > $@
+
+$(BUILD_DIR)/assignment_%_cs.txt: theses/assignment_cs.typ | $(BUILD_DIR)
+	ln -f $< $@
+
+$(BUILD_DIR)/assignment_%_en.txt: theses/assignment_en.typ | $(BUILD_DIR)
+	ln -f $< $@
+
+$(BUILD_DIR)/header_substituted_%.txt: $(BUILD_DIR)/header_base_%.txt $(BUILD_DIR)/assignment_%.txt
+	sed -e "/__assignment__/r $(BUILD_DIR)/assignment_$*.txt" -e "/__assignment__/d" $< > $@
 
 $(BUILD_DIR)/content_%_cs.txt: $(BUILD_DIR)/subs_%_cs.txt theses/content_cs.typ
 	cat theses/content_cs.typ | \
@@ -145,7 +154,7 @@ $(BUILD_DIR)/content_%_en.txt: $(BUILD_DIR)/subs_%_en.txt theses/content_en.typ
 		$(call replace_with_file_line,{{what}},$<,1) | \
 		awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' > $@
 
-$(BUILD_DIR)/%.typ: $(BUILD_DIR)/header_%.txt $(BUILD_DIR)/content_%.txt | $(BUILD_DIR)
+$(BUILD_DIR)/%.typ: $(BUILD_DIR)/header_substituted_%.txt $(BUILD_DIR)/content_%.txt | $(BUILD_DIR)
 	cat $^ > $@
 
 $(BUILD_DIR)/%.pdf: $(BUILD_DIR)/%.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)

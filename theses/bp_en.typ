@@ -10,24 +10,12 @@
     department: [Department of templates],
     academical_year: [2025/2026],
     content: [
-      = Principles for drafting:
-      + Familiarize yourself with available templates
-      + Design several possible template styles
-      + Learn to use Typst
-      + Implement the template
-      + Review the template
-      + Fix many issues
-      + Review the template
-      + Fix many issues
-      + Review the template
-      + Hopefully nothing more needs fixing
-      = List of professional literature:
-      _Top secret_
+      __assignment__
     ],
   ),
   title: (
-    cs: [Ukázka dokumentu typu Bakalářská práce pro FM TUL v angličtině],
-    en: [Example document for a Bachelor's thesis for FM TUL in English],
+    cs: [Ukázka dokumentu typu Bakalářská práce v angličtině],
+    en: [Example document for a Bachelor's thesis in English],
   ),
   author: [Matěj Žucha],
   author_pronouns: "me",

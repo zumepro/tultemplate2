@@ -10,24 +10,12 @@
     department: [Ústav šablon],
     academical_year: [2025/2026],
     content: [
-      = Zásady pro vypracování:
-      + Seznamte se s možnostmi šablon
-      + Navrhněte několik možných stylů šablon
-      + Seznamte se s nástrojem Typst
-      + Implementujte šablonu
-      + Zkonzultujte šablonu
-      + Opravte spoustu věcí
-      + Zkonzultujte šablonu
-      + Opravte spoustu věcí
-      + Zkonzultujte šablonu
-      + Snad už nebude nic potřeba opravit
-      = Seznam odborné literatury:
-      _Přísně tajné_
+      __assignment__
     ],
   ),
   title: (
-    cs: [Ukázka dokumentu typu Projekt pro FM TUL v češtině],
-    en: [Example document for a Project report for FM TUL in Czech],
+    cs: [Ukázka dokumentu typu Projekt v češtině],
+    en: [Example document for a Project report in Czech],
   ),
   author: [Matěj Žucha],
   author_pronouns: "masculine",
