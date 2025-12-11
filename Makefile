@@ -10,7 +10,7 @@ MINIMALDIR := $(PACKS_ROOT)/minimal
 LIBDIR := template/lib
 LIB_MUCHPDFTOOLS := $(LIBDIR)/much_pdf_tools
 LIB_TARGETS_MUCHPDFTOOLS := lib.typ much_pdf_tools.wasm
-LIB_URL_MUCHPDFTOOLS := https://tulsablona.zumepro.cz/lib/much_pdf_tools
+LIB_URL_MUCHPDFTOOLS := https://typst.tul.cz/lib/much_pdf_tools
 
 MINIMAL_ASSET_ROOTS := template/assets template/fonts template/citations
 MINIMAL_SRCS := $(shell find template -type f -regex '^.*\.typ$$') \

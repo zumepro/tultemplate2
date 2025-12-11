@@ -70,7 +70,7 @@ or
 
 > [!TIP]
 > We **strongly** recommend to use the template package generator available at
-> https://tulsablona.zumepro.cz/
+> https://typst.tul.cz/
 
 The generator will help you generate the necessary headers (so you don't have to go error-by-error -
 sadly, Typst does not yet support emitting multiple errors or warnings at once).

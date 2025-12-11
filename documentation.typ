@@ -431,7 +431,7 @@ Funkce `todo` vám zároveň zabrání v tom, aby se text Lorem Ipsum vyskytl ve
 
 Následujících pár stránek je kompletní soupis argumentů, které tato šablona přijímá.
 Pokud s šablonou nemáte rozsáhlé zkušenosti, doporučujeme raději využít generátoru
-(https://tulsablona.zumepro.cz/generate/).
+(https://typst.tul.cz/generate/).
 
 // Automaticky generovaný seznam argumentů
 #import "template/arguments.typ": print_argument_docs
