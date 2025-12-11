@@ -19,7 +19,7 @@
   set text(font: base_font);
   set par(justify: true);
   if language == "cs" {
-    content = set_czech_nonbreakable_terms(content);
+    content = set_czech_nonbreakable_terms(content)
   }
 
   // headings
@@ -154,7 +154,10 @@
 
   // document type
   if display_document_type != "other" and display_document_type != "other_asgn" {
-    text(get_lang_item(language, display_document_type), weight: "bold", font: base_font);
+    text(
+      get_lang_item(language, display_document_type),
+      weight: "bold", font: base_font, size: 1.25em
+    )
     v(0em);
   }
 
@@ -272,14 +275,15 @@
   set page(margin: 2cm);
   pagebreak(weak: true);
   header(faculty, language);
+  v(10em)
   info_assignment(
     faculty, language, document_type, title.at(language), author, personal_number,
     programme.at(language), department, academical_year,
   );
   show heading: it => {
-    block(it, above: 1em, below: 1em);
+    block(text(it, size: 11pt * 1.25), above: 2em, below: 1em);
   }
-  content;
+  content
 }
 
 // _ EMBEDDED
@@ -508,7 +512,7 @@
 #let toc(language) = {
   show outline.entry.where(level: 1): it => {
     show repeat: none;
-    block(text(it, weight: "bold", size: 1.2em), above: 1.5em);
+    block(text(it, weight: "bold", size: 1.1em), above: 1.5em);
   };
   context {
     if query(heading.where(outlined: true)).len() > 0 {
