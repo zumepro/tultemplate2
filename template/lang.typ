@@ -60,16 +60,14 @@
     let res = content;
     for expr in exprs {
       res = {
-        show regex(expr): box;
-        res;
-      };
+        show regex(expr): box
+        res
+      }
     }
     res
   }
 
-  show heading: apply_rules.with(exprs: (chain, terms));
-  show par: apply_rules.with(exprs: (chain, terms));
-  content
+  apply_rules.with(exprs: (chain, terms))(content)
 }
 
 #let disclaimer(language, document_type, author_pronouns) = {
