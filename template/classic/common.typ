@@ -532,6 +532,7 @@
   let style = styles.at(language);
   context {
     if query(ref.where(element: none)).len() > 0 {
+      set par(justify: false)
       bibliography(
         citations,
         style: style,
