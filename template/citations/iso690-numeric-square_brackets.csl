@@ -297,9 +297,9 @@
     <sort>
       <key variable="citation-number"/>
     </sort>
-    <layout prefix="[" suffix="]" delimiter=", ">
+    <layout delimiter=", ">
       <group delimiter=", ">
-        <text variable="citation-number"/>
+        <text variable="citation-number" prefix="[" suffix="]"/>
         <group>
           <label variable="locator" suffix=".&#160;" form="short" strip-periods="true"/>
           <text variable="locator"/>
