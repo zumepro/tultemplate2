@@ -18,7 +18,7 @@ The user must often import an incountable number of packages, which only provide
 
 == Getting started
 
-You have probably downloaded this template from the generator on the website https://tulsablona.zumepro.cz and inserted it into the Typst online editor.
+You have probably downloaded this template from the generator on the website https://typst.tul.cz and inserted it into the Typst online editor.
 Therefore, besides the source code, you can also see the resulting PDF file.
 As you probably know, the main difference between traditional word processors like Microsoft Word or LibreOffice Writer and typesetting programs like LaTeX or Typst is the way in which the appearance and content of the document are edited.
 
@@ -110,7 +110,7 @@ Just like in other programs, Typst also supports multi-level headings. For a fir
 ```
 
 For a second-level heading, we then use two equals signs; for a third-level heading, three equals signs...
-However, the *tultemplate2* template will not allow a heading of fourth or deeper level, because such a heading would violate TUL's guidelines for writing reports.
+However, the *tultemplate2* template will not allow a heading of fourth or deeper level because of formal reasons.
 But don't worry --- if you try to use fourth-level or deeper heading, the template will warn you not to do that and will refuse to compile until you fix this. More on this behavior later.
 
 ```typst
@@ -161,10 +161,17 @@ Did Typst break your line and you don't like it? Let's solve it.
 If you want to break a line somewhere precisely, you can just append the character "`\`" at the end of the line.
 Like so:
 
+#block(breakable: false)[
 ```typst
 *Alice*: How to write a good thesis? \
 *Bob*: Using Typst!
 ```
+
+Will look as follows:
+
+*Alice*: How to write a good thesis? \
+*Bob*: Using Typst!
+]
 
 In the example above the question mark will be the last symbol on the first line --- Typst won't merge the lines here.
 
@@ -441,11 +448,19 @@ To add a caption and also include the image in the index (so you can reference i
   ```
 ], breakable: false)
 
+#block(breakable: false)[
 Here's a practical example of inserting an image with a caption:
 
+```typst
 #figure(image("../template/assets/tul_logo.svg", width: 25%), caption: [
-  Logo of *TUL*
+  *TUL* Logomark
 ])
+```
+
+#figure(image("../template/assets/tul_logo.svg", width: 25%), caption: [
+  *TUL* Logomark
+])
+]
 
 The first parameter of the function is the displayed content --- in our case, the mentioned `image`.
 You can then specify various parameters for it; in the example above (where we display the TUL logomark), we define the image width as a percentage --- a percentage of the page's width.

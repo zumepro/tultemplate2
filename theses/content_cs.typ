@@ -18,7 +18,7 @@ Uživatel často musí importovat nepřeberné množství balíčků, které pos
 
 == Začínáme pracovat
 
-Tuto šablonu jste si pravděpodobně stáhli z generátoru na webu https://tulsablona.zumepro.cz a vložili ji do Typst online editoru.
+Tuto šablonu jste si pravděpodobně stáhli z generátoru na webu https://typst.tul.cz a vložili ji do Typst online editoru.
 Tím pádem vidíte kromě zdrojového kódu také výsledný PDF soubor.
 Jak už asi víte, hlavní rozdíl mezi tradičními textovými procesory jako Microsoft Word nebo LibreOffice Writer a mezi sázecími programy jako LaTeX nebo Typst je právě způsob, kterým se upravuje vzhled a obsah dokumentu.
 
@@ -34,23 +34,22 @@ Proto v tomto dokumentu najdete popis všech důležitých funkcí nikoliv jako 
 
 == Hlavička a obsah
 
-Když se podíváte na zdroj dokumentu (vlevo, pokud jste v online editoru), tak si můžete všimnout, že zdroj se skládá z dvou hlavních části: hlavičku (ta na první pohled může vypadat docela strašidelně) a obsah.
+Když se podíváte na zdroj dokumentu (vlevo, pokud jste v online editoru), tak si můžete všimnout, že zdroj se skládá z dvou hlavních částí: hlavičky (ta na první pohled může vypadat docela strašidelně) a obsahu.
 
 === Hlavička
 
 Hlavička definuje všechny potřebné informace pro úspěšné vygenerování dokumentu -- například fakultu, název práce, atd.
 
-Údaje v hlavičce buď můžete upravit rovnou ručně, nebo se k obsahu prokliknout a začít psát.
-Na to navážeme hned v další kapitole.
+Údaje v hlavičce buď můžete upravit rovnou ručně a nebo se k obsahu prokliknout a začít psát.
 
 === Obsah
 
 Obsah je už z většiny samotný text vaší práce.
-Zdroj dokumentu, kromě samotného textu, také obsahuje speciální znaky (odborně tomu říkáme syntaxe), které Typstu vysvětlí jak si dokument přejete naformátovat.
+Zdroj dokumentu, kromě samotného textu, také obsahuje speciální znaky (odborně tomu říkáme syntaxe), které Typstu vysvětlí, jak si dokument přejete naformátovat.
 
 == Klikatelný obsah v hlavičce
 
-Pokud používáte oficiální Typst online editor, můžete jednoduše klepnout na téměř jakýkoliv text na pravé půlce obrazovky (náhledové PDF), a editor podle toho automaticky přesune váš kurzor na správné místo.
+Pokud používáte oficiální Typst online editor, můžete jednoduše klepnout na téměř jakýkoliv text na pravé půlce obrazovky (náhledové PDF) a editor podle toho automaticky přesune váš kurzor na správné místo.
 Je to sice drobná, ale zato velmi užitečná funkce.
 
 #rect[
@@ -74,7 +73,7 @@ V této kapitole vám ukážeme nějaké základy, které budete běžně použ�
 
 == Odstavce
 
-Jak jsou někteří z vás možná zvyklí z Markdownu, odstavce, nadpisy a vlastně pro přehlednost všechny logicky oddělené bloky se oddělují prázným řádkem.
+Jak jsou někteří z vás možná zvyklí z Markdownu, odstavce, nadpisy a vlastně pro přehlednost všechny logicky oddělené bloky se oddělují prázdným řádkem.
 Toho jste si jistě mohli při prohlížení tohoto souboru všimnout.
 Můžete si vyzkoušet, co se stane, když
 použijete jenom ukončení řádku enterem,
@@ -108,7 +107,7 @@ Stejně jako v jiných programech, i Typst podporuje nadpisy více úrovní. Pro
 ```
 
 Pro nadpis druhé úrovně pak použijeme dvě rovná se, pro nadpis třetí úrovně tři rovná se.
-Šablona *tultemplate2* Vám ovšem bohužel nedovolí nadpis čtvrté a další úrovně, protože by takový nadpis porušoval směrnice TUL o formátování dokumentů.
+Šablona *tultemplate2* Vám ovšem z formálních důvodů bohužel nedovolí nadpis čtvrté a další úrovně.
 Ale nemusíte se bát. Pokud takový nadpis uděláte -- šablona vyhodí chybu, aby vás na to upozornila.
 
 ```typst
@@ -160,10 +159,17 @@ Typst vám nějak zalomil řádek a vám se to nelíbí? Pojďme to vyřešit.
 Pokud chcete vynutit zalomení, stačí na konec řádku ve zdrojovém souboru napsat znak "`\`".
 Například:
 
+#block(breakable: false)[
 ```typst
 *Alice*: Jak napsat skvělou práci? \
 *Bob*: Pomocí Typstu!
 ```
+
+Bude vypadat takto:
+
+*Alice*: Jak napsat skvělou práci? \
+*Bob*: Pomocí Typstu!
+]
 
 V příkladu výše bude otazník posledním znakem prvního řádku -- Typst nám tady řádky nespojí.
 
@@ -248,14 +254,14 @@ https://en.wikipedia.org/wiki/List_of_URI_schemes.
 == Citace
 
 Šablona podporuje správu citací pomocí standardního BibLaTeX @bibtex souboru, stejně jako například LaTeX.
-Generování citací v BibLaTeX zápisu umí téměř každá stránka nebo program, které mají pro citace podporu -- doporučujeme použít buď #link("https://www.zotero.org/")[Zotero] nebo #link("https://www.citacepro.com/")[Citace.com].
+Generování citací v BibLaTeX zápisu umí téměř každá stránka nebo program, které mají pro citace podporu -- doporučujeme použít buď #link("https://www.citacepro.com/")[Citace.com] nebo #link("https://www.zotero.org/")[Zotero].
 Kód takovéto citace ve vhodném formátu stačí přidat do souboru _citations.bib_, poté je možné se na ně odkazovat pomocí `@jmeno_citace`, nebo `#cite(<jmeno_citace>)`.
 Můžu se tak třeba odkázat na citaci Typstu #cite(<typst>).
 
 Formát souboru _citations.bib_ je naprosto stejný jako pro LaTeX.
 Tyto citace lze přímo vložit třeba z webu https://www.citace.com ve formátu BibLaTeX -- Typst tento formát také umí přečíst.
 Můžete se do souboru s příponou .bib podívat, zjistíte, že je to opravdu jen obyčejný textový soubor se specifickou strukturou.
-V přiloženém ukázkovém souboru už nějaké citace jsou - např. již použitá citace se jménem `typst`.
+V přiloženém ukázkovém souboru už nějaké citace jsou -- např. již použitá citace se jménem `typst`.
 
 Soubor, ze kterého se načtou citace lze změnit pomocí argumentu šablony (tj. struktura na začátku souboru):
 
@@ -316,7 +322,7 @@ První písmeno #abbr("ABC") je písmeno "A".
 
 Při prvním použití zkratky (při definici) bude zkratka v textu vypadat takto: #abbr("ZK", "Zkratka")
 
-Při dalších použití bude vypadat takto: #abbr("ZK")
+Při dalších použitích bude vypadat takto: #abbr("ZK")
 
 #highlight[
   Tedy zkratku _nepřidáváte_ přímo do seznamu zkratek, ale elegantně jí používáte přímo v textu.
@@ -437,18 +443,26 @@ Přidání popisku a zároveň zalistování obrázku v indexu (aby se na ně t�
   ```
 ], breakable: false)
 
+#block(breakable: false)[
 Tady je praktická ukázka jednoduchého vložení obrázku s popiskem:
 
+```typst
 #figure(image("../template/assets/tul_logo.svg", width: 25%), caption: [
-  Logo *TUL*
+  Logomark *TUL*
 ])
+```
+
+#figure(image("../template/assets/tul_logo.svg", width: 25%), caption: [
+  Logomark *TUL*
+])
+]
 
 První parametr funkce je zobrazovaný obsah, v našem případě zmíněný `image`.
 K němu můžeme psát různé parametry, v příkladu výše (kde zobrazujeme logomark TUL) máme třeba nastavení šířky obrázku v procentech -- tedy v procentech šířky stránky.
 Jako poslední je parametr `caption`, s jehož pomocí můžeme nastavit popisek obrázku/figury.
 
 Obrázky se zobrazí na začátku dokumentu v seznamu (pokud to daný typ dokumentu vyžaduje).
-I toto za vás Typst dělá automaticky, vám tak stačí do textu přidávat obrázky, jak se to hodí, a všechny se poté korektně zobrazí v *Seznamu obrázků* s odkazem i správně uvedenou stránkou, na které se obrázek nachází.
+I toto za vás Typst dělá automaticky, vám tak stačí do textu přidávat obrázky, jak se to hodí, a všechny se poté korektně zobrazí v~*Seznamu obrázků* s odkazem i správně uvedenou stránkou, na které se obrázek nachází.
 Obrázky jsou také automaticky číslovány podle předepsaného způsobu, podobně jako kapitoly.
 
 == Tabulky
@@ -468,7 +482,7 @@ Parametr `columns` udává počet sloupců tabulky.
 Poté následuje libovolný počet buněk tabulky, pro lepší přehlednost jsou v příkladu jednotlivé řádky oddělené.
 Nakonec je zde opět parametr `caption` sloužící k zadání popisku tabulky.
 
-#highlight[Hlavičku tabulky (první řádek) je dobré zabalit do funkce header (viz. výše)], to je kvůli tomu, že Typst do vygenerovaného PDF souboru poté přidá metadata (například pro osoby se zrakovým postižením).
+#highlight[Hlavičku tabulky (první řádek) je dobré zabalit do funkce header (viz výše)], to je kvůli tomu, že Typst do vygenerovaného PDF souboru poté přidá metadata (například pro osoby se zrakovým postižením).
 
 #figure(table(
   columns: 3,
@@ -486,7 +500,7 @@ Dále si ukážeme neobvyklé (ale stále užitečné) způsoby formátování o
 
 == Speciální znaky v textu
 
-Díky Typstu už speciální znaky neusíte kopírovat z internetu.
+Díky Typstu už speciální znaky nemusíte kopírovat z internetu.
 Typst má na speciální znaky funkci "`sym`".
 V online editoru stačí napsat "`#sym.`" a editor vám začne našeptávat velkou spoustu znaků.
 
@@ -543,7 +557,7 @@ Pokud bych tak chtěl stáhnout například balíček "`alchemist`" na vykreslov
 #import "@preview/alchemist:0.1.8": skeletize, fragment, branch, double, single
 ```
 
-Textový řetězec (text v uvozovkách) je název balíčku a jeho verze -- název a verzi najdete na seznamu balíčků viz. @seznam_balicku.
+Textový řetězec (text v uvozovkách) je název balíčku a jeho verze -- název a verzi najdete na seznamu balíčků viz @seznam_balicku.
 
 Všechno za dvojtečkou jsou funkce, které chcete importovat (oddělené čárkami).
 Pokud budete chtít naimportovat úplně všechny funkce balíčku, pak použijete hvězdičku:
