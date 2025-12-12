@@ -82,7 +82,7 @@
 #let signedpage(language, faculty, faculty_color, author, content, paper) = {
   fullpage(language, faculty, faculty_color, {
     content
-    place(center + bottom, text(author, white.transparentize(30%), size: 1.25em, font: base_font))
+    place(center + bottom, text(author, white.transparentize(10%), size: 1.5em, font: base_font))
   }, paper)
 }
 
@@ -111,6 +111,7 @@
   let faculty_color = faculty_color(faculty)
   let presentation_args = req_arg(args, "presentation_info")
   let author = req_arg(args, "author.name")
+  let first_heading_is_fullpage = presentation_args.at("first_heading_is_fullpage")
   let paper = if presentation_args.at("wide") {
     "presentation-16-9"
   } else {
@@ -121,12 +122,10 @@
     language, faculty, faculty_color,
     req_arg(args, "title").at(language), author, paper,
   )
-  apply_style(language, faculty, faculty_color, paper,
-    presentation_args.at("first_heading_is_fullpage"), {
-      content
-      bibliogr(args)
-    },
-  )
+  apply_style(language, faculty, faculty_color, paper, first_heading_is_fullpage, {
+    content
+    bibliogr(args, presentation_double_title: first_heading_is_fullpage)
+  })
   if presentation_args.at("append_thanks") {
     thankspage(language, faculty, faculty_color, author, paper)
   }

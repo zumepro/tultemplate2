@@ -523,7 +523,7 @@
 
 // BIBLIOGRAPHY
 
-#let bibliogr(args) = {
+#let bibliogr(args, presentation_double_title: false) = {
   let (language, citations) = req_arg(args, ("document.language", "citations"));
   let styles = (
     "cs": "../citations/tul-csn690-numeric-square_brackets.csl",
@@ -533,10 +533,15 @@
   context {
     if query(ref.where(element: none)).len() > 0 {
       set par(justify: false)
+      let lang_bibliography = get_lang_item(language, "bibliography")
+      heading(level: 1, lang_bibliography)
+      if presentation_double_title {
+        heading(level: 2, lang_bibliography)
+      }
       bibliography(
         citations,
         style: style,
-        title: get_lang_item(language, "bibliography"),
+        title: none,
       );
     }
   }
