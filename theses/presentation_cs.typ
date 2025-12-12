@@ -33,7 +33,7 @@
 
 - _append_thanks_: Jestli na závěr přidat slajd s poděkováním
 - _wide_: Použití formátu 16:9 místo 4:3 na všechny slajdy
-- _first_heading_is_fullpage_: vloží každý nadpis 1. úrovně na samostatný slajd, takže logicky rozčlení prezentaci
+- _first\_heading\_is\_fullpage_: vloží každý nadpis 1. úrovně na samostatný slajd, takže logicky rozčlení prezentaci
   - zároveň tvoří nový slajd pro každý nadpis 2. úrovně
   - pokud je vypnuta, nadpisy 2. úrovně *netvoří* nový slajd
 

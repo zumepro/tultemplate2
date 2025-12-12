@@ -33,7 +33,7 @@
 
 - _append_thanks_: Whether to end the presentation with a Thank you slide
 - _wide_: Using the 16:9 aspect ratio for all slides instead of 4:3
-- _first_heading_is_fullpage_: creates a standalone page for each level 1 heading, this breaks down the presentation nicely
+- _first\_heading\_is\_fullpage_: creates a standalone page for each level 1 heading, this breaks down the presentation nicely
   - also creates a new slide for each level 2 heading
   - if the option is not set, level 2 headings *do not* create a new slide
 
