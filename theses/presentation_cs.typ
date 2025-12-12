@@ -23,8 +23,8 @@
 
 - tato šablona slouží jako ukázka použití Typst TUL šablony k tvorbě prezentace
 - můžete zde používat všechny funkcionality Typstu, stejně jako u ostatních dokumentů
-- slajdy fungují podobně jako v Latexu - každý nadpis 1. úrovně tvoří nový slajd
-  - v případě použití _first_heading_is_fullpage_ neplatí - viz dále
+- slajdy fungují podobně jako v Latexu -- každý nadpis 1. úrovně tvoří nový slajd
+  - v případě použití _first_heading_is_fullpage_ neplatí -- viz dále
 - možno používat i nadpisy druhé úrovně
 
 = Možnosti šablony
@@ -39,9 +39,9 @@
 
 == Struktura
 
-- prezentace začíná titulní stranou - nastaveno pomocí generátoru
-- na začátku není automaticky generovaný obsah - uživatel ho může snadno vytvořit pomocí odrážek či číslovaného seznamu
-- po samotném obsahu přichází slajd s citacemi - automaticky generováno
+- prezentace začíná titulní stranou -- nastaveno pomocí generátoru
+- na začátku není automaticky generovaný obsah -- uživatel ho může snadno vytvořit pomocí odrážek či číslovaného seznamu
+- po samotném obsahu přichází slajd s citacemi -- automaticky generováno
 - volitelně poděkování
 
 == Použití citací

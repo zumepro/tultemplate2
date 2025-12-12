@@ -23,8 +23,8 @@
 
 - this template serves as a demo usage of the Typst TUL template for creating presentations
 - you can use all the functionalities of Typst, the same you would in all the other documents
-- slides are created in a similiar fashion to LaTeX - each level 1 heading detones a new slide
-  - this behaves differently when using the _first_heading_is_fullpage_ option - more on that later
+- slides are created in a similiar fashion to LaTeX --- each level 1 heading detones a new slide
+  - this behaves differently when using the _first_heading_is_fullpage_ option --- more on that later
 - you can also use level 2 headings
 
 = Template options
@@ -39,9 +39,9 @@
 
 == Structure
 
-- The presentations begins with a title page - configured in the generator
-- there is no automatically generated table of contents - the user may create it easily using dashes or an ordered list
-- after the content of the presentation, there is a slide with all citation sources - this one is automatically generated
+- The presentations begins with a title page --- configured in the generator
+- there is no automatically generated table of contents --- the user may create it easily using dashes or an ordered list
+- after the content of the presentation, there is a slide with all citation sources --- this one is automatically generated
 - optionally a Thank you slide
 
 == Usage of citations
