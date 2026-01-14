@@ -123,6 +123,15 @@
         packages.minimal = build_with_targets "minimal" ["minimal"] [
           "target/pack/minimal/."
         ] [];
+        packages.llms = pkgs.stdenv.mkDerivation {
+          name = name + "-llms";
+          src = ./llms/llms.txt;
+          dontUnpack = true;
+          installPhase = ''
+            mkdir $out
+            cp $src $out/llms.txt
+          '';
+        };
       }
     );
 }
