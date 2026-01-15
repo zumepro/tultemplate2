@@ -20,9 +20,10 @@
 
 #let other_base(args, content) = {
   let language = req_arg(args, "document.language")
+  let bonding_type = get_arg(args, "bonding_type")
 
   default_styling(
-    true,
+    bonding_type,
     faculty_color(req_arg(args, "document.faculty")),
     {
       if not req_arg(args, "document.content_only") {

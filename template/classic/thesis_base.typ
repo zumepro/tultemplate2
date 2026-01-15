@@ -24,7 +24,7 @@
   }
 
   let language = req_arg(args, "document.language");
-  default_styling(false, faculty_color(req_arg(args, "document.faculty")), {
+  default_styling("switch", faculty_color(req_arg(args, "document.faculty")), {
     if show_disclaimer and is_none(get_arg(args, "title_pages")) {
       disclaimer(args);
     }
@@ -44,7 +44,7 @@
 
 #let thesis_base_title_pages(args) = {
   let language = req_arg(args, "document.language");
-  default_styling(false, faculty_color(req_arg(args, "document.faculty")), {
+  default_styling("switch", faculty_color(req_arg(args, "document.faculty")), {
     if is_none(get_arg(args, "title_pages")) {
       disclaimer(args);
     }

@@ -47,18 +47,22 @@
   content
 }
 
-#let default_styling(flip_bonding, faculty_color, content, language) = {
+#let default_styling(bonding_type, faculty_color, content, language) = {
   // page
   set page(
-    margin: if flip_bonding {
+    margin: if bonding_type == "switch" {
       (inside: 4cm, top: 3cm, bottom: 3cm)
-    } else {
+    } else if bonding_type == "left " {
       (left: 4cm, top: 3cm, bottom: 3cm)
+    } else if bonding_type == "none" {
+      (top: 3cm, bottom: 3cm)
+    } else {
+      panic("Unknown bonding type, it must be either switch, left or none");
     },
     numbering: "1", footer: {
     context {
       let page = counter(page).get().at(0);
-      if flip_bonding {
+      if bonding_type == "switch" {
         align(str(page), if calc.rem(page, 2) == 1 { right } else { left });
       } else {
         align(str(page), right);
