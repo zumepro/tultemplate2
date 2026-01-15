@@ -52,7 +52,7 @@
   set page(
     margin: if bonding_type == "switch" {
       (inside: 4cm, top: 3cm, bottom: 3cm)
-    } else if bonding_type == "left " {
+    } else if bonding_type == "left" {
       (left: 4cm, top: 3cm, bottom: 3cm)
     } else if bonding_type == "none" {
       (top: 3cm, bottom: 3cm)

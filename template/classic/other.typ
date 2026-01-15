@@ -4,7 +4,7 @@
   tablelist, toc,
 )
 #import "../attachments.typ": attachment_list
-#import "../utils.typ": assert_dict_has, assert_in_arr, assert_not_none, is_none
+#import "../utils.typ": assert_dict_has, assert_in_arr, assert_not_none, is_none, ok_or
 #import "../arguments.typ": get_arg, map_arg, req_arg
 #import "../theme.typ": faculty_color
 
@@ -20,7 +20,7 @@
 
 #let other_base(args, content) = {
   let language = req_arg(args, "document.language")
-  let bonding_type = get_arg(args, "bonding_type")
+  let bonding_type = ok_or(get_arg(args, "document.bonding_style"), "none")
 
   default_styling(
     bonding_type,

@@ -1,6 +1,6 @@
 #import "../theme.typ": faculty_color
 #import "../arguments.typ": get_arg, req_arg
-#import "../utils.typ": is_none, assert_dict_has
+#import "../utils.typ": is_none, assert_dict_has, ok_or
 #import "common.typ": (
   default_styling,
   disclaimer,
@@ -16,7 +16,12 @@
 
 #let force_langs = ("cs", "en");
 
-#let thesis_base(args, content, show_disclaimer: true, require_abstract: true) = {
+#let thesis_base(
+  args, content,
+  show_disclaimer: true,
+  require_abstract: true,
+  default_bonding_style: "left",
+) = {
   assert_dict_has(force_langs, req_arg(args, "title"), "title");
   if require_abstract {
     assert_dict_has(force_langs, req_arg(args, "abstract.content"), "abstract");
@@ -24,7 +29,8 @@
   }
 
   let language = req_arg(args, "document.language");
-  default_styling("switch", faculty_color(req_arg(args, "document.faculty")), {
+  let bonding_style = ok_or(get_arg(args, "document.bonding_style"), default_bonding_style)
+  default_styling(bonding_style, faculty_color(req_arg(args, "document.faculty")), {
     if show_disclaimer and is_none(get_arg(args, "title_pages")) {
       disclaimer(args);
     }
@@ -42,9 +48,10 @@
   }, language);
 }
 
-#let thesis_base_title_pages(args) = {
+#let thesis_base_title_pages(args, default_bonding_style: "switch") = {
   let language = req_arg(args, "document.language");
-  default_styling("switch", faculty_color(req_arg(args, "document.faculty")), {
+  let bonding_style = ok_or(get_arg(args, "document.bonding_style"), default_bonding_style)
+  default_styling(bonding_style, faculty_color(req_arg(args, "document.faculty")), {
     if is_none(get_arg(args, "title_pages")) {
       disclaimer(args);
     }

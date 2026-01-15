@@ -86,7 +86,32 @@
       ),
     )
 
-    keyval(literal("document"), struct(visual_style, faculty, language, type, content_only))
+    let bonding_style = doc(
+      keyval(literal("bonding_style"), variants(
+        doc(literal("switch"), none, (
+          cs: "Střídat odsazení pro oboustranný tisk",
+          en: "Switch bonding for double-sided printing",
+        )),
+        doc(literal("left"), none, (
+          cs: "Vazba na levé straně",
+          en: "Bonding on the left side",
+        )),
+        doc(literal("none"), none, (
+          cs: "Bez vazby (například pro elektronické dokumenty)",
+          en: "No bonding (e.g. for electronic documents)",
+        )),
+        doc(null, none, (
+          cs: "Použít výchozí nastavení pro daný dokument",
+          en: "Use default bonding for the selected document",
+        ))
+      )),
+      "bonding_style",
+      (cs: "Typ odsazení stránek", en: "Page margin style")
+    )
+
+    keyval(literal("document"), struct(
+      visual_style, faculty, language, type, content_only, bonding_style
+    ))
   }
 
   // == TITLE PAGES ==
@@ -491,6 +516,7 @@
   language_abbreviation,
   document_type,
   content_only,
+  bonding_style,
 ) = {
   (
     visual_style: visual_style,
@@ -498,6 +524,7 @@
     language: language_abbreviation,
     type: document_type,
     content_only: content_only,
+    bonding_style: bonding_style,
   )
 }
 
