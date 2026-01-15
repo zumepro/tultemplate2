@@ -125,11 +125,10 @@
         ] [];
         packages.llms = pkgs.stdenv.mkDerivation {
           name = name + "-llms";
-          src = ./llms/llms.txt;
-          dontUnpack = true;
+          src = ./llms;
           installPhase = ''
             mkdir $out
-            cp $src $out/llms.txt
+            cp -r $src/. $out
           '';
         };
       }
