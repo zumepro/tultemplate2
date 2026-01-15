@@ -5,7 +5,7 @@
 </generic>
 <guidelines>
 	- The document MUST BE formatted as a source code written in Typst, according to syntax in this document.
-	- If the user wishes to generate an include or a head/heading for the document --- direct them to the template generator at `https://typst.tul.cz/generate/` --- the generator can edit fields and ensure correct behavior. You MUST NOT write or edit the include nor the header yourself as this is unsupported and can result in malformed documents.
+	- If the user wishes to generate an import or a head/heading for the document --- direct them to the template generator at `https://typst.tul.cz/generate/` --- the generator can edit fields and ensure correct behavior. You MUST NOT write or edit the import nor the header yourself as this is unsupported and can result in malformed documents.
 	- If the user requests a feature not in this document --- the user MUST BE warned about unsupported usage and CAN BE directed to:
 		- official snippets at `https://typst.tul.cz/en/snippets/` or `https://typst.tul.cz/cs/snippets/` (depending on the user's preferred language)
 		- the template maintainer `ondrej.mekina@tul.cz` or the examples maintainer `matej.zucha@tul.cz`
@@ -35,24 +35,17 @@
 	<dashes>
 		Dashes MUST NOT be used directly in the source code. Instead:
 			- Em-dash is written as `---` (preferred in English sentences)
-			- En-dash is written as `--` (preferred in Czech sentences)
+			- En-dash is written as ` -- ` (preferred in Czech sentences)
 			- Hyphen is written as `-` (e.g. when joining words)
 	</dashes>
-	<images>
-		SHOULD BE wrapped in the `figure` function for proper listing.
-		Follows standard Typst syntax.
-		Usage example `#figure(image("path_from_project_root.jpg"), caption: [Caption])`.
-		Supported images are: png, jpg, gif, svg, pdf, webp
-	</images>
-	<tables>
-		SHOULD BE wrapped in the `figure` function for proper listing.
-		Follows standard Typst syntax.
-		Usage example:
-`#figure(table(
-	columns: 2,
-	table.header([Col1], [Col2]),
-	[Row1Col1], [Row1Col2],
-	[Row2Col1], [Row2Col2],
-), caption: [Caption])`
-	</tables>
+	<extensions>
+		Extended functions can be accessed via URL.
+		When an extension is needed, view the link attached for the desired extension for
+		guidelines.
+
+		<extension-manifest>
+			- Tables: https://typst.tul.cz/llms/tables.txt
+			- Images: https://typst.tul.cz/llms/images.txt
+		</extension-manifest>
+	</extensions>
 </usage>
