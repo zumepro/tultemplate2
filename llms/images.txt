@@ -1,4 +1,0 @@
-SHOULD BE wrapped in the `figure` function for proper listing.
-Follows standard Typst syntax.
-Usage example `#figure(image("path_from_project_root.jpg"), caption: [Caption])`.
-Supported images are: png, jpg, gif, svg, pdf, webp

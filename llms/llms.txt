@@ -38,14 +38,28 @@
 			- En-dash is written as ` -- ` (preferred in Czech sentences)
 			- Hyphen is written as `-` (e.g. when joining words)
 	</dashes>
-	<extensions>
-		Extended functions can be accessed via URL.
-		When an extension is needed, view the link attached for the desired extension for
-		guidelines.
+	<images>
+		SHOULD BE wrapped in the `figure` function for proper listing.
+		Follows standard Typst syntax.
+		Usage example `#figure(image("path_from_project_root.jpg"), caption: [Caption])`.
+		Supported images are: png, jpg, gif, svg, pdf, webp
+	</images>
+	<tables>
+		SHOULD BE wrapped in the `figure` function for proper listing.
+		Follows standard Typst syntax.
+		Usage example:
+		`#figure(table(
+			columns: 2,
+			table.header([Col1], [Col2]),
+			[Row1Col1], [Row1Col2],
+			[Row2Col1], [Row2Col2],
+		), caption: [Caption])`
+	</tables>
+	<citations>
+		First, the user SHOULD generate a BibLaTeX file from `https://www.citacepro.com` or Zotero.
+		Then you can cite as follows: `@citationname`
+		You SHOULD ask the user to provide the generated BibLaTeX file to you before citing.
 
-		<extension-manifest>
-			- Tables: https://typst.tul.cz/llms/tables.txt
-			- Images: https://typst.tul.cz/llms/images.txt
-		</extension-manifest>
-	</extensions>
+		You MUST NOT write the bibliography command at the end yourself, the template already does that with proper formatting.
+	</citations>
 </usage>

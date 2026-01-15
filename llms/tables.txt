@@ -1,9 +1,0 @@
-SHOULD BE wrapped in the `figure` function for proper listing.
-Follows standard Typst syntax.
-Usage example:
-`#figure(table(
-	columns: 2,
-	table.header([Col1], [Col2]),
-	[Row1Col1], [Row1Col2],
-	[Row2Col1], [Row2Col2],
-), caption: [Caption])`
