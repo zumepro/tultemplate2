@@ -156,14 +156,22 @@
 
   // == AUTHOR ==
   let author = {
-    let name = doc(keyval(literal("name"), opt_cont_or_str), "author", (
-      cs: "Jméno autora včetně titulů",
-      en: "The name of the author including titles",
-    ))
-
-    let other_authors = doc(keyval(literal("other_authors"), opt_cont_or_str), "other_authors", (
-      cs: "Jména dalších autorů včetně titulů",
-      en: "The names of other authors including their titles",
+    let name = doc(keyval(literal("name"), variants(
+      doc(null, none, (
+        cs: "Žádný autor - toto může způsobit chybu u některých dokumentů",
+        en: "No author - this can cause a panic for some documents",
+      )),
+      doc(cont_or_str, none, (
+        cs: "Jeden autor",
+        en: "Single author",
+      )),
+      doc(slice(cont_or_str), none, (
+        cs: "Více autorů",
+        en: "Multiple authors",
+      )),
+    )), "author", (
+      cs: "Jméno autora/ů včetně titulů",
+      en: "The name of the author(s) including titles",
     ))
 
     let pronouns = doc(
@@ -189,7 +197,7 @@
           en: "Fallback for English, singular",
         )),
       )),
-      "author",
+      "author_pronouns",
       (cs: "Oslovení autora / autorů", en: "Author pronouns"),
     )
 
@@ -216,7 +224,7 @@
       en: "The year of study of the author",
     ))
 
-    keyval(literal("author"), struct(name, other_authors, pronouns, programme, specialization, year_of_study))
+    keyval(literal("author"), struct(name, pronouns, programme, specialization, year_of_study))
   }
 
   // == PROJECT ==
@@ -555,10 +563,9 @@
   )
 }
 
-#let author_info(name, other_authors, pronouns, programme, specialization, year_of_study) = {
+#let author_info(name, pronouns, programme, specialization, year_of_study) = {
   (
     name: name,
-    other_authors: other_authors,
     pronouns: pronouns,
     programme: programme,
     specialization: specialization,

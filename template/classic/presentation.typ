@@ -2,7 +2,7 @@
 #import "../utils.typ": assert_dict_has, is_none
 #import "../theme.typ": faculty_color, faculty_logotype, faculty_logotype_text, tul_logomark
 #import "../lang.typ": get_lang_item
-#import "common.typ": common_styling, bibliogr, base_font
+#import "common.typ": common_styling, bibliogr, base_font, merge_authors
 
 #let header_margin = 20pt
 #let footer_margin = header_margin
@@ -80,6 +80,7 @@
 }
 
 #let signedpage(language, faculty, faculty_color, author, content, paper) = {
+  let author = merge_authors(author).at(0)
   fullpage(language, faculty, faculty_color, {
     content
     place(center + bottom, text(author, white.transparentize(10%), size: 1.5em, font: base_font))
@@ -95,9 +96,12 @@
 }
 
 #let thankspage(language, faculty, faculty_color, author, paper) = {
+  let author_multiple = merge_authors(author).at(1)
   signedpage(language, faculty, faculty_color, author, {
     place(center + horizon, text(
-      get_lang_item(language, "thanks_for_attention"),
+      get_lang_item(
+        language, "thanks_for_attention" + if author_multiple { "_plural" } else { "" }
+      ),
       size: 2em * paper_compensation.at(paper),
       font: "TUL Mono",
       white,

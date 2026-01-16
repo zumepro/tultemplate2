@@ -144,6 +144,21 @@
   }
 }
 
+// Returns `(content, is_multiple)`
+#let merge_authors(authors) = {
+  if type(authors) == array {
+    let first = true
+    ((for author in authors {
+      if first {
+        first = false
+      } else { ", " }
+      author
+    }), true)
+  } else {
+    (authors, false)
+  }
+}
+
 #let info_base(
   faculty_id,
   language,
@@ -205,10 +220,11 @@
   faculty_id,
   language,
   document_type,
-  title, author, other_authors, supervisor, consultant, study_programme, study_specialization, year_of_study,
+  title, authors, supervisor, consultant, study_programme, study_specialization, year_of_study,
 ) = {
+  let author = merge_authors(authors)
   info_base(faculty_id, language, document_type, title, (
-    if other_authors != none {("authors", author + ", " + other_authors, true)} else {("author", author, true)},
+    (if author.at(1) { "authors" } else { "author" }, author.at(0), true),
     ("supervisor", person_info(supervisor, "supervisor"), false),
     ("consultant", person_info(consultant, "consultant"), false),
     ("study_programme", study_programme, false),
@@ -237,14 +253,13 @@
 #let mainpage(args) = {
   let (
     language, document_type, faculty,
-    title, author, other_authors, supervisor, consultant, study_programme, study_specialization, year_of_study,
+    title, author, supervisor, consultant, study_programme, study_specialization, year_of_study,
   ) = get_arg(args, (
     "document.language",
     "document.type",
     "document.faculty",
     "title",
     "author.name",
-    "author.other_authors",
     "project.supervisor",
     "project.consultant",
     "author.programme",
@@ -263,7 +278,7 @@
     align({
       info_mainpage(
         faculty, language, document_type, map_none(title, (v) => v.at(language)),
-        author, other_authors, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
+        author, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
         map_none(study_specialization, (v) => v.at(language)), year_of_study,
       );
       v(5em);
@@ -272,6 +287,7 @@
 }
 
 #let assignmentpage(args, language, document_type, faculty, title, author, programme, content) = {
+  let author = merge_authors(author).at(0)
   let (personal_number, department, academical_year) = req_arg(args, (
     "personal_number", "department", "academical_year",
   ));
@@ -351,6 +367,7 @@
     "document.type",
     "author.name",
   ));
+  let author = merge_authors(author).at(0)
   let author_pronouns = get_arg(args, "author.pronouns");
   set page(footer: none)
   heading(get_lang_item(language, "disclaimer"), numbering: none, outlined: false);
@@ -364,23 +381,24 @@
     block(
       text(datetime.today().display(get_lang_item(language, "date")), lang: "cs"), width: 100%
     ),
-    text(author),
+    author,
   );
 }
 
 // ACKNOWLEDGEMENT PAGE
 
 #let acknowledgement(args) = {
-  let content = get_arg(args, "acknowledgement");
-  let (language, author) = req_arg(args, ("document.language", "author.name"));
+  let content = get_arg(args, "acknowledgement")
+  let (language, author) = req_arg(args, ("document.language", "author.name"))
+  let author = merge_authors(author).at(0)
   if is_none(content) {
-    return;
+    return
   }
   set page(footer: none)
-  heading(get_lang_item(language, "acknowledgement"), numbering: none, outlined: false);
-  par(content.at(language));
-  v(2em);
-  align(right, author);
+  heading(get_lang_item(language, "acknowledgement"), numbering: none, outlined: false)
+  par(content.at(language))
+  v(2em)
+  align(right, author)
 }
 
 // ABSTRACT

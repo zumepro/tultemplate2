@@ -92,6 +92,7 @@
 		"place_assignment": "Sem vložte zadání",
 
 		"thanks_for_attention": "Děkuji za pozornost",
+		"thanks_for_attention_plural": "Děkujeme za pozornost",
 
 		"break_rules": {
 			"space_after": [
@@ -167,6 +168,7 @@
 
 		"place_assignment": "Insert your assignment here",
 
-		"thanks_for_attention": "Thank you for your attention"
+		"thanks_for_attention": "Thank you for your attention",
+		"thanks_for_attention_plural": "Thank you for your attention"
 	}
 }

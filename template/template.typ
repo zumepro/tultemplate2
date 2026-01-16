@@ -53,7 +53,7 @@
   // document info
   title_pages: none,
   title: none, keywords: none, abstract: none, acknowledgement: none, author: none,
-  other_authors: none, author_pronouns: none, supervisor: none, consultant: none, programme: none,
+  author_pronouns: none, supervisor: none, consultant: none, programme: none,
   specialization: none, year_of_study: none, content_only: false, bonding_style: none,
 
   // nested
@@ -79,7 +79,7 @@
     document_info(style, faculty, lang, document, content_only, bonding_style),
     title_pages,
     title,
-    author_info(author, other_authors, author_pronouns, programme, specialization, year_of_study),
+    author_info(author, author_pronouns, programme, specialization, year_of_study),
     project_info(supervisor, consultant),
     abstract_info(abstract, keywords),
     acknowledgement,
@@ -133,13 +133,13 @@
     document_info(style, faculty, lang, document, false, none),
     none,
     title,
-    author_info(author, other_authors, author_pronouns, programme, specialization, year_of_study),
+    author_info(author, author_pronouns, programme, specialization, year_of_study),
     project_info(supervisor, consultant),
     abstract_info(none, none),
     none,
     assignment,
     none,
-    citation_info("", TODO),
+    citation_info("", none),
   );
   check_arguments(args);
   import "utils.typ": assert_in_dict, assert_type_signature
