@@ -18,7 +18,6 @@
     en: [Example document for a Bachelor's thesis in English],
   ),
   author: [Matěj Žucha],
-  other_authors: [Ondřej Mekina],
   author_pronouns: "we",
   programme: (en: [MI6000000007 Top secret]),
   specialization: (en: [Creation of templates]),

@@ -18,7 +18,6 @@
     en: [Example document for a Diploma thesis in Czech],
   ),
   author: [Matěj Žucha],
-  other_authors: [Ondřej Mekina],
   author_pronouns: "we",
   programme: (cs: [MI6000000007 Přísně tajné]),
   specialization: (cs: [Vytváření šablon]),
