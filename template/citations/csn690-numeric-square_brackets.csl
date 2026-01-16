@@ -2,8 +2,8 @@
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never" default-locale="en-US">
   <info>
     <title>ČSN ISO 690:2022 (TUL)</title>
-    <id>https://git.zumepro.cz/tul/tultemplate2/src/branch/master/template/tul_citace.csl</id>
-    <link href="https://git.zumepro.cz/tul/tultemplate2/src/branch/master/template/citation_styles/tul-csn690-numeric-square_brackets" rel="self"/>
+    <id>https://git.zumepro.cz/tul/tultemplate2/src/branch/master/template/citations/csn690-numeric-square_brackets.csl</id>
+    <link href="https://git.zumepro.cz/tul/tultemplate2/src/branch/master/template/citations/csn690-numeric-square_brackets.csl" rel="self"/>
     <link href="http://www.zotero.org/styles/iso690-numeric-en" rel="template"/>
     <author>
       <name>Ondřej Mekina</name>

@@ -56,7 +56,7 @@
       v
     }
   })
-  args.citations = map_arg(args, "citations", v => {
+  args.citations.bibliography = map_arg(args, "citations.bibliography", v => {
     if type(v) == array {
       v.map(v => { "../../" + v })
     } else if type(v) == str {

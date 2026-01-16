@@ -1,4 +1,4 @@
-#import "utils.typ": assert_dict_has, assert_type_signature, deref, is_none, map_none
+#import "utils.typ": assert_dict_has, assert_type_signature, deref, is_none, map_none, ok_or
 #import "type_signature.typ": *
 
 
@@ -373,21 +373,43 @@
   }
 
   // == CITATIONS ==
-  let citations = doc(
-    // citations
-    keyval(literal("citations"), variants(
-      doc(string, none, (
-        cs: "Cesta k souboru s bibliografií",
-        en: "The path to the bibliography file",
+  let citations = {
+    let bibliography = doc(
+      // citations
+      keyval(literal("bibliography"), variants(
+        doc(string, none, (
+          cs: "Cesta k souboru s bibliografií",
+          en: "The path to the bibliography file",
+        )),
+        doc(slice(string), none, (
+          cs: "Cesty k souborům s bibliografií",
+          en: "Paths to the bibliography files",
+        )),
       )),
-      doc(slice(string), none, (
-        cs: "Cesty k souborům s bibliografií",
-        en: "Paths to the bibliography files",
+      "citations",
+      (cs: "Zdroj(e) bibliografie", en: "Bibliography source(s)"),
+    )
+
+    let style = doc(
+      // citation_style
+      keyval(literal("style"), variants(
+        doc(null, none, (cs: "Použít výchozí styl", en: "Use the default style")),
+        doc(literal("numeric"), none, (
+          cs: "Čísla v hranatých závorkách",
+          en: "Numbers in square brackets",
+        )),
       )),
-    )),
-    "citations",
-    (cs: "Zdroj bibliografie", en: "Bibliography source"),
-  )
+      "citation_style",
+      (
+        cs: "Styl citací",
+        en: "Citatino style"
+      )
+    )
+
+    keyval(literal("citations"), struct(
+      bibliography, style,
+    ))
+  }
 
   struct(
     document,
@@ -544,4 +566,8 @@
 
 #let abstract_info(abstract, keywords) = {
   (content: abstract, keywords: keywords)
+}
+
+#let citation_info(bibliography, style) = {
+  (bibliography: bibliography, style: style)
 }

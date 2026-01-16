@@ -3,7 +3,7 @@
   <info>
     <title>ISO-690 (numeric, English)</title>
     <id>http://www.zotero.org/styles/iso690-numeric-en</id>
-    <link href="https://git.zumepro.cz/tul/tultemplate2/src/branch/master/template/citation_styles/iso690-numeric-square_brackets" rel="self"/>
+    <link href="https://git.zumepro.cz/tul/tultemplate2/src/branch/master/template/citations/iso690-numeric-square_brackets.csl" rel="self"/>
     <link href="http://www.zotero.org/styles/iso690-numeric-en" rel="template"/>
     <author>
       <name>Ondřej Mekina</name>

@@ -528,12 +528,16 @@
 // BIBLIOGRAPHY
 
 #let bibliogr(args, presentation_double_title: false) = {
-  let (language, citations) = req_arg(args, ("document.language", "citations"));
+  let (language, citations) = req_arg(args, ("document.language", "citations.bibliography"))
+  let citations_style = get_arg(args, "citations.style")
   let styles = (
-    "cs": "../citations/tul-csn690-numeric-square_brackets.csl",
-    "en": "../citations/iso690-numeric-square_brackets.csl",
-  );
-  let style = styles.at(language);
+    numeric: (
+      cs: "../citations/csn690-numeric-square_brackets.csl",
+      en: "../citations/iso690-numeric-square_brackets.csl"
+    )
+  )
+  let citations_style = if is_none(citations_style) { "numeric" } else { citations_style }
+  let style = styles.at(citations_style).at(language)
   context {
     if query(ref.where(element: none)).len() > 0 {
       set par(justify: false)
@@ -546,7 +550,7 @@
         citations,
         style: style,
         title: none,
-      );
+      )
     }
   }
 }

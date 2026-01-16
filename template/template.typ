@@ -39,9 +39,10 @@
 // - keywords (dictionary): The abstract keywords.
 // - assignment (str): Filepath of the assignment document/page.
 // - citations (str): The location of the citation file.
+// - citation_style (str): Which citation style to use. One of none, "numeric".
 // - presentation (dictionary): Arguments for the presentation
 // - content_only (bool): Whether to output content only (this works for documents of type `other`)
-// - bonding_style (str): Where to put page margins
+// - bonding_style (str): Where to put page margins. One of "switch", "left", "none".
 // - content (content): The content of the document
 //
 //-> none
@@ -58,7 +59,7 @@
   // nested
   assignment: none, presentation: none,
 
-  citations: "citations.bib",
+  citations: "citations.bib", citation_style: none,
 
   // content
   content,
@@ -69,6 +70,7 @@
     author_info,
     project_info,
     abstract_info,
+    citation_info,
     check_arguments,
     req_arg,
   )
@@ -83,7 +85,7 @@
     acknowledgement,
     assignment,
     presentation,
-    citations,
+    citation_info(citations, citation_style),
   );
   check_arguments(args);
 
@@ -123,11 +125,12 @@
     author_info,
     project_info,
     abstract_info,
+    citation_info,
     check_arguments,
     req_arg,
   )
   let args = arguments(
-    document_info(style, faculty, lang, document, false),
+    document_info(style, faculty, lang, document, false, none),
     none,
     title,
     author_info(author, author_pronouns, programme, specialization, year_of_study),
@@ -136,7 +139,7 @@
     none,
     assignment,
     none,
-    "",
+    citation_info("", TODO),
   );
   check_arguments(args);
   import "utils.typ": assert_in_dict, assert_type_signature
