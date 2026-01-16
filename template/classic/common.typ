@@ -205,10 +205,10 @@
   faculty_id,
   language,
   document_type,
-  title, author, supervisor, consultant, study_programme, study_specialization, year_of_study,
+  title, author, other_authors, supervisor, consultant, study_programme, study_specialization, year_of_study,
 ) = {
   info_base(faculty_id, language, document_type, title, (
-    ("author", author, true),
+    if other_authors != none {("authors", author + ", " + other_authors, true)} else {("author", author, true)},
     ("supervisor", person_info(supervisor, "supervisor"), false),
     ("consultant", person_info(consultant, "consultant"), false),
     ("study_programme", study_programme, false),
@@ -237,13 +237,14 @@
 #let mainpage(args) = {
   let (
     language, document_type, faculty,
-    title, author, supervisor, consultant, study_programme, study_specialization, year_of_study,
+    title, author, other_authors, supervisor, consultant, study_programme, study_specialization, year_of_study,
   ) = get_arg(args, (
     "document.language",
     "document.type",
     "document.faculty",
     "title",
     "author.name",
+    "author.other_authors",
     "project.supervisor",
     "project.consultant",
     "author.programme",
@@ -262,7 +263,7 @@
     align({
       info_mainpage(
         faculty, language, document_type, map_none(title, (v) => v.at(language)),
-        author, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
+        author, other_authors, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
         map_none(study_specialization, (v) => v.at(language)), year_of_study,
       );
       v(5em);
