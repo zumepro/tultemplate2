@@ -15,8 +15,9 @@
 #let set_page_style(lang, faculty, faculty_color, paper, content) = {
   context {
     let footer_logotype = faculty_logotype(faculty, lang, long: false)
-    let footer_height = measure(footer_logotype).height + footer_margin
+    let footer_height = measure(footer_logotype).height + footer_margin * 2
     set page(paper: paper, margin: (bottom: footer_height, rest: 1cm), footer-descent: 0%, footer: {
+      v(footer_margin)
       text(box(outset: (top: footer_margin, bottom: footer_margin), {
         footer_logotype
         h(1fr)
