@@ -262,7 +262,7 @@
   let lang_expr = (
     with_keys: (cs: "S klíči", en: "With keys"),
     with_values: (cs: "S hodnotami", en: "With values"),
-    empty: (cs: [prádzné (_none_)], en: [empty (_none_)]),
+    empty: (cs: [prázdné (_none_)], en: [empty (_none_)]),
     struct: (
       cs: [slovník s přesnými atributy (_dictionary_)],
       en: [a dictionary with exact atributes (_dictionary_)],
