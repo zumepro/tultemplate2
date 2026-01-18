@@ -13,6 +13,7 @@
         "TUL&",
         "TUL&",
       ),
+      85%,
     ),
 
     fs: (
@@ -25,6 +26,7 @@
         "FS TUL&",
         "FME TUL&",
       ),
+      none,
     ),
 
     ft: (
@@ -37,6 +39,7 @@
         "FT TUL&",
         "FT TUL&",
       ),
+      none,
     ),
 
     fp: (
@@ -49,6 +52,7 @@
         "FP TUL&",
         "FED TUL&",
       ),
+      none,
     ),
 
     ef: (
@@ -61,6 +65,7 @@
         "EF TUL&",
         "FE TUL&",
       ),
+      none,
     ),
 
     fua: (
@@ -73,6 +78,7 @@
         "FUA TUL&",
         "FAA TUL&",
       ),
+      none,
     ),
 
     fm: (
@@ -85,6 +91,7 @@
         "FM TUL&",
         "FM TUL&",
       ),
+      none,
     ),
 
     fzs: (
@@ -97,6 +104,7 @@
         "FZS TUL&",
         "FHS TUL&",
       ),
+      none,
     ),
 
     cxi: (
@@ -109,6 +117,7 @@
         "CXI TUL&",
         "CXI TUL&",
       ),
+      none,
     ),
 
 );
@@ -123,6 +132,19 @@
   let theme_color = theme.at(0);
   assert(type(theme_color) == color);
   return theme_color;
+}
+
+#let faculty_subtle_color(faculty_id) = {
+  let theme = faculty_theme(faculty_id)
+  if type(theme.at(3)) != type(none) {
+    theme.at(0).lighten(theme.at(3))
+  } else {
+    let luma = theme.at(0).hsl().components().at(2)
+    let to_white = 100% - luma
+    let to_target = 90% - luma
+    let lighten_by = to_target / to_white * 100%
+    theme.at(0).lighten(lighten_by)
+  }
 }
 
 #let faculty_logotype_text(faculty_id, lang, long: true) = {

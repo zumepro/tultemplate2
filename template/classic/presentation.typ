@@ -1,6 +1,8 @@
 #import "../arguments.typ": req_arg 
 #import "../utils.typ": assert_dict_has, is_none
-#import "../theme.typ": faculty_color, faculty_logotype, faculty_logotype_text, tul_logomark
+#import "../theme.typ": (
+  faculty_color, faculty_logotype, faculty_logotype_text, tul_logomark, faculty_subtle_color
+)
 #import "../lang.typ": get_lang_item
 #import "common.typ": common_styling, bibliogr, base_font, merge_authors
 
@@ -55,9 +57,11 @@
   }
 }
 
-#let apply_style(language, faculty, faculty_color, paper, first_heading_fullpage, content) = {
+#let apply_style(
+  language, faculty, faculty_color, faculty_subtle_color, paper, first_heading_fullpage, content
+) = {
   common_styling(
-    faculty_color, language,
+    faculty_color, faculty_subtle_color, language,
     set_page_style(
       language, faculty, faculty_color, paper,
       set_heading_styles(first_heading_fullpage, faculty_color, content)
@@ -114,6 +118,7 @@
   let language = req_arg(args, "document.language")
   let faculty = req_arg(args, "document.faculty")
   let faculty_color = faculty_color(faculty)
+  let faculty_subtle_color = faculty_subtle_color(faculty)
   let presentation_args = req_arg(args, "presentation_info")
   let author = req_arg(args, "author.name")
   let first_heading_is_fullpage = presentation_args.at("first_heading_is_fullpage")
@@ -127,10 +132,13 @@
     language, faculty, faculty_color,
     req_arg(args, "title").at(language), author, paper,
   )
-  apply_style(language, faculty, faculty_color, paper, first_heading_is_fullpage, {
-    content
-    bibliogr(args, presentation_double_title: first_heading_is_fullpage)
-  })
+  apply_style(
+    language, faculty, faculty_color, faculty_subtle_color, paper, first_heading_is_fullpage,
+    {
+      content
+      bibliogr(args, presentation_double_title: first_heading_is_fullpage)
+    }
+  )
   if presentation_args.at("append_thanks") {
     thankspage(language, faculty, faculty_color, author, paper)
   }

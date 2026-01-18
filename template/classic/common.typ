@@ -14,7 +14,7 @@
 
 // TYPST ELEMENT STYLING
 
-#let common_styling(faculty_color, language, content) = {
+#let common_styling(faculty_color, faculty_subtle_color, language, content) = {
   // text
   set text(font: base_font);
   set par(justify: true);
@@ -40,14 +40,14 @@
       text(underline(it), fill: faculty_color);
     }
   }
-  set highlight(fill: faculty_color.lighten(90%));
+  set highlight(fill: faculty_subtle_color);
   set line(stroke: (paint: faculty_color, thickness: .7pt), length: 100%);
   set rect(stroke: (paint: faculty_color, thickness: .7pt));
 
   content
 }
 
-#let default_styling(bonding_type, faculty_color, content, language) = {
+#let default_styling(bonding_type, faculty_color, faculty_subtle_color, content, language) = {
   // page
   set page(
     margin: if bonding_type == "switch" {
@@ -106,7 +106,7 @@
     }
   }
 
-  common_styling(faculty_color, language, content);
+  common_styling(faculty_color, faculty_subtle_color, language, content);
 }
 
 

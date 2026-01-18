@@ -1,4 +1,4 @@
-#import "../theme.typ": faculty_color
+#import "../theme.typ": faculty_color, faculty_subtle_color
 #import "../arguments.typ": get_arg, req_arg
 #import "../utils.typ": is_none, assert_dict_has, ok_or
 #import "common.typ": (
@@ -29,8 +29,9 @@
   }
 
   let language = req_arg(args, "document.language");
+  let faculty = req_arg(args, "document.faculty")
   let bonding_style = ok_or(get_arg(args, "document.bonding_style"), default_bonding_style)
-  default_styling(bonding_style, faculty_color(req_arg(args, "document.faculty")), {
+  default_styling(bonding_style, faculty_color(faculty), faculty_subtle_color(faculty), {
     if show_disclaimer and is_none(get_arg(args, "title_pages")) {
       disclaimer(args);
     }

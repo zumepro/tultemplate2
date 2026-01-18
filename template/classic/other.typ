@@ -6,7 +6,7 @@
 #import "../attachments.typ": attachment_list
 #import "../utils.typ": assert_dict_has, assert_in_arr, assert_not_none, is_none, ok_or
 #import "../arguments.typ": get_arg, map_arg, req_arg
-#import "../theme.typ": faculty_color
+#import "../theme.typ": faculty_color, faculty_subtle_color
 
 #let other_title_page(args) = {
   if req_arg(args, "document.content_only") {
@@ -21,10 +21,12 @@
 #let other_base(args, content) = {
   let language = req_arg(args, "document.language")
   let bonding_type = ok_or(get_arg(args, "document.bonding_style"), "none")
+  let faculty = req_arg(args, "document.faculty")
 
   default_styling(
     bonding_type,
-    faculty_color(req_arg(args, "document.faculty")),
+    faculty_color(faculty),
+    faculty_subtle_color(faculty),
     {
       if not req_arg(args, "document.content_only") {
         toc(language)
