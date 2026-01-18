@@ -18,7 +18,6 @@
     en: [Example document for a Term paper in Czech],
   ),
   author: [Matěj Žucha],
-  author_pronouns: "we",
   programme: (en: [MI6000000007 Top secret]),
   specialization: (en: [Creation of templates]),
   citations: "citations.bib",

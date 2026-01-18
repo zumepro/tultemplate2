@@ -184,17 +184,9 @@
           cs: "Pro češtinu, oslovení v ženském rodě",
           en: "For Czech (feminine)",
         )),
-        doc(literal("we"), none, (
-          cs: "Pro češtinu a angličtinu, oslovení v množném čísle",
-          en: "For Czech and English, plural",
-        )),
-        doc(literal("me"), none, (
-          cs: "Pro angličtinu, oslovení v jednotném čísle",
-          en: "For English, singular",
-        )),
         doc(null, none, (
-          cs: "Pro angličtinu, oslovení v jednotném čísle",
-          en: "Fallback for English, singular",
+          cs: "Použít výchozí hodnotu (lze pouze u angličtiny, nebo u více autorů v češtině)",
+          en: "Use default value (only for English or for multiple authors in Czech)",
         )),
       )),
       "author_pronouns",

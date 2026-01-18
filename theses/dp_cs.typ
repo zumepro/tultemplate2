@@ -18,7 +18,7 @@
     en: [Example document for a Diploma thesis in Czech],
   ),
   author: [Matěj Žucha],
-  author_pronouns: "we",
+  author_pronouns: "masculine",
   programme: (cs: [MI6000000007 Přísně tajné]),
   specialization: (cs: [Vytváření šablon]),
   supervisor: [Ondřej Mekina],

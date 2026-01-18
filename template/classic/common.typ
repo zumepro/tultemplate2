@@ -367,8 +367,18 @@
     "document.type",
     "author.name",
   ));
-  let author = merge_authors(author).at(0)
-  let author_pronouns = get_arg(args, "author.pronouns");
+  let author_info = merge_authors(author)
+  let author = author_info.at(0)
+  let author_pronouns = if author_info.at(1) {
+    "we"
+  } else {
+    if language == "en" {
+      "me"
+    } else {
+      req_arg(args, "author.pronouns")
+    }
+  }
+  
   set page(footer: none)
   heading(get_lang_item(language, "disclaimer"), numbering: none, outlined: false);
   par(

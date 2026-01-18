@@ -10,9 +10,6 @@
   map_arg(args, "author.specialization", (v) => {
     assert_dict_has((language,), v, "study specialization");
   });
-  if language == "cs" {
-    let _ = req_arg(args, "author.pronouns");
-  }
 
   mainpage(args);
   assignment(args, show_fallback: false);

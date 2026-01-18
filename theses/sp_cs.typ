@@ -18,7 +18,6 @@
     en: [Example document for a Term paper in Czech],
   ),
   author: [Matěj Žucha],
-  author_pronouns: "we",
   programme: (cs: [MI6000000007 Přísně tajné]),
   specialization: (cs: [Vytváření šablon]),
   citations: "citations.bib",

@@ -8,9 +8,6 @@
   assert_dict_has((language,), programme, "study programme");
   let specialization = req_arg(args, "author.specialization");
   assert_dict_has((language,), specialization, "study specialization");
-  if language == "cs" {
-    let _ = req_arg(args, "author.pronouns");
-  }
 
   mainpage(args);
   assignment(args, show_fallback: false);
