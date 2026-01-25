@@ -142,14 +142,14 @@
 
   // == TITLE ==
   let title = doc(
-    keyval(literal("title"), dict(keyval(
+    keyval(literal("title"), variants(dict(keyval(
       variants(
         // title
         doc(literal("cs"), none, (cs: "Název práce v češtině", en: "Document title in Czech")),
         doc(literal("en"), none, (cs: "Název práce v angličtině", en: "Document title in English")),
       ),
       cont_or_str,
-    ))),
+    )), null)),
     "title",
     (cs: "Název práce", en: "Document title"),
   )
