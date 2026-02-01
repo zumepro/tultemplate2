@@ -112,7 +112,7 @@
         };
         packages.bundle = build_with_targets "bundle" ["bundle"] ["target/pack/bundle/."] [];
         packages.theses = build "theses" (builtins.map (file: "${file}.pdf") [
-          "documentation"
+          "documentation_cs" "documentation_en"
           "bp_cs" "bp_en"
           "dp_cs" "dp_en"
           "prj_cs" "prj_en"

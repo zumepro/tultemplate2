@@ -18,15 +18,17 @@ MINIMAL_SRCS := $(shell find template -type f -regex '^.*\.typ$$') \
 				template/lang.json \
 				$(LIB_TARGETS_MUCHPDFTOOLS:%=$(LIB_MUCHPDFTOOLS)/%)
 TEMPLATE_SRCS := $(MINIMAL_SRCS) template/example_appendix.pdf
-ADD_TO_PACK := template/LICENSE
+ADD_TO_PACK := template/LICENSE template/build_date.txt
 TO_PACK_MINIMAL := $(MINIMAL_SRCS) $(ADD_TO_PACK)
 TO_PACK := $(TEMPLATE_SRCS) $(ADD_TO_PACK)
 BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en sp_cs sp_en presentation_cs presentation_en
 BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
 				  $(BUNDLE_THESES:%=$(BUNDLEDIR)/%.typ) $(BUNDLEDIR)/Makefile \
 				  $(BUNDLEDIR)/title-pages.pdf $(BUNDLEDIR)/assignment.pdf
-PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) $(PACKDIR)/documentation.typ \
-				$(PACKDIR)/documentation.pdf $(PACKDIR)/citations.bib $(PACKDIR)/Makefile
+PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) \
+				$(PACKDIR)/documentation_cs.typ $(PACKDIR)/documentation_en.typ \
+				$(PACKDIR)/documentation_cs.pdf $(PACKDIR)/documentation_en.pdf \
+				$(PACKDIR)/citations.bib $(PACKDIR)/Makefile
 MINIMAL_TARGETS := $(TO_PACK_MINIMAL:%=$(MINIMALDIR)/%)
 
 # == MAIN TARGETS ==
@@ -34,7 +36,11 @@ MINIMAL_TARGETS := $(TO_PACK_MINIMAL:%=$(MINIMALDIR)/%)
 .PRECIOUS: $(BUILD_DIR)/%.pdf
 
 .PHONY: view_documentation
-view_documentation: $(BUILD_DIR)/documentation.pdf
+view_documentation: $(BUILD_DIR)/documentation_en.pdf
+	xdg-open $<
+
+.PHONY: view_documentation_cs
+view_documentation_cs: $(BUILD_DIR)/documentation_cs.pdf
 	xdg-open $<
 
 .PHONY: pack
@@ -42,21 +48,25 @@ pack: $(PACKDIR)/tultemplate2.zip
 
 .PHONY: bundle
 bundle: $(BUNDLE_TARGETS)
-	@echo "!! Bundles are made for tultemplategen and not for direct use !!"
+	@echo -e "\n\n!! Bundles are made for tultemplategen and not for direct use !!\n\n"
 
 .PHONY: minimal
 minimal: $(MINIMAL_TARGETS) $(MINIMALDIR)/tultemplate2_minimal.zip
 
 .PHONY: watch_documentation
-watch_documentation: $(BUILD_DIR)/documentation.pdf
-	xdg-open $< & typst watch --font-path template/fonts documentation.typ $<
+watch_documentation: $(BUILD_DIR)/documentation_en.pdf
+	xdg-open $< & typst watch --font-path template/fonts documentation_en.typ $<
+
+.PHONY: watch_documentation_cs
+watch_documentation_cs: $(BUILD_DIR)/documentation_cs.pdf
+	xdg-open $< & typst watch --font-path template/fonts documentation_cs.typ $<
 
 .PHONY: thesis_%
 thesis_%: $(BUILD_DIR)/%.pdf
 	xdg-open $<
 
 .PHONY: documentation
-documentation: $(BUILD_DIR)/documentation.pdf
+documentation: $(BUILD_DIR)/documentation_en.pdf $(BUILD_DIR)/documentation_cs.pdf
 
 .PHONY: clean
 clean:
@@ -121,7 +131,7 @@ template/lib/much_pdf_tools/much_pdf_tools.wasm: | $(LIB_MUCHPDFTOOLS)
 
 # == DOCUMENTATION ==
 
-$(BUILD_DIR)/documentation.pdf: documentation.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
+$(BUILD_DIR)/documentation_%.pdf: documentation_%.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
 	$(call typst_compile) $< $@
 
 # == THESES EXAMPLES ==
@@ -180,7 +190,11 @@ $(PACKSTAGING)/template/citations/%: template/citations/% | $(PACKSTAGING)/templ
 $(PACKSTAGING)/template/lang.json: template/lang.json | $(PACKSTAGING)/template
 	$(call minify_json,$<,$@)
 
-$(PACKSTAGING)/documentation.pdf: $(BUILD_DIR)/documentation.pdf | $(PACKSTAGING)
+.PHONY: $(PACKSTAGING)/template/build_date.txt
+$(PACKSTAGING)/template/build_date.txt: | $(PACKSTAGING)/template
+	date +%Y-%m-%dT%H:%M:%S > $@
+
+$(PACKSTAGING)/documentation_%.pdf: $(BUILD_DIR)/documentation_%.pdf | $(PACKSTAGING)
 	ln -f $< $@
 
 $(PACKSTAGING)/%.pdf: $(BUILD_DIR)/%.pdf | $(PACKSTAGING)
