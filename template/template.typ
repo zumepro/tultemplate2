@@ -11,41 +11,41 @@
   attachments, attach_content, attach_pdf, attach_link, attach_file_reference
 )
 
-// TUL Template 2
-//
-// Use this at the beginning of a Typst file:
-// ```typst
-// #import "template/template.typ": *
-//
-// #show: tultemplate2.with(
-//   "classic", "fm", "cs", ...
-// )
-// ```
-//
-// - style (str): Visual style to use. This can be "classic".
-// - faculty (str): Factulty abbreviation. One of "fs", "ft", "fp", "ef", "fua", "fm", "fzs", "cxi".
-// - lang (str): Language code. This can be "cs" or "en".
-// - document (str): Type of document. This can be "bp" or "other".
-// - title_pages (str): The title pages exported from STAG (supported for some document types)
-// - title (dictionary): The title of the document.
-// - author (str): The name of the document's author.
-// - author_pronouns (str): The gender of the document's author. Needed only for the `cs` language.
-// - supervisor (str): The name of the document's supervisor.
-// - consultant (str): The name of the document's consultant.
-// - programme (dictionary): Study programme.
-// - specialization (disctionary): Study specialization
-// - year_of_study (int): Year of study
-// - abstract (dictionary): The abstract.
-// - keywords (dictionary): The abstract keywords.
-// - assignment (str): Filepath of the assignment document/page.
-// - citations (str): The location of the citation file.
-// - citation_style (str): Which citation style to use. One of none, "numeric".
-// - presentation (dictionary): Arguments for the presentation
-// - content_only (bool): Whether to output content only (this works for documents of type `other`)
-// - bonding_style (str): Where to put page margins. One of "switch", "left", "none".
-// - content (content): The content of the document
-//
-//-> none
+/// TUL Template 2
+///
+/// Use this at the beginning of a Typst file:
+/// ```typst
+/// #import "template/template.typ": *
+///
+/// #show: tultemplate2.with(
+///   "classic", "fm", "cs", ...
+/// )
+/// ```
+///
+/// - style (str): Visual style to use. This can be "classic".
+/// - faculty (str): Factulty abbreviation. One of "fs", "ft", "fp", "ef", "fua", "fm", "fzs", "cxi".
+/// - lang (str): Language code. This can be "cs" or "en".
+/// - document (str): Type of document. This can be "bp" or "other".
+/// - title_pages (str): The title pages exported from STAG (supported for some document types)
+/// - title (dictionary): The title of the document.
+/// - author (str): The name of the document's author.
+/// - author_pronouns (str): The gender of the document's author. Needed only for the `cs` language.
+/// - supervisor (str): The name of the document's supervisor.
+/// - consultant (str): The name of the document's consultant.
+/// - programme (dictionary): Study programme.
+/// - specialization (disctionary): Study specialization
+/// - year_of_study (int): Year of study
+/// - abstract (dictionary): The abstract.
+/// - keywords (dictionary): The abstract keywords.
+/// - assignment (str): Filepath of the assignment document/page.
+/// - citations (str): The location of the citation file.
+/// - citation_style (str): Which citation style to use. One of "numeric", "author_date".
+/// - presentation (dictionary): Arguments for the presentation
+/// - content_only (bool): Whether to output content only (this works for documents of type `other`)
+/// - bonding_style (str): Where to put page margins. One of "switch", "left", "none".
+/// - content (content): The content of the document
+///
+/// -> content
 #let tultemplate2(
   // general settings
   style: "classic", faculty: "tul", lang: "cs", document: "other",
@@ -59,7 +59,7 @@
   // nested
   assignment: none, presentation: none,
 
-  citations: "citations.bib", citation_style: none,
+  citations: "citations.bib", citation_style: "numeric",
 
   // content
   content,

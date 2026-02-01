@@ -2,6 +2,6 @@
 #bibliography(
   "citations.bib",
   title: "Bibliography - CZ",
-  style: "../template/citations/tul-csn690-numeric-square_brackets.csl",
+  style: "../template/citations/csn690-numeric-square_brackets.csl",
   full: true,
 )

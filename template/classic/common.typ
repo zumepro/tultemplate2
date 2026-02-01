@@ -558,14 +558,17 @@
 
 #let bibliogr(args, presentation_double_title: false) = {
   let (language, citations) = req_arg(args, ("document.language", "citations.bibliography"))
-  let citations_style = get_arg(args, "citations.style")
+  let citations_style = req_arg(args, "citations.style")
   let styles = (
     numeric: (
       cs: "../citations/csn690-numeric-square_brackets.csl",
       en: "../citations/iso690-numeric-square_brackets.csl"
-    )
+    ),
+    author_date: (
+      cs: "../citations/csn690-author_date.csl",
+      en: "../citations/iso690-author_date.csl",
+    ),
   )
-  let citations_style = if is_none(citations_style) { "numeric" } else { citations_style }
   let style = styles.at(citations_style).at(language)
   context {
     if query(ref.where(element: none)).len() > 0 {

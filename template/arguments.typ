@@ -398,10 +398,13 @@
     let style = doc(
       // citation_style
       keyval(literal("style"), variants(
-        doc(null, none, (cs: "Použít výchozí styl", en: "Use the default style")),
         doc(literal("numeric"), none, (
-          cs: "Čísla v hranatých závorkách",
-          en: "Numbers in square brackets",
+          cs: "Čísla v hranatých závorkách, bibliografie řazena podle výskytu (výchozí)",
+          en: "Numbers in square brackets, bibliography sorted by occurence (default)",
+        )),
+        doc(literal("author_date"), none, (
+          cs: "Jméno a rok v kulatých závorkách, bibliografie řazena abecedně",
+          en: "Name and year in parentheses, bibliography sorted alphabetically",
         )),
       )),
       "citation_style",
