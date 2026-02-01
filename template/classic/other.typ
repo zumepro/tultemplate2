@@ -33,7 +33,9 @@
         tablelist(language)
         imagelist(language)
         abbrlist(language)
-        pagebreak(to: "even", weak: true)
+        if bonding_type == "switch" {
+          pagebreak(to: "even", weak: true)
+        }
       } else {
         abbrlist(language, hidden: true)
       }

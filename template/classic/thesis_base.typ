@@ -42,7 +42,11 @@
     tablelist(language);
     imagelist(language);
     abbrlist(language);
-    pagebreak(weak: true);
+    if bonding_style == "switch" {
+      pagebreak(to: "even", weak: true)
+    } else if bonding_style != "none" {
+      pagebreak(weak: true)
+    }
     content;
     bibliogr(args);
     attachment_list(language);
