@@ -99,7 +99,7 @@
     ": ";
     link(entry.at(1));
   } else if entry_type == "ref" {
-    ": soubor ";
+    ": " + get_lang_item(language, "file") + " "
     raw(entry.at(1));
   }
   if is_embedded {

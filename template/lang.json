@@ -88,6 +88,7 @@
 		"attachment": "Příloha",
 		"next_page_attachment": "začíná na další straně",
 		"attached_bellow": "dále přiloženo",
+		"file": "soubor",
 
 		"place_assignment": "Sem vložte zadání",
 
@@ -165,6 +166,7 @@
 		"attachment": "Appendix",
 		"next_page_attachment": "begins on the next page",
 		"attached_bellow": "attached bellow",
+		"file": "file",
 
 		"place_assignment": "Insert your assignment here",
 
