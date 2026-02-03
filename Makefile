@@ -4,7 +4,6 @@ BUILD_DIR := target
 PACKS_ROOT := $(BUILD_DIR)/pack
 PACKSTAGING := $(PACKS_ROOT)/staging
 PACKDIR := $(PACKS_ROOT)/tultemplate2
-BUNDLEDIR := $(PACKS_ROOT)/bundle
 MINIMALDIR := $(PACKS_ROOT)/minimal
 
 LIBDIR := template/lib
@@ -21,10 +20,6 @@ TEMPLATE_SRCS := $(MINIMAL_SRCS) template/example_appendix.pdf
 ADD_TO_PACK := template/LICENSE template/build_date.txt
 TO_PACK_MINIMAL := $(MINIMAL_SRCS) $(ADD_TO_PACK)
 TO_PACK := $(TEMPLATE_SRCS) $(ADD_TO_PACK)
-BUNDLE_THESES := bp_cs bp_en dp_cs dp_en prj_cs prj_en sp_cs sp_en presentation_cs presentation_en
-BUNDLE_TARGETS := $(TO_PACK:%=$(BUNDLEDIR)/%) $(BUNDLEDIR)/citations.bib $(BUNDLEDIR)/bp_cs.typ \
-				  $(BUNDLE_THESES:%=$(BUNDLEDIR)/%.typ) $(BUNDLEDIR)/Makefile \
-				  $(BUNDLEDIR)/title-pages.pdf $(BUNDLEDIR)/assignment.pdf
 PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) \
 				$(PACKDIR)/documentation_cs.typ $(PACKDIR)/documentation_en.typ \
 				$(PACKDIR)/documentation_cs.pdf $(PACKDIR)/documentation_en.pdf \
@@ -45,10 +40,6 @@ view_documentation_cs: $(BUILD_DIR)/documentation_cs.pdf
 
 .PHONY: pack
 pack: $(PACKDIR)/tultemplate2.zip
-
-.PHONY: bundle
-bundle: $(BUNDLE_TARGETS)
-	@echo -e "\n\n!! Bundles are made for tultemplategen and not for direct use !!\n\n"
 
 .PHONY: minimal
 minimal: $(MINIMAL_TARGETS) $(MINIMALDIR)/tultemplate2_minimal.zip
@@ -85,9 +76,6 @@ $(PACKSTAGING): | $(PACKS_ROOT)
 	mkdir $@
 
 $(PACKDIR): | $(PACKS_ROOT)
-	mkdir $@
-
-$(BUNDLEDIR): | $(PACKS_ROOT)
 	mkdir $@
 
 $(MINIMALDIR): | $(PACKS_ROOT)
@@ -214,27 +202,6 @@ $(PACKDIR)/tultemplate2.zip: $(PACK_TARGETS) | $(PACKDIR)
 	cd $(PACKS_ROOT) && zip -r tultemplate2.zip tultemplate2
 
 $(PACKDIR)/%: $(PACKSTAGING)/% | $(PACKDIR)
-	@mkdir -p $(@D)
-	ln -f $< $@
-
-# == BUNDLES - packs for tultemplategen ==
-
-$(BUNDLEDIR)/Makefile: templategen.mk | $(BUNDLEDIR)
-	ln -f $< $@
-
-$(BUNDLEDIR)/presentation_%.typ: theses/presentation_%.typ | $(BUNDLEDIR)
-	cat $< | awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' > $@
-
-$(BUNDLEDIR)/%.typ: $(BUILD_DIR)/content_%.txt | $(BUNDLEDIR)
-	sed 's/\.\.\/template\//template\//' $< > $@
-
-$(BUNDLEDIR)/title-pages.pdf: theses/title_pages.typ | $(BUNDLEDIR)
-	$(call typst_compile) $< $@
-
-$(BUNDLEDIR)/assignment.pdf: theses/assignment.typ | $(BUNDLEDIR)
-	$(call typst_compile) $< $@
-
-$(BUNDLEDIR)/%: $(PACKSTAGING)/% | $(BUNDLEDIR)
 	@mkdir -p $(@D)
 	ln -f $< $@
 
