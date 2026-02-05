@@ -71,7 +71,7 @@
         )),
         doc(literal("sp"), none, (cs: "Semestrální práce", en: "Term paper")),
         doc(literal("presentation"), none, (cs: "Prezentace", en: "Presentation")),
-        doc(literal("other"), none, (cs: "Obecný dokument", en: "Generic dokument")),
+        doc(literal("other"), none, (cs: "Obecný dokument", en: "Generic document")),
       )),
       "document",
       (cs: "Typ dokumentu", en: "The type of the document"),
@@ -173,8 +173,8 @@
         en: "Multiple authors",
       )),
     )), "author", (
-      cs: "Jméno autora/ů včetně titulů, způsobí změnu sebeoslovování v dokumentu na množné číslo",
-      en: "The name of the author(s) including titles, will cause a change in self-addressing in the document to plural",
+      cs: "Jméno autora/ů včetně titulů, pokud je více autorů - způsobí změnu sebeoslovování v dokumentu na množné číslo",
+      en: "The name of the author(s) including titles, with multiple authors - will cause a change in self-addressing in the document to plural",
     ))
 
     let pronouns = doc(
