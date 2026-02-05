@@ -81,8 +81,8 @@
       keyval(literal("content_only"), bool),
       "content_only",
       (
-        cs: "Zda u dokumentu typu `other` generovat pouze obsah",
-        en: "Whether to generate only content for document of type `other`",
+        cs: "Zohledňován pouze u dokumentu typu other. Pokud je zapnuto, vygeneruje se pouze obsah dokumentu (bez titulních stránek, abstraktu a tabulek obsahu na začátku). Stále se budou generovat přílohy a bibliografie.",
+        en: "Evaluated only in documents of type other. When turned on, only the document's inner content will be generated (without title pages, abstract and content tables at the start). Appendix and bibliography will still be generated.",
       ),
     )
 
@@ -151,7 +151,10 @@
       cont_or_str,
     )), null)),
     "title",
-    (cs: "Název práce", en: "Document title"),
+    (
+      cs: "Název práce, vyžadován ve všech jazycích pokud je specifikován abstrakt",
+      en: "Document title, required in all languages if abstract is present"
+    ),
   )
 
   // == AUTHOR ==
@@ -170,8 +173,8 @@
         en: "Multiple authors",
       )),
     )), "author", (
-      cs: "Jméno autora/ů včetně titulů",
-      en: "The name of the author(s) including titles",
+      cs: "Jméno autora/ů včetně titulů, způsobí změnu sebeoslovování v dokumentu na množné číslo",
+      en: "The name of the author(s) including titles, will cause a change in self-addressing in the document to plural",
     ))
 
     let pronouns = doc(
@@ -274,7 +277,10 @@
         null,
       )),
       "abstract",
-      (cs: "Abstrakt projektu", en: "Project's abstract"),
+      (
+        cs: "Abstrakt projektu, vyžaduje také klíčová slova",
+        en: "Project's abstract, also requires keywords"
+      ),
     )
 
     let keywords = doc(
@@ -285,7 +291,10 @@
         null,
       )),
       "keywords",
-      (cs: "Klíčová slova projektu", en: "Project's keywords"),
+      (
+        cs: "Klíčová slova projektu, ignorována bez abstraktu",
+        en: "Project's keywords, ignored without abstract"
+      ),
     )
 
     keyval(literal("abstract"), struct(content, keywords))

@@ -30,7 +30,6 @@
       faculty_color(faculty),
       faculty_subtle_color(faculty),
       {
-        abbrlist(language, hidden: true)
         content
         bibliogr(args)
         attachment_list(language)
