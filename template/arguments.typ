@@ -419,7 +419,7 @@
       "citation_style",
       (
         cs: "Styl citací",
-        en: "Citatino style"
+        en: "Citation style"
       )
     )
 
