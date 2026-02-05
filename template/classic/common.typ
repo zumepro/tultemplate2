@@ -423,7 +423,10 @@
 
 #let abstract(language, args, require: true) = {
   if not require and is_none(get_arg(args, "abstract.content")) {
-    return;
+    return
+  }
+  if not (language in req_arg(args, "title")) {
+    panic("title for language '" + language + "' is required when abstract is present")
   }
   set page(footer: none)
   heading(

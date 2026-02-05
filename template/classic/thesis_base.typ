@@ -16,18 +16,13 @@
 
 #let force_langs = ("cs", "en");
 
-#let thesis_base(
-  args, content,
-  show_disclaimer: true,
-  require_abstract: true,
-  default_bonding_style: "left",
+#let document(
+  args,
+  show_disclaimer,
+  require_abstract,
+  default_bonding_style,
+  content,
 ) = {
-  assert_dict_has(force_langs, req_arg(args, "title"), "title");
-  if require_abstract {
-    assert_dict_has(force_langs, req_arg(args, "abstract.content"), "abstract");
-    assert_dict_has(force_langs, req_arg(args, "abstract.keywords"), "keywords");
-  }
-
   let language = req_arg(args, "document.language");
   let faculty = req_arg(args, "document.faculty")
   let bonding_style = ok_or(get_arg(args, "document.bonding_style"), default_bonding_style)
@@ -51,6 +46,20 @@
     bibliogr(args);
     attachment_list(language);
   }, language);
+}
+
+#let thesis_base(
+  args, content,
+  show_disclaimer: true,
+  require_abstract: true,
+  default_bonding_style: "left",
+) = {
+  assert_dict_has(force_langs, req_arg(args, "title"), "title");
+  if require_abstract {
+    assert_dict_has(force_langs, req_arg(args, "abstract.content"), "abstract");
+    assert_dict_has(force_langs, req_arg(args, "abstract.keywords"), "keywords");
+  }
+  document(args, show_disclaimer, require_abstract, default_bonding_style, content)
 }
 
 #let thesis_base_title_pages(args, default_bonding_style: "switch") = {

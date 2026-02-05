@@ -7,6 +7,7 @@
 #import "../utils.typ": assert_dict_has, assert_in_arr, assert_not_none, is_none, ok_or
 #import "../arguments.typ": get_arg, map_arg, req_arg
 #import "../theme.typ": faculty_color, faculty_subtle_color
+#import "thesis_base.typ": document
 
 #let other_title_page(args) = {
   if req_arg(args, "document.content_only") {
@@ -23,26 +24,20 @@
   let bonding_type = ok_or(get_arg(args, "document.bonding_style"), "none")
   let faculty = req_arg(args, "document.faculty")
 
-  default_styling(
-    bonding_type,
-    faculty_color(faculty),
-    faculty_subtle_color(faculty),
-    {
-      if not req_arg(args, "document.content_only") {
-        toc(language)
-        tablelist(language)
-        imagelist(language)
-        abbrlist(language)
-        if bonding_type == "switch" {
-          pagebreak(to: "even", weak: true)
-        }
-      } else {
+  if req_arg(args, "document.content_only") {
+    default_styling(
+      bonding_type,
+      faculty_color(faculty),
+      faculty_subtle_color(faculty),
+      {
         abbrlist(language, hidden: true)
-      }
-      content
-      bibliogr(args)
-      attachment_list(language)
-    },
-    language,
-  )
+        content
+        bibliogr(args)
+        attachment_list(language)
+      },
+      language,
+    )
+  } else {
+    document(args, false, false, "none", content)
+  }
 }
