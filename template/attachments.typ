@@ -106,7 +106,7 @@
     text(
       " (" + get_lang_item(language, "attached_bellow") + ")",
       style: "italic",
-      fill: black.lighten(50%),
+      fill: black.lighten(30%),
     );
   }
 }

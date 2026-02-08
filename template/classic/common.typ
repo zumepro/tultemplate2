@@ -24,8 +24,15 @@
 
   // headings
   show heading: it => {
+    if it.level == 1 {
+      text(it, font: "TUL Mono", size: 1.2em)
+    } else {
+      text(it, font: "Inter", size: 1.1em)
+    }
+  }
+  show heading: it => {
     set par(justify: false);
-    text(it, faculty_color, font: "TUL Mono", size: 1.2em)
+    text(it, faculty_color)
   };
 
   // other
@@ -37,7 +44,7 @@
     if type(it.dest) == label or type(it.dest) == location {
       it;
     } else {
-      text(underline(it), fill: faculty_color);
+      text(underline(it), fill: faculty_color.darken(10%));
     }
   }
   set highlight(fill: faculty_subtle_color);
