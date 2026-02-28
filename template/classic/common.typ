@@ -406,11 +406,11 @@
 
 #let acknowledgement(args) = {
   let content = get_arg(args, "acknowledgement")
-  let (language, author) = req_arg(args, ("document.language", "author.name"))
-  let author = merge_authors(author).at(0)
   if is_none(content) {
     return
   }
+  let (language, author) = req_arg(args, ("document.language", "author.name"))
+  let author = merge_authors(author).at(0)
   set page(footer: none)
   heading(get_lang_item(language, "acknowledgement"), numbering: none, outlined: false)
   par(content.at(language))
