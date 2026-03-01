@@ -115,7 +115,7 @@
       language, faculty, faculty_color,
       text(mainpage_meta(
         args, show_city: false, name_min_width: 0em, value_padding: 2em,
-      ), white, size: 1.5em),
+      ), white, size: if paper == "presentation-4-3" { 1.5em } else { 1.2em }),
       bottom + left, title, paper,
     )
   }
