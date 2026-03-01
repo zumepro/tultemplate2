@@ -166,18 +166,58 @@
   }
 }
 
+#let mainpage_meta(
+  args, show_city: true, name_min_width: 10em, value_padding: 5em, gutter: .7em,
+) = {
+
+  let language = req_arg(args, "document.language")
+  let author = merge_authors(req_arg(args, "author.name"))
+  let programme = map_none(get_arg(args, "author.programme"), (v) => v.at(language))
+  let specialization = map_none(get_arg(args, "author.specialization"), (v) => v.at(language))
+  let meta = (
+    (if author.at(1) { "authors" } else { "author" }, author.at(0), true),
+    ("supervisor", person_info(get_arg(args, "project.supervisor"), "supervisor"), false),
+    ("consultant", person_info(get_arg(args, "project.consultant"), "consultant"), false),
+    ("study_programme", programme, false),
+    ("study_specialization", specialization, false),
+    ("year_of_study", get_arg(args, "author.year_of_study"), false),
+  )
+  context {
+    let max_field_name_width = calc.max(..meta.map((v) => {
+      if type(v.at(1)) == type(none) {
+        0pt
+      } else {
+        measure(get_lang_item(language, v.at(0)) + ":").width
+      }
+    }), name_min_width.to-absolute());
+    grid(
+      columns: 2,
+      gutter: gutter,
+      ..meta.filter((v) => { type(v.at(1)) != type(none) }).map((v) => {
+        (
+          align(top, block(
+            text(get_lang_item(language, v.at(0)) + ":", style: "italic", font: base_font),
+            width: max_field_name_width + value_padding
+          )),
+          text(v.at(1), font: base_font, weight: if v.at(2) { "bold" } else { "regular" })
+        )
+      }).flatten(),
+    )
+    if show_city {
+      v(1em)
+      h(max_field_name_width + value_padding + gutter)
+    }
+  }
+}
+
 #let info_base(
+  args,
   faculty_id,
   language,
   display_document_type,
   title,
-  info_fields,
   show_city: true,
 ) = {
-  let info_name_value_padding = 5em;
-  let info_name_min_width = 10em;
-  let gutter = .7em;
-
   // document type
   if display_document_type != "other" and display_document_type != "other_asgn" {
     text(
@@ -195,28 +235,7 @@
   v(0em);
 
   context {
-    let max_field_name_width = calc.max(..info_fields.map((v) => {
-      if type(v.at(1)) == type(none) {
-        0pt
-      } else {
-        measure(get_lang_item(language, v.at(0)) + ":").width
-      }
-    }), info_name_min_width.to-absolute());
-    grid(
-      columns: 2,
-      gutter: gutter,
-      ..info_fields.filter((v) => { type(v.at(1)) != type(none) }).map((v) => {
-        (
-          align(top, block(
-            text(get_lang_item(language, v.at(0)) + ":", style: "italic", font: base_font),
-            width: max_field_name_width + info_name_value_padding
-          )),
-          text(v.at(1), font: base_font, weight: if v.at(2) { "bold" } else { "regular" })
-        )
-      }).flatten(),
-    );
-    v(1em);
-    h(max_field_name_width + info_name_value_padding + gutter);
+    mainpage_meta(args)
     if show_city {
       text(get_lang_item(language, "city") + " " + str(datetime.today().year()), font: base_font);
     }
@@ -224,35 +243,23 @@
 }
 
 #let info_mainpage(
+  args,
   faculty_id,
   language,
   document_type,
-  title, authors, supervisor, consultant, study_programme, study_specialization, year_of_study,
+  title
 ) = {
-  let author = merge_authors(authors)
-  info_base(faculty_id, language, document_type, title, (
-    (if author.at(1) { "authors" } else { "author" }, author.at(0), true),
-    ("supervisor", person_info(supervisor, "supervisor"), false),
-    ("consultant", person_info(consultant, "consultant"), false),
-    ("study_programme", study_programme, false),
-    ("study_specialization", study_specialization, false),
-    ("year_of_study", year_of_study, false),
-  ));
+  info_base(args, faculty_id, language, document_type, title)
 }
 
 #let info_assignment(
+  args,
   faculty_id,
   language,
   document_type,
-  title, author, personal_number, study_programme, department, academical_year,
+  title,
 ) = {
-  info_base(faculty_id, language, document_type + "_asgn", title, (
-    ("names", author, true),
-    ("personal_number", personal_number, false),
-    ("study_programme", study_programme, false),
-    ("assigning_department", department, false),
-    ("academical_year", academical_year, false),
-  ), show_city: false);
+  info_base(args, faculty_id, language, document_type, title)
 }
 
 // MAINPAGE
@@ -283,11 +290,7 @@
   } else {
     header(faculty, language);
     align({
-      info_mainpage(
-        faculty, language, document_type, map_none(title, (v) => v.at(language)),
-        author, supervisor, consultant, map_none(study_programme, (v) => v.at(language)),
-        map_none(study_specialization, (v) => v.at(language)), year_of_study,
-      );
+      info_mainpage(args, faculty, language, document_type, map_none(title, (v) => v.at(language)))
       v(5em);
     }, bottom);
   }
@@ -296,7 +299,7 @@
 #let assignmentpage(args, language, document_type, faculty, title, author, programme, content) = {
   let author = merge_authors(author).at(0)
   let (personal_number, department, academical_year) = req_arg(args, (
-    "personal_number", "department", "academical_year",
+    "assignment.personal_number", "assignment.department", "assignment.academical_year",
   ));
   set heading(bookmarked: false, outlined: false);
   set text(font: base_font);
@@ -305,8 +308,7 @@
   header(faculty, language);
   v(10em)
   info_assignment(
-    faculty, language, document_type, title.at(language), author, personal_number,
-    programme.at(language), department, academical_year,
+    args, faculty, language, document_type, title.at(language),
   );
   show heading: it => {
     block(text(it, size: 11pt * 1.25), above: 2em, below: 1em);
@@ -348,7 +350,7 @@
     req_arg(args, "assignment");
   } else if type(assignment) == dictionary {
     assignmentpage(
-      assignment,
+      args,
       ..req_arg(args, (
         "document.language", "document.type", "document.faculty", "title", "author.name",
         "author.programme",

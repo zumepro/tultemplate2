@@ -1,10 +1,10 @@
-#import "../arguments.typ": req_arg 
-#import "../utils.typ": assert_dict_has, is_none
+#import "../arguments.typ": req_arg, get_arg
+#import "../utils.typ": assert_dict_has, is_none, has_all_none
 #import "../theme.typ": (
   faculty_color, faculty_logotype, faculty_logotype_text, tul_logomark, faculty_subtle_color
 )
 #import "../lang.typ": get_lang_item
-#import "common.typ": common_styling, bibliogr, base_font, merge_authors
+#import "common.typ": common_styling, bibliogr, base_font, merge_authors, mainpage_meta
 
 #let header_margin = 20pt
 #let footer_margin = header_margin
@@ -84,20 +84,41 @@
   )
 }
 
-#let signedpage(language, faculty, faculty_color, author, content, paper) = {
-  let author = merge_authors(author).at(0)
+#let metapage(language, faculty, faculty_color, appendix, appendix_place, content, paper) = {
   fullpage(language, faculty, faculty_color, {
     content
-    place(center + bottom, text(author, white.transparentize(10%), size: 1.5em, font: base_font))
+    place(appendix_place, appendix)
   }, paper)
 }
 
-#let mainpage(language, faculty, faculty_color, title, author, paper) = {
-  signedpage(language, faculty, faculty_color, author, {
-    place(center + horizon, text(
-      title, size: 2em * paper_compensation.at(paper), font: "TUL Mono", white
-    ))
-  }, paper)
+#let signedpage(language, faculty, faculty_color, author, content, paper) = {
+  let author = merge_authors(author).at(0)
+  metapage(
+    language, faculty, faculty_color,
+    align(center, text(author, white.transparentize(10%), size: 1.5em, font: base_font)),
+    bottom + center,
+    content, paper,
+  )
+}
+
+#let mainpage(args, language, faculty, faculty_color, title, author, paper) = {
+  let title = place(center + horizon, text(
+    title, size: 2em * paper_compensation.at(paper), font: "TUL Mono", white
+  ))
+  if has_all_none(get_arg(args, (
+    "author.specialization", "author.programme", "project.supervisor", "project.consultant",
+    "author.year_of_study"
+  ))) {
+    signedpage(language, faculty, faculty_color, author, title, paper)
+  } else {
+    metapage(
+      language, faculty, faculty_color,
+      text(mainpage_meta(
+        args, show_city: false, name_min_width: 0em, value_padding: 2em,
+      ), white, size: 1.5em),
+      bottom + left, title, paper,
+    )
+  }
 }
 
 #let thankspage(language, faculty, faculty_color, author, paper) = {
@@ -129,7 +150,7 @@
   }
   
   mainpage(
-    language, faculty, faculty_color,
+    args, language, faculty, faculty_color,
     req_arg(args, "title").at(language), author, paper,
   )
   apply_style(
