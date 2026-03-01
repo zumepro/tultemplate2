@@ -23,77 +23,22 @@
         '';
         typstPkgs = [
           {
-            name = "alchemist";
-            version = "0.1.8";
-            hash = "18ckw65wq7q8ksayp1g86c9j6d9l1kfg9m100q0gddaw7ksqjqqq";
+            name = "fletcher";
+            version = "0.5.8";
+            hash = "1mcff87a16y24rx8yflrg55ry08sbdfw2cvw7shjkqjl64vs4alj";
           }
           {
             name = "cetz";
-            version = "0.4.1";
-            hash = "18xinq5agk6zi0r064l6qg09far170n9965a9z2zznz3zsv1h6is";
+            version = "0.3.4";
+            hash = "1nxgrpghgfnvijf6647ix6q8njbxbj2hsg7rs2i9air5i5iw9waj";
           }
           {
             name = "oxifmt";
-            version = "1.0.0";
-            hash = "0bqc5ahiavjds966a8v5llw9imqqaa43x89ha9dl5nlp51vqmla6";
+            version = "0.2.1";
+            hash = "0v4x0d7c8593scfj4n70q6wv8b5k6d725isf0yd2wzkphzgrhpha";
           }
         ];
-        pull_typst_package = pkg: pkgs.stdenv.mkDerivation {
-          name = "typst_package-${pkg.name}-${pkg.version}";
-          src = fetchTarball {
-            url = "https://packages.typst.org/preview/${pkg.name}-${pkg.version}.tar.gz";
-            sha256 = pkg.hash;
-          };
-          installPath = "${pkg.name}/${pkg.version}";
-          installPhase = ''
-            mkdir -p $out/$installPath
-            cp -R . $out/$installPath
-          '';
-        };
-        pull_typst_packages = pkgList: pkgs.stdenv.mkDerivation {
-          name = "typst-packages";
-          src = null;
-          dontUnpack = true;
-          buildInputs = builtins.map (pkg: pull_typst_package pkg) pkgList;
-          installPhase = ''
-            mkdir -p $out/preview
-            for input in $buildInputs
-            do
-              ln -s $input/$(ls $input) $out/preview
-            done
-          '';
-        };
-        build_with_targets = id: targets: buildOutputs: typstPkgs: pkgs.stdenv.mkDerivation {
-          inherit buildInputs targets buildOutputs;
-          name = name + "-" + id;
-          src = ./.;
-          buildPhase = ''
-            ${envSetup}
-            ${
-              if builtins.length typstPkgs > 0
-              then
-                "ln -s ${pull_typst_packages typstPkgs} typst_packages"
-              else ""
-            }
-            for target in $targets
-            do
-              make $target ${
-                if builtins.length typstPkgs > 0 then "TYPST_PACKAGES=typst_packages" else ""
-              }
-            done
-          '';
-          installPhase = ''
-            mkdir $out
-            for buildOutput in $buildOutputs
-            do
-              cp -R $buildOutput $out
-            done
-          '';
-        };
-        build = id: targets: typstPkgs: (let
-          targetFiles = builtins.map (target: "target/${target}") targets;
-        in
-          build_with_targets id [targetFiles] [targetFiles] typstPkgs);
+        typst = (import ./typst.nix) { inherit pkgs; };
       in
       {
         devShell = with pkgs; mkShell {
@@ -110,19 +55,40 @@
           }) ];
           shellHook = envSetup;
         };
-        packages.bundle = build_with_targets "bundle" ["bundle"] ["target/pack/bundle/."] [];
-        packages.theses = build "theses" (builtins.map (file: "${file}.pdf") [
-          "documentation_cs" "documentation_en"
-          "bp_cs" "bp_en"
-          "dp_cs" "dp_en"
-          "prj_cs" "prj_en"
-          "sp_cs" "sp_en"
-          "presentation_cs" "presentation_en"
-        ]) typstPkgs;
-        packages.pack = build_with_targets "pack" ["pack"] ["target/pack/."] [];
-        packages.minimal = build_with_targets "minimal" ["minimal"] [
-          "target/pack/minimal/."
-        ] [];
+        packages.minimal = pkgs.stdenv.mkDerivation {
+          name = "tultemplate2-minimal";
+          src = ./.;
+          buildInputs = with pkgs; [ zip jq ];
+          buildPhase = ''
+            ${envSetup}
+            ${pkgs.gnumake}/bin/make minimal
+          '';
+          installPhase = ''
+            mkdir $out
+            cp -R target/pack/minimal/. $out
+          '';
+        };
+        packages.documentation = pkgs.stdenv.mkDerivation {
+          name = "tultemplate2-documentation";
+          src = ./.;
+          dontInstall = true;
+          buildPhase = ''
+            ${envSetup}
+            mkdir $out
+            ln -s ${typst.compileDocument {
+              name = name + "-cs";
+              packages = typstPkgs;
+              src = "documentation_cs.typ";
+              fontPath = "template/fonts";
+            }} $out/documentation_cs.pdf
+            ln -s ${typst.compileDocument {
+              name = name + "-en";
+              packages = typstPkgs;
+              src = "documentation_en.typ";
+              fontPath = "template/fonts";
+            }} $out/documentation_en.pdf
+          '';
+        };
         packages.llms = pkgs.stdenv.mkDerivation {
           name = name + "-llms";
           src = ./llms;

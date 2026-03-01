@@ -3,7 +3,6 @@ TYPST_PACKAGES ?=
 BUILD_DIR := target
 PACKS_ROOT := $(BUILD_DIR)/pack
 PACKSTAGING := $(PACKS_ROOT)/staging
-PACKDIR := $(PACKS_ROOT)/tultemplate2
 MINIMALDIR := $(PACKS_ROOT)/minimal
 
 LIBDIR := template/lib
@@ -16,14 +15,9 @@ MINIMAL_SRCS := $(shell find template -type f -regex '^.*\.typ$$') \
 				$(shell find $(MINIMAL_ASSET_ROOTS) -type f) \
 				template/lang.json \
 				$(LIB_TARGETS_MUCHPDFTOOLS:%=$(LIB_MUCHPDFTOOLS)/%)
-TEMPLATE_SRCS := $(MINIMAL_SRCS) template/example_appendix.pdf
+TEMPLATE_SRCS := $(MINIMAL_SRCS)
 ADD_TO_PACK := template/LICENSE template/build_date.txt
 TO_PACK_MINIMAL := $(MINIMAL_SRCS) $(ADD_TO_PACK)
-TO_PACK := $(TEMPLATE_SRCS) $(ADD_TO_PACK)
-PACK_TARGETS := $(TO_PACK:%=$(PACKDIR)/%) \
-				$(PACKDIR)/documentation_cs.typ $(PACKDIR)/documentation_en.typ \
-				$(PACKDIR)/documentation_cs.pdf $(PACKDIR)/documentation_en.pdf \
-				$(PACKDIR)/citations.bib $(PACKDIR)/Makefile
 MINIMAL_TARGETS := $(TO_PACK_MINIMAL:%=$(MINIMALDIR)/%)
 
 # == MAIN TARGETS ==
@@ -37,9 +31,6 @@ view_documentation: $(BUILD_DIR)/documentation_en.pdf
 .PHONY: view_documentation_cs
 view_documentation_cs: $(BUILD_DIR)/documentation_cs.pdf
 	xdg-open $<
-
-.PHONY: pack
-pack: $(PACKDIR)/tultemplate2.zip
 
 .PHONY: minimal
 minimal: $(MINIMAL_TARGETS) $(MINIMALDIR)/tultemplate2_minimal.zip
@@ -75,9 +66,6 @@ $(PACKS_ROOT): | $(BUILD_DIR)
 $(PACKSTAGING): | $(PACKS_ROOT)
 	mkdir $@
 
-$(PACKDIR): | $(PACKS_ROOT)
-	mkdir $@
-
 $(MINIMALDIR): | $(PACKS_ROOT)
 	mkdir $@
 
@@ -95,12 +83,8 @@ define replace_with_file_line
 	sed "s/$(1)/$$(sed '$(3)q;d' $(2))/g"
 endef
 
-define typst_pkgs
-$(if $(TYPST_PACKAGES), --package-cache-path $(TYPST_PACKAGES))
-endef
-
 define typst_compile
-	typst compile --font-path template/fonts$(call typst_pkgs) --root .
+	typst compile --font-path template/fonts --root .
 endef
 
 # == LIBS ==
@@ -120,45 +104,6 @@ template/lib/much_pdf_tools/much_pdf_tools.wasm: | $(LIB_MUCHPDFTOOLS)
 # == DOCUMENTATION ==
 
 $(BUILD_DIR)/documentation_%.pdf: documentation_%.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
-	$(call typst_compile) $< $@
-
-# == THESES EXAMPLES ==
-
-$(BUILD_DIR)/presentation_%.typ: theses/presentation_%.typ | $(BUILD_DIR)
-	ln -f $< $@
-
-$(BUILD_DIR)/subs_%.txt: theses/%.typ | $(BUILD_DIR)
-	awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' $< > $@
-
-$(BUILD_DIR)/header_base_%.txt: theses/%.typ | $(BUILD_DIR)
-	awk 'BEGIN{RS=""; ORS="\n\n"} NR<3{print}' $< > $@
-
-$(BUILD_DIR)/assignment_%_cs.txt: theses/assignment_cs.typ | $(BUILD_DIR)
-	ln -f $< $@
-
-$(BUILD_DIR)/assignment_%_en.txt: theses/assignment_en.typ | $(BUILD_DIR)
-	ln -f $< $@
-
-$(BUILD_DIR)/header_substituted_%.txt: $(BUILD_DIR)/header_base_%.txt $(BUILD_DIR)/assignment_%.txt
-	sed -e "/__assignment__/r $(BUILD_DIR)/assignment_$*.txt" -e "/__assignment__/d" $< > $@
-
-$(BUILD_DIR)/content_%_cs.txt: $(BUILD_DIR)/subs_%_cs.txt theses/content_cs.typ
-	cat theses/content_cs.typ | \
-		$(call replace_with_file_line,{{ta}},$<,1) | $(call replace_with_file_line,{{tou}},$<,2) | \
-		awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' > $@
-
-$(BUILD_DIR)/content_%_en.txt: $(BUILD_DIR)/subs_%_en.txt theses/content_en.typ
-	cat theses/content_en.typ | \
-		$(call replace_with_file_line,{{what}},$<,1) | \
-		awk 'BEGIN{RS=""; ORS="\n\n"} NR>2{print}' > $@
-
-$(BUILD_DIR)/%.typ: $(BUILD_DIR)/header_substituted_%.txt $(BUILD_DIR)/content_%.txt | $(BUILD_DIR)
-	cat $^ > $@
-
-$(BUILD_DIR)/%.pdf: $(BUILD_DIR)/%.typ $(TEMPLATE_SRCS) | $(BUILD_DIR)
-	$(call typst_compile) $< $@
-
-template/example_appendix.pdf: theses/example_appendix.typ
 	$(call typst_compile) $< $@
 
 # == PACK STAGING - files prepared for packing or bundling ==
@@ -189,19 +134,6 @@ $(PACKSTAGING)/%.pdf: $(BUILD_DIR)/%.pdf | $(PACKSTAGING)
 	ln -f $< $@
 
 $(PACKSTAGING)/%: % | $(PACKSTAGING)
-	@mkdir -p $(@D)
-	ln -f $< $@
-
-# == PACKS - clean builds for direct use ==
-
-$(PACKDIR)/Makefile: packed.mk | $(PACKDIR)
-	ln -f $< $@
-
-$(PACKDIR)/tultemplate2.zip: $(PACK_TARGETS) | $(PACKDIR)
-	rm -f $@
-	cd $(PACKS_ROOT) && zip -r tultemplate2.zip tultemplate2
-
-$(PACKDIR)/%: $(PACKSTAGING)/% | $(PACKDIR)
 	@mkdir -p $(@D)
 	ln -f $< $@
 

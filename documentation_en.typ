@@ -32,6 +32,122 @@ For automatic build you can use the following _Makefile_
 This file is also available from the template repository (https://git.zumepro.cz/tul/tultemplate2)
 under filename `minimal.mk`.
 
+= Source code and build sources
+
+The template repo isn't the only source to build all the tools that the users will work with.
+Bellow, you can see a quick overview of how the newest template version, examples and the generator
+is built.
+
+== Template toolchain overview
+
+#v(.5em)
+
+#import "@preview/fletcher:0.5.8" as fletcher
+
+#let template = "https://git.zumepro.cz/tul/tultemplate2"
+#let generator = "https://git.zumepro.cz/tul/tultemplategen"
+#let much_pdf_tools = "https://git.zumepro.cz/ondrej.mekina/much_pdf_tools"
+#let theses = "https://git.zumepro.cz/tul/tultemplate_theses"
+#let stagspider = "https://git.zumepro.cz/tul/tultemplate_stagspider"
+#let htmltypst = "https://git.zumepro.cz/ondrej.mekina/htmltypst"
+#let web = "https://git.zumepro.cz/tul/tultemplate-web"
+
+#align(center, {
+  fletcher.diagram(
+    fletcher.node(
+      (-1, -1),
+      link(much_pdf_tools)[pdf tools],
+      shape: fletcher.shapes.rect,
+      stroke: black,
+      inset: .5em,
+    ),
+    fletcher.node(
+      (1, -1),
+      text([Typst], size: .8em),
+      inset: .5em,
+    ),
+    fletcher.node(
+      (0, 0),
+      link(template, text([tultemplate2], size: 1.5em)),
+      shape: fletcher.shapes.rect,
+      stroke: black,
+      inset: 1em,
+    ),
+    fletcher.edge((-1, -1), (0, 0), "-|>"),
+    fletcher.edge((1, -1), (0, 0), "--|>"),
+    fletcher.edge("-|>"),
+    fletcher.node(
+      (0, 1),
+      link(theses, text([examples], size: 1.3em)),
+      shape: fletcher.shapes.rect,
+      stroke: black,
+      inset: .6em,
+    ),
+    fletcher.node(
+      (-1, 1),
+      link(stagspider, text([stagspider], size: .8em)),
+      shape: fletcher.shapes.rect,
+      stroke: gray,
+      inset: .5em,
+    ),
+    fletcher.edge("--|>"),
+    fletcher.node(
+      (-1, 2),
+      link(generator, text([generator], size: 1.3em)),
+      shape: fletcher.shapes.rect,
+      stroke: black,
+      inset: .6em,
+    ),
+    fletcher.edge((0, 0), (-1, 2), "-|>"),
+    fletcher.edge((0, 1), (-1, 2), "-|>"),
+    fletcher.node(
+      (1, 1),
+      link(htmltypst, text([htmltypst], size: .8em)),
+      shape: fletcher.shapes.rect,
+      stroke: gray,
+      inset: .5em,
+    ),
+    fletcher.edge((1, -1), (1, 1), "--|>"),
+    fletcher.edge("--|>"),
+    fletcher.node(
+      (1, 2),
+      link(web, text([web], size: 1.3em)),
+      shape: fletcher.shapes.rect,
+      stroke: black,
+      inset: .6em,
+    ),
+    fletcher.edge((-1, 2), (1, 2), "--|>"),
+    fletcher.edge((0, 0), (1, 2), "-|>"),
+    fletcher.edge((0, 1), (1, 2), "-|>"),
+    fletcher.edge("--|>"),
+    fletcher.node(
+      (1, 3),
+      link("https://typst.tul.cz/cs/", text([typst.tul.cz])),
+      inset: .6em,
+    ),
+    fletcher.node(
+      (-1, 3),
+      link("https://typst.tul.cz/generate/?lang=cs", text([typst.tul.cz/generate/])),
+      inset: .6em,
+    ),
+    fletcher.edge((-1, 2), (-1, 3), "--|>"),
+  )
+})
+
+== Repos
+
+- #link(template, [*tultemplate2*]) --- Home of the template. The template itself is developed here.
+- #link(generator, [*tultemplategen*]) --- Repository of the generator. The generator is being
+  developed here based on the newest template version.
+- #link(web, [*tultemplate-web*]) --- Web docs for the template and the generator. Available at
+  https://typst.tul.cz/en/
+- #link(theses, [*tultemplate_theses*]) --- Generation of entire example documents and example code
+  for the generator.
+- #link(much_pdf_tools, [*much_pdf_tools*]) --- WASM tools for working with PDFs in Typst.
+- #link(htmltypst, [*htmltypst*]) --- Tools for automatic typesetting of Typst code for the web.
+- #link(stagspider, [*tultemplate_stagspider*]) --- Automatic crawler for STAG data. The data is
+  used in the generator for easier selection of some items (like specializations).
+
 = Template arguments
 
 The following few pages is the complete listing of arguments accepted by this template.
