@@ -27,6 +27,7 @@
 	<emphasis>
 		Bold: `*my text*`
 		Italic: `_my text_`
+		Highlight: `#highlight[my text]`
 		Underline: `#underline[my text]` (use sparingly)
 	</emphasis>
 	<lines>
@@ -77,4 +78,7 @@
 			[Right],
 		)`
 	</horizontal-stacking>
+	<quotes>
+		Use `"` for both the quotation start and end, the template will display it correctly.
+	</quotes>
 </usage>
