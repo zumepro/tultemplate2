@@ -9,7 +9,7 @@
     utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        buildInputs = with pkgs; [ typst gnumake jq xdg-utils zip wget ];
+        buildInputs = with pkgs; [ pkgs.typst gnumake jq xdg-utils zip wget ];
         name = "tultemplate2";
         envSetup = ''
           unset SOURCE_DATE_EPOCH
