@@ -24,6 +24,11 @@
 		A paragraph MUST BE preceeded AND succeeded by a blank line.
 		One or more blank lines SHOULD BE collapsed into a single one for clarity.
 	</paragraphs>
+	<emphasis>
+		Bold: `*my text*`
+		Italic: `_my text_`
+		Underline: `#underline[my text]` (use sparingly)
+	</emphasis>
 	<lines>
 		<unbreakable-space>
 			Written with `~`, displays as a space in the document.
@@ -62,4 +67,14 @@
 
 		You MUST NOT write the bibliography command at the end yourself, the template already does that with proper formatting.
 	</citations>
+	<horizontal-stacking>
+		Careful when stacking >5 elements (they can overflow to the right).
+		Example:
+		`#stack(
+			dir: ltr,
+			[Left],
+			[Middle],
+			[Right],
+		)`
+	</horizontal-stacking>
 </usage>
