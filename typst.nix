@@ -3,13 +3,13 @@ let
   pull_typst_package = pkg: pkgs.stdenv.mkDerivation {
     name = "typst_package-${pkg.name}-${pkg.version}";
     src = fetchTarball {
-  	url = "https://packages.typst.org/preview/${pkg.name}-${pkg.version}.tar.gz";
-  	sha256 = pkg.hash;
+      url = "https://packages.typst.org/preview/${pkg.name}-${pkg.version}.tar.gz";
+      sha256 = pkg.hash;
     };
     installPath = "${pkg.name}/${pkg.version}";
     installPhase = ''
-  	mkdir -p $out/$installPath
-  	cp -R . $out/$installPath
+      mkdir -p $out/$installPath
+      cp -R . $out/$installPath
     '';
   };
   pull_typst_packages = name: pkgList: pkgs.stdenv.mkDerivation {
@@ -18,11 +18,11 @@ let
     dontUnpack = true;
     buildInputs = builtins.map (pkg: pull_typst_package pkg) pkgList;
     installPhase = ''
-  	mkdir -p $out/preview
-  	for input in $buildInputs
-  	do
-  	  ln -s $input/$(ls $input) $out/preview
-  	done
+    mkdir -p $out/preview
+    for input in $buildInputs
+    do
+      ln -s $input/$(ls $input) $out/preview
+    done
     '';
   };
 in
