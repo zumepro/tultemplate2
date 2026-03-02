@@ -460,27 +460,42 @@
 
 // _ OUTLINE FIGURE INNER
 #let _outline_figure_inner(selector, title, body_mapper) = {
-  let entry(selector, element) = {
+  let entry(selector, element) = layout(size => {
+    let total_width = size.width
+    let counter_content = {
+      text(numbering(
+        "1.1",
+        counter(heading).at(element.location()).at(0),
+        counter(selector).at(element.location()).at(0),
+      ))
+      h(1em)
+    }
+    let text_content = text(body_mapper(element))
+    let pagenum = str(element.location().page())
+    let pagenum_width = measure(pagenum).at("width")
+    let counter_width = measure(counter_content).at("width")
+    let text_width = calc.min(
+      measure(text_content).at("width"),
+      (total_width - pagenum_width - counter_width) * 90%,
+    )
+    let number_and_text = grid(
+      columns: (auto, auto, auto, 1fr),
+      counter_content,
+      box(width: text_width, text_content),
+      h(.3em),
+      repeat[.],
+    )
     link(
       element.location(),
-      grid(
-        columns: 3,
-        gutter: .5em,
-        stack(
-          dir: ltr,
-          text(numbering(
-            "1.1",
-            counter(heading).at(element.location()).at(0),
-            counter(selector).at(element.location()).at(0),
-          )),
-          h(.5em),
-          text(body_mapper(element)),
-        ),
-        box(repeat([.], gap: 0.15em)),
-        str(element.location().page()),
-      ),
+      stack(
+        dir: ltr,
+        block(width: total_width - pagenum_width, number_and_text),
+        align(right, {
+          str(element.location().page())
+        }),
+      )
     )
-  }
+  })
   heading(title, numbering: none);
   for el in query(figure.where(kind: selector)) {
     if is_none(el.caption) {
