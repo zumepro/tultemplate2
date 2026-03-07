@@ -1,9 +1,10 @@
 #import "utils.typ": assert_dict_has, assert_type_signature, deref, is_none, map_none, ok_or
+#import "lang.typ": lang_ids
 #import "type_signature.typ": *
 
 
 #let arguments_structure = {
-  let lang_keys = variants(literal("cs"), literal("en"))
+  let lang_keys = variants(..lang_ids.keys().map(v => literal(v)))
   let nonrec_str = doc(string, none, (
     cs: "Je doporučeno použít 'content', pokud je to možné",
     en: "It is recommended to use 'content' where that's possible",
@@ -271,9 +272,7 @@
   let abstract = {
     let content = doc(
       keyval(literal("content"), variants(
-        struct(..lang_keys.variants.map(k => {
-          keyval(k, variants(cont, nonrec_str, slice(string)))
-        })),
+        dict(keyval(lang_keys, cont_or_str)),
         null,
       )),
       "abstract",
@@ -285,9 +284,7 @@
 
     let keywords = doc(
       keyval(literal("keywords"), variants(
-        struct(..lang_keys.variants.map(k => {
-          keyval(k, variants(cont, nonrec_str, slice(string)))
-        })),
+        dict(keyval(lang_keys, variants(cont, nonrec_str, slice(string)))),
         null,
       )),
       "keywords",

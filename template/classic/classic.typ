@@ -22,7 +22,7 @@
     root: sp,
     base: thesis_base.with(
       show_disclaimer: false,
-      require_abstract: false,
+      require_abstract: none,
       default_bonding_style: "none",
     ),
     title_pages: thesis_base_title_pages,

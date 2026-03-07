@@ -4,7 +4,7 @@
 #import "common.typ": (
   default_styling,
   disclaimer,
-  abstract,
+  try_abstracts,
   acknowledgement,
   toc,
   tablelist,
@@ -13,6 +13,7 @@
   bibliogr,
 )
 #import "../attachments.typ": attachment_list
+#import "../lang.typ": lang_ids
 
 #let force_langs = ("cs", "en");
 
@@ -30,8 +31,7 @@
     if show_disclaimer and is_none(get_arg(args, "title_pages")) {
       disclaimer(args);
     }
-    abstract("cs", args, require: require_abstract);
-    abstract("en", args, require: require_abstract);
+    try_abstracts(args, require_langs: ok_or(require_abstract, array(())))
     acknowledgement(args);
     toc(language);
     tablelist(language);
@@ -51,7 +51,7 @@
 #let thesis_base(
   args, content,
   show_disclaimer: true,
-  require_abstract: true,
+  require_abstract: lang_ids.keys(),
   default_bonding_style: "left",
 ) = {
   assert_dict_has(force_langs, req_arg(args, "title"), "title");

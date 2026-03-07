@@ -37,6 +37,6 @@
       language,
     )
   } else {
-    document(args, false, false, "none", content)
+    document(args, false, none, "none", content)
   }
 }

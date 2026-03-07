@@ -1,6 +1,6 @@
 #import "../theme.typ": faculty_logotype, tul_logomark, faculty_color
-#import "../lang.typ": get_lang_item, set_czech_nonbreakable_terms
-#import "../utils.typ": is_none, assert_dict_has, has_all_none, map_none
+#import "../lang.typ": get_lang_item, set_czech_nonbreakable_terms, lang_ids
+#import "../utils.typ": is_none, assert_dict_has, has_all_none, map_none, ok_or
 #import "../arguments.typ": req_arg, get_arg
 
 #let base_font = "Inter";
@@ -430,12 +430,24 @@
   }
 }
 
+// Generate abstract for a given language
+//
+// = Panics
+// If `require` if enabled (or not present --- defaults to `true`) and a title for `language`
+// is not specified.
 #let abstract(language, args, require: true) = {
-  if not require and is_none(get_arg(args, "abstract.content")) {
+  if not require and not ok_or(
+    map_none(get_arg(args, "abstract.content"), v => language in v), false
+  ) {
     return
   }
   if not (language in req_arg(args, "title")) {
-    panic("title for language '" + language + "' is required when abstract is present")
+    let panic_message = (
+      "title for language '" + language +
+      "' is required when '" + language +
+      "' abstract is present"
+    )
+    panic(panic_message)
   }
   set page(footer: none)
   heading(
@@ -450,11 +462,36 @@
   );
   text(req_arg(args, "abstract.content").at(language));
   let keywords = get_arg(args, "abstract.keywords");
-  if not is_none(keywords) and type(keywords.at(language)) != type(none) {
+  if not is_none(keywords) and language in keywords {
     linebreak();
     linebreak();
     text(get_lang_item(language, "keywords") + ": ", weight: "bold", font: base_font);
     display_keywords(keywords.at(language))
+  }
+}
+
+// Will generate all specified abstracts
+//
+// = Panics
+// If abstract for some language is specified, but the title for that language is not
+#let try_abstracts(args, require_langs: array(())) = {
+  let doclang = req_arg(args, "document.language")
+  let required = require_langs.filter(v => v != doclang)
+  let optional = lang_ids.keys().filter(v => {
+    not require_langs.contains(v)
+  })
+
+  // put abstract matching the document's language first
+  abstract(doclang, args, require: require_langs.contains(doclang))
+
+  // force required abstracts
+  for lang in required {
+    abstract(lang, args, require: true)
+  }
+
+  // try optional abstracts
+  for lang in optional {
+    abstract(lang, args, require: false)
   }
 }
 
