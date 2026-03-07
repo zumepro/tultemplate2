@@ -81,4 +81,15 @@
 	<quotes>
 		Use `"` for both the quotation start and end, the template will display it correctly.
 	</quotes>
+	<presentations>
+		This is only applicable when writing presentations.
+
+		The slide separation depends on user-selected settings in the generator.
+		There are two modes:
+		- First-level headings on a separate slide (and second-level headings will break a slide)
+		- First-level headings breaking slides
+
+		If slide separation is important, ASK THE USER which setting they selected in the generator.
+		Otherwise use standard three-level heading structure.
+	</presentation>
 </usage>
