@@ -15,8 +15,6 @@
 #import "../attachments.typ": attachment_list
 #import "../lang.typ": lang_ids
 
-#let force_langs = ("cs", "en");
-
 #let document(
   args,
   show_disclaimer,
@@ -54,11 +52,6 @@
   require_abstract: lang_ids.keys(),
   default_bonding_style: "left",
 ) = {
-  assert_dict_has(force_langs, req_arg(args, "title"), "title");
-  if require_abstract {
-    assert_dict_has(force_langs, req_arg(args, "abstract.content"), "abstract");
-    assert_dict_has(force_langs, req_arg(args, "abstract.keywords"), "keywords");
-  }
   document(args, show_disclaimer, require_abstract, default_bonding_style, content)
 }
 
