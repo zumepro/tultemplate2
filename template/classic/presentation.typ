@@ -1,10 +1,10 @@
-#import "../arguments.typ": req_arg, get_arg
-#import "../utils.typ": assert_dict_has, is_none, has_all_none
+#import "../arguments.typ": get_arg, req_arg
+#import "../utils.typ": assert_dict_has, has_all_none, is_none
 #import "../theme.typ": (
-  faculty_color, faculty_logotype, faculty_logotype_text, tul_logomark, faculty_subtle_color
+  faculty_color, faculty_logotype, faculty_logotype_text, faculty_subtle_color, tul_logomark,
 )
 #import "../lang.typ": get_lang_item
-#import "common.typ": common_styling, bibliogr, base_font, merge_authors, mainpage_meta
+#import "common.typ": base_font, bibliogr, common_styling, mainpage_meta, merge_authors
 
 #let header_margin = 20pt
 #let footer_margin = header_margin
@@ -20,15 +20,18 @@
     let footer_height = measure(footer_logotype).height + footer_margin * 2
     set page(paper: paper, margin: (bottom: footer_height, rest: 1cm), footer-descent: 0%, footer: {
       v(footer_margin)
-      text(box(outset: (top: footer_margin, bottom: footer_margin), {
-        footer_logotype
-        h(1fr)
-        context text(
-          str(counter(page).get().at(0)) + " / " + str(counter(page).final().at(0)),
-          font: "TUL Mono",
-          faculty_color,
-        )
-      }), size: 11pt)
+      text(
+        box(outset: (top: footer_margin, bottom: footer_margin), {
+          footer_logotype
+          h(1fr)
+          context text(
+            str(counter(page).get().at(0)) + " / " + str(counter(page).final().at(0)),
+            font: "TUL Mono",
+            faculty_color,
+          )
+        }),
+        size: 11pt,
+      )
     })
     set text(size: 1.5em * paper_compensation.at(paper))
     content
@@ -36,7 +39,7 @@
 }
 
 #let set_heading_styles(first_heading_is_fullpage, faculty_color, content) = {
-  let slide_title = (it) => {
+  let slide_title = it => {
     pagebreak(weak: true)
     box(it, inset: (top: 1em, bottom: 1em))
   }
@@ -58,20 +61,33 @@
 }
 
 #let apply_style(
-  language, faculty, faculty_color, faculty_subtle_color, paper, first_heading_fullpage, content
+  language,
+  faculty,
+  faculty_color,
+  faculty_subtle_color,
+  paper,
+  first_heading_fullpage,
+  content,
 ) = {
   common_styling(
-    faculty_color, faculty_subtle_color, language,
+    faculty_color,
+    faculty_subtle_color,
+    language,
     set_page_style(
-      language, faculty, faculty_color, paper,
-      set_heading_styles(first_heading_fullpage, faculty_color, content)
-    )
+      language,
+      faculty,
+      faculty_color,
+      paper,
+      set_heading_styles(first_heading_fullpage, faculty_color, content),
+    ),
   )
 }
 
 #let fullpage(language, faculty, faculty_color, content, paper) = {
   page(
-    background: rect(fill: faculty_color, width: 100%, height: 100%), paper: paper, margin: 1cm,
+    background: rect(fill: faculty_color, width: 100%, height: 100%),
+    paper: paper,
+    margin: 1cm,
     {
       grid(
         columns: 3,
@@ -80,59 +96,93 @@
         tul_logomark(faculty, color: white),
       )
       content
-    }
+    },
   )
 }
 
 #let metapage(language, faculty, faculty_color, appendix, appendix_place, content, paper) = {
-  fullpage(language, faculty, faculty_color, {
-    content
-    place(appendix_place, appendix)
-  }, paper)
+  fullpage(
+    language,
+    faculty,
+    faculty_color,
+    {
+      content
+      place(appendix_place, appendix)
+    },
+    paper,
+  )
 }
 
 #let signedpage(language, faculty, faculty_color, author, content, paper) = {
   let author = merge_authors(author).at(0)
   metapage(
-    language, faculty, faculty_color,
+    language,
+    faculty,
+    faculty_color,
     align(center, text(author, white.transparentize(10%), size: 1.5em, font: base_font)),
     bottom + center,
-    content, paper,
+    content,
+    paper,
   )
 }
 
 #let mainpage(args, language, faculty, faculty_color, title, author, paper) = {
   let title = place(center + horizon, text(
-    title, size: 2em * paper_compensation.at(paper), font: "TUL Mono", white
+    title,
+    size: 2em * paper_compensation.at(paper),
+    font: "TUL Mono",
+    white,
   ))
   if has_all_none(get_arg(args, (
-    "author.specialization", "author.programme", "project.supervisor", "project.consultant",
-    "author.year_of_study"
+    "author.specialization",
+    "author.programme",
+    "project.supervisor",
+    "project.consultant",
+    "author.year_of_study",
   ))) {
     signedpage(language, faculty, faculty_color, author, title, paper)
   } else {
     metapage(
-      language, faculty, faculty_color,
-      text(mainpage_meta(
-        args, show_city: false, name_min_width: 0em, value_padding: 2em,
-      ), white, size: if paper == "presentation-4-3" { 1.5em } else { 1.2em }),
-      bottom + left, title, paper,
+      language,
+      faculty,
+      faculty_color,
+      text(
+        mainpage_meta(
+          args,
+          show_city: false,
+          name_min_width: 0em,
+          value_padding: 2em,
+        ),
+        white,
+        size: if paper == "presentation-4-3" { 1.5em } else { 1.2em },
+      ),
+      bottom + left,
+      title,
+      paper,
     )
   }
 }
 
 #let thankspage(language, faculty, faculty_color, author, paper) = {
   let author_multiple = merge_authors(author).at(1)
-  signedpage(language, faculty, faculty_color, author, {
-    place(center + horizon, text(
-      get_lang_item(
-        language, "thanks_for_attention" + if author_multiple { "_plural" } else { "" }
-      ),
-      size: 2em * paper_compensation.at(paper),
-      font: "TUL Mono",
-      white,
-    ))
-  }, paper)
+  signedpage(
+    language,
+    faculty,
+    faculty_color,
+    author,
+    {
+      place(center + horizon, text(
+        get_lang_item(
+          language,
+          "thanks_for_attention" + if author_multiple { "_plural" } else { "" },
+        ),
+        size: 2em * paper_compensation.at(paper),
+        font: "TUL Mono",
+        white,
+      ))
+    },
+    paper,
+  )
 }
 
 #let presentation(args, content) = {
@@ -148,17 +198,27 @@
   } else {
     "presentation-4-3"
   }
-  
+
   mainpage(
-    args, language, faculty, faculty_color,
-    req_arg(args, "title").at(language), author, paper,
+    args,
+    language,
+    faculty,
+    faculty_color,
+    req_arg(args, "title").at(language),
+    author,
+    paper,
   )
   apply_style(
-    language, faculty, faculty_color, faculty_subtle_color, paper, first_heading_is_fullpage,
+    language,
+    faculty,
+    faculty_color,
+    faculty_subtle_color,
+    paper,
+    first_heading_is_fullpage,
     {
       content
       bibliogr(args, presentation_double_title: first_heading_is_fullpage)
-    }
+    },
   )
   if presentation_args.at("append_thanks") {
     thankspage(language, faculty, faculty_color, author, paper)
