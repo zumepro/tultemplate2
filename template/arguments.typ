@@ -44,12 +44,12 @@
           cs: "Ústav pro nanomateriály, pokročilé technologie a inovace",
           en: "Institute for nanomaterials, advanced technology and innovation",
         )),
-        doc(literal("tul"), none, (cs: "Obecný styl TUL", en: "Generic TUL theme")),
+        doc(literal("tul"), none, (cs: "Obecný styl TUL (výchozí)", en: "Generic TUL theme (default)")),
       )),
       "faculty",
       (
-        cs: "Fakulta (na základě toho budou vybrány barvy, logotypy, ...)",
-        en: "Faculty (based on this, the theme of the document will be chosen)",
+        cs: "Fakulta (na základě toho budou vybrány barvy, logotypy, ...). Aktuálně nemá vliv na další parametry.",
+        en: "Faculty (based on this, the theme of the document will be chosen). Currently, does not have an effect on other parameters.",
       ),
     )
 
@@ -72,7 +72,7 @@
         )),
         doc(literal("sp"), none, (cs: "Semestrální práce", en: "Term paper")),
         doc(literal("presentation"), none, (cs: "Prezentace", en: "Presentation")),
-        doc(literal("other"), none, (cs: "Obecný dokument", en: "Generic document")),
+        doc(literal("other"), none, (cs: "Obecný dokument (výchozí)", en: "Generic document (default)")),
       )),
       "document",
       (cs: "Typ dokumentu", en: "The type of the document"),
@@ -121,23 +121,23 @@
       literal("title_pages"),
       variants(
         doc(string, none, (
-          cs: "Cesta k souboru PDF, který má být vložen",
-          en: "The path to the PDF document to insert",
+          cs: "Cesta k souboru PDF, který má být vložen. Umožní přeskočit parametry na titulních stranách (jako informace o autorovi).",
+          en: "The path to the PDF document to insert. Allows to skip parameters on title pages (like author info).",
         )),
         doc(
           null,
           none,
           (
-            cs: "Stránky jsou generovány pomocí šablony. Tohle u některých prací může vyžadovat doplnění informací (argumentů).",
-            en: "The pages are generated through the template. This can require more arguments for certain documents.",
+            cs: "Stránky jsou generovány pomocí šablony. Tohle u některých prací může vyžadovat doplnění informací na titulní strany.",
+            en: "The pages are generated through the template. This can require more arguments (the ones on title pages) for certain documents.",
           ),
         ),
       ),
     ),
     "title_pages",
     (
-      cs: "Způsob generování stránek na začátku dokumentu",
-      en: "Method of inserting/generating the first few pages of the document",
+      cs: "Způsob generování stránek na začátku dokumentu. Tato možnost také ovlivňuje, zda se vyžádají parametry, které jsou na titulních stranách (jako informace o autorovi).",
+      en: "Method of inserting/generating the first few pages of the document. This option also changes if title pages info is required (like author info).",
     ),
   )
 
@@ -153,8 +153,8 @@
     )), null)),
     "title",
     (
-      cs: "Název práce, vyžadován ve všech jazycích pokud je specifikován abstrakt",
-      en: "Document title, required in all languages if abstract is present"
+      cs: "Název práce. Vyžadován ve všech jazycích, ve kterých je specifikován abstrakt. Vyžadován pro jazyk dokumentu, pokud šablona samotná má generovat titulní strany.",
+      en: "Document title. Required in all languages in which abstract is specified. Required for document language if the template itself generates the title pages."
     ),
   )
 
@@ -162,8 +162,8 @@
   let author = {
     let name = doc(keyval(literal("name"), variants(
       doc(null, none, (
-        cs: "Žádný autor - toto může způsobit chybu u některých dokumentů",
-        en: "No author - this can cause a panic for some documents",
+        cs: "Žádný autor - toto může způsobit chybu, pokud je autor vyžadován (jako například při generování titulních stran nebo poděkování). Pokud nevíte, je lepší autora vždy vyplnit.",
+        en: "No author - this can cause a panic if the author is required (like when generating title pages or acknowledgement). If you're unsure, better fill in the author.",
       )),
       doc(cont_or_str, none, (
         cs: "Jeden autor",
@@ -189,8 +189,8 @@
           en: "For Czech (feminine)",
         )),
         doc(null, none, (
-          cs: "Použít výchozí hodnotu (lze pouze u angličtiny, nebo u více autorů v češtině)",
-          en: "Use default value (only for English or for multiple authors in Czech)",
+          cs: "Použít výchozí hodnotu (lze vynechat pouze u angličtiny, nebo u více autorů v češtině)",
+          en: "Use default value (can omit only for English or for multiple authors in Czech)",
         )),
       )),
       "author_pronouns",
@@ -277,8 +277,8 @@
       )),
       "abstract",
       (
-        cs: "Abstrakt projektu, vyžaduje také klíčová slova",
-        en: "Project's abstract, also requires keywords"
+        cs: "Abstrakt projektu. Vyžaduje název práce pro jazyky, pro které je abstrakt generován.",
+        en: "Project's abstract. Requires document title for languages, for which the abstract is generated.",
       ),
     )
 
@@ -290,7 +290,7 @@
       "keywords",
       (
         cs: "Klíčová slova projektu, ignorována bez abstraktu",
-        en: "Project's keywords, ignored without abstract"
+        en: "Project's keywords, ignored without abstract",
       ),
     )
 

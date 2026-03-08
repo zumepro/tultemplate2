@@ -154,6 +154,64 @@ The following few pages is the complete listing of arguments accepted by this te
 If you don't have extensive knowledge of the template, we recommend rather using the generator
 (https://typst.tul.cz/generate/).
 
+== Argument listing
+
 // Automatically generated argument list
 #import "template/arguments.typ": print_argument_docs
 #print_argument_docs(lang: "en")
+
+#pagebreak(weak: true)
+== Requirements
+
+=== Implicit
+
+The following parameters, if specified, must have an entry for the document's language:
+
+- Author's study programme
+- Author's study specialization
+
+=== Direct
+
+If the following parameters are specified, then the following requirements apply:
+
+- *Abstract (`abstract`)*
+  - Titles (`title`) for all languages, for which the abstract (`abstract`) is specified.
+
+- *Acknowledgement (`acknowledgement`)*
+  - Author name (`author`)
+
+- *Keywords (`keywords`)*
+  - To be displayed, the abstract for the given language must be specified.
+
+=== Documents
+
+The document type is defined using the `document` parameter. Documents have the following
+requirements:
+
+- *Bachelor's thesis (`bp`)*, *Project (`prj`)*
+  - Abstract for all languages
+  - Author name
+  - If no external title pages are used
+    - Document title in the document language
+    - Author name
+    - Author's study programme
+    - Author's study specialization
+    - If the document language is Czech and only a single author is specified ---
+      author pronouns (`author_pronouns`) is required
+
+- *Diploma thesis (`dp`)*
+  - Abstract for all languages
+  - Author name
+  - If no external title pages are used
+    - Document title in the document language
+    - Author name
+    - Author's study programme
+    - If the document language is Czech and only a single author is specified ---
+      author pronouns (`author_pronouns`) is required
+
+- *Term paper (`sp`)*
+  - If no external title pages are used
+    - Document title in the document language
+    - Author name
+
+The remaining documents have no special requirements.

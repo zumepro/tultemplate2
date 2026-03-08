@@ -153,6 +153,63 @@ Následujících pár stránek je kompletní soupis argumentů, které tato šab
 Pokud s šablonou nemáte rozsáhlé zkušenosti, doporučujeme raději využít generátoru
 (https://typst.tul.cz/generate/).
 
+== Seznam argumentů
+
 // Automaticky generovaný seznam argumentů
 #import "template/arguments.typ": print_argument_docs
 #print_argument_docs(lang: "cs")
+
+#pagebreak(weak: true)
+== Požadavky
+
+=== Implicitní
+
+Následující parametry, pokud jsou specifikovány, musí mít hodnotu v jazyce dokumentu:
+
+- Studijní program autora
+- Studijní specializace autora
+
+=== Přímé
+
+Když jsou specifikovány následující parametry, pak platí následující požadavky:
+
+- *Abstrakt (`abstract`)*
+  - Nadpisy (`title`) pro všechny jazyky, ve kterých je specifikován abstrakt (`abstract`).
+
+- *Poděkování (`acknowledgement`)*
+  - Jméno autora (`author`)
+
+- *Klíčová slova (`keywords`)*
+  - Aby se zobrazila, musí být pro daný jazyk také specifikován abstrakt.
+
+=== Dokumenty
+
+Typ dokumentu je definován pomocí parametru `document`. Dokumenty mají následující požadavky:
+
+- *Bakalářská práce (`bp`)*, *Projekt (`prj`)*
+  - Abstrakt pro všechny jazyky
+  - Jméno autora
+  - Pokud nejsou specifikovány externí titulní strany
+    - Název práce v jazyce dokumentu
+    - Jméno autora
+    - Studijní program autora
+    - Studijní specializace autora
+    - Pokud je jazykem dokumentu čeština a je specifikován pouze jeden autor --
+      sebeoslovení autora (`author_pronouns`) se vyžaduje
+
+- *Diplomová práce (`dp`)*
+  - Abstrakt pro všechny jazyky
+  - Jméno autora
+  - Pokud nejsou specifikovány externí titulní strany
+    - Název práce v jazyce dokumentu
+    - Jméno autora
+    - Studijní program autora
+    - Pokud je jazykem dokumentu čeština a je specifikován pouze jeden autor --
+      sebeoslovení autora (`author_pronouns`) se vyžaduje
+
+- *Semestrální práce (`sp`)*
+  - Pokud nejsou specifikovány externí titulní strany
+    - Název práce v jazyce dokumentu
+    - Jméno autora
+
+Zbytek dokumentů nemá speciální požadavky.
