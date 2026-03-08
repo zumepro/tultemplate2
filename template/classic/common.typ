@@ -494,7 +494,7 @@
     return
   }
   if not has_target_abstract {
-    let panic_message = "title for language '" + language + "' is required"
+    let panic_message = "abstract for language '" + language + "' is required"
     panic(panic_message)
   }
   if not (language in req_arg(args, "title")) {
