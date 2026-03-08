@@ -4,6 +4,9 @@
 
 #let sp(args) = {
   let language = req_arg(args, "document.language")
+  let title = req_arg(args, "title")
+  assert_dict_has((language,), title, "title")
+  let author = req_arg(args, "author.name")
   map_arg(args, "author.programme", v => {
     assert_dict_has((language,), v, "study programme")
   })
