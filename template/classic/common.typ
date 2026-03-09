@@ -540,7 +540,7 @@
   let optional = lang_ids
     .keys()
     .filter(v => {
-      not require_langs.contains(v)
+      not require_langs.contains(v) and v != doclang
     })
 
   // put abstract matching the document's language first
