@@ -350,10 +350,12 @@
 
   // == PRESENTATION ==
   let presentation_info = {
-    let append_thanks = doc(keyval(literal("append_thanks"), variants(bool, cont_or_str)), none, (
-      cs: "Zda na konec prezentace vložit poděkování za pozornost",
-      en: "Whether to thank for attention at the end of the presentation",
-    ))
+    let append_thanks = doc(
+      keyval(literal("append_thanks"), variants(bool, cont, nonrec_str)), none, (
+        cs: "Zda na konec prezentace vložit poděkování za pozornost",
+        en: "Whether to thank for attention at the end of the presentation",
+      )
+    )
 
     let wide = doc(keyval(literal("wide"), bool), none, (
       cs: "Jestli použít široký režim (16:9 - `true`) nebo úzký (4:3 - `false`)",
