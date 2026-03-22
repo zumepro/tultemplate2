@@ -163,7 +163,7 @@
   }
 }
 
-#let thankspage(language, faculty, faculty_color, author, paper) = {
+#let thankspage(language, faculty, faculty_color, author, paper, append: none) = {
   let author_multiple = merge_authors(author).at(1)
   signedpage(
     language,
@@ -171,15 +171,20 @@
     faculty_color,
     author,
     {
-      place(center + horizon, text(
-        get_lang_item(
-          language,
-          "thanks_for_attention" + if author_multiple { "_plural" } else { "" },
-        ),
-        size: 2em * paper_compensation.at(paper),
-        font: "TUL Mono",
-        white,
-      ))
+      place(center + horizon, {
+        text(
+          get_lang_item(
+            language,
+            "thanks_for_attention" + if author_multiple { "_plural" } else { "" },
+          ),
+          size: 2em * paper_compensation.at(paper),
+          font: "TUL Mono",
+          white,
+        )
+        v(.3em)
+        set text(white, font: base_font, size: 1.5em)
+        append
+      })
     },
     paper,
   )
@@ -220,7 +225,12 @@
       bibliogr(args, presentation_double_title: first_heading_is_fullpage)
     },
   )
-  if presentation_args.at("append_thanks") {
-    thankspage(language, faculty, faculty_color, author, paper)
+  let append_thanks = presentation_args.at("append_thanks")
+  if type(append_thanks) == bool {
+    if append_thanks {
+      thankspage(language, faculty, faculty_color, author, paper)
+    }
+  } else {
+    thankspage(language, faculty, faculty_color, author, paper, append: append_thanks)
   }
 }

@@ -350,7 +350,7 @@
 
   // == PRESENTATION ==
   let presentation_info = {
-    let append_thanks = doc(keyval(literal("append_thanks"), bool), none, (
+    let append_thanks = doc(keyval(literal("append_thanks"), variants(bool, cont_or_str)), none, (
       cs: "Zda na konec prezentace vložit poděkování za pozornost",
       en: "Whether to thank for attention at the end of the presentation",
     ))
