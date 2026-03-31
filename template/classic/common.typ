@@ -681,6 +681,49 @@
 
 // BIBLIOGRAPHY
 
+// Imports and generates the bibliography
+// Note that this can also substitute codepoints to produce a correct sorting for targeted symbols
+#let bibimport(from, style, substitute_codepoints: false) = {
+  let loaded = if type(from) == str {
+    str(read(from))
+  } else if type(from) == array {
+    from.map(v => str(read(v)))
+  }
+  if substitute_codepoints {
+    let substitutions = (
+      "á": "a", "č": "č", "ď": "d", "é": "e", "í": "i", "ň": "n", "ó": "o", "ř": "r", "š": "s",
+      "ť": "t", "ú": "u", "ů": "u", "ý": "y", "ž": "z", "Á": "A", "Č": "Č", "Ď": "D", "É": "E",
+      "Í": "I", "Ň": "N", "Ó": "O", "Ř": "R", "Š": "S", "Ť": "T", "Ú": "U", "Ů": "U", "Ý": "Y",
+      "Ž": "Z",
+    )
+    let substitute(v) = {
+      v.replace(
+        regex("[" + substitutions.keys().join("") + "]"), v => {
+          substitutions.at(v.text) + "\u{ffff}" + v.text
+        }
+      )
+    }
+    let loaded = if type(loaded) == array {
+      loaded.map(v => bytes(substitute(v)))
+    } else {
+      bytes(substitute(loaded))
+    }
+    show regex("."): text
+    show regex("[" + substitutions.values().join("") + "]" + "\u{ffff}"): none
+    bibliography(
+      loaded,
+      style: style,
+      title: none,
+    )
+  } else {
+    bibliography(
+      loaded,
+      style: style,
+      title: none,
+    )
+  }
+}
+
 #let bibliogr(args, presentation_double_title: false) = {
   let (language, citations) = req_arg(args, ("document.language", "citations.bibliography"))
   let citations_style = req_arg(args, "citations.style")
@@ -703,11 +746,7 @@
       if presentation_double_title {
         heading(level: 2, lang_bibliography)
       }
-      bibliography(
-        citations,
-        style: style,
-        title: none,
-      )
+      bibimport(citations, style, substitute_codepoints: true)
     }
   }
 }
