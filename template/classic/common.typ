@@ -746,7 +746,7 @@
       if presentation_double_title {
         heading(level: 2, lang_bibliography)
       }
-      bibimport(citations, style, substitute_codepoints: true)
+      bibimport(citations, style, substitute_codepoints: citations_style == "author_date")
     }
   }
 }
