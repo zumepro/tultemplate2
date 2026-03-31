@@ -717,7 +717,7 @@
     )
   } else {
     bibliography(
-      loaded,
+      if type(loaded) == array { loaded.map(v => bytes(v)) } else { bytes(loaded) },
       style: style,
       title: none,
     )
